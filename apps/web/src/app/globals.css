@@ -1,2 +1,23 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@theme {
+  --color-qgc-white: #FFFFFF;
+  --color-qgc-black: #000000;
+  --color-qgc-charcoal: #2D2F33; 
+  --color-qgc-gray-deep: #7B7F85;
+  --color-qgc-gray-light: #C1C4C8;
+  --color-qgc-gray-soft: #F5F6F7;
+
+  --color-bm-blue: #0A285A;
+  --color-bm-orange: #f16723;
+
+  --color-watergate-blue: #20305f;
+  
+  --color-paluto-yellow: #ffd749;
+  --color-paluto-red: #d0080e;
+  --color-paluto-green: #1e6e1a;
+}
