@@ -9,11 +9,21 @@
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=qgc-web",
     "dev:cms": "turbo run dev --filter=cms",
+
     "build": "turbo run build",
     "build:web": "turbo run build --filter=qgc-web",
-    "build:cms": "turbo run build --filter=cms"
+    "build:cms": "turbo run build --filter=cms",
+
+    "format": "biome format --write .",
+    "format:web": "biome format --write ./apps/web",
+
+    "lint": "turbo run lint",
+
+    "check:web": "biome check --write ./apps/web",
+    "check": "biome check --write ."
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.15",
     "turbo": "latest"
   }
 }
