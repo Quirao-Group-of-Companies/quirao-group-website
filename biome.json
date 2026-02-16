@@ -8,6 +8,10 @@
       }
     }
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    },
   "linter": {
     "enabled": true,
     "rules": {
@@ -24,6 +28,18 @@
     "indentWidth": 2,
     "lineWidth": 100
   },
+  
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/dist",
+      "!apps/cms/.cache",
+      "!apps/cms/build"
+    ]
+  },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
@@ -36,11 +52,10 @@
       "includes": ["apps/cms/**"],
       "linter": {
         "rules": {
-          "style": {
-            "useNamingConvention": "off"
-          }
+          "style": { "useNamingConvention": "off" }
         }
       }
     }
   ]
+}
 }
