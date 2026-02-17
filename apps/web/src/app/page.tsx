@@ -129,6 +129,52 @@ const achievements: Achievement[] = [
     image: "/images/home-page/achievements/achievements3.png",
   },
 ];
+/* =========================================================
+   BLOG SECTION
+========================================================= */
+
+interface Blog {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  image: string;
+}
+
+const blogs: Blog[] = [
+  {
+    id: 1,
+    title: "Buildmaster Podcast Officially Out",
+    date: "January 15, 2026",
+    description:
+      "Our company officially launches a new construction division to serve larger commercial projects nationwide.",
+    image: "/images/home-page/blogs/blog1.jpg",
+  },
+  {
+    id: 2,
+    title: "Awarded Excellence in Service",
+    date: "December 20, 2025",
+    description:
+      "Recognized for outstanding service quality and commitment to client satisfaction.",
+    image: "/images/home-page/blogs/blog2.jpg",
+  },
+  {
+    id: 3,
+    title: "Join Us as We Travel and Hire You",
+    date: "November 10, 2025",
+    description:
+      "We invested in state-of-the-art heavy equipment to improve efficiency and safety standards.",
+    image: "/images/home-page/blogs/blog3.jpg",
+  },
+  {
+    id: 4,
+    title: "Welcoming Fresh Grads to the Industry",
+    date: "October 5, 2025",
+    description:
+      "Supporting local communities through infrastructure assistance and educational initiatives.",
+    image: "/images/home-page/blogs/blog4.jpg",
+  },
+];
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
@@ -332,6 +378,54 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* =====================================================
+   BLOG SECTION
+===================================================== */}
+<section className="bg-white px-6 py-24">
+  <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
+    Latest News
+  </h2>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+    {blogs.map((blog) => (
+      <div
+        key={blog.id}
+        className="flex flex-col md:flex-row bg-qgc-gray-soft rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
+      >
+        {/* Image */}
+        <div className="relative w-full md:w-1/2 h-64 md:h-auto">
+          <Image
+            src={blog.image}
+            alt={blog.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="p-8 flex flex-col justify-between md:w-1/2">
+          <div>
+            <p className="text-sm text-gray-500 mb-2">{blog.date}</p>
+
+            <h3 className="text-xl font-semibold text-qgc-black mb-4">
+              {blog.title}
+            </h3>
+
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {blog.description}
+            </p>
+          </div>
+
+          <button className="mt-6 bg-black  text-white rounded-lg  px-6 py-3 text-sm font-medium hover:bg-gray-800 transition">
+            Read More
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
     </>
   );
 }
