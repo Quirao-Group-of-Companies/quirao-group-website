@@ -102,6 +102,33 @@ const businesses: Business[] = [
     description: "Welcome to the official Watergate Purified Drinking Water page! Join our community as we provide safe and affordable bottled drinking water to Filipinos anytime, and anywhere.",
   },
 ];
+/* =========================================================
+   ACHIEVEMENTS SECTION
+========================================================= */
+
+interface Achievement {
+  id: number;
+  title: string;
+  image: string;
+}
+
+const achievements: Achievement[] = [
+  {
+    id: 1,
+    title: "Top Construction Supplier 2023",
+    image: "/images/home-page/achievements/achievements1.png",
+  },
+  {
+    id: 2,
+    title: "Excellence in Service Award",
+    image: "/images/home-page/achievements/achievements2.png",
+  },
+  {
+    id: 3,
+    title: "Fastest Growing Company",
+    image: "/images/home-page/achievements/achievements3.png",
+  },
+];
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
@@ -139,7 +166,6 @@ export default function Home() {
               index === current ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            {/* Background Image */}
             <Image
               src={slide.image}
               alt={slide.title}
@@ -148,10 +174,8 @@ export default function Home() {
               priority
             />
 
-            {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black/40" />
 
-            {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-6">
               <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
                 {slide.title}
@@ -166,7 +190,6 @@ export default function Home() {
           </div>
         ))}
 
-        {/* Navigation Dots */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
           {slides.map((_, idx) => (
             <span
@@ -183,9 +206,8 @@ export default function Home() {
       {/* =====================================================
          WHAT WE DO SECTION
       ===================================================== */}
-      <section className="bg-white py-20">
-        <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center gap-12">
-          {/* Image */}
+      <section className="bg-qgc-gray-soft py-20">
+        <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-12">
           <div className="md:w-1/3">
             <Image
               src="/images/home-page/what-we-do-section/what-we-do.png"
@@ -196,7 +218,6 @@ export default function Home() {
             />
           </div>
 
-          {/* Text */}
           <div className="md:w-1/2 flex flex-col gap-6">
             <h2 className="text-4xl font-bold text-gray-800">
               What We Do
@@ -220,9 +241,8 @@ export default function Home() {
           Business Preview
         </h2>
 
-        {/* Active Business Preview */}
         <div className="flex flex-col md:flex-row gap-12 mb-12">
-          <div className="md:w-1/2 h-64 md:h-[400px] relative rounded-lg overflow-hidden">
+          <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden">
             <Image
               src={activeBusiness.topImage}
               alt={activeBusiness.name}
@@ -271,6 +291,44 @@ export default function Home() {
 
               </div>
             </div>
+          ))}
+        </div>
+      </section>
+
+       {/* =====================================================
+         ACHIEVEMENTS SECTION
+      ===================================================== */}
+      <section className="bg-qgc-gray-soft px-6 py-20" >
+        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
+          Our Achievements
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+          {achievements.map((achievement) => (
+        <div
+          key={achievement.id}
+          className="group cursor-pointer"
+        >
+          <div className="relative w-full h-100 rounded-xl overflow-hidden shadow-lg">
+
+            <Image
+              src={achievement.image}
+              alt={achievement.title}
+              fill
+              className="object-contain p-10 transition-transform duration-500 ease-in-out group-hover:scale-110"
+            />
+
+            <div className="absolute inset-0 group-hover:bg-black/10 transition duration-500" />
+
+            <div className="absolute bottom-6 left-0 right-0 text-center px-4">
+              <h3 className="text-qgc-black text-xl font-semibold">
+                {achievement.title}
+              </h3>
+            </div>
+
+          </div>
+        </div>
+
           ))}
         </div>
       </section>
