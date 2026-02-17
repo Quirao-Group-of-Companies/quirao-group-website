@@ -1,9 +1,10 @@
 "use client";
 
-
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import HomeFaqsMap from "../components/layout/HomeFaqsMap";
 
 /* =========================================================
    HERO CAROUSEL SECTION
@@ -64,8 +65,7 @@ const businesses: Business[] = [
     logo: "/images/logo/buildmaster/buildmaster-logo.png",
     topImage: "/images/home-page/business-preview/buildmaster-business-preview.png",
     cardImage: "/images/home-page/business-preview/buildmaster-business-preview-card.jpg",
-    description:
-      "BuildMaster Wholesale is a trusted supplier of construction and hardware materials based in Iloilo City, Philippines...",
+    description:"BuildMaster Wholesale is a trusted supplier of construction and hardware materials based in Iloilo City, Philippines. We provide high-quality building products and materials for residential, commercial, and industrial projects, backed by reliable delivery services and expert advice. Our commitment to excellence ensures that every client receives the right materials, on time, every time, supporting the growth and success of construction projects across the region.",
   },
   {
     id: 2,
@@ -175,6 +175,42 @@ const blogs: Blog[] = [
     image: "/images/home-page/blogs/blog4.jpg",
   },
 ];
+/* =========================================================
+   FAQ SECTION
+========================================================= */
+
+interface FAQ {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+const faqs: FAQ[] = [
+  {
+    id: 1,
+    question: "What services does your company provide?",
+    answer:
+      "We offer construction supply, heavy equipment rental, and infrastructure development services across multiple industries.",
+  },
+  {
+    id: 2,
+    question: "How can I request a quotation?",
+    answer:
+      "You can contact us through our website contact form or directly reach out to our sales team via email or phone.",
+  },
+  {
+    id: 3,
+    question: "Do you operate nationwide?",
+    answer:
+      "Yes, we provide services nationwide and are continuously expanding our operations.",
+  },
+  {
+    id: 4,
+    question: "How long has your company been operating?",
+    answer:
+      "Our company has been operating for over a decade, delivering quality and reliable services to our clients.",
+  },
+];
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
@@ -269,8 +305,7 @@ export default function Home() {
               What We Do
             </h2>
             <p className="text-gray-600 text-lg">
-              We provide innovative solutions that help businesses grow
-              and thrive in the digital world.
+             We drive growth and innovation across diverse industries. Our portfolio spans logistics, business process outsourcing, food and restaurant services, water purification, and construction each operating with excellence and a commitment to quality. By nurturing these businesses under one umbrella, we provide integrated solutions that deliver value, efficiency, and lasting impact to our clients and communities.
             </p>
             <button className="w-40 px-4 py-2 rounded-md bg-black text-white">
               Read More
@@ -301,7 +336,7 @@ export default function Home() {
             <Image
               src={activeBusiness.logo}
               alt={activeBusiness.name}
-              width={160}
+              width={90}
               height={60}
               className="object-contain"
             />
@@ -380,52 +415,53 @@ export default function Home() {
       </section>
 
       {/* =====================================================
-   BLOG SECTION
-===================================================== */}
-<section className="bg-white px-6 py-24">
-  <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
-    Latest News
-  </h2>
+        BLOG SECTION
+      ===================================================== */}
+      <section className="bg-white px-6 py-24">
+        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
+          Latest News
+        </h2>
 
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-    {blogs.map((blog) => (
-      <div
-        key={blog.id}
-        className="flex flex-col md:flex-row bg-qgc-gray-soft rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
-      >
-        {/* Image */}
-        <div className="relative w-full md:w-1/2 h-64 md:h-auto">
-          <Image
-            src={blog.image}
-            alt={blog.title}
-            fill
-            className="object-cover"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {blogs.map((blog) => (
+            <div
+              key={blog.id}
+              className="flex flex-col md:flex-row bg-qgc-gray-soft rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
+            >
+              {/* Image */}
+              <div className="relative w-full md:w-1/2 h-64 md:h-auto">
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              {/* Content */}
+              <div className="p-8 flex flex-col justify-between md:w-1/2">
+                <div>
+                  <p className="text-sm text-gray-500 mb-2">{blog.date}</p>
+
+                  <h3 className="text-xl font-semibold text-qgc-black mb-4">
+                    {blog.title}
+                  </h3>
+
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {blog.description}
+                  </p>
+                </div>
+
+                <button className="mt-6 bg-black  text-white rounded-lg  px-6 py-3 text-sm font-medium hover:bg-gray-800 transition">
+                  Read More
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-
-        {/* Content */}
-        <div className="p-8 flex flex-col justify-between md:w-1/2">
-          <div>
-            <p className="text-sm text-gray-500 mb-2">{blog.date}</p>
-
-            <h3 className="text-xl font-semibold text-qgc-black mb-4">
-              {blog.title}
-            </h3>
-
-            <p className="text-gray-600 text-sm leading-relaxed">
-              {blog.description}
-            </p>
-          </div>
-
-          <button className="mt-6 bg-black  text-white rounded-lg  px-6 py-3 text-sm font-medium hover:bg-gray-800 transition">
-            Read More
-          </button>
-        </div>
-      </div>
-    ))}
-  </div>
-</section>
-
+      </section>
+     <HomeFaqsMap faqs={faqs} />
+    <Footer/>
     </>
   );
 }
