@@ -1,15 +1,15 @@
-import { InquiryForm } from '@/components/forms/inquiry-form';
+import { ApplicationForm } from '@/components/forms/application-form';
 
-export default function ConctactUs() {
+export default function CareersPage() {
   return (
     <div>
-      <h1>Hello from Contacts</h1>
-      <InquiryFormsTestPage />
+      <h1>Hello from Careers</h1>
+      <ApplicationFormsTestPage />
     </div>
   );
 }
 
-export function InquiryFormsTestPage() {
+export function ApplicationFormsTestPage() {
   return (
     <main className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto space-y-12">
@@ -20,7 +20,7 @@ export function InquiryFormsTestPage() {
 
         <div className="flex justify-center">
           <div className="w-full max-w-xl">
-            <InquiryForm />
+            <ApplicationForm />
           </div>
         </div>
       </div>
