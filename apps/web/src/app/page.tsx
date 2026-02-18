@@ -52,6 +52,7 @@ interface Business {
   id: number;
   name: string;
   logo: string;
+  wordLogo: string;
   topImage: string;
   cardImage: string;
   description: string;
@@ -63,6 +64,7 @@ const businesses: Business[] = [
     id: 1,
     name: "Buildmaster PH",
     logo: "/images/logo/buildmaster/buildmaster-logo.png",
+    wordLogo: "/images/logo/buildmaster/buildmaster-logo-word.png",
     topImage: "/images/home-page/business-preview/buildmaster-business-preview.png",
     cardImage: "/images/home-page/business-preview/buildmaster-business-preview-card.jpg",
     description:"BuildMaster Wholesale is a trusted supplier of construction and hardware materials based in Iloilo City, Philippines. We provide high-quality building products and materials for residential, commercial, and industrial projects, backed by reliable delivery services and expert advice. Our commitment to excellence ensures that every client receives the right materials, on time, every time, supporting the growth and success of construction projects across the region.",
@@ -71,6 +73,7 @@ const businesses: Business[] = [
     id: 2,
     name: "Paluto Seafood",
     logo: "/images/logo/paluto/paluto-logo-white.png",
+    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
     topImage: "/images/home-page/business-preview/paluto-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/paluto-business-preview-card.jpg",
     description:
@@ -80,6 +83,7 @@ const businesses: Business[] = [
     id: 3,
     name: "Sari-sari Manokan",
     logo: "/images/logo/manokan/sari-sari-manokan-logo.png",
+    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
     topImage: "/images/home-page/business-preview/sari-sari-manokan-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/sari-sari-manokan-business-preview-card.jpg",
     description:
@@ -89,6 +93,7 @@ const businesses: Business[] = [
     id: 4,
     name: "Brightline Trucking",
     logo: "/images/logo/brightline/brightline-logo.png",
+    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
     topImage: "/images/home-page/business-preview/brightline-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/brightline-business-preview-card.jpg",
     description: "Brightline Trucking is a service company engaged in hauling general cargo, offices & warehouses.",
@@ -97,6 +102,7 @@ const businesses: Business[] = [
     id: 5,
     name: "Watergate ",
     logo: "/images/logo/watergate/watergate-logo.png",
+    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
     topImage: "/images/home-page/business-preview/watergate-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/watergate-business-preview-card.jpg",
     description: "Welcome to the official Watergate Purified Drinking Water page! Join our community as we provide safe and affordable bottled drinking water to Filipinos anytime, and anywhere.",
@@ -322,7 +328,7 @@ export default function Home() {
           Business Preview
         </h2>
 
-        <div className="flex flex-col md:flex-row gap-12 mb-12">
+        <div className="flex flex-col md:flex-row gap-12 mb-12 bg-qgc-gray-soft">
           <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden">
             <Image
               src={activeBusiness.topImage}
@@ -332,16 +338,16 @@ export default function Home() {
             />
           </div>
 
-          <div className="md:w-1/2 text-qgc-black flex flex-col gap-6">
+          <div className="md:w-1/2 text-qgc-black px-4 py-4 flex flex-col gap-6 relative">
             <Image
               src={activeBusiness.logo}
               alt={activeBusiness.name}
-              width={90}
-              height={60}
-              className="object-contain"
+              width={60}
+              height={100}
+              className="object-contain self-center"
             />
             <p>{activeBusiness.description}</p>
-            <button className="bg-qgc-black text-white px-6 py-2 rounded-lg w-max">
+            <button className="bg-qgc-black h-10 text-white px-6 py-2 rounded-lg w-max absolute bottom-15">
               Read More
             </button>
           </div>
@@ -366,8 +372,8 @@ export default function Home() {
                 <Image
                   src={b.logo}
                   alt={b.name}
-                  width={60}
-                  height={30}
+                  width={100}
+                  height={100}
                 />
 
               </div>

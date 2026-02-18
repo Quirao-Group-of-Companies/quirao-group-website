@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,7 +18,7 @@ export default function Navbar() {
 
   return (
     <header className="w-full fixed top-0 left-0 z-50 bg-qgc-white shadow-sm">
-      <nav className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row md:justify-between md:items-center transition-all duration-300">
+      <nav className="flex flex-col py-5 md:flex-row justify-center items-center w-full md:w-auto gap-15 text-qgc-black overflow-hidden transition-[max-height] duration-300 md:max-h-full md:overflow-visible mt-4 md:mt-0">
         <div className="flex items-center justify-between md:justify-start w-full md:w-auto">
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -61,27 +62,51 @@ export default function Navbar() {
           </div>
         </div>
 
-        <ul
-          ref={menuRef}
-          style={{ maxHeight: menuOpen ? `${menuHeight}px` : "0px" }}
-          className="flex flex-col md:flex-row md:justify-end md:items-center w-full md:w-auto gap-10 text-qgc-black overflow-hidden transition-[max-height] duration-300 md:max-h-full md:overflow-visible mt-4 md:mt-0"
-        >
-          <li>
-            <Link href="/subsidiaries" className="block px-6 py-3 md:p-0 hover:text-gray-500" onClick={() => setMenuOpen(false)}>Subsidiaries</Link>
-          </li>
-          <li>
-            <Link href="/newsroom" className="block px-6 py-3 md:p-0 hover:text-gray-500" onClick={() => setMenuOpen(false)}>Newsroom</Link>
-          </li>
-          <li>
-            <Link href="/careers" className="block px-6 py-3 md:p-0 hover:text-gray-500" onClick={() => setMenuOpen(false)}>Careers</Link>
-          </li>
-          <li>
-            <Link href="/about" className="block px-6 py-3 md:p-0 hover:text-gray-500" onClick={() => setMenuOpen(false)}>About Us</Link>
-          </li>
-          <li>
-            <Link href="/contact" className="block md:inline-block bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-200 m-3 md:m-0" onClick={() => setMenuOpen(false)}>Contact Us</Link>
-          </li>
-        </ul>
+      <ul
+  ref={menuRef}
+  style={{ maxHeight: menuOpen ? `${menuHeight}px` : "0px" }}
+  className={`flex flex-col md:flex-row justify-center items-center w-full md:w-auto gap-15 text-qgc-black overflow-hidden transition-[max-height] duration-300 md:max-h-full md:overflow-visible mt-4 md:mt-0 ${
+    menuOpen ? "max-h-125" : "max-h-0"
+  }`}
+>
+  {[
+    { href: "/subsidiaries", label: "Subsidiaries" },
+    { href: "/newsroom", label: "Newsroom" },
+    { href: "/careers", label: "Careers" },
+    { href: "/about", label: "About Us" },
+    { href: "/contact", label: "Contact Us" },
+  ].map((link) => (
+    <li key={link.href} className="mb-2 md:mb-0"> {/* spacing below */}
+      <Link
+        href={link.href}
+        onClick={() => setMenuOpen(false)}
+        className="
+          relative
+          block
+          px-6 py-3 md:p-0
+          text-qgc-black
+          hover:text-gray-500
+          after:absolute
+          after:left-0
+          after:-bottom-0.5
+          after:h-0.5
+          after:w-0
+          after:bg-gray-500
+          after:transition-all
+          after:duration-300
+          hover:after:w-full
+        "
+      >
+        {link.label}
+      </Link>
+    </li>
+  ))}
+
+  <li>
+    <MagnifyingGlassIcon className="ml-2 w-5 h-5" />
+  </li>
+</ul>
+
       </nav>
     </header>
   );

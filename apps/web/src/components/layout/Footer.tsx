@@ -2,20 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
+import { FaFacebook, FaInstagram,FaFacebookMessenger, FaViber } from 'react-icons/fa'
 export default function Footer() {
   return (
-    <footer className="bg-qgc-gray-soft px-6 md:px-16 py-12">
+    <footer className="bg-qgc-white px-6 md:px-16 py-12">
       <div className="flex justify-end space-x-4 mb-6">
-        <Link href="#" className="w-5 h-5 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition">
-          {/* <Image src="/images/social/facebook.svg" alt="Facebook" width={20} height={20} /> */}
+        <Link href="#" className="w-5 h-5 flex items-center justify-center text-white rounded-full hover:opacity-80 transition">
+          <FaFacebook className="w-5 h-5 text-qgc-black" />
         </Link>
-        <Link href="#" className="w-5 h-5 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition">
-          {/* <Image src="/images/social/twitter.svg" alt="Twitter" width={20} height={20} /> */}
+        <Link href="#" className="w-5 h-5 flex items-center justify-center bg-qgc-black text-white rounded-full hover:opacity-80 transition">
+          <FaInstagram className="w-3 h-3" />
         </Link>
-        <Link href="#" className="w-5 h-5 flex items-center justify-center bg-black text-white rounded-full hover:opacity-80 transition">
-          {/* <Image src="/images/social/instagram.svg" alt="Instagram" width={20} height={20} /> */}
+        <Link href="#" className="w-5 h-5 flex items-center justify-center bg-qgc-black text-white rounded-full hover:opacity-80 transition">
+         <FaFacebookMessenger className="w-3 h-3" />
         </Link>
+        <Link href="#" className="w-5 h-5 flex items-center justify-center bg-qgc-black text-white rounded-full hover:opacity-80 transition">
+          <FaViber className="w-3 h-3" />
+        </Link>
+
       </div>
 
       <hr className="border-gray-300 mb-8" />
