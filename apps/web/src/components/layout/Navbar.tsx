@@ -17,9 +17,9 @@ export default function Navbar() {
   }, [menuRef, menuOpen]);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-qgc-white shadow-sm">
-      <nav className="flex flex-col py-5 md:flex-row justify-center items-center w-full md:w-auto gap-15 text-qgc-black overflow-hidden transition-[max-height] duration-300 md:max-h-full md:overflow-visible mt-4 md:mt-0">
-        <div className="flex items-center justify-between md:justify-start w-full md:w-auto">
+    <header className="w-full fixed top-0 left-0 z-50 px-5 bg-qgc-white h-20 shadow-sm">
+      <nav className="flex flex-col md:py-5 md:flex-row justify-center items-center w-full md:w-auto gap-6 text-qgc-black overflow-hidden transition-[max-height] duration-300 md:max-h-full md:overflow-visible  md:mt-0 mt-4">
+        <div className="flex items-center justify-between md:justify-start h-full w-full md:w-auto">
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/images/logo/qgc-logo-black.png"
@@ -63,12 +63,24 @@ export default function Navbar() {
         </div>
 
       <ul
-  ref={menuRef}
-  style={{ maxHeight: menuOpen ? `${menuHeight}px` : "0px" }}
-  className={`flex flex-col md:flex-row justify-center items-center w-full md:w-auto gap-15 text-qgc-black overflow-hidden transition-[max-height] duration-300 md:max-h-full md:overflow-visible mt-4 md:mt-0 ${
-    menuOpen ? "max-h-125" : "max-h-0"
-  }`}
->
+        ref={menuRef}
+        style={{
+          maxHeight: menuOpen ? `${menuHeight}px` : "0px",
+        }}
+        className="
+          flex flex-col md:flex-row
+          items-start md:items-center
+          justify-start md:justify-center
+          w-full md:w-auto
+          gap-2 md:gap-15
+          bg-qgc-gray-light
+          text-qgc-black
+          overflow-hidden
+          transition-[max-height] duration-300 ease-in-out
+          md:max-h-full md:overflow-visible
+        "
+      >
+
   {[
     { href: "/subsidiaries", label: "Subsidiaries" },
     { href: "/newsroom", label: "Newsroom" },
