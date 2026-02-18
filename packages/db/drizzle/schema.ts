@@ -1,10 +1,9 @@
 import { pgTable, unique, uuid, varchar, text, jsonb, timestamp, pgEnum } from "drizzle-orm/pg-core"
-import { sql } from "drizzle-orm"
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
+// --- TABLE DEFINITIONS ---
 export const articleCategory = pgEnum("article_category", ['News', 'Announcement', 'Industry Insight', 'etc...'])
-
 
 export const articles = pgTable("articles", {
 	id: uuid().defaultRandom().primaryKey().notNull(),
@@ -43,6 +42,21 @@ export const applicationForms = pgTable("application_forms", {
 	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow(),
 });
 
-export const insertInquirySchema = createInsertSchema(inquiries);
-export const insertApplicationSchema = createInsertSchema(applicationForms);
+// --- ZOD SCHEMAS ---
+
+// Inquiries Schema
+export const insertInquirySchema = createInsertSchema(inquiries, {
+  id: z.string().optional(),
+  createdAt: z.string().optional(),
+  email: z.string().email(),
+});
+
+// Application Forms Schema
+export const insertApplicationSchema = createInsertSchema(applicationForms, {
+  id: z.string().optional(),
+  createdAt: z.string().optional(),
+  email: z.string().email(),
+});
+
 export type Inquiry = z.infer<typeof insertInquirySchema>;
+export type Application = z.infer<typeof insertApplicationSchema>;
