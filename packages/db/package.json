@@ -5,6 +5,9 @@
   "types": "./index.ts",
   "type": "module",
   "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^25.2.3",
