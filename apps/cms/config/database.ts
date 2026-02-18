@@ -1,4 +1,3 @@
-import path from 'path';
 import type { Core } from '@strapi/strapi';
 import path from 'path';
 
