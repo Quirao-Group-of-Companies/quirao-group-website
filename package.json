@@ -20,13 +20,13 @@
     "check:web": "biome check --write ./apps/web",
     "check:cms": "biome check --write ./apps/cms",
     "check": "biome check --write ."
-
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.15",
     "turbo": "latest"
   },
   "dependencies": {
+    "@axiomhq/nextjs": "^0.2.0",
     "@supabase/supabase-js": "^2.95.3",
     "resend": "^6.9.2",
     "web": "^0.0.2"
