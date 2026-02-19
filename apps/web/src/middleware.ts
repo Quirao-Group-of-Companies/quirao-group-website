@@ -1,7 +1,7 @@
-import { logger } from "@/lib/axiom/server";
-import { transformMiddlewareRequest } from "@axiomhq/nextjs";
-import { NextResponse } from "next/server";
-import type { NextFetchEvent, NextRequest } from "next/server";
+import { transformMiddlewareRequest } from '@axiomhq/nextjs';
+import type { NextFetchEvent, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+import { logger } from '@/lib/axiom/server';
 
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   logger.info(...transformMiddlewareRequest(request));
@@ -19,6 +19,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
   ],
 };

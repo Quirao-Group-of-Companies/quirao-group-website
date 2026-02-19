@@ -2,12 +2,12 @@
 import { useEffect } from 'react';
 import { logger } from '@/lib/axiom/client';
 
-export default function Error({ error }: { error: Error & { digest?: string } }) {
+export default function ErrorPage({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
-    logger.error('UI_CRASH', { 
-      message: error.message, 
+    logger.error('UI_CRASH', {
+      message: error.message,
       digest: error.digest,
-      stack: error.stack 
+      stack: error.stack,
     });
     logger.flush();
   }, [error]);
