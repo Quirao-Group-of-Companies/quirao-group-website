@@ -14,6 +14,9 @@ on:
 jobs:
   web-ci:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_AXIOM_TOKEN: ${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}
+      NEXT_PUBLIC_AXIOM_DATASET: ${{ secrets.NEXT_PUBLIC_AXIOM_DATASET }}
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
