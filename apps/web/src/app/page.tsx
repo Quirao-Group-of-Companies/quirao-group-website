@@ -67,13 +67,13 @@ const businesses: Business[] = [
     wordLogo: "/images/logo/buildmaster/buildmaster-logo-word.png",
     topImage: "/images/home-page/business-preview/buildmaster-business-preview.png",
     cardImage: "/images/home-page/business-preview/buildmaster-business-preview-card.jpg",
-    description:"BuildMaster Wholesale is a trusted supplier of construction and hardware materials based in Iloilo City, Philippines. We provide high-quality building products and materials for residential, commercial, and industrial projects, backed by reliable delivery services and expert advice. Our commitment to excellence ensures that every client receives the right materials, on time, every time, supporting the growth and success of construction projects across the region.",
+    description:"BuildMaster Wholesale is a trusted supplier of construction and hardware materials based in Iloilo City, Philippines. We provide high-quality building products and materials for residential, commercial, and industrial projects, backed by reliable delivery services and expert advice.",
   },
   {
     id: 2,
     name: "Paluto Seafood",
     logo: "/images/logo/paluto/paluto-logo-white.png",
-    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
+    wordLogo: "/images/logo/paluto/paluto-logo-word.png",
     topImage: "/images/home-page/business-preview/paluto-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/paluto-business-preview-card.jpg",
     description:
@@ -83,7 +83,7 @@ const businesses: Business[] = [
     id: 3,
     name: "Sari-sari Manokan",
     logo: "/images/logo/manokan/sari-sari-manokan-logo.png",
-    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
+    wordLogo: "/images/logo/manokan/sari-sari-manokan-logo-word.png",
     topImage: "/images/home-page/business-preview/sari-sari-manokan-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/sari-sari-manokan-business-preview-card.jpg",
     description:
@@ -93,7 +93,7 @@ const businesses: Business[] = [
     id: 4,
     name: "Brightline Trucking",
     logo: "/images/logo/brightline/brightline-logo.png",
-    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
+    wordLogo: "/images/logo/brightline/brightline-logo.png",
     topImage: "/images/home-page/business-preview/brightline-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/brightline-business-preview-card.jpg",
     description: "Brightline Trucking is a service company engaged in hauling general cargo, offices & warehouses.",
@@ -102,7 +102,7 @@ const businesses: Business[] = [
     id: 5,
     name: "Watergate ",
     logo: "/images/logo/watergate/watergate-logo.png",
-    wordLogo: "/images/logo/buildmaster/buildmaster-logo.png",
+    wordLogo: "/images/logo/watergate/watergate-logo-word.png",
     topImage: "/images/home-page/business-preview/watergate-business-preview.jpg",
     cardImage: "/images/home-page/business-preview/watergate-business-preview-card.jpg",
     description: "Welcome to the official Watergate Purified Drinking Water page! Join our community as we provide safe and affordable bottled drinking water to Filipinos anytime, and anywhere.",
@@ -313,7 +313,7 @@ export default function Home() {
             <p className="text-gray-600 text-lg">
              We drive growth and innovation across diverse industries. Our portfolio spans logistics, business process outsourcing, food and restaurant services, water purification, and construction each operating with excellence and a commitment to quality. By nurturing these businesses under one umbrella, we provide integrated solutions that deliver value, efficiency, and lasting impact to our clients and communities.
             </p>
-            <button className="w-40 px-4 py-2 rounded-md bg-black text-white">
+            <button className="w-40 px-4 py-2 rounded-md bg-black text-white hover:bg-qgc-gray-deep transition">
               Read More
             </button>
           </div>
@@ -340,14 +340,14 @@ export default function Home() {
 
           <div className="md:w-1/2 text-qgc-black px-4 py-4 flex flex-col gap-6 relative">
             <Image
-              src={activeBusiness.logo}
+              src={activeBusiness.wordLogo}
               alt={activeBusiness.name}
-              width={60}
-              height={100}
-              className="object-contain self-center"
+              width={150}
+              height={20}
+              className="object-contain  self-center"
             />
             <p>{activeBusiness.description}</p>
-            <button className="bg-qgc-black h-10 text-white px-6 py-2 rounded-lg w-max absolute bottom-15">
+            <button className="bg-qgc-black h-10 text-white px-6 py-2 rounded-lg w-max md:absolute bottom-15 hover:bg-qgc-gray-deep transition">
               Read More
             </button>
           </div>
@@ -402,9 +402,8 @@ export default function Home() {
               src={achievement.image}
               alt={achievement.title}
               fill
-              className="object-contain p-10 transition-transform duration-500 ease-in-out group-hover:scale-110"
+              className="object-contain p-15 transition-transform duration-500 ease-in-out group-hover:scale-110"
             />
-
             <div className="absolute inset-0 group-hover:bg-black/10 transition duration-500" />
 
             <div className="absolute bottom-6 left-0 right-0 text-center px-4">
@@ -458,7 +457,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <button className="mt-6 bg-black  text-white rounded-lg  px-6 py-3 text-sm font-medium hover:bg-gray-800 transition">
+                <button className="mt-6 bg-black  text-white rounded-lg  px-6 py-3 text-sm font-medium hover:bg-qgc-gray-deep transition">
                   Read More
                 </button>
               </div>
