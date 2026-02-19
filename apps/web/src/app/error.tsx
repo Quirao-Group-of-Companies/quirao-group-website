@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { logger } from '@/lib/axiom/client.ts';
+import { logger } from '@/lib/axiom/client';
 
 export default function Error({ error }: { error: Error & { digest?: string } }) {
   useEffect(() => {
