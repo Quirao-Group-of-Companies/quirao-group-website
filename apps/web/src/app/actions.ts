@@ -36,9 +36,9 @@ export async function submitInquiry(formData: FormData) {
     return { success: true };
   } catch (error) {
     // console.error(error);
-    logger.error(`"Failed to submit inquiry form: ${error}"`)
+    logger.error(`"Failed to submit inquiry form. Server Error: ${error}"`)
     after(() => { logger.flush(); });
-    return { error: 'Failed to submit.' };
+    return { error: `"Failed to submit inquiry form. Server Error: ${error}"` };
 
   }
   
@@ -83,12 +83,10 @@ export async function submitApplication(formData: FormData) {
 
     revalidatePath('/admin/applications');
     return { success: true };
-  } catch (error: unknown) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-
-    logger.error(`"Failed to submit application forms: ${errorMessage}"`)
+  } catch (error) {
+    logger.error(`"Failed to submit application form. Server Error: ${error}"`)
     // console.error('CRITICAL ERROR DURING SUBMISSION:');
     after(() => { logger.flush(); });
-    return { error: `Server Error: ${errorMessage}` };
+    return { error: `Failed to submit application form. Server Error: ${error}` };
   }
 }
