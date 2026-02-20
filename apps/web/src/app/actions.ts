@@ -35,7 +35,7 @@ export async function submitInquiry(formData: FormData) {
 
     return { success: true };
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     logger.error(`"Failed to submit inquiry form: ${error}"`)
     after(() => { logger.flush(); });
     return { error: 'Failed to submit.' };
@@ -46,14 +46,14 @@ export async function submitInquiry(formData: FormData) {
 
 export async function submitApplication(formData: FormData) {
   try {
-    console.log('--- Starting Submission ---');
+    // console.log('--- Starting Submission ---');
 
     const file = formData.get('resume_file') as File;
-    console.log('File received:', file?.name, 'Size:', file?.size);
+    // console.log('File received:', file?.name, 'Size:', file?.size);
 
-    console.log('Attempting Supabase Storage upload...');
+    // console.log('Attempting Supabase Storage upload...');
     const resumeUrl = await uploadResume(file);
-    console.log('Upload successful! URL:', resumeUrl);
+    // console.log('Upload successful! URL:', resumeUrl);
 
     const rawData = {
       fullName: String(formData.get('full_name')),
@@ -64,22 +64,22 @@ export async function submitApplication(formData: FormData) {
       coverLetter: formData.get('cover_letter') ? String(formData.get('cover_letter')) : null,
     };
 
-    console.log('Validating data with Zod...');
+    // console.log('Validating data with Zod...');
     const validatedData = insertApplicationSchema.safeParse(rawData);
     if (!validatedData.success) {
-      console.error('Zod Validation Failed:', validatedData.error.flatten());
+      // console.error('Zod Validation Failed:', validatedData.error.flatten());
       logger.warn("Insert application schema failed.")
       after(() => { logger.flush(); });
       return { error: 'Validation failed', details: validatedData.error.flatten() };
     }
 
-    console.log('Inserting into Database...');
+    // console.log('Inserting into Database...');
     await db.insert(applicationForms).values(validatedData.data);
-    console.log('Database insert successful!');
+    // console.log('Database insert successful!');
 
-    console.log('Sending Email...');
+    // console.log('Sending Email...');
     await sendApplicationEmail(validatedData.data);
-    console.log('Email sent!');
+    // console.log('Email sent!');
 
     revalidatePath('/admin/applications');
     return { success: true };
@@ -87,9 +87,7 @@ export async function submitApplication(formData: FormData) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 
     logger.error(`"Failed to submit application forms: ${errorMessage}"`)
-    
-    console.error('CRITICAL ERROR DURING SUBMISSION:');
-    console.error('Message:', errorMessage);
+    // console.error('CRITICAL ERROR DURING SUBMISSION:');
     after(() => { logger.flush(); });
     return { error: `Server Error: ${errorMessage}` };
   }
