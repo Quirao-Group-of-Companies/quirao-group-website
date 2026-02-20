@@ -78,6 +78,26 @@ bun run dev:cms # For CMS only
 ## Development
 This section includes development guidelines that we need to adhere to, to ensure stability and quality of this project.
 
+### Conventional Branches
+To maintain a clear relationship between our tasks and our codebase, we follow a naming convention for branches that mirrors our commit types. This helps identify the purpose of a branch at a glance.
+
+```bash
+# Format
+<type>/<short-description>
+
+# Common Branch Types
+feat/      # New features (e.g., feat/google-auth)
+fix/       # Bug fixes (e.g., fix/header-overflow)
+docs/      # Documentation changes (e.g., docs/api-readme)
+refactor/  # Code cleanup/restructuring (e.g., refactor/logic-cleanup)
+chore/     # Maintenance or dependencies (e.g., chore/update-deps)
+
+# Guidelines:
+# 1. Use lowercase and hyphens (-) for descriptions.
+# 2. Branch off from 'main' unless specified otherwise.
+# 3. Always keep your branch up to date
+```
+
 ### Conventional Commits
 We follow the Conventional Commits specification to keep our project history clean and meaningful.
 
