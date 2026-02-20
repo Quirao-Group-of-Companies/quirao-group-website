@@ -8,6 +8,7 @@
         "@axiomhq/nextjs": "^0.2.0",
         "@supabase/supabase-js": "^2.95.3",
         "resend": "^6.9.2",
+        "tailwindcss": "^4.2.0",
         "web": "^0.0.2",
       },
       "devDependencies": {
@@ -63,7 +64,7 @@
         "babel-plugin-react-compiler": "1.0.0",
         "daisyui": "^5.5.18",
         "drizzle-kit": "^0.31.9",
-        "tailwindcss": "^4",
+        "tailwindcss": "^4.2.0",
         "typescript": "^5",
       },
     },
