@@ -7,8 +7,8 @@ export default [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'https://*.supabase.co'],
-          'media-src': ["'self'", 'data:', 'blob:', 'https://*.supabase.co'],
+            'img-src': ["'self'", 'data:', 'blob:', 'https://*.supabase.co', 'https://*.supabase.in'],
+            'media-src': ["'self'", 'data:', 'blob:', 'https://*.supabase.co', 'https://*.supabase.in'],
           upgradeInsecureRequests: null,
         },
       },
