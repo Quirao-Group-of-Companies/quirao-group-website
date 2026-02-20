@@ -61,30 +61,52 @@ To set the development repository:
 
 ```bash
 git clone <REPOSITORY-URL>
-
 cd quirao-group-website/
-
 bun install # Install necessary dependencies
-
 bun run build:web # To ensure that you do not have issues in building the application
 ```
 
 To start the development environment of apps:
 ```bash
 bun run dev # For both web and CMS
-
 bun run dev:web # For web only
-
 bun run dev:cms # For CMS only
 ```
 > To learn more about other scripts, see root [`package.json`](https://github.com/Quirao-Group-of-Companies/quirao-group-website/blob/main/package.json).
 
 
 ## Development
-This section contains guidelines for development of the website..
+This section includes development guidelines that we need to adhere to, to ensure stability and quality of this project.
 
-### Double Check
-Before you push, always build and check locally via:
+### Conventional Commits
+We follow the Conventional Commits specification to keep our project history clean and meaningful.
+
+Adopting this standard encourages us to categorize and scope down changes, which simplifies code reviews and enables future automated versioning.
+
+Below are the commonly used conventional commits. You can look up the rest of the types online, should you read more about.
+```bash
+# Template
+<type>[optional scope]: <commit desc>
+
+# Prefixes
+feat: A new feature for the user
+(e.g., feat(auth): add login via Google).
+
+fix: A bug fix for the user
+(e.g., fix(api): resolve timeout on large uploads).
+
+docs: Documentation-only changes
+(e.g., docs: update setup instructions in README).
+
+refactor: A code change that neither fixes a bug nor adds a feature (e.g., refactor: simplify validation logic).
+
+# NOTE: These are the most frequent types.
+# You can find the full list of prefixes in the
+# official documentation if you'd like to learn more.
+```
+
+### Verification
+Before you push, always verify if it can build and it's linted properly:
 ```bash
 # For web and CMS related changes
 bun run check
@@ -98,9 +120,13 @@ bun run build:web
 bun run check:cms
 bun run build:cms
 
-# NOTE: CMS Checking on Github Actions CI is set to `continue-on-error: true`. This tells Github Actions that whatever error it may produce, we must continue. This is to prevent a developer trying to debug Strapi's internal source code.
+# NOTE: CMS Checking on Github Actions CI is currently set to `continue-on-error: true`.
+# This tells Github Actions that whatever error it may produce, we must continue.
+# This is to prevent a developer trying to debug Strapi's internal source code.
 
-# Checking in CMS via local might write the changes. If you wish to see possible errors without actually writing the changes, you can run `bun biome check ./apps/cms/`.
+# Checking in CMS via local might write the changes.
+# If you wish to see possible errors without actually writing the changes,
+# you can run `bun biome check ./apps/cms/`.
 ```
 By following these rules, we ensure that our code will not cause our application to break its build and we ensure it follows conventions.
 
