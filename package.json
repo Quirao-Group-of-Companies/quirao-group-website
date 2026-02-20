@@ -31,6 +31,7 @@
     "@axiomhq/nextjs": "^0.2.0",
     "@supabase/supabase-js": "^2.95.3",
     "resend": "^6.9.2",
+    "tailwindcss": "^4.2.0",
     "web": "^0.0.2"
   }
 }
