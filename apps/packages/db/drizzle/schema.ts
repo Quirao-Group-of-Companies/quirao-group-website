@@ -29,7 +29,7 @@ export const articles = pgTable(
     excerpt: text(),
     contentBody: text('content_body'),
     coverImage: varchar('cover_image'),
-    contentImages: jsonb('content_images'),
+    contentMedia: jsonb('content_media'),
     publishedAt: timestamp('published_at', { withTimezone: true, mode: 'string' }),
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow(),

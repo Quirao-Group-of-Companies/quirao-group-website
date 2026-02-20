@@ -51,8 +51,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "content_images": {
-          "name": "content_images",
+        "content_media": {
+          "name": "content_media",
           "type": "jsonb",
           "primaryKey": false,
           "notNull": false
