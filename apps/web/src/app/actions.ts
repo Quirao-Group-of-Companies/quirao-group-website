@@ -11,6 +11,9 @@ import { revalidatePath } from 'next/cache';
 import { sendApplicationEmail, sendInquiryEmail } from '@/lib/email';
 import { uploadResume } from '@/lib/supabase';
 
+import { logger } from "@/lib/axiom/server";
+import { after } from "next/server";
+
 export async function submitInquiry(formData: FormData) {
   try {
     const rawData = {
@@ -22,6 +25,8 @@ export async function submitInquiry(formData: FormData) {
 
     const validatedData = insertInquirySchema.safeParse(rawData);
     if (!validatedData.success) {
+      logger.warn("Insert inquiry schema failed.")
+      after(() => { logger.flush(); });
       return { error: 'Validation failed' };
     }
 
@@ -31,8 +36,12 @@ export async function submitInquiry(formData: FormData) {
     return { success: true };
   } catch (error) {
     console.error(error);
+    logger.error(`"Failed to submit inquiry form: ${error}"`)
+    after(() => { logger.flush(); });
     return { error: 'Failed to submit.' };
+
   }
+  
 }
 
 export async function submitApplication(formData: FormData) {
@@ -59,6 +68,8 @@ export async function submitApplication(formData: FormData) {
     const validatedData = insertApplicationSchema.safeParse(rawData);
     if (!validatedData.success) {
       console.error('Zod Validation Failed:', validatedData.error.flatten());
+      logger.warn("Insert application schema failed.")
+      after(() => { logger.flush(); });
       return { error: 'Validation failed', details: validatedData.error.flatten() };
     }
 
@@ -75,9 +86,11 @@ export async function submitApplication(formData: FormData) {
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 
+    logger.error(`"Failed to submit application forms: ${errorMessage}"`)
+    
     console.error('CRITICAL ERROR DURING SUBMISSION:');
     console.error('Message:', errorMessage);
-
+    after(() => { logger.flush(); });
     return { error: `Server Error: ${errorMessage}` };
   }
 }
