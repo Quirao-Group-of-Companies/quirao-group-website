@@ -1,0 +1,24 @@
+name: CI - CMS
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'apps/cms/**'
+      - 'packages/**'
+      - 'bun.lock'
+  pull_request:
+    paths:
+      - 'apps/cms/**'
+
+jobs:
+  cms-ci:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Lint and Build
+        run: |
+          bun run check:cms
+          bun run build:cms
