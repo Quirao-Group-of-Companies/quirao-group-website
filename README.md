@@ -5,12 +5,14 @@ This repository contains the source code of the QGC website. It includes details
 Written by: John Manuel Carado (Intern)
 
 ## Prerequisites
+
 Before you can set up, you must have the following prerequisites:
 
 - [NodeJS](https://nodejs.org/en/download) - We recommend to use the LTS version for minimal errors down the line.
 - [Bun](https://bun.com/docs/installation)
 
 ## 🏗 Project Directory Tree
+
 ```bash
 quirao-group-website/
 ├── apps/
@@ -37,6 +39,7 @@ quirao-group-website/
 ```
 
 ## System Architecture
+
 ```
 📦 Supabase (PostgreSQL) ⬅️-----------(Migrations/Queries)-----------➡️ 💧 Drizzle ORM
        ↑                                                                    |
@@ -57,6 +60,7 @@ quirao-group-website/
 ```
 
 ## Setup
+
 To set the development repository:
 
 ```bash
@@ -67,18 +71,21 @@ bun run build:web # To ensure that you do not have issues in building the applic
 ```
 
 To start the development environment of apps:
+
 ```bash
 bun run dev # For both web and CMS
 bun run dev:web # For web only
 bun run dev:cms # For CMS only
 ```
+
 > To learn more about other scripts, see root [`package.json`](https://github.com/Quirao-Group-of-Companies/quirao-group-website/blob/main/package.json).
 
-
 ## Development
+
 This section includes development guidelines that we need to adhere to, to ensure stability and quality of this project.
 
 ### Conventional Branches
+
 To maintain a clear relationship between our tasks and our codebase, we follow a naming convention for branches that mirrors our commit types. This helps identify the purpose of a branch at a glance.
 
 ```bash
@@ -99,11 +106,13 @@ chore/     # Maintenance or dependencies (e.g., chore/update-deps)
 ```
 
 ### Conventional Commits
+
 We follow the Conventional Commits specification to keep our project history clean and meaningful.
 
 Adopting this standard encourages us to categorize and scope down changes, which simplifies code reviews and enables future automated versioning.
 
 Below are the commonly used conventional commits. You can look up the rest of the types online, should you read more about.
+
 ```bash
 # Template
 <type>[optional scope]: <commit desc>
@@ -126,7 +135,9 @@ refactor: A code change that neither fixes a bug nor adds a feature (e.g., refac
 ```
 
 ### Verification
+
 Before you push, always verify if it can build and it's linted properly:
+
 ```bash
 # For web and CMS related changes
 bun run check
@@ -148,14 +159,17 @@ bun run build:cms
 # If you wish to see possible errors without actually writing the changes,
 # you can run `bun biome check ./apps/cms/`.
 ```
+
 By following these rules, we ensure that our code will not cause our application to break its build and we ensure it follows conventions.
 
 ### Axiom
+
 Axiom is our observability platform used to capture, store, and analyze logs and performance metrics. To keep the codebase clean, we use a "zero-code" infrastructure-level capture via Instrumentation, but manual logging is available for complex logic.
 
 I encourage you devs to use Axiom on important functions and components.
 
 For Client side components, you can use the template code:
+
 ```ts
 "use client";
 import { useLogger } from "@/lib/axiom/client";
@@ -174,6 +188,7 @@ export default function ClientComponent() {
 ```
 
 For Server side components, you can use the template code:
+
 ```ts
 "use client";
 import { logger } from "@/lib/axiom/server";
@@ -189,4 +204,78 @@ export default async function ServerComponent() {
   return <h1>Logged in</h1>;
 }
 ```
+
 > The sample code above are from the official documentation of Axiom to save you a click or two.
+
+### Strapi
+
+Fetching Data (The Service Layer):
+We fetch data on the server. Always use populate=\* in your query parameters to ensure Strapi returns images and relational data.
+
+```tsx
+// app/lib/services/strapi-articles.ts
+export async function getArticles(slug?: string) {
+  const baseUrl = process.env.STRAPI_URL || "http://127.0.0.1:1337";
+
+  // If slug is provided, fetch one; otherwise, fetch all
+  const query = slug
+    ? `/api/articles?filters[slug][$eq]=${slug}&populate=*`
+    : `/api/articles?populate=*`;
+
+  const res = await fetch(`${baseUrl}${query}`);
+  const data = await res.json();
+
+  // Strapi v5 returns an array in data.data
+  return slug ? data.data[0] : data.data;
+}
+```
+
+Handling Images:
+Strapi provides relative paths (e.g., /uploads/image.png). We use a helper function to construct the full URL and the Next.js <Image /> component for optimization.
+
+```tsx
+const getImageUrl = (image: StrapiImage | null) => {
+  if (!image?.url) return null;
+
+  // Return as-is if it's already a full URL (e.g., Supabase/S3)
+  if (image.url.startsWith("http")) return image.url;
+
+  // Prefix with Strapi URL if it's a local upload
+  const host = process.env.STRAPI_URL || "http://127.0.0.1:1337";
+  return `${host}${image.url}`;
+};
+```
+
+For the component:
+
+```Tsx
+import Image from "next/image";
+
+// ... inside your component
+<Image
+  src={getImageUrl(article.cover_image) || "/placeholder.png"}
+  alt={article.cover_image?.alternativeText || article.title}
+  width={800}
+  height={450}
+  className="object-cover"
+/>
+```
+
+Rendering Rich Text (Blocks):
+Strapi v5 uses a "Blocks" format for rich text. Use the @strapi/blocks-react-renderer package to render this as HTML.
+
+```tsx
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
+
+export default function ArticlePage({ article }) {
+  return (
+    <div className="prose">
+      {article.content_body ? (
+        <BlocksRenderer content={article.content_body} />
+      ) : (
+        <p>No content available.</p>
+      )}
+    </div>
+  );
+}
+```
