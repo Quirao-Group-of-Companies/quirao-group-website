@@ -25,6 +25,14 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "a11y": {
+        "useSemanticElements": "error",
+        "useValidAnchor": "error",
+        "noRedundantAlt": "error",
+        "useAltText": "error",
+        "useAnchorContent": "error"
+
+      },
       "recommended": true,
       "style": {
         "useBlockStatements": "error",
