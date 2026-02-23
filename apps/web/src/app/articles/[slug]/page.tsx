@@ -2,35 +2,48 @@ import { getArticles } from "@/app/lib/services/strapi-articles";
 import { notFound } from "next/navigation";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Link from "next/link";
+import Image from "next/image";
+
+interface StrapiImage {
+  id: number;
+  url: string;
+  alternativeText?: string;
+}
 
 // 1. Update the type: params is now a Promise
-export default async function ArticleDetailPage({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export default async function ArticleDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
 }) {
   // 2. Await the params to get the slug
   const { slug } = await params;
-  
+
   // 3. Fetch the article using the unwrapped slug
   const article = await getArticles(slug);
 
-  if (!article) notFound();
+  if (!article) {
+    notFound();
+  }
 
-  const { 
-    title, 
-    content_body, 
-    author_name, 
-    cover_image, 
-    content_media, 
-    publishedAt 
+  const {
+    title,
+    content_body,
+    author_name,
+    cover_image,
+    content_media,
+    publishedAt,
   } = article;
 
   // Helper for images
-  const getImageUrl = (image: any) => {
-    if (!image?.url) return null;
-    if (image.url.startsWith('http')) return image.url;
-    return `${process.env.STRAPI_URL || 'http://127.0.0.1:1337'}${image.url}`;
+  const getImageUrl = (image: StrapiImage | null) => {
+    if (!image?.url) {
+      return null;
+    }
+    if (image.url.startsWith("http")) {
+      return image.url;
+    }
+    return `${process.env.STRAPI_URL || "http://127.0.0.1:1337"}${image.url}`;
   };
 
   const coverUrl = getImageUrl(cover_image);
@@ -42,16 +55,24 @@ export default async function ArticleDetailPage({
           {title}
         </h1>
         <div className="text-gray-400 font-medium">
-          By {author_name || "Staff Writer"} • {publishedAt ? new Date(publishedAt).toLocaleDateString(undefined, { dateStyle: 'long' }) : "Recently"}
+          By {author_name || "Staff Writer"} •{" "}
+          {publishedAt
+            ? new Date(publishedAt).toLocaleDateString(undefined, {
+                dateStyle: "long",
+              })
+            : "Recently"}
         </div>
       </header>
 
       {coverUrl && (
-        <div className="mb-16 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-800">
-          <img 
-            src={coverUrl} 
-            alt={title} 
+        <div className="mb-16 rounded-[2rem] overflow-hidden shadow-2xl border border-gray-800 relative">
+          <Image
+            src={coverUrl}
+            alt={title}
+            width={1200}
+            height={675}
             className="w-full h-auto object-cover"
+            priority
           />
         </div>
       )}
@@ -70,11 +91,16 @@ export default async function ArticleDetailPage({
         <section className="border-t border-gray-800 pt-16">
           <h2 className="text-3xl font-bold mb-10 text-white">Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {content_media.map((file: any) => (
-              <div key={file.id} className="rounded-3xl overflow-hidden shadow-md bg-gray-900 border border-gray-800">
-                <img 
-                  src={getImageUrl(file) || ""} 
+            {content_media.map((file: StrapiImage) => (
+              <div
+                key={file.id}
+                className="rounded-3xl overflow-hidden shadow-md bg-gray-900 border border-gray-800 relative"
+              >
+                <Image
+                  src={getImageUrl(file) || ""}
                   alt={file.alternativeText || "Gallery image"}
+                  width={600}
+                  height={400}
                   className="w-full h-72 object-cover hover:scale-105 transition duration-700"
                 />
               </div>
@@ -84,7 +110,10 @@ export default async function ArticleDetailPage({
       )}
 
       <div className="mt-24 text-center pb-20">
-        <Link href="/articles" className="inline-block px-8 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition">
+        <Link
+          href="/articles"
+          className="inline-block px-8 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition"
+        >
           Back to Articles
         </Link>
       </div>

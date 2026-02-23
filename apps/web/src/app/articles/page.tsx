@@ -1,5 +1,20 @@
 import { getArticles } from "@/app/lib/services/strapi-articles";
 import Link from "next/link";
+import Image from "next/image";
+
+interface StrapiImage {
+  id: number;
+  url: string;
+  alternativeText?: string;
+}
+
+interface Article {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  cover_image: StrapiImage | null;
+}
 
 export default async function ArticlesListPage() {
   const articles = await getArticles();
@@ -11,43 +26,54 @@ export default async function ArticlesListPage() {
   return (
     <main className="max-w-6xl mx-auto p-8">
       <h1 className="text-4xl font-bold mb-10">Latest Articles</h1>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {articles.map((article: any) => {
-          // Strapi v5: access properties directly
+        {articles.map((article: Article) => {
           const { title, slug, excerpt, cover_image, id } = article;
-          
-          const getImageUrl = (image: any) => {
-            if (!image?.url) return null;
-            // If it's already a full URL (like from Supabase), return it
-            if (image.url.startsWith('http')) return image.url;
-            // If it's a relative path from Strapi, prefix it
-            return `${process.env.STRAPI_URL || 'http://127.0.0.1:1337'}${image.url}`;
+
+          const getImageUrl = (image: StrapiImage | null) => {
+            if (!image?.url) {
+              return null;
+            }
+            if (image.url.startsWith("http")) {
+              return image.url;
+            }
+            return `${process.env.STRAPI_URL || "http://127.0.0.1:1337"}${image.url}`;
           };
 
           const imageUrl = getImageUrl(cover_image);
 
           return (
-            <Link 
-              href={`/articles/${slug}`} 
-              key={id} 
+            <Link
+              href={`/articles/${slug}`}
+              key={id}
               className="group border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white"
             >
-              <div className="aspect-video bg-gray-100 overflow-hidden">
+              <div className="aspect-video bg-gray-100 overflow-hidden relative">
                 {imageUrl ? (
-                  <img 
-                    src={imageUrl} 
-                    alt={title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                  <Image
+                    src={imageUrl}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition duration-500"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    No Image
+                  </div>
                 )}
               </div>
               <div className="p-5">
-                <h2 className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">{title}</h2>
-                <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">{excerpt}</p>
-                <div className="mt-4 text-blue-500 text-sm font-semibold">Read more →</div>
+                <h2 className="text-xl font-bold mb-3 group-hover:text-blue-600 transition-colors">
+                  {title}
+                </h2>
+                <p className="text-gray-600 line-clamp-2 text-sm leading-relaxed">
+                  {excerpt}
+                </p>
+                <div className="mt-4 text-blue-500 text-sm font-semibold">
+                  Read more →
+                </div>
               </div>
             </Link>
           );
