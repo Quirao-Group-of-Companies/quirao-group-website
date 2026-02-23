@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_fa_qs_paluto_fa_qs",
+  "info": {
+    "displayName": "Paluto",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

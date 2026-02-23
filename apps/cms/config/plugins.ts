@@ -1,5 +1,14 @@
-import type { Core } from '@strapi/strapi';
+// import type { Core } from '@strapi/strapi';
 
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({});
-
-export default config;
+module.exports = ({ env }) => ({
+  upload: {
+    config: {
+      provider: 'strapi-upload-supabase-provider',
+      providerOptions: {
+        apiUrl: env('NEXT_PUBLIC_SUPABASE_URL'),
+        apiKey: env('SUPABASE_SERVICE_ROLE_KEY'),
+        bucket: env('SUPABASE_BUCKET_NAME'),
+      },
+    },
+  },
+});

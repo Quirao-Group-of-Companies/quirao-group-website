@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_fa_qs_home_fa_qs",
+  "info": {
+    "displayName": "Homepage",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}
