@@ -1,16 +1,40 @@
-import type { Core } from '@strapi/strapi';
-
-const config: Core.Config.Middlewares = [
-  'strapi::logger',
+export default [
   'strapi::errors',
-  'strapi::security',
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'connect-src': ["'self'", 'https:'],
+          'img-src': ["'self'", 'data:', 'blob:', 'https://*.supabase.co', 'https://*.supabase.in'],
+          'media-src': [
+            "'self'",
+            'data:',
+            'blob:',
+            'https://*.supabase.co',
+            'https://*.supabase.in',
+          ],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
   'strapi::cors',
   'strapi::poweredBy',
+  'strapi::logger',
   'strapi::query',
-  'strapi::body',
+  {
+    name: 'strapi::body',
+    config: {
+      formidable: {
+        keepExtensions: true,
+        maxFileSize: 200 * 1024 * 1024,
+        hashAlgorithm: false,
+      },
+    },
+  },
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
 ];
-
-export default config;
