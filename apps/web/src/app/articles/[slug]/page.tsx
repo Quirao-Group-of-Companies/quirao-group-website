@@ -54,7 +54,7 @@ export default function News() {
 //     if (image.url.startsWith("http")) {
 //       return image.url;
 //     }
-//     return `${process.env.STRAPI_URL`;
+//     return `${process.env.STRAPI_URL || "http://127.0.0.1:1337"}${image.url}`;
 //   };
 
 //   const coverUrl = getImageUrl(cover_image);
