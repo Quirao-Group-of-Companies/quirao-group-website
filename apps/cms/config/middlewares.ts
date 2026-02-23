@@ -6,9 +6,24 @@ export default [
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          'connect-src': ["'self'", 'https:'],
-            'img-src': ["'self'", 'data:', 'blob:', 'https://*.supabase.co', 'https://*.supabase.in'],
-            'media-src': ["'self'", 'data:', 'blob:', 'https://*.supabase.co', 'https://*.supabase.in'],
+          'connect-src': [
+            "'self'", 
+            'https:'
+          ],
+          'img-src': [
+            "'self'", 
+            'data:', 
+            'blob:', 
+            'https://*.supabase.co', 
+            'https://*.supabase.in'
+          ],
+          'media-src': [
+            "'self'",
+            'data:',
+            'blob:',
+            'https://*.supabase.co',
+            'https://*.supabase.in',
+          ],
           upgradeInsecureRequests: null,
         },
       },
