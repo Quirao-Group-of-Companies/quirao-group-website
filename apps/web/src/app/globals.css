@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @plugin "daisyui";
-@plugin "../../../../node_modules/@tailwindcss/typography";
 @theme {
   --color-qgc-white: #ffffff;
   --color-qgc-black: #000000;
