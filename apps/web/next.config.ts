@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 
+const supabaseHostname = process.env.SUPABASE_HOSTNAME || '';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
