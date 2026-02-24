@@ -478,17 +478,13 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    cards: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    AboutUs: Schema.Attribute.Component<'blocks.about-us', true>;
+    Achievements: Schema.Attribute.Component<'blocks.cards', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    hero: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    FAQs: Schema.Attribute.Component<'blocks.fa-qs', true>;
+    HeroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -496,6 +492,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    SubPreview: Schema.Attribute.Component<'blocks.sub-preview', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

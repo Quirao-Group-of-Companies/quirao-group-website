@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_blocks_fa_qs",
+  "info": {
+    "displayName": "FAQs",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "text"
+    },
+    "answer": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

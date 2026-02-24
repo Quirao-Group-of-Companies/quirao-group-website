@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_elements_logos",
+  "info": {
+    "displayName": "Logo",
+    "icon": "cast"
+  },
+  "options": {},
+  "attributes": {
+    "logoName": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    }
+  },
+  "config": {}
+}

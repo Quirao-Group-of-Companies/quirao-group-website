@@ -1,18 +1,14 @@
 import type { Core } from '@strapi/strapi';
 
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({});
-
-module.exports = ({ env }) => ({
+export default ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Plugin => ({
   upload: {
     config: {
       provider: 'strapi-provider-upload-supabase',
       providerOptions: {
-        apiUrl: env('NEXT_PUBLIC_SUPABASE_URL'), // Supabase URL
-        apiKey: env('SUPABASE_SERVICE_ROLE_KEY'), // Use Service Role Key for upload permissions
-        bucket: 'strapi-uploads',
+        apiUrl: env('NEXT_PUBLIC_SUPABASE_URL'),
+        apiKey: env('SUPABASE_SERVICE_ROLE_KEY'),
+        bucket: env('SUPABASE_BUCKET_NAME'),
       },
     },
   },
 });
-
-export default config;
