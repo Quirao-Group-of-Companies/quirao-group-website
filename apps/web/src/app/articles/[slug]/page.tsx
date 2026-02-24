@@ -6,7 +6,6 @@ export default function News() {
   );
 }
 
-
 // Example code for article page:
 
 // import { getArticles } from "@/app/lib/services/strapi-articles";

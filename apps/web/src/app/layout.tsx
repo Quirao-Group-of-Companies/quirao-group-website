@@ -2,10 +2,8 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { WebVitals } from '@/lib/axiom/client';
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
-
-
+import Footer from '../components/layout/Footer';
+import Header from '../components/layout/Header';
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -27,9 +25,9 @@ export default function RootLayout({
     <html lang="en">
       <WebVitals />
       <body className={`${poppins.className} antialiased`}>
-        <Header/>
+        <Header />
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

@@ -7,7 +7,7 @@ export async function getArticles(slug?: string) {
   const query = qs.stringify({
     filters: slug ? { slug: { $eq: slug } } : {},
     // Strapi v5 simplified populate
-    populate: ['cover_image', 'content_media'], 
+    populate: ['cover_image', 'content_media'],
     sort: ['publishedAt:desc'],
   });
 
@@ -23,7 +23,7 @@ export async function getArticles(slug?: string) {
   }
 
   const json = await res.json();
-  
+
   // Strapi v5 returns { data: [...] }
   // We return the first item if a slug was provided, otherwise the whole array
   return slug ? json.data[0] : json.data;

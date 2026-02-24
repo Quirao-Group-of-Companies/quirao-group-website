@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,7 +14,7 @@ export default function Navbar() {
   const [menuHeight, setMenuHeight] = useState(0);
 
   useEffect(() => {
-    if (menuRef.current) {
+    if (menuRef.current && menuOpen) {
       setMenuHeight(menuRef.current.scrollHeight);
     }
   }, [menuOpen]);
@@ -28,7 +28,6 @@ export default function Navbar() {
   return (
     <header className="w-full fixed top-0 left-0 z-50 px-5 bg-qgc-white h-20 shadow-sm">
       <nav className="flex flex-col md:py-5 md:flex-row justify-center items-center gap-2 w-full md:w-auto text-qgc-black">
-        
         <div className="flex md:mt-0 mt-5 items-center justify-between md:justify-start h-full w-full md:w-auto">
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -42,6 +41,7 @@ export default function Navbar() {
 
           <div className="md:hidden">
             <button
+              type="button"
               onClick={() => setMenuOpen(!menuOpen)}
               className="btn btn-ghost btn-circle text-black"
             >
@@ -54,6 +54,7 @@ export default function Navbar() {
                   stroke="currentColor"
                   strokeWidth={2}
                 >
+                  <title>Close Menu</title>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
@@ -65,6 +66,7 @@ export default function Navbar() {
                   stroke="currentColor"
                   strokeWidth={2}
                 >
+                  <title>Open Menu</title>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
@@ -85,16 +87,16 @@ export default function Navbar() {
             gap-2 md:gap-12
             bg-qgc-white
             overflow-hidden
-            ${menuOpen ? "max-h-full" : "max-h-0"}
+            ${menuOpen ? 'max-h-full' : 'max-h-0'}
             transition-[max-height] duration-300 ease-in-out
             md:max-h-none md:overflow-visible
-            ${menuOpen ? "border-t border-gray-200 mt-3 pt-3" : ""}
+            ${menuOpen ? 'border-t border-gray-200 mt-3 pt-3' : ''}
           `}
         >
           {/* Subsidiaries */}
           <li className="relative group w-full md:w-auto">
-            
             <button
+              type="button"
               onClick={() => setSubsOpen(!subsOpen)}
               className="relative flex justify-between items-center w-full px-6 py-3 md:p-0 text-qgc-black hover:text-gray-500"
             >
@@ -102,13 +104,14 @@ export default function Navbar() {
 
               <svg
                 className={`w-4 h-4 transition-transform duration-300 md:hidden ${
-                  subsOpen ? "rotate-180" : ""
+                  subsOpen ? 'rotate-180' : ''
                 }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 strokeWidth={2}
               >
+                <title>Toggle Subsidiaries</title>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
@@ -121,20 +124,16 @@ export default function Navbar() {
                 transition-all duration-300 z-50
 
                 overflow-hidden
-                ${
-                  subsOpen
-                    ? "max-h-96 opacity-100"
-                    : "max-h-0 opacity-0"
-                }
+                ${subsOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
                 md:max-h-none md:opacity-100
               `}
             >
               {[
-                { name: "Buildmaster", href: "/subsidiaries/buildmaster" },
-                { name: "Paluto", href: "/subsidiaries/paluto" },
-                { name: "Brightline", href: "/subsidiaries/brightline" },
-                { name: "Sari-sari Manokan", href: "/subsidiaries/sarisari-manokan" },
-                { name: "Watergate", href: "/subsidiaries/watergate" },
+                { name: 'Buildmaster', href: '/subsidiaries/buildmaster' },
+                { name: 'Paluto', href: '/subsidiaries/paluto' },
+                { name: 'Brightline', href: '/subsidiaries/brightline' },
+                { name: 'Sari-sari Manokan', href: '/subsidiaries/sarisari-manokan' },
+                { name: 'Watergate', href: '/subsidiaries/watergate' },
               ].map((item) => (
                 <li key={item.name}>
                   <Link
@@ -154,10 +153,10 @@ export default function Navbar() {
 
           {/* Other Links */}
           {[
-            { href: "/newsroom", label: "Newsroom" },
-            { href: "/careers", label: "Careers" },
-            { href: "/about", label: "About Us" },
-            { href: "/contact", label: "Contact Us" },
+            { href: '/newsroom', label: 'Newsroom' },
+            { href: '/careers', label: 'Careers' },
+            { href: '/about', label: 'About Us' },
+            { href: '/contact', label: 'Contact Us' },
           ].map((link) => (
             <li key={link.href} className="w-full md:w-auto">
               <Link
@@ -174,7 +173,7 @@ export default function Navbar() {
           <li className="w-full md:w-auto flex items-center px-6 py-3 md:p-0">
             <div
               className={`flex items-center transition-all duration-300 ${
-                searchOpen ? "w-40 opacity-100 mr-3" : "w-0 opacity-0"
+                searchOpen ? 'w-40 opacity-100 mr-3' : 'w-0 opacity-0'
               } overflow-hidden`}
             >
               <input
@@ -184,7 +183,7 @@ export default function Navbar() {
               />
             </div>
 
-            <button onClick={() => setSearchOpen(!searchOpen)}>
+            <button type="submit" onClick={() => setSearchOpen(!searchOpen)}>
               <MagnifyingGlassIcon className="w-5 h-5" />
             </button>
           </li>
