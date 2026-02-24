@@ -36,7 +36,6 @@ export async function submitInquiry(formData: FormData) {
 
     return { success: true };
   } catch (error) {
-    // console.error(error);
     logger.error(`"Failed to submit inquiry form. Server Error: ${error}"`);
     after(() => {
       logger.flush();
@@ -47,20 +46,17 @@ export async function submitInquiry(formData: FormData) {
 
 export async function submitApplication(formData: FormData) {
   try {
-    // console.log('--- Starting Submission ---');
-
     const file = formData.get('resume_file') as File;
-    // console.log('File received:', file?.name, 'Size:', file?.size);
 
-    // console.log('Attempting Supabase Storage upload...');
     const resumeUrl = await uploadResume(file);
-    // console.log('Upload successful! URL:', resumeUrl);
-
     const rawData = {
       fullName: String(formData.get('full_name')),
       email: String(formData.get('email')),
       phone: formData.get('phone') ? String(formData.get('phone')) : null,
       address: formData.get('address') ? String(formData.get('address')) : null,
+      sss: formData.get('sss') === 'on',
+      philhealth: formData.get('philhealth') === 'on',
+      pagIbig: formData.get('pag_ibig') === 'on',
       resumeFile: resumeUrl,
       coverLetter: formData.get('cover_letter') ? String(formData.get('cover_letter')) : null,
     };
@@ -76,19 +72,24 @@ export async function submitApplication(formData: FormData) {
       return { error: 'Validation failed', details: validatedData.error.flatten() };
     }
 
-    // console.log('Inserting into Database...');
     await db.insert(applicationForms).values(validatedData.data);
-    // console.log('Database insert successful!');
 
-    // console.log('Sending Email...');
-    await sendApplicationEmail(validatedData.data);
-    // console.log('Email sent!');
+    await sendApplicationEmail({
+      fullName: validatedData.data.fullName,
+      email: validatedData.data.email,
+      phone: validatedData.data.phone,
+      address: validatedData.data.address,
+      sss: validatedData.data.sss ?? false,
+      philhealth: validatedData.data.philhealth ?? false,
+      pagIbig: validatedData.data.pagIbig ?? false,
+      resumeFile: validatedData.data.resumeFile,
+      coverLetter: validatedData.data.coverLetter,
+    });
 
     revalidatePath('/admin/applications');
     return { success: true };
   } catch (error) {
     logger.error(`"Failed to submit application form. Server Error: ${error}"`);
-    // console.error('CRITICAL ERROR DURING SUBMISSION:');
     after(() => {
       logger.flush();
     });
