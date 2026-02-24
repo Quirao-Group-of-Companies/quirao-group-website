@@ -41,24 +41,24 @@ export async function getHomepage() {
     },
   });
   try {
-  const res = await fetch(`${STRAPI_URL}/api/homepage?${query}`, {
-    headers: {
-      Authorization: `Bearer ${STRAPI_API_TOKEN}`,
-    },
-    next: { revalidate: 60 },
-  });
+    const res = await fetch(`${STRAPI_URL}/api/homepage?${query}`, {
+      headers: {
+        Authorization: `Bearer ${STRAPI_API_TOKEN}`,
+      },
+      next: { revalidate: 60 },
+    });
 
-  if (!res.ok) {
-    console.warn(`Strapi Homepage fetch failed: ${res.status}`);
+    if (!res.ok) {
+      console.warn(`Strapi Homepage fetch failed: ${res.status}`);
       return null;
-  }
+    }
 
-  const json = await res.json();
-  // Single Types return data as an object: { data: { id, attributes: { ... } } }
-  // In Strapi v5, it's often flattened or accessed via json.data
-  return json.data;
-} catch (err) {
-    console.error("Network error fetching homepage:", err);
+    const json = await res.json();
+    // Single Types return data as an object: { data: { id, attributes: { ... } } }
+    // In Strapi v5, it's often flattened or accessed via json.data
+    return json.data;
+  } catch (err) {
+    console.error('Network error fetching homepage:', err);
     return null;
   }
 }
