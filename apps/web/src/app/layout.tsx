@@ -5,6 +5,8 @@ import { WebVitals } from '@/lib/axiom/client';
 import Footer from '../components/layout/Footer';
 import Header from '../components/layout/Header';
 
+export const dynamic = 'force-dynamic'; // Opt into dynamic rendering for this layout and all nested pages/components
+
 const poppins = Poppins({
   variable: '--font-poppins',
   weight: ['400', '500', '600', '700'],

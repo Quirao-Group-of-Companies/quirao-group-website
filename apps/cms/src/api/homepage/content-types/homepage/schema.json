@@ -11,15 +11,30 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "hero": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": ["images", "files", "videos", "audios"]
+    "HeroSection": {
+      "type": "component",
+      "component": "blocks.hero-section",
+      "repeatable": true
     },
-    "cards": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": ["images", "files", "videos", "audios"]
+    "AboutUs": {
+      "type": "component",
+      "component": "blocks.about-us",
+      "repeatable": true
+    },
+    "SubPreview": {
+      "type": "component",
+      "component": "blocks.sub-preview",
+      "repeatable": true
+    },
+    "Achievements": {
+      "type": "component",
+      "component": "blocks.cards",
+      "repeatable": true
+    },
+    "FAQs": {
+      "type": "component",
+      "component": "blocks.fa-qs",
+      "repeatable": true
     }
   }
 }

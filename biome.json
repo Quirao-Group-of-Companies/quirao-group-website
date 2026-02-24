@@ -31,7 +31,6 @@
         "noRedundantAlt": "error",
         "useAltText": "error",
         "useAnchorContent": "error"
-
       },
       "recommended": true,
       "style": {

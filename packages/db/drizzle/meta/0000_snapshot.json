@@ -89,9 +89,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "articles_slug_key": {
-          "columns": [
-            "slug"
-          ],
+          "columns": ["slug"],
           "nullsNotDistinct": false,
           "name": "articles_slug_key"
         }
@@ -218,12 +216,7 @@
   "enums": {
     "public.article_category": {
       "name": "article_category",
-      "values": [
-        "News",
-        "Announcement",
-        "Industry Insight",
-        "etc..."
-      ],
+      "values": ["News", "Announcement", "Industry Insight", "etc..."],
       "schema": "public"
     }
   },
