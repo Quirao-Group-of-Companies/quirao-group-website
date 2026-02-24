@@ -1,7 +1,7 @@
 import qs from 'qs';
 
 const STRAPI_URL = process.env.STRAPI_URL;
-const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
+const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 export async function getArticles(slug?: string) {
   const query = qs.stringify({
@@ -13,7 +13,7 @@ export async function getArticles(slug?: string) {
 
   const res = await fetch(`${STRAPI_URL}/api/articles?${query}`, {
     headers: {
-      Authorization: `Bearer ${STRAPI_TOKEN}`,
+      Authorization: `Bearer ${STRAPI_API_TOKEN}`,
     },
     next: { revalidate: 60 },
   });
@@ -40,21 +40,25 @@ export async function getHomepage() {
       FAQs: { populate: '*' },
     },
   });
-
+  try {
   const res = await fetch(`${STRAPI_URL}/api/homepage?${query}`, {
     headers: {
-      Authorization: `Bearer ${STRAPI_TOKEN}`,
+      Authorization: `Bearer ${STRAPI_API_TOKEN}`,
     },
     next: { revalidate: 60 },
   });
 
   if (!res.ok) {
-    throw new Error(`Failed to fetch homepage: ${res.status}`);
+    console.warn(`Strapi Homepage fetch failed: ${res.status}`);
+      return null;
   }
 
   const json = await res.json();
-
   // Single Types return data as an object: { data: { id, attributes: { ... } } }
   // In Strapi v5, it's often flattened or accessed via json.data
   return json.data;
+} catch (err) {
+    console.error("Network error fetching homepage:", err);
+    return null;
+  }
 }

@@ -3,6 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": ["STRAPI_URL", "STRAPI_API_TOKEN"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "build/**"]
     },
     "lint": {
@@ -14,6 +15,9 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "types": {
+      "cache": false
     }
   }
 }
