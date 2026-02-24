@@ -28,6 +28,7 @@
     "turbo": "latest"
   },
   "dependencies": {
+    "@axiomhq/logging": "^0.2.0",
     "@axiomhq/nextjs": "^0.2.0",
     "@supabase/supabase-js": "^2.95.3",
     "resend": "^6.9.2",
