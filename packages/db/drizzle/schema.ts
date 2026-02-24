@@ -1,4 +1,4 @@
-import { pgTable, unique, uuid, varchar, text, jsonb, timestamp, pgEnum } from "drizzle-orm/pg-core"
+import { pgTable, unique, uuid, varchar, text, jsonb, timestamp, pgEnum, boolean } from "drizzle-orm/pg-core"
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -40,6 +40,9 @@ export const applicationForms = pgTable("application_forms", {
 	resumeFile: varchar("resume_file").notNull(),
 	coverLetter: text("cover_letter"),
 	createdAt: timestamp("created_at", { withTimezone: true, mode: 'string' }).defaultNow(),
+	sss: boolean("sss").default(false).notNull(),
+	philhealth: boolean("philhealth").default(false).notNull(),
+	pagIbig: boolean("pag_ibig").default(false).notNull(),
 });
 
 // --- ZOD SCHEMAS ---
