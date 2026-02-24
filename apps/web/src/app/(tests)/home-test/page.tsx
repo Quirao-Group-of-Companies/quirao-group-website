@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { getHomepage } from '@/app/lib/services/strapi-homepage';
+import { getHomepage } from '@/lib/services/strapi-homepage';
 
 // app/types.ts (or inside your page)
 interface StrapiImage {

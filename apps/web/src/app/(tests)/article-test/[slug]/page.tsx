@@ -2,7 +2,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getArticles } from '@/app/lib/services/strapi-articles';
+import { getArticles } from '@/lib/services/strapi-articles';
 
 interface StrapiImage {
   id: number;

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getArticles } from '@/app/lib/services/strapi-articles';
+import { getArticles } from '@/lib/services/strapi-articles';
 
 interface StrapiImage {
   id: number;
