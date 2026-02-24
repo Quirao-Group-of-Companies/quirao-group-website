@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-qgc-white px-6 md:px-16 py-12">
       <div className="flex justify-end space-x-4 mb-6">
-        <Link href="#" className="w-5 h-5 flex items-center justify-center text-white rounded-full hover:opacity-80 transition">
+        <Link href="https://www.facebook.com/quiraogroup" className="w-5 h-5 flex items-center justify-center text-white rounded-full hover:opacity-80 transition">
           <FaFacebook className="w-5 h-5 text-qgc-black" />
         </Link>
         <Link href="#" className="w-5 h-5 flex items-center justify-center bg-qgc-black text-white rounded-full hover:opacity-80 transition">
@@ -34,7 +34,9 @@ export default function Footer() {
             className="object-contain"
           />
           <p className="text-gray-700 text-sm">
-            Huervana St. Lapaz, Iloilo City
+            3/F Fancom Bldg.,<br />
+            Huervana St. Burgos-Mabini<br/>
+            La Paz, Iloilo City
           </p>
         </div>
 

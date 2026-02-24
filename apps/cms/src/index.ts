@@ -1,20 +1,18 @@
-// import type { Core } from '@strapi/strapi';
-
+// apps/cms/src/index.ts
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/* { strapi }: { strapi: Core.Strapi } */) {},
+  register() {
+    // We cast 'err' to 'any' or 'NodeJS.ErrnoException' to access .code
+    process.on('uncaughtException', (err: NodeJS.ErrnoException) => {
+      if (err.code === 'EBUSY') {
+        console.warn('Recovered from EBUSY file-lock error. Strapi will continue running.');
+        return;
+      }
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+      // For any other error, log it and exit
+      console.error('Uncaught Exception:', err);
+      process.exit(1);
+    });
+  },
+
+  bootstrap() {},
 };
