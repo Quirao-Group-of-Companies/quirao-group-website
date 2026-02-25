@@ -10,7 +10,7 @@ export async function getAboutUsPage() {
         // Use the exact attribute names from your schema
         heroSection: {
           populate: ['image'],
-        },  
+        },
         aboutUs: {
           populate: ['image'],
         },

@@ -1,8 +1,8 @@
 // packages/db/drizzle.config.ts
 
+import path from 'node:path';
 import * as dotenv from 'dotenv';
 import { defineConfig } from 'drizzle-kit';
-import path from 'node:path';
 
 // Resolves to: current_folder/../../../.env
 // Adjust the "../" count if your folder structure is different
