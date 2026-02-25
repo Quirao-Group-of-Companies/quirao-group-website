@@ -13,7 +13,8 @@
       "!**/.next",
       "!**/dist",
       "!apps/cms/.cache",
-      "!apps/cms/build"
+      "!apps/cms/build",
+      "!apps/cms/types/generated/**"
     ]
   },
   "formatter": {
