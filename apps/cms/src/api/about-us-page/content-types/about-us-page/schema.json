@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_us_pages",
+  "info": {
+    "singularName": "about-us-page",
+    "pluralName": "about-us-pages",
+    "displayName": "About us page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroSection": {
+      "type": "component",
+      "component": "blocks.hero-section",
+      "repeatable": false
+    },
+    "aboutUs": {
+      "type": "component",
+      "component": "blocks.about-us",
+      "repeatable": false
+    },
+    "missionVision": {
+      "type": "component",
+      "component": "blocks.cards",
+      "repeatable": true
+    },
+    "qgcGroupStructure": {
+      "type": "component",
+      "component": "blocks.banner",
+      "repeatable": false
+    },
+    "meetOurLeaders": {
+      "type": "component",
+      "component": "blocks.cards",
+      "repeatable": true
+    }
+  }
+}
