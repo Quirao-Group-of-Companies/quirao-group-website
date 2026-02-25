@@ -23,7 +23,10 @@ export interface BlocksCards extends Struct.ComponentSchema {
   attributes: {
     cta: Schema.Attribute.Component<'elements.link', false>;
     description: Schema.Attribute.Text;
-    icon: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios', true>;
+    icon: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
   };
@@ -95,7 +98,7 @@ export interface ElementsLogo extends Struct.ComponentSchema {
 }
 
 declare module '@strapi/strapi' {
-  export namespace Public {
+  export module Public {
     export interface ComponentSchemas {
       'blocks.about-us': BlocksAboutUs;
       'blocks.cards': BlocksCards;

@@ -1,75 +1,48 @@
-'use client';
 
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import FAQItem from '../components/ui/FAQItem';
 import { achievements, type Business, blogs, businesses, faqs, slides } from './data/homepage-data';
-
+import HeroCarousel from '@/components/ui/HeroCarousel';
+import { getHomepage } from '@/lib/services/strapi-homepage';
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
 ========================================================= */
 
-export default function Home() {
+export default async function Home() {
+
   /* ---------- Hero State ---------- */
-  const [current, setCurrent] = useState(0);
+  const data = await getHomepage();
+
+  if (!data) {
+    return <p>No content available</p>;
+  }
+
+  const heroSlides =
+    data.HeroSection?.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      image: item.image
+        ? {
+            url: item.image.url.startsWith('http')
+            ? item.image.url
+            : `${process.env.STRAPI_URL}${item.image.url}`,
+          }
+        : null,
+    })) || [];
+
 
   /* ---------- Active Business State ---------- */
-  const [activeBusiness, setActiveBusiness] = useState<Business>(businesses[0]);
+  // const [activeBusiness, setActiveBusiness] = useState<Business>(businesses[0]);
 
-  /* ---------- Auto Slide Effect ---------- */
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 5000);
 
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
       {/* =====================================================
          HERO CAROUSEL
       ===================================================== */}
-      <section className="relative h-screen overflow-hidden">
-        {slides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
-            }`}
-          >
-            <Image src={slide.image} alt={slide.title} fill className="object-cover" priority />
-
-            <div className="absolute inset-0 bg-black/40" />
-
-            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-6">
-              <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{slide.title}</h1>
-              <p className="text-white text-lg md:text-xl mb-6 max-w-2xl">{slide.description}</p>
-              <button
-                type="button"
-                className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
-              >
-                Learn More
-              </button>
-            </div>
-          </div>
-        ))}
-
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-          {slides.map((slide, idx) => (
-            <button
-              type="button"
-              key={slide.id}
-              onClick={() => setCurrent(idx)}
-              aria-label={`Go to slide ${idx + 1}`}
-              className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
-                idx === current ? 'bg-white' : 'bg-white/50'
-              }`}
-            />
-          ))}
-        </div>
-      </section>
-
+          <HeroCarousel slides={heroSlides} />
       {/* =====================================================
          WHAT WE DO SECTION
       ===================================================== */}
@@ -108,7 +81,7 @@ export default function Home() {
       {/* =====================================================
          OUR BUSINESS SECTION
       ===================================================== */}
-      <section className="bg-white px-6 py-20">
+      {/* <section className="bg-white px-6 py-20">
         <h2 className="text-4xl text-qgc-black font-bold mb-16">Business Preview</h2>
 
         <div className="flex flex-col md:flex-row gap-12 mb-12 bg-qgc-gray-soft">
@@ -139,7 +112,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Business Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {businesses.map((b) => (
             <button
@@ -161,7 +133,7 @@ export default function Home() {
             </button>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* =====================================================
          ACHIEVEMENTS SECTION
