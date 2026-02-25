@@ -17,9 +17,18 @@ export async function getHomepage() {
         Achievements: {
           populate: ['image', 'icon'],
         },
-        SubPreview: {
-          populate: '*',
+      SubPreview: {
+        populate: {
+          image: true,        // main preview image
+          cardImage: true,    // card image
+          logo: {
+            populate: {
+              image: true,    // <-- THIS is the missing one
+            },
+          },
+          cta: true,
         },
+      },
         FAQs: {
           populate: '*',
         },

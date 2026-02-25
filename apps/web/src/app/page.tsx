@@ -5,6 +5,9 @@ import FAQItem from '../components/ui/FAQItem';
 import { achievements, type Business, blogs, businesses, faqs, slides } from './data/homepage-data';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import { getHomepage } from '@/lib/services/strapi-homepage';
+import OurBusinessPreview from '@/components/homepage/BusinessPreview';
+
+
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
 ========================================================= */
@@ -55,11 +58,24 @@ export default async function Home() {
     }
   : null;
 
-  /* ---------- Active Business State ---------- */
-  // const [activeBusiness, setActiveBusiness] = useState<Business>(businesses[0]);
+  // Business Preview
+  const businessesData = data.SubPreview.map((b: any) => ({
+  id: b.id,
+  name: b.logo?.logoName || `business-${b.id}`,
+  description: b.description,
 
+  // MAIN PREVIEW IMAGE
+  image: b.image?.url || null,
+
+  // CARD IMAGE (small selectable ones)
+  cardImage: b.cardImage?.url || null,
+
+  // LOGO IMAGE (nested)
+  logo: b.logo?.image?.url || null,
+
+  cta: b.cta || null,
+}));
   console.log('Homepage Data:', data);
-
   return (
     <>
       {/* =====================================================
@@ -134,59 +150,8 @@ export default async function Home() {
          OUR BUSINESS SECTION
       ===================================================== */}
 
-      {/* <section className="bg-white px-6 py-20">
-        <h2 className="text-4xl text-qgc-black font-bold mb-16">Business Preview</h2>
+      <OurBusinessPreview businesses={businessesData} />
 
-        <div className="flex flex-col md:flex-row gap-12 mb-12 bg-qgc-gray-soft">
-          <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden">
-            <Image
-              src={activeBusiness.topImage}
-              alt={activeBusiness.name}
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <div className="md:w-1/2 text-qgc-black px-4 py-4 flex flex-col gap-6 relative">
-            <Image
-              src={activeBusiness.wordLogo}
-              alt={activeBusiness.name}
-              width={150}
-              height={20}
-              className="object-contain  self-center"
-            />
-            <p>{activeBusiness.description}</p>
-            <button
-              type="button"
-              className="bg-qgc-black h-10 text-white px-6 py-2 rounded-lg w-max md:absolute bottom-15 hover:bg-qgc-gray-deep transition"
-            >
-              Read More
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {businesses.map((b) => (
-            <button
-              type="button"
-              key={b.id}
-              onClick={() => setActiveBusiness(b)}
-              className="relative w-full h-40 md:h-48 rounded-lg overflow-hidden cursor-pointer group"
-            >
-              <Image
-                src={b.cardImage}
-                alt={b.name}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                <Image src={b.logo} alt={b.name} width={100} height={100} />
-              </div>
-            </button>
-          ))}
-        </div>
-      </section> */}
 
       {/* =====================================================
          ACHIEVEMENTS SECTION
