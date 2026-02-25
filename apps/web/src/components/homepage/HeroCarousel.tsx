@@ -11,6 +11,10 @@ interface Slide {
     url: string;
     alternativeText?: string;
   } | null;
+  cta?: {
+    title: string;
+    href: string | null;
+  } | null;
 }
 
 interface Props {
@@ -59,7 +63,27 @@ export default function HeroCarousel({ slides }: Props) {
             </h1>
             <p className="text-white text-lg md:text-xl mb-6 max-w-2xl">
               {slide.description}
-            </p>
+                  </p>
+
+            {slide.cta?.title && (
+                slide.cta.href ? (
+                    <a
+                    href={slide.cta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
+                    >
+                    {slide.cta.title}
+                    </a>
+                ) : (
+                    <button
+                    className="bg-white text-black px-6 py-3 rounded-lg font-semibold  cursor-not-allowed"
+                    disabled
+                    >
+                    {slide.cta.title}
+                    </button>
+                )
+                )}
           </div>
         </div>
       ))}

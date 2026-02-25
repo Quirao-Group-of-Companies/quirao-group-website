@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import FAQItem from '../components/ui/FAQItem';
 import { achievements, type Business, blogs, businesses, faqs, slides } from './data/homepage-data';
-import HeroCarousel from '@/components/ui/HeroCarousel';
+import HeroCarousel from '@/components/homepage/HeroCarousel';
 import { getHomepage } from '@/lib/services/strapi-homepage';
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
@@ -17,25 +17,27 @@ export default async function Home() {
     return <p>No content available</p>;
   }
 
-  const heroSlides =
-    data.HeroSection?.map((item: any) => ({
-      id: item.id,
-      title: item.title,
-      description: item.description,
-      image: item.image
-        ? {
-            url: item.image.url.startsWith('http')
-            ? item.image.url
-            : `${process.env.STRAPI_URL}${item.image.url}`,
-          }
-        : null,
-    })) || [];
-
+ const heroSlides =
+  data.HeroSection?.map((item: any) => ({
+    id: item.id,
+    title: item.title,
+    description: item.description,
+    image: item.image
+      ? {
+          url: item.image.url,
+          alternativeText: item.image.alternativeText,
+        }
+      : null,
+    cta: item.cta
+      ? {
+          title: item.cta.title,
+          href: item.cta.href,
+        }
+      : null,
+  })) || [];
 
   /* ---------- Active Business State ---------- */
   // const [activeBusiness, setActiveBusiness] = useState<Business>(businesses[0]);
-
-
 
   return (
     <>

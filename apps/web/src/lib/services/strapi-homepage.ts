@@ -9,16 +9,16 @@ export async function getHomepage() {
       populate: {
         // Use the exact attribute names from your schema
         HeroSection: {
-          populate: ['image'],
+          populate: '*',
         },
         AboutUs: {
-          populate: ['image'],
+          populate: '*',
         },
         Achievements: {
           populate: ['image', 'icon'],
         },
         SubPreview: {
-          populate: ['image'],
+          populate: '*',
         },
         FAQs: {
           populate: '*',
