@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const { execSync } = require('node:child_process');
 
 const branchName = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
 
@@ -16,6 +16,8 @@ if (!validBranchRegex.test(branchName)) {
   console.error('Branch names must follow: <type>/<short-description>');
   console.error('Allowed types: feat/, fix/, docs/, refactor/, chore/');
   console.error('Example: feat/google-auth');
+  console.error('To fix this, rename your branch with:');
+  console.error('\x1b[32m%s\x1b[0m', `   git branch -m <correct-type>/<description>`);
   console.error('\x1b[31m%s\x1b[0m', '------------------------------------------------------');
   process.exit(1);
 }
