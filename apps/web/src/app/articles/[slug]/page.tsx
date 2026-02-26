@@ -8,11 +8,11 @@ export default function News() {
 
 // Example code for article page:
 
-// import { getArticles } from "@/app/lib/services/strapi-articles";
-// import { notFound } from "next/navigation";
-// import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-// import Link from "next/link";
-// import Image from "next/image";
+// import { BlocksRenderer } from '@strapi/blocks-react-renderer';
+// import Image from 'next/image';
+// import Link from 'next/link';
+// import { notFound } from 'next/navigation';
+// import { getArticles } from '@/lib/services/strapi-articles';
 
 // interface StrapiImage {
 //   id: number;
@@ -20,11 +20,7 @@ export default function News() {
 //   alternativeText?: string;
 // }
 
-// export default async function ArticleDetailPage({
-//   params,
-// }: {
-//   params: Promise<{ slug: string }>;
-// }) {
+// export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
 //   const { slug } = await params;
 //   const article = await getArticles(slug);
 
@@ -32,19 +28,12 @@ export default function News() {
 //     notFound();
 //   }
 
-//   const {
-//     title,
-//     content_body,
-//     author_name,
-//     cover_image,
-//     content_media,
-//     publishedAt,
-//   } = article;
+//   const { title, content_body, author_name, cover_image, content_media, publishedAt } = article;
 
 //   const getImageUrl = (image: StrapiImage | null) => {
 //     if (!image?.url) return null;
-//     if (image.url.startsWith("http")) return image.url;
-//     return `${process.env.STRAPI_URL || "http://127.0.0.1:1337"}${image.url}`;
+//     if (image.url.startsWith('http')) return image.url;
+//     return `${process.env.STRAPI_URL || 'http://127.0.0.1:1337'}${image.url}`;
 //   };
 
 //   const coverUrl = getImageUrl(cover_image);
@@ -52,16 +41,14 @@ export default function News() {
 //   return (
 //     <article className="max-w-4xl mx-auto px-6 py-16 font-sans min-h-screen">
 //       <header className="mb-12 text-center">
-//         <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-//           {title}
-//         </h1>
+//         <h1 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">{title}</h1>
 //         <div className="text-gray-400 font-medium">
-//           By {author_name || "Staff Writer"} •{" "}
+//           By {author_name || 'Staff Writer'} •{' '}
 //           {publishedAt
 //             ? new Date(publishedAt).toLocaleDateString(undefined, {
-//                 dateStyle: "long",
+//                 dateStyle: 'long',
 //               })
-//             : "Recently"}
+//             : 'Recently'}
 //         </div>
 //       </header>
 
@@ -101,7 +88,7 @@ export default function News() {
 //                 >
 //                   <Image
 //                     src={url}
-//                     alt={file.alternativeText || "Gallery image"}
+//                     alt={file.alternativeText || 'Gallery image'}
 //                     width={600}
 //                     height={400}
 //                     className="w-full h-72 object-cover hover:scale-105 transition duration-700"

@@ -1,21 +1,21 @@
 {
-  "collectionName": "components_blocks_sub_previews",
+  "collectionName": "components_blocks_sub_contacts",
   "info": {
-    "displayName": "Sub Preview",
-    "icon": "apps"
+    "displayName": "Sub Contacts"
   },
   "options": {},
   "attributes": {
     "subName": {
       "type": "string"
     },
-    "description": {
+    "address": {
       "type": "text"
     },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": ["images", "files", "videos", "audios"]
+    "contactNum": {
+      "type": "text"
+    },
+    "email": {
+      "type": "text"
     },
     "logo": {
       "type": "component",
