@@ -2,7 +2,8 @@
 import Image from 'next/image';
 
 import FAQItem from '../components/ui/FAQItem';
-import { achievements, type Business, blogs, businesses, faqs, slides } from './data/homepage-data';
+// import { achievements, type Business, blogs, businesses, faqs, slides } from './data/homepage-data';
+import { achievements, blogs } from './data/homepage-data';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import { getHomepage } from '@/lib/services/strapi-homepage';
 import OurBusinessPreview from '@/components/homepage/BusinessPreview';
@@ -11,6 +12,12 @@ import OurBusinessPreview from '@/components/homepage/BusinessPreview';
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
 ========================================================= */
+
+type FAQ = {
+  id: number;
+  question: string;
+  answer: string;
+};
 
 export default async function Home() {
 
@@ -66,16 +73,23 @@ export default async function Home() {
 
   // MAIN PREVIEW IMAGE
   image: b.image?.url || null,
-
   // CARD IMAGE (small selectable ones)
   cardImage: b.cardImage?.url || null,
-
   // LOGO IMAGE (nested)
   logo: b.logo?.image?.url || null,
 
   cta: b.cta || null,
-}));
-  console.log('Homepage Data:', data);
+  }));
+  
+  // =========================FAQ data =======================//
+  const faqsData: FAQ[] =
+    data.FAQs?.map((faq: any): FAQ => ({
+      id: faq.id,
+      question: faq.question,
+      answer: faq.answer,
+    })) || [];
+    console.log('Homepage Data:', data);
+
   return (
     <>
       {/* =====================================================
@@ -221,16 +235,20 @@ export default async function Home() {
       {/* =====================================================
           FAQ SECTION
       ===================================================== */}
-      <section className="bg-gray-100 px-6 py-24">
-        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
-          Frequently Asked Questions
-        </h2>
-        <div className="max-w-4xl mx-auto space-y-4">
-          {faqs.map((faq) => (
-            <FAQItem key={faq.id} question={faq.question} answer={faq.answer} />
-          ))}
-        </div>
-      </section>
+        <section className="bg-gray-100 px-6 py-24">
+          <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
+            Frequently Asked Questions
+          </h2>
+          <div className="max-w-4xl mx-auto space-y-4">
+            {faqsData.map((faq) => (
+              <FAQItem
+                key={faq.id}
+                question={faq.question}
+                answer={faq.answer}
+              />
+            ))}
+          </div>
+        </section>
     </>
   );
 }
