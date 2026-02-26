@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "careers_pages",
+  "info": {
+    "singularName": "careers-page",
+    "pluralName": "careers-pages",
+    "displayName": "Careers page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "heroSection": {
+      "type": "component",
+      "component": "blocks.hero-section",
+      "repeatable": false
+    },
+    "overview": {
+      "type": "component",
+      "component": "blocks.about-us",
+      "repeatable": false
+    },
+    "overviewVideo": {
+      "type": "component",
+      "component": "elements.link",
+      "repeatable": false
+    },
+    "subsidiaryOverview": {
+      "type": "component",
+      "component": "blocks.sub-preview",
+      "repeatable": true
+    },
+    "valuesSection": {
+      "type": "component",
+      "component": "blocks.highlights",
+      "repeatable": false
+    },
+    "whyJoinUs": {
+      "type": "component",
+      "component": "blocks.highlights",
+      "repeatable": false
+    },
+    "subContacts": {
+      "type": "component",
+      "component": "blocks.sub-contacts",
+      "repeatable": true
+    }
+  }
+}

@@ -2,11 +2,11 @@ export default function Newsroom() {
   return <h1>Hello from Article list section</h1>;
 }
 
-//Example code for articles list page:
+// Example code for articles list page:
 
-// import { getArticles } from "@/app/lib/services/strapi-articles";
-// import Link from "next/link";
-// import Image from "next/image";
+// import Image from 'next/image';
+// import Link from 'next/link';
+// import { getArticles } from '@/lib/services/strapi-articles';
 
 // interface StrapiImage {
 //   id: number;
@@ -39,8 +39,8 @@ export default function Newsroom() {
 
 //           const getImageUrl = (image: StrapiImage | null) => {
 //             if (!image?.url) return null;
-//             if (image.url.startsWith("http")) return image.url;
-//             return `${process.env.STRAPI_URL || "http://127.0.0.1:1337"}${image.url}`;
+//             if (image.url.startsWith('http')) return image.url;
+//             return `${process.env.STRAPI_URL || 'http://127.0.0.1:1337'}${image.url}`;
 //           };
 
 //           const imageUrl = getImageUrl(cover_image);
@@ -70,12 +70,8 @@ export default function Newsroom() {
 //                 <h2 className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors">
 //                   {title}
 //                 </h2>
-//                 <p className="text-gray-400 line-clamp-2 text-sm leading-relaxed">
-//                   {excerpt}
-//                 </p>
-//                 <div className="mt-4 text-blue-400 text-sm font-semibold">
-//                   Read more →
-//                 </div>
+//                 <p className="text-gray-400 line-clamp-2 text-sm leading-relaxed">{excerpt}</p>
+//                 <div className="mt-4 text-blue-400 text-sm font-semibold">Read more →</div>
 //               </div>
 //             </Link>
 //           );
