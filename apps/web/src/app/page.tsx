@@ -1,9 +1,8 @@
 
 import Image from 'next/image';
 
-import FAQItem from '../components/ui/FAQItem';
-// import { achievements, type Business, blogs, businesses, faqs, slides } from './data/homepage-data';
-import { achievements, blogs } from './data/homepage-data';
+import FAQItem from '../components/homepage/FAQItem';
+import { blogs } from './data/homepage-data';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import { getHomepage } from '@/lib/services/strapi-homepage';
 import OurBusinessPreview from '@/components/homepage/BusinessPreview';
@@ -12,6 +11,13 @@ import OurBusinessPreview from '@/components/homepage/BusinessPreview';
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
 ========================================================= */
+
+type Achievement = {
+  id: number;
+  title: string;
+  description: string;
+  image: string | null;
+};
 
 type FAQ = {
   id: number;
@@ -88,7 +94,18 @@ export default async function Home() {
       question: faq.question,
       answer: faq.answer,
     })) || [];
-    console.log('Homepage Data:', data);
+  console.log('Homepage Data:', data);
+  
+    // =========================
+    // Achievements data (CMS)
+    // =========================
+    const achievementsData: Achievement[] =
+      data.Achievements?.map((item: any): Achievement => ({
+        id: item.id,
+        title: item.title || item.description,
+        description: item.description,
+        image: item.image?.url || null,
+      })) || [];
 
   return (
     <>
@@ -174,19 +191,24 @@ export default async function Home() {
         <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">Our Achievements</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-          {achievements.map((achievement) => (
+          {achievementsData.map((achievement) => (
             <div key={achievement.id} className="group cursor-pointer">
               <div className="relative w-full h-100 rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src={achievement.image}
-                  alt={achievement.title}
-                  fill
-                  className="object-contain p-15 transition-transform duration-500 ease-in-out group-hover:scale-110"
-                />
+                {achievement.image && (
+                  <Image
+                    src={achievement.image}
+                    alt={achievement.title}
+                    fill
+                    className="object-contain p-15 transition-transform duration-500 ease-in-out group-hover:scale-110"
+                  />
+                )}
+
                 <div className="absolute inset-0 group-hover:bg-black/10 transition duration-500" />
 
                 <div className="absolute bottom-6 left-0 right-0 text-center px-4">
-                  <h3 className="text-qgc-black text-xl font-semibold">{achievement.title}</h3>
+                  <h3 className="text-qgc-black text-xl font-semibold">
+                    {achievement.title}
+                  </h3>
                 </div>
               </div>
             </div>
