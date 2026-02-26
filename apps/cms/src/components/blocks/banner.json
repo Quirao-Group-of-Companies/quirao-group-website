@@ -1,12 +1,11 @@
 {
-  "collectionName": "components_blocks_sub_previews",
+  "collectionName": "components_blocks_banners",
   "info": {
-    "displayName": "Sub Preview",
-    "icon": "apps"
+    "displayName": "Banner"
   },
   "options": {},
   "attributes": {
-    "subName": {
+    "title": {
       "type": "string"
     },
     "description": {
@@ -17,20 +16,10 @@
       "multiple": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
-    "logo": {
-      "type": "component",
-      "component": "elements.logo",
-      "repeatable": false
-    },
     "cta": {
       "type": "component",
       "component": "elements.link",
       "repeatable": false
-    },
-    "cardImage": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": ["images", "files", "videos", "audios"]
     }
   },
   "config": {}

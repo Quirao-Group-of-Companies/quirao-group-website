@@ -14,6 +14,19 @@ export interface BlocksAboutUs extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksBanner extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_banners';
+  info: {
+    displayName: 'Banner';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'elements.link', false>;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksCards extends Struct.ComponentSchema {
   collectionName: 'components_blocks_cards';
   info: {
@@ -58,6 +71,36 @@ export interface BlocksHeroSection extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksHighlights extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_highlights';
+  info: {
+    displayName: 'Highlights';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'elements.link', false>;
+    description: Schema.Attribute.Blocks;
+    headline: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface BlocksSubContacts extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_sub_contacts';
+  info: {
+    displayName: 'Sub Contacts';
+  };
+  attributes: {
+    address: Schema.Attribute.Text;
+    cardImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    contactNum: Schema.Attribute.Text;
+    cta: Schema.Attribute.Component<'elements.link', false>;
+    email: Schema.Attribute.Text;
+    logo: Schema.Attribute.Component<'elements.logo', false>;
+    subName: Schema.Attribute.String;
+  };
+}
+
 export interface BlocksSubPreview extends Struct.ComponentSchema {
   collectionName: 'components_blocks_sub_previews';
   info: {
@@ -70,6 +113,19 @@ export interface BlocksSubPreview extends Struct.ComponentSchema {
     description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     logo: Schema.Attribute.Component<'elements.logo', false>;
+    subName: Schema.Attribute.String;
+  };
+}
+
+export interface ElementsItem extends Struct.ComponentSchema {
+  collectionName: 'components_elements_items';
+  info: {
+    displayName: 'Item';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    text: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -101,10 +157,14 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'blocks.about-us': BlocksAboutUs;
+      'blocks.banner': BlocksBanner;
       'blocks.cards': BlocksCards;
       'blocks.fa-qs': BlocksFaQs;
       'blocks.hero-section': BlocksHeroSection;
+      'blocks.highlights': BlocksHighlights;
+      'blocks.sub-contacts': BlocksSubContacts;
       'blocks.sub-preview': BlocksSubPreview;
+      'elements.item': ElementsItem;
       'elements.link': ElementsLink;
       'elements.logo': ElementsLogo;
     }
