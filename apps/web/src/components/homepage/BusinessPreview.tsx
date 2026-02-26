@@ -1,26 +1,30 @@
 'use client';
-import { useState } from 'react';
 import Image from 'next/image';
+import { useState } from 'react';
+import type { Business } from '@/types/homepage';
 
-export default function OurBusinessPreview({ businesses }: { businesses: any[] }) {
-  if (!businesses || businesses.length === 0) return null;
+export default function OurBusinessPreview({ businesses }: { businesses: Business[] }) {
+  const [activeBusiness, setActiveBusiness] = useState(businesses?.[0]);
 
-  const [activeBusiness, setActiveBusiness] = useState(businesses[0]);
+  if (!businesses || businesses.length === 0) {
+    return null;
+  }
+
+  // Fallback if activeBusiness is somehow lost but businesses exists
+  const currentBusiness = activeBusiness || businesses[0];
 
   return (
     <section className="bg-white px-6 py-20">
-      <h2 className="text-4xl text-qgc-black font-bold mb-16">
-        Business Preview
-      </h2>
+      <h2 className="text-4xl text-qgc-black font-bold mb-16">Business Preview</h2>
 
       {/* Active Business */}
       <div className="flex flex-col md:flex-row gap-12 mb-12 bg-qgc-gray-soft">
         {/* MAIN IMAGE */}
         <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden">
-          {activeBusiness.image && (
+          {currentBusiness.image && (
             <Image
-              src={activeBusiness.image}
-              alt={activeBusiness.name}
+              src={currentBusiness.image}
+              alt={currentBusiness.name}
               fill
               className="object-cover"
             />
@@ -29,24 +33,24 @@ export default function OurBusinessPreview({ businesses }: { businesses: any[] }
 
         <div className="md:w-1/2 text-qgc-black px-4 py-4 flex flex-col gap-6 relative">
           {/* LOGO IMAGE */}
-          {activeBusiness.logo && (
+          {currentBusiness.logo && (
             <Image
-              src={activeBusiness.logo}
-              alt={activeBusiness.name}
+              src={currentBusiness.logo}
+              alt={currentBusiness.name}
               width={150}
               height={80}
               className="object-contain self-center"
             />
           )}
 
-          <p>{activeBusiness.description}</p>
+          <p>{currentBusiness.description}</p>
 
-          {activeBusiness.cta?.href && (
+          {currentBusiness.cta?.href && (
             <a
-              href={activeBusiness.cta.href}
+              href={currentBusiness.cta.href}
               className="bg-qgc-black h-10 text-white px-6 py-2 rounded-lg w-max md:absolute bottom-15 hover:bg-qgc-gray-deep transition"
             >
-              {activeBusiness.cta.title}
+              {currentBusiness.cta.title}
             </a>
           )}
         </div>
@@ -56,6 +60,7 @@ export default function OurBusinessPreview({ businesses }: { businesses: any[] }
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {businesses.map((b) => (
           <button
+            type="button"
             key={b.id}
             onClick={() => setActiveBusiness(b)}
             className="relative w-full h-40 md:h-48 rounded-lg overflow-hidden group"

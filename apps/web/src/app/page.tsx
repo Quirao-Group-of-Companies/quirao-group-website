@@ -1,32 +1,16 @@
-
 import Image from 'next/image';
-
-import FAQItem from '../components/homepage/FAQItem';
-import { blogs } from './data/homepage-data';
+import OurBusinessPreview from '@/components/homepage/BusinessPreview';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import { getHomepage } from '@/lib/services/strapi-homepage';
-import OurBusinessPreview from '@/components/homepage/BusinessPreview';
-
+import type { Achievement, Business, FAQ, HeroItem } from '@/types/homepage';
+import FAQItem from '../components/homepage/FAQItem';
+import { blogs } from './data/homepage-data';
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
 ========================================================= */
 
-type Achievement = {
-  id: number;
-  title: string;
-  description: string;
-  image: string | null;
-};
-
-type FAQ = {
-  id: number;
-  question: string;
-  answer: string;
-};
-
 export default async function Home() {
-
   /* ---------- Hero State ---------- */
   const data = await getHomepage();
 
@@ -34,78 +18,85 @@ export default async function Home() {
     return <p>No content available</p>;
   }
 
- const heroSlides =
-  data.HeroSection?.map((item: any) => ({
-    id: item.id,
-    title: item.title,
-    description: item.description,
-    image: item.image
-      ? {
-          url: item.image.url,
-          alternativeText: item.image.alternativeText,
-        }
-      : null,
-    cta: item.cta
-      ? {
-          title: item.cta.title,
-          href: item.cta.href,
-        }
-      : null,
-  })) || [];
+  const heroSlides: HeroItem[] =
+    data.HeroSection?.map((item: HeroItem) => ({
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      image: item.image
+        ? {
+            url: item.image.url,
+            alternativeText: item.image.alternativeText,
+          }
+        : null,
+      cta: item.cta
+        ? {
+            title: item.cta.title,
+            href: item.cta.href,
+          }
+        : null,
+    })) || [];
 
-  const aboutSection = data.AboutUs && data.AboutUs.length > 0
-  ? {
-      id: data.AboutUs[0].id,
-      title: data.AboutUs[0].title,
-      description: data.AboutUs[0].description,
-      image: data.AboutUs[0].image
-        ? { url: data.AboutUs[0].image.url, alternativeText: data.AboutUs[0].image.alternativeText }
-        : null,
-      cta: data.AboutUs[0].cta
-        ? { title: data.AboutUs[0].cta.title, href: data.AboutUs[0].cta.href }
-        : null,
-      additionalComponents: {
-        subtitle: data.AboutUs[0].subtitle,
-        cards: data.AboutUs[0].cards,
-      },
-    }
-  : null;
+  const aboutSection =
+    data.AboutUs && data.AboutUs.length > 0
+      ? {
+          id: data.AboutUs[0].id,
+          title: data.AboutUs[0].title,
+          description: data.AboutUs[0].description,
+          image: data.AboutUs[0].image
+            ? {
+                url: data.AboutUs[0].image.url,
+                alternativeText: data.AboutUs[0].image.alternativeText,
+              }
+            : null,
+          cta: data.AboutUs[0].cta
+            ? { title: data.AboutUs[0].cta.title, href: data.AboutUs[0].cta.href }
+            : null,
+          additionalComponents: {
+            subtitle: data.AboutUs[0].subtitle,
+            cards: data.AboutUs[0].cards,
+          },
+        }
+      : null;
 
   // Business Preview
-  const businessesData = data.SubPreview.map((b: any) => ({
-  id: b.id,
-  name: b.logo?.logoName || `business-${b.id}`,
-  description: b.description,
+  const businessesData: Business[] = data.SubPreview.map((b: any) => ({
+    id: b.id,
+    name: b.logo?.logoName || `business-${b.id}`,
+    description: b.description,
 
-  // MAIN PREVIEW IMAGE
-  image: b.image?.url || null,
-  // CARD IMAGE (small selectable ones)
-  cardImage: b.cardImage?.url || null,
-  // LOGO IMAGE (nested)
-  logo: b.logo?.image?.url || null,
+    // MAIN PREVIEW IMAGE
+    image: b.image?.url || null,
+    // CARD IMAGE (small selectable ones)
+    cardImage: b.cardImage?.url || null,
+    // LOGO IMAGE (nested)
+    logo: b.logo?.image?.url || null,
 
-  cta: b.cta || null,
+    cta: b.cta || null,
   }));
-  
+
   // =========================FAQ data =======================//
   const faqsData: FAQ[] =
-    data.FAQs?.map((faq: any): FAQ => ({
-      id: faq.id,
-      question: faq.question,
-      answer: faq.answer,
-    })) || [];
-  console.log('Homepage Data:', data);
-  
-    // =========================
-    // Achievements data (CMS)
-    // =========================
-    const achievementsData: Achievement[] =
-      data.Achievements?.map((item: any): Achievement => ({
+    data.FAQs?.map(
+      (faq: any): FAQ => ({
+        id: faq.id,
+        question: faq.question,
+        answer: faq.answer,
+      }),
+    ) || [];
+
+  // =========================
+  // Achievements data (CMS)
+  // =========================
+  const achievementsData: Achievement[] =
+    data.Achievements?.map(
+      (item: any): Achievement => ({
         id: item.id,
         title: item.title || item.description,
         description: item.description,
         image: item.image?.url || null,
-      })) || [];
+      }),
+    ) || [];
 
   return (
     <>
@@ -113,7 +104,7 @@ export default async function Home() {
          HERO CAROUSEL
       ===================================================== */}
 
-          <HeroCarousel slides={heroSlides} />
+      <HeroCarousel slides={heroSlides} />
       {/* =====================================================
          WHAT WE DO SECTION
       ===================================================== */}
@@ -183,7 +174,6 @@ export default async function Home() {
 
       <OurBusinessPreview businesses={businessesData} />
 
-
       {/* =====================================================
          ACHIEVEMENTS SECTION
       ===================================================== */}
@@ -206,9 +196,7 @@ export default async function Home() {
                 <div className="absolute inset-0 group-hover:bg-black/10 transition duration-500" />
 
                 <div className="absolute bottom-6 left-0 right-0 text-center px-4">
-                  <h3 className="text-qgc-black text-xl font-semibold">
-                    {achievement.title}
-                  </h3>
+                  <h3 className="text-qgc-black text-xl font-semibold">{achievement.title}</h3>
                 </div>
               </div>
             </div>
@@ -257,20 +245,16 @@ export default async function Home() {
       {/* =====================================================
           FAQ SECTION
       ===================================================== */}
-        <section className="bg-gray-100 px-6 py-24">
-          <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
-            Frequently Asked Questions
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-4">
-            {faqsData.map((faq) => (
-              <FAQItem
-                key={faq.id}
-                question={faq.question}
-                answer={faq.answer}
-              />
-            ))}
-          </div>
-        </section>
+      <section className="bg-gray-100 px-6 py-24">
+        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
+          Frequently Asked Questions
+        </h2>
+        <div className="max-w-4xl mx-auto space-y-4">
+          {faqsData.map((faq) => (
+            <FAQItem key={faq.id} question={faq.question} answer={faq.answer} />
+          ))}
+        </div>
+      </section>
     </>
   );
 }
