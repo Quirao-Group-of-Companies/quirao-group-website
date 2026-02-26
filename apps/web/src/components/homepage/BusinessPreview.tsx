@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import type { Business } from '@/types/homepage';
+import Button from '../ui/Button';
 
 export default function OurBusinessPreview({ businesses }: { businesses: Business[] }) {
   const [activeBusiness, setActiveBusiness] = useState(businesses?.[0]);
@@ -46,12 +47,11 @@ export default function OurBusinessPreview({ businesses }: { businesses: Busines
           <p>{currentBusiness.description}</p>
 
           {currentBusiness.cta?.href && (
-            <a
+            <Button
               href={currentBusiness.cta.href}
-              className="bg-qgc-black h-10 text-white px-6 py-2 rounded-lg w-max md:absolute bottom-15 hover:bg-qgc-gray-deep transition"
-            >
-              {currentBusiness.cta.title}
-            </a>
+              text={currentBusiness.cta.title}
+              className="h-10 px-6 py-2 w-max md:absolute bottom-15"
+            />
           )}
         </div>
       </div>

@@ -1,3 +1,4 @@
+import Button from '@/components/ui/Button';
 import Image from 'next/image';
 import OurBusinessPreview from '@/components/homepage/BusinessPreview';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
@@ -123,7 +124,7 @@ export default async function Home() {
                 />
               </div>
             )}
-            <div className="md:w-1/2 flex flex-col gap-6">
+            <div className="md:w-1/2 flex flex-col gap-6 items-start">
               <h2 className="text-4xl font-bold text-gray-800">{aboutSection.title}</h2>
               {aboutSection.additionalComponents?.subtitle && (
                 <h3 className="text-2xl font-medium text-gray-700">
@@ -134,12 +135,12 @@ export default async function Home() {
                 {aboutSection.description}
               </p>
               {aboutSection.cta?.href && (
-                <a
+                <Button
                   href={aboutSection.cta.href}
-                  className="w-40 px-4 py-2 rounded-md bg-black text-white hover:bg-qgc-gray-deep transition inline-block text-center"
-                >
-                  {aboutSection.cta.title}
-                </a>
+                  text={aboutSection.cta.title}
+                  variant="dark"
+                  className="px-8 py-2 w-fit"
+                />
               )}
 
               {aboutSection.additionalComponents?.cards?.length > 0 && (
@@ -232,12 +233,10 @@ export default async function Home() {
                   <p className="text-gray-600 text-sm leading-relaxed">{blog.description}</p>
                 </div>
 
-                <button
-                  type="button"
-                  className="mt-6 bg-black  text-white rounded-lg  px-6 py-3 text-sm font-medium hover:bg-qgc-gray-deep transition"
-                >
-                  Read More
-                </button>
+                <Button
+                  text="Read More"
+                  className="mt-6 px-6 py-3 text-sm"
+                />
               </div>
             </div>
           ))}

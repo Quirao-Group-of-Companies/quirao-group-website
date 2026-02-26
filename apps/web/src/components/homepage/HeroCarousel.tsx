@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import type { HeroItem } from '@/types/homepage';
+import Button from '../ui/Button';
 
 interface Props {
   slides: HeroItem[];
@@ -54,22 +55,20 @@ export default function HeroCarousel({ slides }: Props) {
 
             {slide.cta?.title &&
               (slide.cta.href ? (
-                <a
+                <Button
                   href={slide.cta.href}
+                  text={slide.cta.title}
+                  variant="secondary"
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white text-black px-6 py-3 rounded-lg font-semibold hover:bg-gray-200 transition"
-                >
-                  {slide.cta.title}
-                </a>
+                  className="px-6 py-3"
+                />
               ) : (
-                <button
-                  type="button"
-                  className="bg-white text-black px-6 py-3 rounded-lg font-semibold  cursor-not-allowed"
+                <Button
+                  text={slide.cta.title}
+                  variant="secondary"
+                  className="px-6 py-3"
                   disabled
-                >
-                  {slide.cta.title}
-                </button>
+                />
               ))}
           </div>
         </div>
