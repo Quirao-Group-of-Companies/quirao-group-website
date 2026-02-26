@@ -2,7 +2,7 @@ import Image from 'next/image';
 import OurBusinessPreview from '@/components/homepage/BusinessPreview';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import { getHomepage } from '@/lib/services/strapi-homepage';
-import type { Achievement, Business, FAQ, HeroItem } from '@/types/homepage';
+import type { Achievement, AboutCard, Business, FAQ, HeroItem } from '@/types/homepage';
 import FAQItem from '../components/homepage/FAQItem';
 import { blogs } from './data/homepage-data';
 
@@ -54,31 +54,32 @@ export default async function Home() {
             : null,
           additionalComponents: {
             subtitle: data.AboutUs[0].subtitle,
-            cards: data.AboutUs[0].cards,
+            cards: data.AboutUs[0].cards as AboutCard[],
           },
         }
       : null;
 
   // Business Preview
-  const businessesData: Business[] = data.SubPreview.map((b: any) => ({
-    id: b.id,
-    name: b.logo?.logoName || `business-${b.id}`,
-    description: b.description,
+  const businessesData: Business[] =
+    data.SubPreview?.map((b: any) => ({
+      id: b.id,
+      name: b.logo?.logoName || `business-${b.id}`,
+      description: b.description,
 
-    // MAIN PREVIEW IMAGE
-    image: b.image?.url || null,
-    // CARD IMAGE (small selectable ones)
-    cardImage: b.cardImage?.url || null,
-    // LOGO IMAGE (nested)
-    logo: b.logo?.image?.url || null,
+      // MAIN PREVIEW IMAGE
+      image: b.image?.url || null,
+      // CARD IMAGE (small selectable ones)
+      cardImage: b.cardImage?.url || null,
+      // LOGO IMAGE (nested)
+      logo: b.logo?.image?.url || null,
 
-    cta: b.cta || null,
-  }));
+      cta: b.cta || null,
+    })) || [];
 
   // =========================FAQ data =======================//
   const faqsData: FAQ[] =
     data.FAQs?.map(
-      (faq: any): FAQ => ({
+      (faq: FAQ): FAQ => ({
         id: faq.id,
         question: faq.question,
         answer: faq.answer,
@@ -90,7 +91,7 @@ export default async function Home() {
   // =========================
   const achievementsData: Achievement[] =
     data.Achievements?.map(
-      (item: any): Achievement => ({
+      (item: Achievement): Achievement => ({
         id: item.id,
         title: item.title || item.description,
         description: item.description,
@@ -113,12 +114,12 @@ export default async function Home() {
         <section className="bg-qgc-gray-soft py-20">
           <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-12">
             {aboutSection.image && (
-              <div className="md:w-1/3 relative h-64 md:h-96 rounded-lg overflow-hidden shadow-lg">
+              <div className="w-full md:w-1/3 bg-white p-4 rounded-xl shadow-xl border border-gray-100 relative h-64 md:h-96 overflow-hidden">
                 <Image
                   src={aboutSection.image.url}
                   alt={aboutSection.image.alternativeText || aboutSection.title}
                   fill
-                  className="object-cover"
+                  className="object-contain p-4"
                 />
               </div>
             )}
@@ -143,7 +144,7 @@ export default async function Home() {
 
               {aboutSection.additionalComponents?.cards?.length > 0 && (
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {aboutSection.additionalComponents.cards.map((card: any) => (
+                  {aboutSection.additionalComponents.cards.map((card: AboutCard) => (
                     <div
                       key={card.id}
                       className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center text-center"

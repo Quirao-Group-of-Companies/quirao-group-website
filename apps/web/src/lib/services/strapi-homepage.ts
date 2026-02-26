@@ -7,7 +7,6 @@ export async function getHomepage() {
   const query = qs.stringify(
     {
       populate: {
-        // Use the exact attribute names from your schema
         HeroSection: {
           populate: '*',
         },
@@ -15,7 +14,7 @@ export async function getHomepage() {
           populate: '*',
         },
         Achievements: {
-          populate: ['image', 'icon'],
+          populate: '*',
         },
         SubPreview: {
           populate: {

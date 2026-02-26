@@ -36,3 +36,13 @@ export type Achievement = {
   description: string;
   image: string | null;
 };
+
+export type AboutCard = {
+  id: number;
+  title: string;
+  description: string;
+  image?: {
+    url: string;
+    alternativeText: string | null;
+  } | null;
+};
