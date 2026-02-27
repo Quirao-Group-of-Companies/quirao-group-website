@@ -1,4 +1,4 @@
-import ContactUsClient from '@/components/page-sections/contact-us-client';
+import ContactUsClient from '@/app/(tests)/contact-us-test/contact-us-client';
 import { getContactUsPage } from '@/lib/services/strapi-contact-us';
 
 export default async function ContactUsTestPage() {
