@@ -95,6 +95,9 @@ export interface BlocksSubContacts extends Struct.ComponentSchema {
     cardImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     contactNum: Schema.Attribute.Text;
     cta: Schema.Attribute.Component<'elements.link', false>;
+    displayImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     email: Schema.Attribute.Text;
     logo: Schema.Attribute.Component<'elements.logo', false>;
     subName: Schema.Attribute.String;
@@ -153,6 +156,17 @@ export interface ElementsLogo extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsText extends Struct.ComponentSchema {
+  collectionName: 'components_elements_texts';
+  info: {
+    displayName: 'Text';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -167,6 +181,7 @@ declare module '@strapi/strapi' {
       'elements.item': ElementsItem;
       'elements.link': ElementsLink;
       'elements.logo': ElementsLogo;
+      'elements.text': ElementsText;
     }
   }
 }
