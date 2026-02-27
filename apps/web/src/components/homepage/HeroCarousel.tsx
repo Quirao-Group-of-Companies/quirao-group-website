@@ -63,12 +63,7 @@ export default function HeroCarousel({ slides }: Props) {
                   className="px-6 py-3"
                 />
               ) : (
-                <Button
-                  text={slide.cta.title}
-                  variant="secondary"
-                  className="px-6 py-3"
-                  disabled
-                />
+                <Button text={slide.cta.title} variant="secondary" className="px-6 py-3" disabled />
               ))}
           </div>
         </div>

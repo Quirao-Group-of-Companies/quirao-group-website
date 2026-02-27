@@ -496,8 +496,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-<<<<<<< HEAD
-=======
   };
 }
 
@@ -532,7 +530,6 @@ export interface ApiCareersPageCareersPage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     valuesSection: Schema.Attribute.Component<'blocks.highlights', false>;
     whyJoinUs: Schema.Attribute.Component<'blocks.highlights', false>;
->>>>>>> 1e7a2b304cf3ec6fd4d7938d0b0d0fa44ae9baa1
   };
 }
 

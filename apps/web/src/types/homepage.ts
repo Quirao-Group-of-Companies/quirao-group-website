@@ -46,3 +46,47 @@ export type AboutCard = {
     alternativeText: string | null;
   } | null;
 };
+
+export type SubPreviewItem = {
+  id: number;
+  logo?: {
+    logoName?: string;
+    image?: {
+      url: string;
+    };
+  };
+  description: string;
+  image?: {
+    url: string;
+  };
+  cardImage?: {
+    url: string;
+  };
+  cta?: StrapiCTA;
+};
+
+export type HomepageData = {
+  HeroSection?: HeroItem[];
+  AboutUs?: {
+    id: number;
+    title: string;
+    description: string;
+    subtitle: string;
+    cards: AboutCard[];
+    image?: {
+      url: string;
+      alternativeText: string | null;
+    } | null;
+    cta?: StrapiCTA | null;
+  }[];
+  Achievements?: {
+    id: number;
+    title: string;
+    description: string;
+    image?: {
+      url: string;
+    } | null;
+  }[];
+  SubPreview?: SubPreviewItem[];
+  FAQs?: FAQ[];
+};

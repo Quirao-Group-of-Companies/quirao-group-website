@@ -1,9 +1,17 @@
-import Button from '@/components/ui/Button';
 import Image from 'next/image';
 import OurBusinessPreview from '@/components/homepage/BusinessPreview';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
+import Button from '@/components/ui/Button';
 import { getHomepage } from '@/lib/services/strapi-homepage';
-import type { Achievement, AboutCard, Business, FAQ, HeroItem } from '@/types/homepage';
+import type {
+  AboutCard,
+  Achievement,
+  Business,
+  FAQ,
+  HeroItem,
+  HomepageData,
+  SubPreviewItem,
+} from '@/types/homepage';
 import FAQItem from '../components/homepage/FAQItem';
 import { blogs } from './data/homepage-data';
 
@@ -13,7 +21,7 @@ import { blogs } from './data/homepage-data';
 
 export default async function Home() {
   /* ---------- Hero State ---------- */
-  const data = await getHomepage();
+  const data: HomepageData = await getHomepage();
 
   if (!data) {
     return <p>No content available</p>;
@@ -62,7 +70,7 @@ export default async function Home() {
 
   // Business Preview
   const businessesData: Business[] =
-    data.SubPreview?.map((b: any) => ({
+    data.SubPreview?.map((b: SubPreviewItem) => ({
       id: b.id,
       name: b.logo?.logoName || `business-${b.id}`,
       description: b.description,
@@ -91,14 +99,12 @@ export default async function Home() {
   // Achievements data (CMS)
   // =========================
   const achievementsData: Achievement[] =
-    data.Achievements?.map(
-      (item: Achievement): Achievement => ({
-        id: item.id,
-        title: item.title || item.description,
-        description: item.description,
-        image: item.image?.url || null,
-      }),
-    ) || [];
+    data.Achievements?.map((item) => ({
+      id: item.id,
+      title: item.title || item.description,
+      description: item.description,
+      image: item.image?.url || null,
+    })) || [];
 
   return (
     <>
@@ -233,10 +239,7 @@ export default async function Home() {
                   <p className="text-gray-600 text-sm leading-relaxed">{blog.description}</p>
                 </div>
 
-                <Button
-                  text="Read More"
-                  className="mt-6 px-6 py-3 text-sm"
-                />
+                <Button text="Read More" className="mt-6 px-6 py-3 text-sm" />
               </div>
             </div>
           ))}

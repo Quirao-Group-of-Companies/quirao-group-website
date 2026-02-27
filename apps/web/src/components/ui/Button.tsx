@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 
 interface ButtonProps {
@@ -28,12 +27,14 @@ export default function Button({
   height,
   target,
 }: ButtonProps) {
-  const baseStyles = 'rounded-lg font-semibold transition-all duration-300 flex items-center justify-center text-center';
-  
+  const baseStyles =
+    'rounded-lg font-semibold transition-all duration-300 flex items-center justify-center text-center';
+
   const variants = {
     primary: 'bg-black text-white hover:bg-qgc-gray-deep disabled:bg-white/70',
     secondary: 'bg-white text-black hover:bg-gray-100 disabled:bg-white/70',
-    outline: 'border-2 border-black text-black hover:bg-black hover:text-white disabled:border-black/20 disabled:text-white/70',
+    outline:
+      'border-2 border-black text-black hover:bg-black hover:text-white disabled:border-black/20 disabled:text-white/70',
     dark: 'bg-[#2B2E33] text-white hover:bg-qgc-gray-deep disabled:bg-white/70',
   };
 
@@ -51,7 +52,12 @@ export default function Button({
     // If it's an external link
     if (href.startsWith('http') || target === '_blank') {
       return (
-        <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} {...commonProps}>
+        <a
+          href={href}
+          target={target}
+          rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+          {...commonProps}
+        >
           {text}
         </a>
       );
@@ -65,12 +71,7 @@ export default function Button({
   }
 
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      {...commonProps}
-    >
+    <button type={type} onClick={onClick} disabled={disabled} {...commonProps}>
       {text}
     </button>
   );
