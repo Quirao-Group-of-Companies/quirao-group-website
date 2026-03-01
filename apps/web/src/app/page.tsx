@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { blogs } from '@/app/data/homepage-data';
 import OurBusinessPreview from '@/components/homepage/BusinessPreview';
+import FAQItem from '@/components/homepage/FAQItem';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import Button from '@/components/ui/Button';
 import { getHomepage } from '@/lib/services/strapi-homepage';
@@ -12,8 +14,6 @@ import type {
   HomepageData,
   SubPreviewItem,
 } from '@/types/homepage';
-import FAQItem from '../components/homepage/FAQItem';
-import { blogs } from './data/homepage-data';
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
@@ -119,6 +119,9 @@ export default async function Home() {
 
       {aboutSection && (
         <section className="bg-qgc-gray-soft py-20">
+          <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
+            What We Do
+          </h2>
           <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-12">
             {aboutSection.image && (
               <div className="w-full md:w-1/3 bg-white p-4 rounded-xl shadow-xl border border-gray-100 relative h-64 md:h-96 overflow-hidden">
@@ -131,7 +134,7 @@ export default async function Home() {
               </div>
             )}
             <div className="md:w-1/2 flex flex-col gap-6 items-start">
-              <h2 className="text-4xl font-bold text-gray-800">{aboutSection.title}</h2>
+              <h2 className="text-3xl font-bold text-gray-800">{aboutSection.title}</h2>
               {aboutSection.additionalComponents?.subtitle && (
                 <h3 className="text-2xl font-medium text-gray-700">
                   {aboutSection.additionalComponents.subtitle}
@@ -186,7 +189,9 @@ export default async function Home() {
          ACHIEVEMENTS SECTION
       ===================================================== */}
       <section className="bg-qgc-gray-soft px-6 py-20">
-        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">Our Achievements</h2>
+        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
+          Our Achievements
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {achievementsData.map((achievement) => (
@@ -216,7 +221,9 @@ export default async function Home() {
         BLOG SECTION
       ===================================================== */}
       <section className="bg-white px-6 py-24">
-        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">Latest News</h2>
+        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
+          Latest News
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {blogs.map((blog) => (
@@ -249,7 +256,7 @@ export default async function Home() {
           FAQ SECTION
       ===================================================== */}
       <section className="bg-gray-100 px-6 py-24">
-        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16">
+        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
           Frequently Asked Questions
         </h2>
         <div className="max-w-4xl mx-auto space-y-4">

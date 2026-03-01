@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import Button from '@/components/ui/Button';
 import type { HeroItem } from '@/types/homepage';
-import Button from '../ui/Button';
 
 interface Props {
   slides: HeroItem[];
@@ -50,7 +50,7 @@ export default function HeroCarousel({ slides }: Props) {
           <div className="absolute inset-0 bg-black/10" />
 
           <div className="absolute inset-0 flex items-start z-20">
-          <div
+            <div
               className="
                 bg-white/20 w-full md:w-[95%] h-full
                 flex flex-col
@@ -63,14 +63,13 @@ export default function HeroCarousel({ slides }: Props) {
                 md:[clip-path:polygon(0_0,_90%_0,_20%_100%,_0_100%)]
                 relative
               "
-
-                style={{
-                  clipPath:
-                    typeof window !== 'undefined' && window.innerWidth < 768
-                      ? 'polygon(0 0, 100% 0, 100% 49%, 0 80%)'
-                      : 'polygon(0 0, 90% 0, 20% 100%, 0 100%)',
-                }}
-              >
+              style={{
+                clipPath:
+                  typeof window !== 'undefined' && window.innerWidth < 768
+                    ? 'polygon(0 0, 100% 0, 100% 49%, 0 80%)'
+                    : 'polygon(0 0, 90% 0, 20% 100%, 0 100%)',
+              }}
+            >
               <div className="max-w-xs md:max-w-xl h-3/5 lg:max-w-3xl w-full">
                 <h1 className="text-3xl md:text-2xl lg:text-5xl font-black text-qgc-white mb-4 md:mb-8 leading-[1.1]">
                   {slide.title}
@@ -80,14 +79,14 @@ export default function HeroCarousel({ slides }: Props) {
                 </p>
 
                 {slide.cta?.title && (
-                  <div className="absolute bottom-80 md:bottom-24 left-1/2 md:left-10 -translate-x-1/2 md:translate-x-0">
+                  <div className="absolute bottom-100 md:bottom-24 left-1/2 md:left-10 -translate-x-1/2 md:translate-x-0">
                     {slide.cta.href ? (
                       <Button
                         href={slide.cta.href}
                         text={slide.cta.title}
                         variant="secondary"
                         target="_blank"
-                        className="px-6 py-2 text-xs md:text-lg"
+                        className="px-6 py-2 text-xs md:text-lg hover:bg-qgc-gray-deep hover:text-white"
                       />
                     ) : (
                       <Button
@@ -99,7 +98,6 @@ export default function HeroCarousel({ slides }: Props) {
                     )}
                   </div>
                 )}
-
               </div>
             </div>
           </div>
@@ -114,15 +112,11 @@ export default function HeroCarousel({ slides }: Props) {
             onClick={() => setCurrent(idx)}
             className={`
               h-3 rounded-full transition-all duration-500 ease-in-out
-              ${idx === current 
-                ? 'w-10 bg-white' 
-                : 'w-3 bg-white/50 hover:bg-white/80'
-              }
+              ${idx === current ? 'w-10 bg-white' : 'w-3 bg-white/50 hover:bg-white/80'}
             `}
           />
         ))}
       </div>
-
     </section>
   );
 }
