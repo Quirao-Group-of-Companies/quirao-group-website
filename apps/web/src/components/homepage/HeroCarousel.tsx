@@ -64,7 +64,7 @@ export default function HeroCarousel({ slides }: Props) {
                 </p>
 
                 {slide.cta?.title && (
-                  <div className="mt-8 md:mt-10 flex justify-center md:justify-start">
+                  <div className="mt-8 md:mt-10 flex">
                     {slide.cta.href ? (
                       <Button
                         href={slide.cta.href}
