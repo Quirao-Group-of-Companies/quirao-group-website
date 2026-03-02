@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: quirao-group-of-companies/quirao-group-website
 
 jobs:
   changes:
@@ -68,8 +68,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-              ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-web:main
-              ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-web:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:main
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:latest
 
       - name: Trigger Dokploy Web
         run: curl -X POST "${{ vars.DOKPLOY_WEB_WEBHOOK }}"
@@ -105,8 +105,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-cms:main
-            ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-cms:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:main
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:latest
 
       - name: Trigger Dokploy CMS
         run: curl -X POST "${{ vars.DOKPLOY_CMS_WEBHOOK }}"
