@@ -14,7 +14,9 @@ if (protectedBranches.includes(branchName)) {
 if (!validBranchRegex.test(branchName)) {
   console.error('\x1b[31m%s\x1b[0m', '------------------------------------------------------');
   console.error('\x1b[31m%s\x1b[0m', `❌ Error: Invalid branch name "${branchName}"`);
-  console.error('Branch names must be "main", "staging", "prod" or follow: <type>/<short-description>');
+  console.error(
+    'Branch names must be "main", "staging", "prod" or follow: <type>/<short-description>',
+  );
   console.error('Allowed types: feat/, fix/, docs/, refactor/, chore/');
   console.error('Example: feat/google-auth');
   console.error('To fix this, rename your branch with:');
