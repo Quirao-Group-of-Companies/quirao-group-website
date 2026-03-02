@@ -63,7 +63,7 @@ export default function OurBusinessPreview({ businesses }: { businesses: Busines
             type="button"
             key={b.id}
             onClick={() => setActiveBusiness(b)}
-            className="relative w-full h-40 md:h-48 rounded-lg overflow-hidden group"
+            className="cursor-pointer relative w-full h-40 md:h-48 rounded-lg overflow-hidden group"
           >
             {b.cardImage && (
               <Image
