@@ -68,8 +68,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:main
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:latest
+              ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-web:main
+              ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-web:latest
 
       - name: Trigger Dokploy Web
         run: curl -X POST "${{ vars.DOKPLOY_WEB_WEBHOOK }}"
