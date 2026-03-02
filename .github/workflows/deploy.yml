@@ -27,6 +27,7 @@ jobs:
               - 'package.json'
               - 'bun.lock'
               - 'turbo.json'
+              - '.github/workflows/deploy.yml'
             cms:
               - 'apps/cms/**'
               - 'packages/**'
@@ -36,7 +37,6 @@ jobs:
 
   build-web:
     needs: changes
-    if: ${{ needs.changes.outputs.web == 'true' }}
     runs-on: ubuntu-latest
     environment: main 
     permissions:
@@ -76,7 +76,6 @@ jobs:
 
   build-cms:
     needs: changes
-    if: ${{ needs.changes.outputs.cms == 'true' }}
     runs-on: ubuntu-latest
     environment: main
     permissions:
@@ -106,8 +105,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:main
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:latest
+            ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-cms:main
+            ${{ env.REGISTRY }}/${{ toLower(github.repository) }}-cms:latest
 
       - name: Trigger Dokploy CMS
         run: curl -X POST "${{ vars.DOKPLOY_CMS_WEBHOOK }}"
