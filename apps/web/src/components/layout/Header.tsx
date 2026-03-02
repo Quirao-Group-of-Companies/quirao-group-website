@@ -150,7 +150,7 @@ export default function Navbar() {
           ))}
 
           {/* Search */}
-          <li className="w-full md:w-auto flex items-center px-6 py-3 md:p-0">
+          {/* <li className="w-full md:w-auto flex items-center px-6 py-3 md:p-0">
             <div
               className={`flex items-center transition-all duration-300 ${
                 searchOpen ? 'w-40 opacity-100 mr-3' : 'w-0 opacity-0'
@@ -166,7 +166,8 @@ export default function Navbar() {
             <button type="submit" onClick={() => setSearchOpen(!searchOpen)}>
               <MagnifyingGlassIcon className="w-5 h-5" />
             </button>
-          </li>
+          </li> */}
+
         </ul>
       </nav>
     </header>

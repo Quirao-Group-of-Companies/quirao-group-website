@@ -19,7 +19,7 @@ export default function OurBusinessPreview({ businesses }: { businesses: Busines
       <h2 className="text-4xl text-qgc-black font-bold mb-16 font-akrux">Business Preview</h2>
 
       {/* Active Business */}
-      <div className="flex flex-col md:flex-row gap-12 mb-12 bg-qgc-gray-soft">
+      <div className="flex flex-col md:flex-row gap-12 mb-12">
         {/* MAIN IMAGE */}
         <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden">
           {currentBusiness.image && (
