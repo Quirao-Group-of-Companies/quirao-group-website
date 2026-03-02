@@ -1,13 +1,12 @@
 'use client';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [_searchOpen, _setSearchOpen] = useState(false);
   const [subsOpen, setSubsOpen] = useState(false);
 
   const menuRef = useRef<HTMLUListElement>(null);
@@ -167,7 +166,6 @@ export default function Navbar() {
               <MagnifyingGlassIcon className="w-5 h-5" />
             </button>
           </li> */}
-
         </ul>
       </nav>
     </header>
