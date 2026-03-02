@@ -1,0 +1,111 @@
+name: Deploy QGC Website
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      web: ${{ steps.filter.outputs.web }}
+      cms: ${{ steps.filter.outputs.cms }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            web:
+              - 'apps/web/**'
+              - 'packages/**'
+              - 'package.json'
+              - 'bun.lock'
+              - 'turbo.json'
+            cms:
+              - 'apps/cms/**'
+              - 'packages/**'
+              - 'package.json'
+              - 'bun.lock'
+              - 'turbo.json'
+
+  build-web:
+    needs: changes
+    if: ${{ needs.changes.outputs.web == 'true' }}
+    runs-on: ubuntu-latest
+    environment: main 
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Web Env
+        run: |
+          # Use .env for everything; Next.js production builds ignore .env.local
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> apps/web/.env
+          echo "NEXT_PUBLIC_SUPABASE_URL=${{ vars.NEXT_PUBLIC_SUPABASE_URL }}" >> apps/web/.env
+          echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/web/.env
+          echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/web/.env
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Web Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/web/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:main
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:latest
+
+      - name: Trigger Dokploy Web
+        run: curl -X POST "${{ vars.DOKPLOY_WEB_WEBHOOK }}"
+
+  build-cms:
+    needs: changes
+    if: ${{ needs.changes.outputs.cms == 'true' }}
+    runs-on: ubuntu-latest
+    environment: main
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create CMS Env
+        run: |
+          echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/cms/.env
+          echo "DATABASE_CLIENT=${{ vars.DATABASE_CLIENT }}" >> apps/cms/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/cms/.env
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push CMS Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./apps/cms/Dockerfile
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:main
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:latest
+
+      - name: Trigger Dokploy CMS
+        run: curl -X POST "${{ vars.DOKPLOY_CMS_WEBHOOK }}"
