@@ -50,36 +50,21 @@ export default function HeroCarousel({ slides }: Props) {
           <div className="absolute inset-0 bg-black/10" />
 
           <div className="absolute inset-0 flex items-start z-20">
-            <div
-              className="
-                bg-white/20 w-full md:w-[95%] h-full
-                flex flex-col
-                justify-center md:justify-start
-                items-center md:items-start
-                pt-0 md:pt-32
-                px-6 md:px-10
-                text-left
-                [clip-path:polygon(0 0, 100% 0, 100% 49%, 0 80%)]
-                md:[clip-path:polygon(0_0,_90%_0,_20%_100%,_0_100%)]
-                relative
-              "
-              style={{
-                clipPath:
-                  typeof window !== 'undefined' && window.innerWidth < 768
-                    ? 'polygon(0 0, 100% 0, 100% 49%, 0 80%)'
-                    : 'polygon(0 0, 90% 0, 20% 100%, 0 100%)',
-              }}
-            >
-              <div className="max-w-xs md:max-w-xl h-3/5 lg:max-w-3xl w-full">
-                <h1 className="text-3xl md:text-2xl lg:text-5xl font-black text-qgc-white mb-4 md:mb-8 leading-[1.1]">
+            {/* Background Overlay with Clip Path */}
+            <div className="absolute inset-0 bg-white/20 w-full md:w-[95%] h-full [clip-path:polygon(0_0,100%_0,100%_49%,0_80%)] md:[clip-path:polygon(0_0,90%_0,20%_100%,0_100%)]" />
+
+            {/* Content (Unclipped) */}
+            <div className="relative w-full h-full flex flex-col justify-start items-center md:items-start pt-28 md:pt-32 px-6 md:px-10 text-left">
+              <div className="max-w-xs md:max-w-xl lg:max-w-3xl w-full">
+                <h1 className="text-3xl md:text-2xl lg:text-5xl font-black text-qgc-white mb-4 md:mb-8 leading-[1.1] text-shadow-xl">
                   {slide.title}
                 </h1>
-                <p className=" text-qgc-white text-xs md:text-lg mb-8 leading-relaxed w-full md:w-2/3">
+                <p className=" text-qgc-white text-xs md:text-lg mb-8 leading-relaxed w-full md:w-2/3 text-shadow-xl">
                   {slide.description}
                 </p>
 
                 {slide.cta?.title && (
-                  <div className="absolute bottom-100 md:bottom-24 left-1/2 md:left-10 -translate-x-1/2 md:translate-x-0">
+                  <div className="mt-8 md:mt-10 flex justify-center md:justify-start">
                     {slide.cta.href ? (
                       <Button
                         href={slide.cta.href}
@@ -110,10 +95,7 @@ export default function HeroCarousel({ slides }: Props) {
             type="button"
             key={slide.id}
             onClick={() => setCurrent(idx)}
-            className={`
-              h-3 rounded-full transition-all duration-500 ease-in-out
-              ${idx === current ? 'w-10 bg-white' : 'w-3 bg-white/50 hover:bg-white/80'}
-            `}
+            className={`h-3 rounded-full transition-all duration-500 ease-in-out ${idx === current ? 'w-10 bg-white' : 'w-3 bg-white/50 hover:bg-white/80'}`}
           />
         ))}
       </div>

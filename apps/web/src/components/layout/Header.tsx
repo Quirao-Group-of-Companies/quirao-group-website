@@ -80,18 +80,7 @@ export default function Navbar() {
           style={{
             maxHeight: menuOpen ? `${menuHeight}px` : undefined,
           }}
-          className={`
-            flex flex-col md:flex-row
-            items-start md:items-center
-            w-full md:w-auto
-            gap-2 md:gap-12
-            bg-qgc-white
-            overflow-hidden
-            ${menuOpen ? 'max-h-full' : 'max-h-0'}
-            transition-[max-height] duration-300 ease-in-out
-            md:max-h-none md:overflow-visible
-            ${menuOpen ? 'border-t border-gray-200 mt-3 pt-3' : ''}
-          `}
+          className={`flex flex-col md:flex-row items-start md:items-center w-full md:w-auto gap-2 md:gap-12 bg-qgc-white overflow-hidden ${menuOpen ? 'max-h-full' : 'max-h-0'} transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible ${menuOpen ? 'border-t border-gray-200 mt-3 pt-3' : ''}`}
         >
           {/* Subsidiaries */}
           <li className="relative group w-full md:w-auto">
@@ -117,16 +106,7 @@ export default function Navbar() {
             </button>
 
             <ul
-              className={`
-                md:absolute md:left-0 md:top-full md:mt-4 md:w-56
-                bg-white shadow-lg rounded-md
-                md:opacity-0 md:invisible md:group-hover:opacity-100 md:group-hover:visible
-                transition-all duration-300 z-50
-
-                overflow-hidden
-                ${subsOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
-                md:max-h-none md:opacity-100
-              `}
+              className={`md:absolute md:left-0 md:top-full md:mt-4 md:w-56 bg-white shadow-lg rounded-md md:opacity-0 md:invisible md:group-hover:opacity-100 md:group-hover:visible transition-all duration-300 z-50 overflow-hidden ${subsOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} md:max-h-none md:opacity-100`}
             >
               {[
                 { name: 'Buildmaster', href: '/subsidiaries/buildmaster' },
