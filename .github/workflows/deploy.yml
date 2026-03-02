@@ -51,6 +51,7 @@ jobs:
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> apps/web/.env
           echo "NEXT_PUBLIC_SUPABASE_URL=${{ vars.NEXT_PUBLIC_SUPABASE_URL }}" >> apps/web/.env
           echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/web/.env
+          echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/web/.env
           echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/web/.env
 
       - name: Log in to GHCR
