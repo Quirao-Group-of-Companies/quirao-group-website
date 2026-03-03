@@ -19,6 +19,7 @@ export async function proxy(request: NextRequest) {
   const isDev = process.env.NODE_ENV === 'development';
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+  const SUPABASE_BUCKET_URL = process.env.SUPABASE_BUCKET_URL || '';
   const AXIOM_URL = 'https://api.axiom.co';
   const RESEND_URL = 'https://api.resend.com';
 
@@ -26,9 +27,9 @@ export async function proxy(request: NextRequest) {
     default-src 'self';
     script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ''};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: ${STRAPI_URL} ${SUPABASE_URL} https://*.supabase.co;
+    img-src 'self' blob: data: ${STRAPI_URL} ${SUPABASE_URL} ${SUPABASE_BUCKET_URL} https://*.supabase.co;
     font-src 'self' data:;
-    connect-src 'self' ${SUPABASE_URL} ${AXIOM_URL} ${RESEND_URL} https://*.supabase.co;
+    connect-src 'self' ${SUPABASE_URL} ${SUPABASE_BUCKET_URL} ${AXIOM_URL} ${RESEND_URL} https://*.supabase.co;
     object-src 'none';
     base-uri 'self';
     form-action 'self';

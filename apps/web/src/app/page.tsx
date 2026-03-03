@@ -116,7 +116,6 @@ export default async function Home() {
       {/* =====================================================
          WHAT WE DO SECTION
       ===================================================== */}
-
       {aboutSection && (
         <section className="bg-qgc-gray-soft py-20">
           <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
