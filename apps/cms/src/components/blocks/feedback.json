@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_blocks_feedbacks",
+  "info": {
+    "displayName": "Feedback",
+    "icon": "thumbUp"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "text": {
+      "type": "component",
+      "component": "elements.text",
+      "repeatable": false
+    },
+    "stars": {
+      "type": "integer"
+    }
+  },
+  "config": {}
+}

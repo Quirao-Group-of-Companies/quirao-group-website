@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_blocks_contact_uses",
+  "info": {
+    "displayName": "Contact Us",
+    "icon": "pinMap"
+  },
+  "options": {},
+  "attributes": {
+    "details": {
+      "type": "component",
+      "component": "elements.text",
+      "repeatable": true
+    },
+    "embedLinks": {
+      "type": "component",
+      "component": "elements.link",
+      "repeatable": true
+    },
+    "embedMap": {
+      "type": "component",
+      "component": "elements.link",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}
