@@ -595,6 +595,40 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiPalutoPagePalutoPage extends Struct.SingleTypeSchema {
+  collectionName: 'paluto_pages';
+  info: {
+    displayName: 'Paluto Page';
+    pluralName: 'paluto-pages';
+    singularName: 'paluto-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
+    contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
+    feedback: Schema.Attribute.Component<'blocks.feedback', true>;
+    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::paluto-page.paluto-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    showcase: Schema.Attribute.Component<'blocks.cards', true>;
+    showcaseLogo: Schema.Attribute.Component<'elements.logo', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1111,6 +1145,7 @@ declare module '@strapi/strapi' {
       'api::careers-page.careers-page': ApiCareersPageCareersPage;
       'api::contact-us-page.contact-us-page': ApiContactUsPageContactUsPage;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::paluto-page.paluto-page': ApiPalutoPagePalutoPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

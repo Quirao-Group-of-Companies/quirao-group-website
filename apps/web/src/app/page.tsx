@@ -192,7 +192,7 @@ export default async function Home() {
       ===================================================== */}
       <section className="bg-qgc-gray-soft px-6 py-20">
         <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
-          Our Achievements
+          Awards and Recognition
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
