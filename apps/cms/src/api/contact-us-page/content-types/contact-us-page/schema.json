@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_us_pages",
+  "info": {
+    "singularName": "contact-us-page",
+    "pluralName": "contact-us-pages",
+    "displayName": "Contact us page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "qgcText": {
+      "type": "component",
+      "component": "elements.text",
+      "repeatable": false
+    },
+    "qgcContacts": {
+      "type": "component",
+      "component": "blocks.sub-contacts",
+      "repeatable": false
+    },
+    "subsContacts": {
+      "type": "component",
+      "component": "blocks.sub-contacts",
+      "repeatable": true
+    }
+  }
+}
