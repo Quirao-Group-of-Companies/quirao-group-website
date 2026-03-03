@@ -1,13 +1,11 @@
 'use client';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [subsOpen, setSubsOpen] = useState(false);
 
   const menuRef = useRef<HTMLUListElement>(null);
@@ -148,26 +146,6 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-
-          {/* Search */}
-          {/* <li className="w-full md:w-auto flex items-center px-6 py-3 md:p-0">
-            <div
-              className={`flex items-center transition-all duration-300 ${
-                searchOpen ? 'w-40 opacity-100 mr-3' : 'w-0 opacity-0'
-              } overflow-hidden`}
-            >
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full border-b border-gray-400 focus:outline-none text-sm px-2 py-1"
-              />
-            </div>
-
-            <button type="submit" onClick={() => setSearchOpen(!searchOpen)}>
-              <MagnifyingGlassIcon className="w-5 h-5" />
-            </button>
-          </li> */}
-
         </ul>
       </nav>
     </header>
