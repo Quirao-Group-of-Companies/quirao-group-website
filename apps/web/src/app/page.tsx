@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
 import OurBusinessPreview from '@/components/homepage/BusinessPreview';
-import FAQItem from '@/components/ui/FAQItem';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import Button from '@/components/ui/Button';
+import FAQItem from '@/components/ui/FAQItem';
 import { getHomepage } from '@/lib/services/strapi-homepage';
 import type {
   AboutCard,

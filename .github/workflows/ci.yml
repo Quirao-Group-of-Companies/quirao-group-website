@@ -1,0 +1,45 @@
+name: QGC - CI
+
+on:
+  push:
+    branches: [main, staging, prod]
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'bun.lock'
+  pull_request:
+    paths:
+      - 'apps/**'
+      - 'packages/**'
+      - 'bun.lock'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web-ci:
+    name: Web CI
+    runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_AXIOM_TOKEN: ${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}
+      NEXT_PUBLIC_AXIOM_DATASET: ${{ secrets.NEXT_PUBLIC_AXIOM_DATASET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Lint and Build Web
+        run: |
+          bun run check:web
+          bun run build:web
+
+  cms-ci:
+    name: CMS CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - name: Lint and Build CMS
+        run: |
+          bun run check:cms
+          bun run build:cms
