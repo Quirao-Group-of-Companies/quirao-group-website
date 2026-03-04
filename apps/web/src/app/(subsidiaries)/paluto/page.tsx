@@ -4,11 +4,28 @@ import { after } from 'next/server';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
 import { logger } from '@/lib/axiom/server';
 
+const BRANCHES = [
+  {
+    id: 1,
+    name: 'Paluto - Main',
+    address: 'Coastal Road, Bito-on, Jaro, Iloilo City',
+    mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Paluto+Caniogan',
+    image: '/images/home-page/business-preview/paluto-business-preview.jpg', // placeholder
+  },
+  {
+    id: 2,
+    name: 'Paluto - Passi',
+    address: 'Brgy. Sablogon, Passi, Philippines, 5037',
+    mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Paluto+Concepcion',
+    image: '/images/home-page/business-preview/paluto-business-preview.jpg', // placeholder
+  },
+];
+
 /**
  * Paluto Subsidiary Page
  *
  * This page serves as the landing page for the Paluto subsidiary.
- * It features a hero section, an overview section, and a favorites showcase.
+ * It features a hero section and an overview section with a Facebook CTA.
  */
 export default async function PalutoPage() {
   // Axiom Logging for observability
@@ -66,7 +83,7 @@ export default async function PalutoPage() {
       {/* 2. OVERVIEW SECTION */}
       <section className="bg-white py-24 px-6 md:px-12 flex flex-col items-center text-center">
         {/* Secondary Logo at the top */}
-        <div className="mb-1">
+        <div className="mb-8">
           <Image
             src="/images/logo/paluto/word-mark-logo.png"
             alt="Paluto Word Mark Logo"
@@ -104,7 +121,7 @@ export default async function PalutoPage() {
             href="https://www.facebook.com/palutophilippines"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white hover:bg-qgc-gray-soft text-paluto-red px-6 py-3 rounded-2xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
+            className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-3 rounded-2xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
           >
             <span className="font-bold uppercase text-xs md:text-sm">Visit Facebook Page</span>
             <ArrowRightIcon className="w-5 h-5" />
@@ -114,6 +131,56 @@ export default async function PalutoPage() {
 
       {/* 3. FAVORITES SHOWCASE */}
       <FavoritesShowcase />
+
+      {/* 4. BRANCHES SECTION */}
+      <section className="bg-white pb-20">
+        <div className="max-w-6xl mx-auto px-6 py-20">
+          {/* Header */}
+          <div className="flex flex-col items-center mb-16">
+            <h2 className="text-5xl font-black uppercase italic text-black tracking-tighter">
+              OUR <span className="text-paluto-red">BRANCHES</span>
+            </h2>
+            <div className="w-24 h-1.5 bg-paluto-yellow mt-2" />
+          </div>
+
+          {/* Two-Column Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {BRANCHES.map((branch) => (
+              <div
+                key={branch.id}
+                className="group bg-white rounded-[2rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-2xl"
+              >
+                {/* Image Container */}
+                <div className="relative h-72 w-full overflow-hidden">
+                  <Image
+                    src={branch.image}
+                    alt={branch.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+
+                {/* Text Content */}
+                <div className="p-10 text-center">
+                  <h3 className="text-3xl font-black text-black mb-2 uppercase italic">
+                    {branch.name}
+                  </h3>
+                  <p className="text-gray-500 font-medium mb-8">{branch.address}</p>
+
+                  <a
+                    href={branch.mapUrl}
+                    target="_blank"
+                    className="inline-flex items-center justify-center bg-black text-white px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:bg-paluto-red transition-all active:scale-95"
+                  >
+                    GET DIRECTIONS
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Additional sections can be added below */}
     </main>
