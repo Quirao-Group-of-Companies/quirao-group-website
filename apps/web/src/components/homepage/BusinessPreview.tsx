@@ -50,7 +50,7 @@ export default function OurBusinessPreview({ businesses }: { businesses: Busines
             <Button
               href={currentBusiness.cta.href}
               text={currentBusiness.cta.title}
-              className="h-10 px-6 py-2 w-max md:absolute bottom-15"
+             className="h-10 px-6 py-2 w-max md:absolute bottom-0"
             />
           )}
         </div>
