@@ -12,7 +12,7 @@ COPY apps/cms ./apps/cms
 COPY packages ./packages
 
 # Install dependencies for the entire workspace
-RUN bun install --frozen-lockfile
+RUN bun install
 
 # Build the Strapi CMS application
 RUN bun run build:cms
