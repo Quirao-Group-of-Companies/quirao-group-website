@@ -24,7 +24,7 @@ export interface BlocksBanner extends Struct.ComponentSchema {
     displayName: 'Banner';
   };
   attributes: {
-    cta: Schema.Attribute.Component<'elements.link', false>;
+    cta: Schema.Attribute.Component<'elements.link', true>;
     description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
@@ -97,6 +97,7 @@ export interface BlocksHeroSection extends Struct.ComponentSchema {
     cta: Schema.Attribute.Component<'elements.link', false>;
     description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    logo: Schema.Attribute.Component<'elements.logo', false>;
     title: Schema.Attribute.String;
   };
 }

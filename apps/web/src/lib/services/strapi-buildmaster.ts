@@ -3,7 +3,7 @@ import qs from 'qs';
 const STRAPI_URL = process.env.STRAPI_URL || 'http://127.0.0.1:1337';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
-export async function getPalutoPage() {
+export async function getBuildMasterPage() {
   const query = qs.stringify(
     {
       populate: {
@@ -18,30 +18,36 @@ export async function getPalutoPage() {
             cta: true,
             },
         },
+        features: {
+          populate: '*',
+        },
+        cta: {
+          populate: '*',
+        },
         aboutUs: {
           populate: '*',
         },
-        showcaseLogo: {
+        podcasts: {
           populate: '*',
         },
-        showcase: {
+        link: {
           populate: '*',
         },
-        feedback: {
+        download: {
           populate: '*',
         },
-        contactUs: {
+        contactUS: {
           populate: '*',
         },
         faqs: {
           populate: '*',
         },
-      },
+    },
     },
     { encodeValuesOnly: true },
   );
 
-  const res = await fetch(`${STRAPI_URL}/api/paluto-page?${query}`, {
+  const res = await fetch(`${STRAPI_URL}/api/build-master-page?${query}`, {
     headers: {
       Authorization: `Bearer ${STRAPI_TOKEN}`,
     },
@@ -51,10 +57,10 @@ export async function getPalutoPage() {
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     console.error('Strapi Fetch Error:', errorData);
-    throw new Error(`Failed to fetch paluto page: ${res.status}`);
+    throw new Error(`Failed to fetch buildmaster page: ${res.status}`);
   }
 
   const json = await res.json();
 
-  return json.data;
+   return json.data;
 }

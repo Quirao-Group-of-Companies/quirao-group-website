@@ -8,7 +8,15 @@ export async function getSariSariManokanPage() {
     {
       populate: {
         hero: {
-          populate: '*',
+            populate: {
+            image: true, 
+            logo: {
+              populate: {
+                image: true, 
+              },
+            },
+            cta: true,
+            },
         },
         aboutUs: {
           populate: '*',
@@ -40,12 +48,10 @@ export async function getSariSariManokanPage() {
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     console.error('Strapi Fetch Error:', errorData);
-    throw new Error(`Failed to fetch paluto page: ${res.status}`);
+  throw new Error(`Failed to fetch sari-sari manokan page: ${res.status}`);
   }
 
   const json = await res.json();
 
-  // Strapi v5 returns data directly.
-  // If using v4, it might be json.data.attributes
   return json.data;
 }
