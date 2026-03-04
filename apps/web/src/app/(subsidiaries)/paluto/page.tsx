@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { after } from 'next/server';
 import EventsCatering from '@/components/paluto/EventsCatering';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
+import Feedback from '@/components/paluto/Feedback';
 import { logger } from '@/lib/axiom/server';
 
 const BRANCHES = [
@@ -112,7 +113,7 @@ export default async function PalutoPage() {
         </div>
 
         {/* CTA Banner Rectangle (Container with gradient) */}
-        <div className="w-full max-w-4xl bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-[2rem] p-6 md:p-8 flex items-center justify-between shadow-md border border-white/10">
+        <div className="w-full max-w-4xl bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-[2rem] p-6 md:p-8 flex items-center justify-between shadow-md">
           <span className="text-xl md:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm">
             Explore Paluto Facebook Page
           </span>
@@ -198,6 +199,9 @@ export default async function PalutoPage() {
 
       {/* 6. EVENTS & CATERING */}
       <EventsCatering />
+
+      {/* 7. FEEDBACK SECTION */}
+      <Feedback />
 
       {/* Additional sections can be added below */}
     </main>
