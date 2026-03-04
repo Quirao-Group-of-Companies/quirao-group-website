@@ -17,7 +17,8 @@ RUN bun install
 
 # Build the Next.js web application
 # This triggers the turbo pipeline script defined in your root package.json
-RUN bun run build:web
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+RUN bun run build:web -- --concurrency=1
 
 # ==========================================
 # Stage 2: Production Runner
