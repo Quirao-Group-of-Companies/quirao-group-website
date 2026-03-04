@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 
 const CAROUSEL_IMAGES = [
@@ -25,7 +25,7 @@ export default function EventsCatering() {
   }, []);
 
   return (
-    <section className="w-full bg-qgc-gray-soft py-20 px-6">
+    <section className="w-full bg-qgc-gray-soft pt-10 pb-20 px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 max-w-6xl mx-auto min-h-[450px] md:min-h-[500px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/50 bg-white">
         {/* Left Column: Image Carousel */}
         <div className="relative h-[300px] md:h-auto overflow-hidden">
@@ -50,9 +50,9 @@ export default function EventsCatering() {
 
           {/* Navigation Dots */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
-            {CAROUSEL_IMAGES.map((_, index) => (
+            {CAROUSEL_IMAGES.map((img, index) => (
               <button
-                key={index}
+                key={img}
                 type="button"
                 onClick={() => setCurrentIndex(index)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
@@ -74,7 +74,8 @@ export default function EventsCatering() {
               <p className="text-gray-600 text-base md:text-lg leading-relaxed font-poppins">
                 Paluto Seafood & Grill Restaurant offers premium catering services for all types of
                 celebrations. Whether it’s a family reunion, a corporate event, or a special wedding
-                gathering, we bring the fresh flavors of Iloilo’s best seafood directly to your table.
+                gathering, we bring the fresh flavors of Iloilo’s best seafood directly to your
+                table.
               </p>
               <p className="text-gray-600 text-base md:text-lg leading-relaxed font-poppins">
                 From our signature mixed seafood boat to live paluto cooking stations, we transform
