@@ -49,11 +49,11 @@ export default function FavoritesShowcase() {
       {/* Brand Wordmark Header */}
       <div className="w-full max-w-2xl px-4 z-30">
         <Image
-          src="/images/logo/manokan/sari-sari-manokan-logo-word.png"
-          alt="Unli-Paluto Favorites"
-          width={800}
-          height={400}
-          className="object-contain mx-auto"
+            src="/images/logo/manokan/sari-sari-manokan-logo-word.png"
+            alt="sari sari manokan logo"
+            width={250}
+            height={250}
+            className="object-contain mx-auto"
         />
       </div>
 
@@ -107,7 +107,7 @@ export default function FavoritesShowcase() {
       </div>
 
       {/* Decorative Vertical Red Divider */}
-      <div className="absolute left-1/2 top-0 w-px h-full bg-paluto-red/10 -z-10 hidden md:block" />
+      <div className="absolute left-1/2 top-0 w- h-full bg-paluto-red/10 -z-10 hidden md:block" />
     </section>
   );
 }
