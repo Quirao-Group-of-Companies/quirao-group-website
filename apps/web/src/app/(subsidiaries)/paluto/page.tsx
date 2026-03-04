@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { after } from 'next/server';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
+import EventsCatering from '@/components/paluto/EventsCatering';
 import { logger } from '@/lib/axiom/server';
 
 const BRANCHES = [
@@ -81,22 +82,22 @@ export default async function PalutoPage() {
       </section>
 
       {/* 2. OVERVIEW SECTION */}
-      <section className="bg-white py-24 px-6 md:px-12 flex flex-col items-center text-center">
+      <section className="bg-qgc-gray-soft py-20 px-6 md:px-12 flex flex-col items-center text-center">
         {/* Secondary Logo at the top */}
         <div className="mb-8">
           <Image
             src="/images/logo/paluto/word-mark-logo.png"
             alt="Paluto Word Mark Logo"
-            width={720}
+            width={640}
             height={360}
             className="object-contain"
           />
         </div>
 
         {/* H1 and Description */}
-        <div className="max-w-6xl mx-auto space-y-6 mb-16 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-qgc-black uppercase font-poppins tracking-tight">
-            Iloilo’s Destination for Premium Seafood & Celebrations.
+        <div className="max-w-6xl mx-auto space-y-6 mb-10 text-center">
+          <h1 className="text-4xl md:text-5xl font-black text-qgc-black uppercase font-poppins tracking-tight">
+            Iloilo’s Destination for <br></br>Premium Seafood & Celebrations.
           </h1>
           <p className="max-w-4xl mx-auto text-gray-600 text-lg md:text-xl leading-relaxed font-poppins">
             Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
@@ -132,11 +133,24 @@ export default async function PalutoPage() {
       {/* 3. FAVORITES SHOWCASE */}
       <FavoritesShowcase />
 
-      {/* 4. BRANCHES SECTION */}
-      <section className="bg-white pb-20">
-        <div className="max-w-6xl mx-auto px-6 py-20">
+      {/* 4. MID BANNER */}
+      <section className="relative w-full overflow-hidden">
+        <Image
+          src="/images/paluto/paluto-cover.png"
+          alt="Paluto Banner"
+          width={1920}
+          height={800}
+          className="w-full h-auto"
+        />
+        {/* Subtle Gradient Overlay */}
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/5 to-black/30 pointer-events-none" />
+      </section>
+
+      {/* 5. BRANCHES SECTION */}
+      <section className="bg-white pb-8">
+        <div className="max-w-6xl mx-auto px-4 py-20">
           {/* Header */}
-          <div className="flex flex-col items-center mb-16">
+          <div className="flex flex-col items-center mb-8">
             <h2 className="text-5xl font-black uppercase italic text-black tracking-tighter">
               OUR <span className="text-paluto-red">BRANCHES</span>
             </h2>
@@ -181,6 +195,9 @@ export default async function PalutoPage() {
           </div>
         </div>
       </section>
+
+      {/* 6. EVENTS & CATERING */}
+      <EventsCatering />
 
       {/* Additional sections can be added below */}
     </main>
