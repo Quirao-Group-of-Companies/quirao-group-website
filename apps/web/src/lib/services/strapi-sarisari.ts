@@ -8,15 +8,15 @@ export async function getSariSariManokanPage() {
     {
       populate: {
         hero: {
-            populate: {
-            image: true, 
+          populate: {
+            image: true,
             logo: {
               populate: {
-                image: true, 
+                image: true,
               },
             },
             cta: true,
-            },
+          },
         },
         aboutUs: {
           populate: '*',
@@ -48,7 +48,7 @@ export async function getSariSariManokanPage() {
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     console.error('Strapi Fetch Error:', errorData);
-  throw new Error(`Failed to fetch sari-sari manokan page: ${res.status}`);
+    throw new Error(`Failed to fetch sari-sari manokan page: ${res.status}`);
   }
 
   const json = await res.json();

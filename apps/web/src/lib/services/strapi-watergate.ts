@@ -8,15 +8,15 @@ export async function getWatergatePage() {
     {
       populate: {
         hero: {
-            populate: {
-            image: true, 
+          populate: {
+            image: true,
             logo: {
               populate: {
-                image: true, 
+                image: true,
               },
             },
             cta: true,
-            },
+          },
         },
         aboutUs: {
           populate: '*',
@@ -30,7 +30,7 @@ export async function getWatergatePage() {
         faqs: {
           populate: '*',
         },
-    },
+      },
     },
     { encodeValuesOnly: true },
   );
@@ -50,5 +50,5 @@ export async function getWatergatePage() {
 
   const json = await res.json();
 
-   return json.data;
+  return json.data;
 }

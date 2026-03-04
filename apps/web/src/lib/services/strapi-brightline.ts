@@ -8,15 +8,15 @@ export async function getBrightlinePage() {
     {
       populate: {
         hero: {
-            populate: {
-            image: true, 
+          populate: {
+            image: true,
             logo: {
               populate: {
-                image: true, 
+                image: true,
               },
             },
             cta: true,
-            },
+          },
         },
         aboutUS: {
           populate: '*',
@@ -36,7 +36,7 @@ export async function getBrightlinePage() {
         faqs: {
           populate: '*',
         },
-    },
+      },
     },
     { encodeValuesOnly: true },
   );

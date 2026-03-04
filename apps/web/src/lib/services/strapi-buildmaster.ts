@@ -8,15 +8,15 @@ export async function getBuildMasterPage() {
     {
       populate: {
         hero: {
-            populate: {
-            image: true, 
+          populate: {
+            image: true,
             logo: {
               populate: {
-                image: true, 
+                image: true,
               },
             },
             cta: true,
-            },
+          },
         },
         features: {
           populate: '*',
@@ -42,7 +42,7 @@ export async function getBuildMasterPage() {
         faqs: {
           populate: '*',
         },
-    },
+      },
     },
     { encodeValuesOnly: true },
   );
@@ -62,5 +62,5 @@ export async function getBuildMasterPage() {
 
   const json = await res.json();
 
-   return json.data;
+  return json.data;
 }

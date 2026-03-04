@@ -8,15 +8,15 @@ export async function getPalutoPage() {
     {
       populate: {
         hero: {
-            populate: {
-            image: true, 
+          populate: {
+            image: true,
             logo: {
               populate: {
-                image: true, 
+                image: true,
               },
             },
             cta: true,
-            },
+          },
         },
         aboutUs: {
           populate: '*',

@@ -108,7 +108,7 @@ export default function Navbar() {
               className={`md:absolute md:left-0 md:top-full md:mt-4 md:w-56 bg-white shadow-lg rounded-md md:opacity-0 md:invisible md:group-hover:opacity-100 md:group-hover:visible transition-all duration-300 z-50 overflow-hidden ${subsOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} md:max-h-none md:opacity-100`}
             >
               {[
-               { name: 'Buildmaster', href: '/buildmaster' },
+                { name: 'Buildmaster', href: '/buildmaster' },
                 { name: 'Paluto', href: '/paluto' },
                 { name: 'Brightline', href: '/brightline' },
                 { name: 'Sari-sari Manokan', href: '/sari-sari-manokan' },
