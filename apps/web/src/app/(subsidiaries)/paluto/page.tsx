@@ -1,8 +1,8 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { after } from 'next/server';
-import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
 import EventsCatering from '@/components/paluto/EventsCatering';
+import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
 import { logger } from '@/lib/axiom/server';
 
 const BRANCHES = [
