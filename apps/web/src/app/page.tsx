@@ -116,7 +116,6 @@ export default async function Home() {
       {/* =====================================================
          WHAT WE DO SECTION
       ===================================================== */}
-
       {aboutSection && (
         <section className="bg-qgc-gray-soft py-20">
           <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
@@ -124,8 +123,7 @@ export default async function Home() {
           </h2>
           <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-12">
             {aboutSection.image && (
-           <div className="w-full md:w-1/3 p-4 rounded-xl relative h-64 md:h-96 ">
-
+         <div className="w-full md:w-1/3 p-4 rounded-xl relative h-64 md:h-96 ">
               <div className="absolute inset-12 top-20 bottom-0  bg-qgc-gray-deep rounded-tl-4xl z-0" />
 
               <Image
@@ -134,9 +132,10 @@ export default async function Home() {
                 fill
                 className="object-contain  relative z-10"
               />
-            </div>
+              </div>
+              
             )}
-            <div className="md:w-1/2 flex flex-col gap-6 items-start mt-10">
+             <div className="md:w-1/2 flex flex-col gap-6 items-start mt-10">
               <h2 className="text-3xl font-bold text-gray-800">{aboutSection.title}</h2>
               {aboutSection.additionalComponents?.subtitle && (
                 <h3 className="text-2xl font-medium text-gray-700">
@@ -160,7 +159,7 @@ export default async function Home() {
                   {aboutSection.additionalComponents.cards.map((card: AboutCard) => (
                     <div
                       key={card.id}
-                      className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center text-center relative"
+                       className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center text-center relative"
                     >
                       {card.image?.url && (
                         <Image
@@ -193,7 +192,7 @@ export default async function Home() {
       ===================================================== */}
       <section className="bg-qgc-gray-soft px-6 py-20">
         <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
-          Our Achievements
+           Awards and Recognition
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">

@@ -21,6 +21,11 @@
       "type": "component",
       "component": "elements.link",
       "repeatable": false
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images", "files", "videos", "audios"]
     }
   },
   "config": {}

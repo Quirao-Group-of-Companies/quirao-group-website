@@ -1,7 +1,7 @@
-import { getPalutoPage } from '@/lib/services/strapi-paluto';
+import { getSariSariManokanPage } from '@/lib/services/strapi-sarisari';
 
-export default async function PalutoTestPage() {
-  const data = await getPalutoPage();
+export default async function SariSariManokanTestPage() {
+  const data = await getSariSariManokanPage();
 
   // Helper to render raw JSON safely
   const renderRaw = (section: unknown) => (
