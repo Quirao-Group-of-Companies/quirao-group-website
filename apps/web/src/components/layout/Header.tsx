@@ -109,7 +109,7 @@ export default function Navbar() {
             >
               {[
                 { name: 'Buildmaster', href: '/subsidiaries/buildmaster' },
-                { name: 'Paluto', href: '/subsidiaries/paluto' },
+                { name: 'Paluto', href: '/paluto' },
                 { name: 'Brightline', href: '/subsidiaries/brightline' },
                 { name: 'Sari-sari Manokan', href: '/subsidiaries/sarisari-manokan' },
                 { name: 'Watergate', href: '/subsidiaries/watergate' },
