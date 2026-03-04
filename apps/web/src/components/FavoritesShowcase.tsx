@@ -45,7 +45,7 @@ export default function FavoritesShowcase() {
   };
 
   return (
-    <section className="relative w-full min-h-[800px] flex flex-col items-center overflow-hidden bg-white py-5">
+    <section className="relative w-full min-h-200 flex flex-col items-center overflow-hidden bg-white py-5">
       {/* Brand Wordmark Header */}
       <div className="w-full max-w-2xl px-4 z-30">
         <Image
@@ -77,7 +77,7 @@ export default function FavoritesShowcase() {
         </div>
 
         {/* Right Side: The Circular Swapping Stage */}
-        <div className="relative h-[600px] flex justify-center items-center overflow-visible">
+        <div className="relative h-150 flex justify-center items-center overflow-visible">
           {DISHES.map((dish, index) => (
             <motion.div
               key={dish.id}
@@ -90,7 +90,7 @@ export default function FavoritesShowcase() {
                 // Ensure z-index swaps at the right moment
                 zIndex: { delay: 0 },
               }}
-              className="absolute w-[400px] h-[400px] md:w-[650px] md:h-[650px]"
+              className="absolute w-100 h-100 md:w-162.5 md:h-162.5"
             >
               <div className="relative w-full h-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.3)]">
                 <Image
@@ -107,7 +107,7 @@ export default function FavoritesShowcase() {
       </div>
 
       {/* Decorative Vertical Red Divider */}
-      <div className="absolute left-1/2 top-0 w-[1px] h-full bg-paluto-red/10 -z-10 hidden md:block" />
+      <div className="absolute left-1/2 top-0 w-px h-full bg-paluto-red/10 -z-10 hidden md:block" />
     </section>
   );
 }

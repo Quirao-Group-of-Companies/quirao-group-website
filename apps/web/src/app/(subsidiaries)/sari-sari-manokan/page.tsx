@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { after } from 'next/server';
 import FavoritesShowcase from '@/components/FavoritesShowcase';
+import FeedbackSection from '@/components/FeedbackSection';
 import VerticalCarousel from '@/components/VerticalCarousel';
 import { logger } from '@/lib/axiom/server';
 
@@ -111,7 +112,7 @@ export default async function ManokanPage() {
           </div>
 
           {/* CTA Banner Rectangle (Container with gradient) */}
-          <div className="w-full bg-linear-to-r from-paluto-green to-paluto-yellow/50 rounded-[2rem] p-5 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+          <div className="w-full bg-linear-to-r from-paluto-green to-paluto-yellow/50 rounded-4xl p-5 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
             <span className="text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm text-center sm:text-left leading-tight">
               Explore Sari-sari Manokan Facebook Page
             </span>
@@ -130,7 +131,7 @@ export default async function ManokanPage() {
         </div>
 
         {/* Right Content Side: Vertical Carousel */}
-        <div className="w-full md:w-[40%] flex justify-center items-center h-[400px] md:h-[80%] lg:h-[85%]">
+        <div className="w-full md:w-[40%] flex justify-center items-center h-100 md:h-[80%] lg:h-[85%]">
           <VerticalCarousel />
         </div>
       </section>
@@ -138,8 +139,58 @@ export default async function ManokanPage() {
       {/* 3. FAVORITES SHOWCASE */}
       <FavoritesShowcase />
 
-      {/* 4. Feedback section*/}
-    
+      {/* 4. FEEDBACK SECTION */}
+      <FeedbackSection />
+
+      {/* 5. BRANCHES SECTION */}
+      <section className="bg-white pb-20">
+        <div className="max-w-6xl mx-auto px-6 py-20">
+          {/* Header */}
+          <div className="flex flex-col items-center mb-16">
+            <h2 className="text-5xl font-black uppercase italic text-black tracking-tighter">
+              OUR <span className="text-paluto-red">BRANCHES</span>
+            </h2>
+            <div className="w-24 h-1.5 bg-paluto-yellow mt-2" />
+          </div>
+
+          {/* Two-Column Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {BRANCHES.map((branch) => (
+              <div
+                key={branch.id}
+                className="group bg-white rounded-[2rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-2xl"
+              >
+                {/* Image Container */}
+                <div className="relative h-72 w-full overflow-hidden">
+                  <Image
+                    src={branch.image}
+                    alt={branch.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+
+                {/* Text Content */}
+                <div className="p-10 text-center">
+                  <h3 className="text-3xl font-black text-black mb-2 uppercase italic">
+                    {branch.name}
+                  </h3>
+                  <p className="text-gray-500 font-medium mb-8">{branch.address}</p>
+
+                  <a
+                    href={branch.mapUrl}
+                    target="_blank"
+                    className="inline-flex items-center justify-center bg-black text-white px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:bg-paluto-red transition-all active:scale-95"
+                  >
+                    GET DIRECTIONS
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Additional sections can be added below */}
     </main>
