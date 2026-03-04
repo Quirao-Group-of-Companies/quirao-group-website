@@ -1,18 +1,18 @@
-import Image from 'next/image';
-import { logger } from '@/lib/axiom/server';
-import { after } from 'next/server';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import { after } from 'next/server';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
+import { logger } from '@/lib/axiom/server';
 
 /**
  * Paluto Subsidiary Page
- * 
+ *
  * This page serves as the landing page for the Paluto subsidiary.
  * It features a hero section, an overview section, and a favorites showcase.
  */
 export default async function PalutoPage() {
   // Axiom Logging for observability
-  logger.info("Paluto subsidiary page visited");
+  logger.info('Paluto subsidiary page visited');
   after(() => {
     logger.flush();
   });
@@ -82,22 +82,27 @@ export default async function PalutoPage() {
             Iloilo’s Destination for Premium Seafood & Celebrations.
           </h1>
           <p className="max-w-4xl mx-auto text-gray-600 text-lg md:text-xl leading-relaxed font-poppins">
-            Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We serve families, balikbayans, tourists, corporate groups, and event clients who want not just a meal but complete Iloilo experience. Our signature offerings include mixed seafood boat, live paluto cooking for buffet & catering, Fresh sea-to-table cooking, unlimited promos (UNLI 699), and full-service catering for all types of events. With our in-house stage, LED wall, sound system, and customizable event setups, Paluto transforms every visit into a memorable celebration.
+            Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
+            fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We serve
+            families, balikbayans, tourists, corporate groups, and event clients who want not just a
+            meal but complete Iloilo experience. Our signature offerings include mixed seafood boat,
+            live paluto cooking for buffet & catering, Fresh sea-to-table cooking, unlimited promos
+            (UNLI 699), and full-service catering for all types of events. With our in-house stage,
+            LED wall, sound system, and customizable event setups, Paluto transforms every visit
+            into a memorable celebration.
           </p>
         </div>
 
         {/* CTA Banner Rectangle (Container with gradient) */}
-        <div 
-          className="w-full max-w-4xl bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-[2rem] p-6 md:p-8 flex items-center justify-between shadow-md border border-white/10"
-        >
+        <div className="w-full max-w-4xl bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-[2rem] p-6 md:p-8 flex items-center justify-between shadow-md border border-white/10">
           <span className="text-xl md:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm">
             Explore Paluto Facebook Page
           </span>
 
           {/* Clickable inner button */}
-          <a 
-            href="https://www.facebook.com/palutophilippines" 
-            target="_blank" 
+          <a
+            href="https://www.facebook.com/palutophilippines"
+            target="_blank"
             rel="noopener noreferrer"
             className="bg-white hover:bg-qgc-gray-soft text-paluto-red px-6 py-3 rounded-2xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
           >
