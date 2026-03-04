@@ -19,7 +19,7 @@
     "cta": {
       "type": "component",
       "component": "elements.link",
-      "repeatable": false
+      "repeatable": true
     }
   },
   "config": {}
