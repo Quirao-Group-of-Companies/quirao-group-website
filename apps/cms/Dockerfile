@@ -1,14 +1,14 @@
 # ==========================================
 # Stage 1: Builder
 # ==========================================
-FROM oven/bun:1 AS builder
+FROM oven/bun:1.3.10 AS builder
 WORKDIR /app
 
 # Copy root workspace configurations
 COPY package.json bun.lock turbo.json ./
 
 # Copy the CMS app and shared internal packages
-COPY apps/cms ./apps/cms
+COPY apps/ ./apps/
 COPY packages ./packages
 
 # Install dependencies for the entire workspace
@@ -20,7 +20,7 @@ RUN bun run build:cms
 # ==========================================
 # Stage 2: Production Runner
 # ==========================================
-FROM oven/bun:1 AS runner
+FROM oven/bun:1.3.10 AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
