@@ -1,8 +1,8 @@
 'use client';
 
+import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useState } from 'react';
-import { MapPinIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 import type { Business } from '@/types/homepage';
 import Button from './Button';
 
@@ -17,14 +17,12 @@ interface InteractiveShowcaseProps {
   items: ShowcaseItem[];
   title?: string;
   imagePosition?: 'left' | 'right';
-  variant?: 'business' | 'contact';
 }
 
-export default function InteractiveShowcase({ 
-  items, 
+export default function InteractiveShowcase({
+  items,
   title = 'Showcase',
   imagePosition = 'left',
-  variant = 'business'
 }: InteractiveShowcaseProps) {
   const [activeItem, setActiveItem] = useState(items?.[0]);
 
@@ -39,16 +37,13 @@ export default function InteractiveShowcase({
       <h2 className="text-4xl text-qgc-black font-bold mb-16 font-akrux uppercase">{title}</h2>
 
       {/* Active Item Display */}
-      <div className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 mb-12 items-stretch`}>
+      <div
+        className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 mb-12 items-stretch`}
+      >
         {/* MAIN IMAGE */}
         <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden shadow-lg shrink-0">
           {currentItem.image && (
-            <Image
-              src={currentItem.image}
-              alt={currentItem.name}
-              fill
-              className="object-cover"
-            />
+            <Image src={currentItem.image} alt={currentItem.name} fill className="object-cover" />
           )}
         </div>
 
@@ -132,9 +127,11 @@ export default function InteractiveShowcase({
               />
             )}
 
-            <div className={`absolute inset-0 flex items-center justify-center p-4 transition-colors duration-300 ${
-              currentItem.id === item.id ? 'bg-black/20' : 'bg-black/40 group-hover:bg-black/20'
-            }`}>
+            <div
+              className={`absolute inset-0 flex items-center justify-center p-4 transition-colors duration-300 ${
+                currentItem.id === item.id ? 'bg-black/20' : 'bg-black/40 group-hover:bg-black/20'
+              }`}
+            >
               {item.logo && (
                 <Image
                   src={item.logo}
