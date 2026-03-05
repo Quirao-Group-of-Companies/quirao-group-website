@@ -18,69 +18,60 @@ export function InquiryForm() {
   return (
     <form
       action={handleSubmit}
-      className="space-y-8 p-2 md:p-2 bg-transparent w-full"
+      className="space-y-8 p-2 md:p-4 bg-transparent w-full"
     >
-      <div className="border-b pb-6 mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase">General Inquiry</h2>
-        <p className="text-gray-500 text-sm mt-1">We'd love to hear from you. Send us a message and we'll get back to you shortly.</p>
+      <div className="border-b pb-6 mb-6 pt-10">
+        <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase text-center">General Inquiry</h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-2">
    
      {/* Full name*/}
         <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
-            Full Name
-          </label>
+       
           <input
             id="name"
             name="name"
             placeholder="Enter your full name"
-            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
+            className="w-full p-4 bg-qgc-gray-soft border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
           />
           </div>
 
          {/* Email */}
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
-              Email Address <span className="text-red-500">*</span>
-            </label>
+         
             <input
               id="email"
               name="email"
               type="email"
               placeholder="example@email.com"
               required
-              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
+              className="w-full p-4 bg-qgc-gray-soft border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
             />
           </div>
           
          {/* Phone */}
           <div className="space-y-2">
-            <label htmlFor="number" className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
-              Phone Number <span className="text-red-500">*</span>
-            </label>
+           
             <input
               id="number"
               name="number"
               type="number"
               placeholder="0919637192"
               required
-              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
+              className="w-full p-4 bg-qgc-gray-soft border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
             />
           </div>
         
         {/* Message */}
         <div className="space-y-2">
-          <label htmlFor="message" className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
-            Message <span className="text-red-500">*</span>
-          </label>
+   
           <textarea
             id="message"
             name="message"
             placeholder="Tell us how we can help..."
             required
-            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black h-48 focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all resize-none"
+            className="w-full p-4 bg-qgc-gray-soft border border-gray-200 rounded-xl text-black h-48 focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all resize-none"
           />
         </div>
       </div>
