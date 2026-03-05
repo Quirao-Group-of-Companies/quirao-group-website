@@ -4,22 +4,24 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useLogger } from '@/lib/axiom/client';
+import type { CardItem } from '@/types/strapi-shared';
 
-const DISHES = [
-  { id: 0, label: 'Buttered Garlic Shrimp', src: '/images/paluto/showcase 1.jpg' },
-  { id: 1, label: 'Steamed Blue Crab', src: '/images/paluto/showcase 2.jpg' },
-  { id: 2, label: 'Buttered Garlic Mixed Seafood', src: '/images/paluto/showcase 3.jpg' },
-  { id: 3, label: 'Crispy Squid Calamares', src: '/images/paluto/showcase 4.jpg' },
-];
+interface FavoritesShowcaseProps {
+  data?: CardItem[];
+}
 
-export default function FavoritesShowcase() {
+export default function FavoritesShowcase({ data }: FavoritesShowcaseProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const logger = useLogger();
+
+  if (!data || data.length === 0) {
+    return null;
+  }
 
   const handleSelect = (idx: number) => {
     setActiveIdx(idx);
     // Mandatory Axiom logging
-    logger.info('Paluto dish swapped', { dish: DISHES[idx].label });
+    logger.info('Paluto dish swapped', { dish: data[idx].title });
   };
 
   /**
@@ -28,7 +30,8 @@ export default function FavoritesShowcase() {
    */
   const getPosition = (index: number) => {
     // Determine relative position (0-3) where 0 is the front-most dish
-    const diff = (index - activeIdx + 4) % 4;
+    const total = data.length;
+    const diff = (index - activeIdx + total) % total;
 
     switch (diff) {
       case 0: // Active Center
@@ -40,7 +43,7 @@ export default function FavoritesShowcase() {
       case 3: // Off-bottom (moving in)
         return { x: 120, y: 350, opacity: 0, scale: 0.7, zIndex: 10 };
       default:
-        return {};
+        return { x: 350, y: 0, opacity: 0, scale: 0.4, zIndex: 0 };
     }
   };
 
@@ -60,18 +63,18 @@ export default function FavoritesShowcase() {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-8 md:px-16 flex-1">
         {/* Left Side: Buttons scaled down */}
         <div className="flex flex-col gap-4 z-40">
-          {DISHES.map((dish) => (
+          {data.map((dish, index) => (
             <button
               type="button"
               key={dish.id}
-              onClick={() => handleSelect(dish.id)}
+              onClick={() => handleSelect(index)}
               className={`w-full md:w-72 py-3 px-6 rounded-full font-poppins font-bold text-left uppercase tracking-wider transition-all duration-300 shadow-md ${
-                activeIdx === dish.id
+                activeIdx === index
                   ? 'bg-paluto-red text-white shadow-lg translate-x-4'
                   : 'bg-qgc-black text-white hover:bg-zinc-800'
               }`}
             >
-              <span className="text-base md:text-lg">{dish.label}</span>
+              <span className="text-base md:text-lg">{dish.title}</span>
             </button>
           ))}
         </div>
@@ -79,7 +82,7 @@ export default function FavoritesShowcase() {
         {/* Right Side: The Circular Swapping Stage scaled down */}
         <div className="relative h-[500px] flex flex-col justify-center items-center overflow-visible">
           <div className="relative w-full h-full flex justify-center items-center">
-            {DISHES.map((dish, index) => (
+            {data.map((dish, index) => (
               <motion.div
                 key={dish.id}
                 initial={false}
@@ -93,13 +96,15 @@ export default function FavoritesShowcase() {
                 className="absolute w-[350px] h-[350px] md:w-[550px] md:h-[550px]"
               >
                 <div className="relative w-full h-full drop-shadow-[0_25px_40px_rgba(0,0,0,0.25)]">
-                  <Image
-                    src={dish.src}
-                    alt={dish.label}
-                    fill
-                    className="object-contain"
-                    priority={index === 0}
-                  />
+                  {dish.image?.url && (
+                    <Image
+                      src={dish.image.url}
+                      alt={dish.title}
+                      fill
+                      className="object-contain"
+                      priority={index === 0}
+                    />
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -107,7 +112,7 @@ export default function FavoritesShowcase() {
 
           {/* Carousel Indicators (Dots) with background pill */}
           <div className="bg-qgc-black/80 backdrop-blur-sm px-4 py-2.5 rounded-full flex items-center gap-2.5 mt-8 z-50 border border-gray-200/50">
-            {DISHES.map((dish, index) => (
+            {data.map((dish, index) => (
               <button
                 key={`indicator-${dish.id}`}
                 type="button"

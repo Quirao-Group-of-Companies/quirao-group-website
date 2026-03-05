@@ -5,6 +5,8 @@ import EventsCatering from '@/components/paluto/EventsCatering';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
 import Feedback from '@/components/paluto/Feedback';
 import { logger } from '@/lib/axiom/server';
+import { getPalutoPage } from '@/lib/services/strapi-paluto';
+import type { PalutoPageData } from '@/types/paluto-page';
 
 const BRANCHES = [
   {
@@ -30,11 +32,16 @@ const BRANCHES = [
  * It features a hero section and an overview section with a Facebook CTA.
  */
 export default async function PalutoPage() {
+  const data: PalutoPageData = await getPalutoPage();
+
   // Axiom Logging for observability
   logger.info('Paluto subsidiary page visited');
   after(() => {
     logger.flush();
   });
+
+  const hero = data.hero?.[0];
+  const overview = data.hero?.[1];
 
   return (
     <main className="w-full pt-16 min-h-screen">
@@ -42,26 +49,46 @@ export default async function PalutoPage() {
       <section className="relative w-full h-[80vh] flex flex-col justify-end overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/home-page/business-preview/paluto-business-preview.jpg"
-            alt="Paluto Hero Background"
-            fill
-            className="object-cover"
-            priority
-          />
+          {hero?.image?.url ? (
+            <Image
+              src={hero.image.url}
+              alt={hero.image.alternativeText || 'Paluto Hero Background'}
+              fill
+              className="object-cover"
+              priority
+            />
+          ) : (
+            <Image
+              src="/images/home-page/business-preview/paluto-business-preview.jpg"
+              alt="Paluto Hero Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          )}
           {/* Subtle Overlay to ensure text readability */}
           <div className="absolute inset-0 bg-black/30" />
         </div>
 
         {/* Logo Top Left */}
         <div className="absolute top-0 left-6 md:left-12 z-20">
-          <Image
-            src="/images/logo/paluto/paluto-logo-red.png"
-            alt="Paluto Logo"
-            width={200}
-            height={200}
-            className="object-contain"
-          />
+          {hero?.logo?.image?.url ? (
+            <Image
+              src={hero.logo.image.url}
+              alt={hero.logo.logoName || 'Paluto Logo'}
+              width={200}
+              height={200}
+              className="object-contain"
+            />
+          ) : (
+            <Image
+              src="/images/logo/paluto/paluto-logo-red.png"
+              alt="Paluto Logo"
+              width={200}
+              height={200}
+              className="object-contain"
+            />
+          )}
         </div>
 
         {/* Content Bottom Left */}
@@ -69,14 +96,14 @@ export default async function PalutoPage() {
           {/* Brand Name in Rounded Rectangle */}
           <div className="bg-white/95 backdrop-blur-md rounded-xl px-8 py-1 w-fit shadow-2xl border border-white/50">
             <h1 className="text-paluto-red text-4xl md:text-2xl font-bold font-poppins uppercase tracking-tighter leading-none">
-              Paluto
+              {hero?.title || 'Paluto'}
             </h1>
           </div>
 
           {/* Subtitle / Tagline */}
           <div className="max-w-2xl">
             <p className="text-white text-lg md:text-2xl font-bold drop-shadow-xl font-poppins">
-              Seafood Grill and Restaurant
+              {hero?.description || 'Seafood Grill and Restaurant'}
             </p>
           </div>
         </div>
@@ -88,23 +115,52 @@ export default async function PalutoPage() {
           {/* Left Column: Text Content */}
           <div className="lg:col-span-7 space-y-6">
             <h2 className="text-4xl md:text-6xl font-black text-black leading-[1.1] font-poppins">
-              Excellent Seafood <span className="text-paluto-red">Today</span>, <br />A Lasting
-              Tradition <span className="text-paluto-red">Tomorrow</span>.
+              {overview?.title ? (
+                overview.title.split(/(\bToday\b|\bTomorrow\b)/g).map((part, i) => {
+                  if (part === 'Today' || part === 'Tomorrow') {
+                    return (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: parts are small and order is stable
+                      <span key={`${part}-${i}`} className="text-paluto-red">
+                        {part}
+                      </span>
+                    );
+                  }
+                  return part;
+                })
+              ) : (
+                <>
+                  Excellent Seafood <span className="text-paluto-red">Today</span>, <br />A Lasting
+                  Tradition <span className="text-paluto-red">Tomorrow</span>.
+                </>
+              )}
             </h2>
             <div className="space-y-5">
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
-                Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
-                fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We
-                serve families, balikbayans, tourists, corporate groups, and event clients who want
-                not just a meal but complete Iloilo experience.
-              </p>
-              <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
-                Our signature offerings include mixed seafood boat, live paluto cooking for buffet &
-                catering, Fresh sea-to-table cooking, unlimited promos (UNLI 699), and full-service
-                catering for all types of events. With our in-house stage, LED wall, sound system,
-                and customizable event setups, Paluto transforms every visit into a memorable
-                celebration.
-              </p>
+              {overview?.description ? (
+                overview.description.split('\n\n').map((para) => (
+                  <p
+                    key={para.substring(0, 32)}
+                    className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium"
+                  >
+                    {para}
+                  </p>
+                ))
+              ) : (
+                <>
+                  <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
+                    Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for
+                    its fresh live seafood, vibrant dining experience, and celebration-ready
+                    ambiance. We serve families, balikbayans, tourists, corporate groups, and event
+                    clients who want not just a meal but complete Iloilo experience.
+                  </p>
+                  <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
+                    Our signature offerings include mixed seafood boat, live paluto cooking for
+                    buffet & catering, Fresh sea-to-table cooking, unlimited promos (UNLI 699), and
+                    full-service catering for all types of events. With our in-house stage, LED
+                    wall, sound system, and customizable event setups, Paluto transforms every visit
+                    into a memorable celebration.
+                  </p>
+                </>
+              )}
             </div>
 
             {/* CTA Banner Rectangle (Container with gradient) */}
@@ -115,13 +171,13 @@ export default async function PalutoPage() {
 
               {/* Clickable inner button */}
               <a
-                href="https://www.facebook.com/palutophilippines"
+                href={overview?.cta?.href || 'https://www.facebook.com/palutophilippines'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
               >
                 <span className="font-bold uppercase text-[10px] md:text-xs">
-                  Visit Facebook Page
+                  {overview?.cta?.title || 'Visit Facebook Page'}
                 </span>
                 <ArrowRightIcon className="w-4 h-4" />
               </a>
@@ -131,19 +187,28 @@ export default async function PalutoPage() {
           {/* Right Column: Circular Image */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-[10px] border-white">
-              <Image
-                src="/images/paluto/showcase 4.jpg"
-                alt="Crispy Squid Calamares"
-                fill
-                className="object-cover"
-              />
+              {overview?.image?.url ? (
+                <Image
+                  src={overview.image.url}
+                  alt={overview.image.alternativeText || 'Overview Image'}
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <Image
+                  src="/images/paluto/showcase 4.jpg"
+                  alt="Crispy Squid Calamares"
+                  fill
+                  className="object-cover"
+                />
+              )}
             </div>
           </div>
         </div>
       </section>
 
       {/* 3. FAVORITES SHOWCASE */}
-      <FavoritesShowcase />
+      <FavoritesShowcase data={data.showcase} />
 
       {/* 4. MID BANNER */}
       <section className="relative w-full overflow-hidden">
@@ -209,10 +274,10 @@ export default async function PalutoPage() {
       </section>
 
       {/* 6. EVENTS & CATERING */}
-      <EventsCatering />
+      <EventsCatering data={data.aboutUs} />
 
       {/* 7. FEEDBACK SECTION */}
-      <Feedback />
+      <Feedback data={data.feedback} />
 
       {/* Additional sections can be added below */}
     </main>
