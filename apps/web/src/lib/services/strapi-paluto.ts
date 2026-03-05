@@ -8,7 +8,15 @@ export async function getPalutoPage() {
     {
       populate: {
         hero: {
-          populate: '*',
+          populate: {
+            image: true,
+            logo: {
+              populate: {
+                image: true,
+              },
+            },
+            cta: true,
+          },
         },
         aboutUs: {
           populate: '*',
@@ -48,7 +56,5 @@ export async function getPalutoPage() {
 
   const json = await res.json();
 
-  // Strapi v5 returns data directly.
-  // If using v4, it might be json.data.attributes
   return json.data;
 }
