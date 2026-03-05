@@ -1,5 +1,5 @@
 import type { Schema, Struct } from '@strapi/strapi';
-
+// sample comment
 export interface BlocksAboutUs extends Struct.ComponentSchema {
   collectionName: 'components_blocks_about_uses';
   info: {
