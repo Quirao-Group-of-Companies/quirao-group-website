@@ -9,11 +9,11 @@ import type {
   AboutCard,
   Achievement,
   Business,
-  FAQ,
   HeroItem,
   HomepageData,
   SubPreviewItem,
 } from '@/types/homepage';
+import type { FAQ } from '@/types/strapi-shared';
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT

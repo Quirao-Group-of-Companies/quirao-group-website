@@ -1,6 +1,25 @@
-export type StrapiCTA = {
+import type { FAQ, LogoComponent, StrapiCTA, StrapiImage } from './strapi-shared';
+
+export type HeroItem = {
+  id: number;
   title: string;
-  href: string;
+  description: string;
+  image?: StrapiImage | null;
+  cta?: StrapiCTA | null;
+};
+
+export type AboutCard = {
+  id: number;
+  title: string;
+  description: string;
+  image?: StrapiImage | null;
+};
+
+export type Achievement = {
+  id: number;
+  title: string;
+  description: string;
+  image: string | null;
 };
 
 export type Business = {
@@ -13,55 +32,12 @@ export type Business = {
   cta: StrapiCTA | null;
 };
 
-export type HeroItem = {
-  id: number;
-  title: string;
-  description: string;
-  image?: {
-    url: string;
-    alternativeText: string | null;
-  } | null;
-  cta?: StrapiCTA | null;
-};
-
-export type FAQ = {
-  id: number;
-  question: string;
-  answer: string;
-};
-
-export type Achievement = {
-  id: number;
-  title: string;
-  description: string;
-  image: string | null;
-};
-
-export type AboutCard = {
-  id: number;
-  title: string;
-  description: string;
-  image?: {
-    url: string;
-    alternativeText: string | null;
-  } | null;
-};
-
 export type SubPreviewItem = {
   id: number;
-  logo?: {
-    logoName?: string;
-    image?: {
-      url: string;
-    };
-  };
+  logo?: LogoComponent;
   description: string;
-  image?: {
-    url: string;
-  };
-  cardImage?: {
-    url: string;
-  };
+  image?: { url: string };
+  cardImage?: { url: string };
   cta?: StrapiCTA;
 };
 
@@ -73,19 +49,14 @@ export type HomepageData = {
     description: string;
     subtitle: string;
     cards: AboutCard[];
-    image?: {
-      url: string;
-      alternativeText: string | null;
-    } | null;
+    image?: StrapiImage | null;
     cta?: StrapiCTA | null;
   }[];
   Achievements?: {
     id: number;
     title: string;
     description: string;
-    image?: {
-      url: string;
-    } | null;
+    image?: { url: string } | null;
   }[];
   SubPreview?: SubPreviewItem[];
   FAQs?: FAQ[];
