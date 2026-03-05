@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { StarIcon } from '@heroicons/react/24/solid';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const FEEDBACKS = [
   {
@@ -26,7 +26,7 @@ const FEEDBACKS = [
     name: 'Mike Johnson',
     rating: 4,
     testimonial:
-      'The place is huge! The food is delicious. The staff is welcoming. Since it\'s a big place, there is no need to rush to give way to incoming customers.',
+      "The place is huge! The food is delicious. The staff is welcoming. Since it's a big place, there is no need to rush to give way to incoming customers.",
     image: '/images/paluto/showcase 3.jpg',
   },
   {
@@ -73,13 +73,13 @@ export default function Feedback() {
                   {[...Array(5)].map((_, i) => (
                     <StarIcon
                       key={`${fb.id}-star-${i}`}
-                      className={`w-4 h-4 ${
-                        i < fb.rating ? 'text-paluto-red' : 'text-gray-300'
-                      }`}
+                      className={`w-4 h-4 ${i < fb.rating ? 'text-paluto-red' : 'text-gray-300'}`}
                     />
                   ))}
                 </div>
-                <p className="text-xs md:text-sm text-black italic mt-1.5 leading-snug">"{fb.testimonial}"</p>
+                <p className="text-xs md:text-sm text-black italic mt-1.5 leading-snug">
+                  "{fb.testimonial}"
+                </p>
               </div>
             </motion.div>
           ))}

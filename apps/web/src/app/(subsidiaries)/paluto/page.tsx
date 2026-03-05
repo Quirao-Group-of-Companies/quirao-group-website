@@ -88,21 +88,22 @@ export default async function PalutoPage() {
           {/* Left Column: Text Content */}
           <div className="lg:col-span-7 space-y-6">
             <h2 className="text-4xl md:text-6xl font-black text-black leading-[1.1] font-poppins">
-              Excellent Seafood <span className="text-paluto-red">Today</span>, <br />
-              A Lasting Tradition <span className="text-paluto-red">Tomorrow</span>.
+              Excellent Seafood <span className="text-paluto-red">Today</span>, <br />A Lasting
+              Tradition <span className="text-paluto-red">Tomorrow</span>.
             </h2>
             <div className="space-y-5">
               <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
                 Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
-                fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We serve
-                families, balikbayans, tourists, corporate groups, and event clients who want not just a
-                meal but complete Iloilo experience.
+                fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We
+                serve families, balikbayans, tourists, corporate groups, and event clients who want
+                not just a meal but complete Iloilo experience.
               </p>
               <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
-                Our signature offerings include mixed seafood boat, live paluto cooking for buffet & catering, 
-                Fresh sea-to-table cooking, unlimited promos (UNLI 699), and full-service catering for all types of events. 
-                With our in-house stage, LED wall, sound system, and customizable event setups, Paluto transforms every visit 
-                into a memorable celebration.
+                Our signature offerings include mixed seafood boat, live paluto cooking for buffet &
+                catering, Fresh sea-to-table cooking, unlimited promos (UNLI 699), and full-service
+                catering for all types of events. With our in-house stage, LED wall, sound system,
+                and customizable event setups, Paluto transforms every visit into a memorable
+                celebration.
               </p>
             </div>
 
@@ -119,7 +120,9 @@ export default async function PalutoPage() {
                 rel="noopener noreferrer"
                 className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
               >
-                <span className="font-bold uppercase text-[10px] md:text-xs">Visit Facebook Page</span>
+                <span className="font-bold uppercase text-[10px] md:text-xs">
+                  Visit Facebook Page
+                </span>
                 <ArrowRightIcon className="w-4 h-4" />
               </a>
             </div>

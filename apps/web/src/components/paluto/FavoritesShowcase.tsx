@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { useLogger } from "@/lib/axiom/client";
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState } from 'react';
+import { useLogger } from '@/lib/axiom/client';
 
 const DISHES = [
-  { id: 0, label: "Buttered Garlic Shrimp", src: "/images/paluto/showcase 1.jpg" },
-  { id: 1, label: "Steamed Blue Crab", src: "/images/paluto/showcase 2.jpg" },
-  { id: 2, label: "Buttered Garlic Mixed Seafood", src: "/images/paluto/showcase 3.jpg" },
-  { id: 3, label: "Crispy Squid Calamares", src: "/images/paluto/showcase 4.jpg" },
+  { id: 0, label: 'Buttered Garlic Shrimp', src: '/images/paluto/showcase 1.jpg' },
+  { id: 1, label: 'Steamed Blue Crab', src: '/images/paluto/showcase 2.jpg' },
+  { id: 2, label: 'Buttered Garlic Mixed Seafood', src: '/images/paluto/showcase 3.jpg' },
+  { id: 3, label: 'Crispy Squid Calamares', src: '/images/paluto/showcase 4.jpg' },
 ];
 
 export default function FavoritesShowcase() {
@@ -19,7 +19,7 @@ export default function FavoritesShowcase() {
   const handleSelect = (idx: number) => {
     setActiveIdx(idx);
     // Mandatory Axiom logging
-    logger.info("Paluto dish swapped", { dish: DISHES[idx].label });
+    logger.info('Paluto dish swapped', { dish: DISHES[idx].label });
   };
 
   /**
@@ -29,17 +29,17 @@ export default function FavoritesShowcase() {
   const getPosition = (index: number) => {
     // Determine relative position (0-3) where 0 is the front-most dish
     const diff = (index - activeIdx + 4) % 4;
-    
+
     switch (diff) {
       case 0: // Active Center
-        return { x: 0, y: 0, opacity: 1, scale: 1, zIndex: 20 };       
+        return { x: 0, y: 0, opacity: 1, scale: 1, zIndex: 20 };
       case 1: // Off-top (moving out)
-        return { x: 120, y: -350, opacity: 0, scale: 0.7, zIndex: 10 }; 
+        return { x: 120, y: -350, opacity: 0, scale: 0.7, zIndex: 10 };
       case 2: // Hidden Far Right
-        return { x: 350, y: 0, opacity: 0, scale: 0.4, zIndex: 0 };    
+        return { x: 350, y: 0, opacity: 0, scale: 0.4, zIndex: 0 };
       case 3: // Off-bottom (moving in)
-        return { x: 120, y: 350, opacity: 0, scale: 0.7, zIndex: 10 };  
-      default: 
+        return { x: 120, y: 350, opacity: 0, scale: 0.7, zIndex: 10 };
+      default:
         return {};
     }
   };
@@ -48,7 +48,7 @@ export default function FavoritesShowcase() {
     <section className="relative w-full min-h-[600px] flex flex-col items-center overflow-hidden bg-white pt-4 pb-16">
       {/* Brand Wordmark Header scaled down */}
       <div className="w-full max-w-xl px-4 mb-16 z-30">
-         <Image
+        <Image
           src="/images/logo/paluto/word-mark-logo.png"
           alt="Unli-Paluto Favorites"
           width={640}
@@ -66,9 +66,9 @@ export default function FavoritesShowcase() {
               key={dish.id}
               onClick={() => handleSelect(dish.id)}
               className={`w-full md:w-72 py-3 px-6 rounded-full font-poppins font-bold text-left uppercase tracking-wider transition-all duration-300 shadow-md ${
-                activeIdx === dish.id 
-                  ? "bg-paluto-red text-white shadow-lg translate-x-4" 
-                  : "bg-qgc-black text-white hover:bg-zinc-800"
+                activeIdx === dish.id
+                  ? 'bg-paluto-red text-white shadow-lg translate-x-4'
+                  : 'bg-qgc-black text-white hover:bg-zinc-800'
               }`}
             >
               <span className="text-base md:text-lg">{dish.label}</span>
@@ -84,11 +84,11 @@ export default function FavoritesShowcase() {
                 key={dish.id}
                 initial={false}
                 animate={getPosition(index)}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 100, 
+                transition={{
+                  type: 'spring',
+                  stiffness: 100,
                   damping: 20,
-                  zIndex: { delay: 0 } 
+                  zIndex: { delay: 0 },
                 }}
                 className="absolute w-[350px] h-[350px] md:w-[550px] md:h-[550px]"
               >
@@ -113,8 +113,8 @@ export default function FavoritesShowcase() {
                 type="button"
                 onClick={() => handleSelect(index)}
                 className={`h-1.5 rounded-full transition-all duration-500 ${
-                  activeIdx === index 
-                    ? 'w-8 bg-paluto-red shadow-md shadow-paluto-red/20' 
+                  activeIdx === index
+                    ? 'w-8 bg-paluto-red shadow-md shadow-paluto-red/20'
                     : 'w-1.5 bg-gray-300 hover:bg-gray-400'
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
