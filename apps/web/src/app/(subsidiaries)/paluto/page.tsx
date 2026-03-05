@@ -5,6 +5,8 @@ import EventsCatering from '@/components/paluto/EventsCatering';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
 import Feedback from '@/components/paluto/Feedback';
 import { logger } from '@/lib/axiom/server';
+import { getPalutoPage } from '@/lib/services/strapi-paluto';
+import type { PalutoPageData } from '@/types/paluto-page';
 
 const BRANCHES = [
   {
@@ -30,11 +32,16 @@ const BRANCHES = [
  * It features a hero section and an overview section with a Facebook CTA.
  */
 export default async function PalutoPage() {
+  const data: PalutoPageData = await getPalutoPage();
+
   // Axiom Logging for observability
   logger.info('Paluto subsidiary page visited');
   after(() => {
     logger.flush();
   });
+
+  const hero = data.hero?.[0];
+  const overview = data.hero?.[1];
 
   return (
     <main className="w-full pt-20 min-h-screen">
@@ -42,13 +49,23 @@ export default async function PalutoPage() {
       <section className="relative w-full h-[90vh] flex flex-col justify-end overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/home-page/business-preview/paluto-business-preview.jpg"
-            alt="Paluto Hero Background"
-            fill
-            className="object-cover"
-            priority
-          />
+          {hero?.image?.url ? (
+            <Image
+              src={hero.image.url}
+              alt={hero.image.alternativeText || 'Paluto Hero Background'}
+              fill
+              className="object-cover"
+              priority
+            />
+          ) : (
+            <Image
+              src="/images/home-page/business-preview/paluto-business-preview.jpg"
+              alt="Paluto Hero Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          )}
           {/* Subtle Overlay to ensure text readability */}
           <div className="absolute inset-0 bg-black/30" />
         </div>
@@ -67,50 +84,45 @@ export default async function PalutoPage() {
         {/* Content Bottom Left */}
         <div className="relative z-10 pl-12 md:pl-24 pb-32 space-y-2">
           {/* Brand Name in Rounded Rectangle */}
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl px-10 py-1 w-fit shadow-2xl border border-white/50">
-            <h1 className="text-paluto-red text-5xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
+          <div className="bg-white/95 backdrop-blur-md rounded-xl px-8 py-1 w-fit shadow-2xl border border-white/50">
+            <h1 className="text-paluto-red text-4xl md:text-2xl font-bold font-poppins uppercase tracking-tighter leading-none">
               Paluto
             </h1>
           </div>
 
           {/* Subtitle / Tagline */}
-          <div className="max-w-3xl">
-            <p className="text-white text-xl md:text-3xl font-bold drop-shadow-xl font-poppins">
+          <div className="max-w-2xl">
+            <p className="text-white text-lg md:text-2xl font-bold drop-shadow-xl font-poppins">
               Seafood Grill and Restaurant
             </p>
           </div>
         </div>
       </section>
 
-      {/* 2. OVERVIEW SECTION */}
-      <section className="bg-qgc-gray-soft py-20 px-6 md:px-12 flex flex-col items-center text-center">
-        {/* Secondary Logo at the top */}
-        <div className="mb-8">
-          <Image
-            src="/images/logo/paluto/word-mark-logo.png"
-            alt="Paluto Word Mark Logo"
-            width={640}
-            height={360}
-            className="object-contain"
-          />
-        </div>
-
-        {/* H1 and Description */}
-        <div className="max-w-6xl mx-auto space-y-6 mb-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-black text-qgc-black uppercase font-poppins tracking-tight">
-            Iloilo’s Destination for <br></br>Premium Seafood & Celebrations.
-          </h1>
-          <p className="max-w-4xl mx-auto text-gray-600 text-lg md:text-xl leading-relaxed font-poppins">
-            Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
-            fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We serve
-            families, balikbayans, tourists, corporate groups, and event clients who want not just a
-            meal but complete Iloilo experience. Our signature offerings include mixed seafood boat,
-            live paluto cooking for buffet & catering, Fresh sea-to-table cooking, unlimited promos
-            (UNLI 699), and full-service catering for all types of events. With our in-house stage,
-            LED wall, sound system, and customizable event setups, Paluto transforms every visit
-            into a memorable celebration.
-          </p>
-        </div>
+      {/* 2. OVERVIEW SECTION (Split Screen) */}
+      <section className="bg-white pt-20 pb-10 px-6 md:px-10 border-l-[5px] border-cyan-400 relative">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Column: Text Content */}
+          <div className="lg:col-span-7 space-y-6">
+            <h2 className="text-4xl md:text-6xl font-black text-black leading-[1.1] font-poppins">
+              Excellent Seafood <span className="text-paluto-red">Today</span>, <br />A Lasting
+              Tradition <span className="text-paluto-red">Tomorrow</span>.
+            </h2>
+            <div className="space-y-5">
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
+                Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
+                fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We
+                serve families, balikbayans, tourists, corporate groups, and event clients who want
+                not just a meal but complete Iloilo experience.
+              </p>
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
+                Our signature offerings include mixed seafood boat, live paluto cooking for buffet &
+                catering, Fresh sea-to-table cooking, unlimited promos (UNLI 699), and full-service
+                catering for all types of events. With our in-house stage, LED wall, sound system,
+                and customizable event setups, Paluto transforms every visit into a memorable
+                celebration.
+              </p>
+            </div>
 
         {/* CTA Banner Rectangle (Container with gradient) */}
         <div className="w-full max-w-4xl bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-[2rem] p-6 md:p-8 flex items-center justify-between shadow-md">
@@ -118,21 +130,37 @@ export default async function PalutoPage() {
             Explore Paluto Facebook Page
           </span>
 
-          {/* Clickable inner button */}
-          <a
-            href="https://www.facebook.com/palutophilippines"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-3 rounded-2xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
-          >
-            <span className="font-bold uppercase text-xs md:text-sm">Visit Facebook Page</span>
-            <ArrowRightIcon className="w-5 h-5" />
-          </a>
+              {/* Clickable inner button */}
+              <a
+                href="https://www.facebook.com/palutophilippines"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
+              >
+                <span className="font-bold uppercase text-[10px] md:text-xs">
+                  Visit Facebook Page
+                </span>
+                <ArrowRightIcon className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Circular Image */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-[10px] border-white">
+              <Image
+                src="/images/paluto/showcase 4.jpg"
+                alt="Crispy Squid Calamares"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* 3. FAVORITES SHOWCASE */}
-      <FavoritesShowcase />
+      <FavoritesShowcase data={data.showcase} />
 
       {/* 4. MID BANNER */}
       <section className="relative w-full overflow-hidden">
@@ -198,10 +226,10 @@ export default async function PalutoPage() {
       </section>
 
       {/* 6. EVENTS & CATERING */}
-      <EventsCatering />
+      <EventsCatering data={data.aboutUs} />
 
       {/* 7. FEEDBACK SECTION */}
-      <Feedback />
+      <Feedback data={data.feedback} />
 
       {/* Additional sections can be added below */}
     </main>

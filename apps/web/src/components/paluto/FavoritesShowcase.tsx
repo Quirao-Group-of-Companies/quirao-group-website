@@ -4,22 +4,24 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useLogger } from '@/lib/axiom/client';
+import type { CardItem } from '@/types/strapi-shared';
 
-const DISHES = [
-  { id: 0, label: 'Buttered Garlic Shrimp', src: '/images/paluto/showcase 1.jpg' },
-  { id: 1, label: 'Steamed Blue Crab', src: '/images/paluto/showcase 2.jpg' },
-  { id: 2, label: 'Buttered Garlic Mixed Seafood', src: '/images/paluto/showcase 3.jpg' },
-  { id: 3, label: 'Crispy Squid Calamares', src: '/images/paluto/showcase 4.jpg' },
-];
+interface FavoritesShowcaseProps {
+  data?: CardItem[];
+}
 
-export default function FavoritesShowcase() {
+export default function FavoritesShowcase({ data }: FavoritesShowcaseProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const logger = useLogger();
+
+  if (!data || data.length === 0) {
+    return null;
+  }
 
   const handleSelect = (idx: number) => {
     setActiveIdx(idx);
     // Mandatory Axiom logging
-    logger.info('Paluto dish swapped', { dish: DISHES[idx].label });
+    logger.info('Paluto dish swapped', { dish: data[idx].title });
   };
 
   /**
@@ -28,7 +30,8 @@ export default function FavoritesShowcase() {
    */
   const getPosition = (index: number) => {
     // Determine relative position (0-3) where 0 is the front-most dish
-    const diff = (index - activeIdx + 4) % 4;
+    const total = data.length;
+    const diff = (index - activeIdx + total) % total;
 
     switch (diff) {
       case 0: // Active Center
@@ -40,7 +43,7 @@ export default function FavoritesShowcase() {
       case 3: // Off-bottom (moving in)
         return { x: 150, y: 450, opacity: 0, scale: 0.8, zIndex: 10 };
       default:
-        return {};
+        return { x: 350, y: 0, opacity: 0, scale: 0.4, zIndex: 0 };
     }
   };
 

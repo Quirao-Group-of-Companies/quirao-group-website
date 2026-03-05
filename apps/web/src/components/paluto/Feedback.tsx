@@ -3,43 +3,17 @@
 import { StarIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import type { FeedbackItem } from '@/types/strapi-shared';
 
-const FEEDBACKS = [
-  {
-    id: 1,
-    name: 'John Doe',
-    rating: 5,
-    testimonial:
-      " Really spacious and airy. We arrived just before 9pm. Lots of free parking spaces. They close at 10pm. Service was reasonably quick as it wasn't busy at the time. Clean public facilities. The staff were all friendly and helpful.",
-    image: '/images/paluto/showcase 1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    rating: 4,
-    testimonial:
-      'Excellent selection of fish, scallops, shellfish, pork and chicken, best of all you can have them cooked however you want. The place is very accessible via the Iloilo-Dumangas Coastal Road and just adjacent to the Iloilo-Guimaras strait.',
-    image: '/images/paluto/showcase 2.jpg',
-  },
-  {
-    id: 3,
-    name: 'Mike Johnson',
-    rating: 4,
-    testimonial:
-      "The place is huge! The food is delicious. The staff is welcoming. Since it's a big place, there is no need to rush to give way to incoming customers.",
-    image: '/images/paluto/showcase 3.jpg',
-  },
-  {
-    id: 4,
-    name: 'Sarah Williams',
-    rating: 5,
-    testimonial:
-      'Nice place for dining out. Better than some 5 star restaurants. Worth the drive, food is fresh and has high quality cooking.',
-    image: '/images/paluto/showcase 4.jpg',
-  },
-];
+interface FeedbackProps {
+  data?: FeedbackItem[];
+}
 
-export default function Feedback() {
+export default function Feedback({ data }: FeedbackProps) {
+  if (!data || data.length === 0) {
+    return null;
+  }
+
   return (
     <section className="bg-white py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">
