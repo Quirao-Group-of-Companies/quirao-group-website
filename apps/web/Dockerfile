@@ -1,40 +1,41 @@
-FROM oven/bun:1.3-alpine AS builder
-
+# ==========================================
+# Stage 1: Builder
+# ==========================================
+FROM oven/bun:1 AS builder
 WORKDIR /app
 
-# Install dependencies at the monorepo root
+# Copy root workspace configurations
 COPY package.json bun.lock turbo.json ./
-COPY apps ./apps
+
+# Copy the web app and shared internal packages
+COPY apps/web ./apps/web
 COPY packages ./packages
 
-RUN bun install --frozen-lockfile
+# Install dependencies for the entire workspace
+# --frozen-lockfile ensures we strictly use bun.lock
+RUN bun install
 
-# Build only the web app via Turbo
-RUN bun run build:web
+# Build the Next.js web application
+# This triggers the turbo pipeline script defined in your root package.json
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+RUN bun run build:web -- --concurrency=1
 
-FROM node:20-alpine AS runner
-
+# ==========================================
+# Stage 2: Production Runner
+# ==========================================
+FROM oven/bun:1 AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Copy standalone output and static assets
-# Next.js standalone output in a monorepo typically nests under apps/web
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
-COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
-
-USER nextjs
+# Copy necessary files from the builder stage
+COPY --from=builder /app/apps/web/public ./apps/web/public
+COPY --from=builder /app/apps/web/.next/standalone ./
+COPY --from=builder /app/apps/web/.next/static ./apps/web/.next/static
 
 EXPOSE 3000
 
-ENV PORT=3000
-ENV HOSTNAME=0.0.0.0
-
-WORKDIR /app/apps/web
-CMD ["node", "server.js"]
-
+# Start the Next.js production server, as recommended by NextJS
+CMD ["node", "apps/web/server.js"]

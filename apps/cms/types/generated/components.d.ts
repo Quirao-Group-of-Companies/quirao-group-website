@@ -9,6 +9,10 @@ export interface BlocksAboutUs extends Struct.ComponentSchema {
   attributes: {
     cta: Schema.Attribute.Component<'elements.link', false>;
     description: Schema.Attribute.Text;
+    gallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
   };
@@ -20,7 +24,7 @@ export interface BlocksBanner extends Struct.ComponentSchema {
     displayName: 'Banner';
   };
   attributes: {
-    cta: Schema.Attribute.Component<'elements.link', false>;
+    cta: Schema.Attribute.Component<'elements.link', true>;
     description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
@@ -45,6 +49,19 @@ export interface BlocksCards extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksContactUs extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_contact_uses';
+  info: {
+    displayName: 'Contact Us';
+    icon: 'pinMap';
+  };
+  attributes: {
+    details: Schema.Attribute.Component<'elements.text', true>;
+    embedLinks: Schema.Attribute.Component<'elements.link', true>;
+    embedMap: Schema.Attribute.Component<'elements.link', false>;
+  };
+}
+
 export interface BlocksFaQs extends Struct.ComponentSchema {
   collectionName: 'components_blocks_fa_qs';
   info: {
@@ -54,6 +71,19 @@ export interface BlocksFaQs extends Struct.ComponentSchema {
   attributes: {
     answer: Schema.Attribute.Text;
     question: Schema.Attribute.Text;
+  };
+}
+
+export interface BlocksFeedback extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_feedbacks';
+  info: {
+    displayName: 'Feedback';
+    icon: 'thumbUp';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    stars: Schema.Attribute.Integer;
+    text: Schema.Attribute.Component<'elements.text', false>;
   };
 }
 
@@ -67,6 +97,7 @@ export interface BlocksHeroSection extends Struct.ComponentSchema {
     cta: Schema.Attribute.Component<'elements.link', false>;
     description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    logo: Schema.Attribute.Component<'elements.logo', false>;
     title: Schema.Attribute.String;
   };
 }
@@ -173,7 +204,9 @@ declare module '@strapi/strapi' {
       'blocks.about-us': BlocksAboutUs;
       'blocks.banner': BlocksBanner;
       'blocks.cards': BlocksCards;
+      'blocks.contact-us': BlocksContactUs;
       'blocks.fa-qs': BlocksFaQs;
+      'blocks.feedback': BlocksFeedback;
       'blocks.hero-section': BlocksHeroSection;
       'blocks.highlights': BlocksHighlights;
       'blocks.sub-contacts': BlocksSubContacts;

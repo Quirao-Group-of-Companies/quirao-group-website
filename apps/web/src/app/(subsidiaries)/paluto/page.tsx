@@ -37,9 +37,9 @@ export default async function PalutoPage() {
   });
 
   return (
-    <main className="w-full pt-20 min-h-screen">
+    <main className="w-full pt-16 min-h-screen">
       {/* 1. HERO SECTION */}
-      <section className="relative w-full h-[90vh] flex flex-col justify-end overflow-hidden">
+      <section className="relative w-full h-[80vh] flex flex-col justify-end overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -54,80 +54,88 @@ export default async function PalutoPage() {
         </div>
 
         {/* Logo Top Left */}
-        <div className="absolute top-0 left-8 md:left-16 z-20">
+        <div className="absolute top-0 left-6 md:left-12 z-20">
           <Image
             src="/images/logo/paluto/paluto-logo-red.png"
             alt="Paluto Logo"
-            width={250}
-            height={250}
+            width={200}
+            height={200}
             className="object-contain"
           />
         </div>
 
         {/* Content Bottom Left */}
-        <div className="relative z-10 pl-12 md:pl-24 pb-32 space-y-2">
+        <div className="relative z-10 pl-10 md:pl-20 pb-24 space-y-1.5">
           {/* Brand Name in Rounded Rectangle */}
-          <div className="bg-white/95 backdrop-blur-md rounded-2xl px-10 py-1 w-fit shadow-2xl border border-white/50">
-            <h1 className="text-paluto-red text-5xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
+          <div className="bg-white/95 backdrop-blur-md rounded-xl px-8 py-1 w-fit shadow-2xl border border-white/50">
+            <h1 className="text-paluto-red text-4xl md:text-2xl font-bold font-poppins uppercase tracking-tighter leading-none">
               Paluto
             </h1>
           </div>
 
           {/* Subtitle / Tagline */}
-          <div className="max-w-3xl">
-            <p className="text-white text-xl md:text-3xl font-bold drop-shadow-xl font-poppins">
+          <div className="max-w-2xl">
+            <p className="text-white text-lg md:text-2xl font-bold drop-shadow-xl font-poppins">
               Seafood Grill and Restaurant
             </p>
           </div>
         </div>
       </section>
 
-      {/* 2. OVERVIEW SECTION */}
-      <section className="bg-qgc-gray-soft py-20 px-6 md:px-12 flex flex-col items-center text-center">
-        {/* Secondary Logo at the top */}
-        <div className="mb-8">
-          <Image
-            src="/images/logo/paluto/word-mark-logo.png"
-            alt="Paluto Word Mark Logo"
-            width={640}
-            height={360}
-            className="object-contain"
-          />
-        </div>
+      {/* 2. OVERVIEW SECTION (Split Screen) */}
+      <section className="bg-white pt-20 pb-10 px-6 md:px-10 border-l-[5px] border-cyan-400 relative">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Column: Text Content */}
+          <div className="lg:col-span-7 space-y-6">
+            <h2 className="text-4xl md:text-6xl font-black text-black leading-[1.1] font-poppins">
+              Excellent Seafood <span className="text-paluto-red">Today</span>, <br />
+              A Lasting Tradition <span className="text-paluto-red">Tomorrow</span>.
+            </h2>
+            <div className="space-y-5">
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
+                Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
+                fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We serve
+                families, balikbayans, tourists, corporate groups, and event clients who want not just a
+                meal but complete Iloilo experience.
+              </p>
+              <p className="text-gray-500 text-base md:text-lg leading-relaxed font-poppins font-medium">
+                Our signature offerings include mixed seafood boat, live paluto cooking for buffet & catering, 
+                Fresh sea-to-table cooking, unlimited promos (UNLI 699), and full-service catering for all types of events. 
+                With our in-house stage, LED wall, sound system, and customizable event setups, Paluto transforms every visit 
+                into a memorable celebration.
+              </p>
+            </div>
 
-        {/* H1 and Description */}
-        <div className="max-w-6xl mx-auto space-y-6 mb-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-black text-qgc-black uppercase font-poppins tracking-tight">
-            Iloilo’s Destination for <br></br>Premium Seafood & Celebrations.
-          </h1>
-          <p className="max-w-4xl mx-auto text-gray-600 text-lg md:text-xl leading-relaxed font-poppins">
-            Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
-            fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We serve
-            families, balikbayans, tourists, corporate groups, and event clients who want not just a
-            meal but complete Iloilo experience. Our signature offerings include mixed seafood boat,
-            live paluto cooking for buffet & catering, Fresh sea-to-table cooking, unlimited promos
-            (UNLI 699), and full-service catering for all types of events. With our in-house stage,
-            LED wall, sound system, and customizable event setups, Paluto transforms every visit
-            into a memorable celebration.
-          </p>
-        </div>
+            {/* CTA Banner Rectangle (Container with gradient) */}
+            <div className="w-full bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-2xl p-5 md:p-6 flex items-center justify-between shadow-md">
+              <span className="text-base md:text-lg font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm">
+                Explore Paluto Facebook Page
+              </span>
 
-        {/* CTA Banner Rectangle (Container with gradient) */}
-        <div className="w-full max-w-4xl bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-[2rem] p-6 md:p-8 flex items-center justify-between shadow-md">
-          <span className="text-xl md:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm">
-            Explore Paluto Facebook Page
-          </span>
+              {/* Clickable inner button */}
+              <a
+                href="https://www.facebook.com/palutophilippines"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
+              >
+                <span className="font-bold uppercase text-[10px] md:text-xs">Visit Facebook Page</span>
+                <ArrowRightIcon className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
 
-          {/* Clickable inner button */}
-          <a
-            href="https://www.facebook.com/palutophilippines"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-3 rounded-2xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
-          >
-            <span className="font-bold uppercase text-xs md:text-sm">Visit Facebook Page</span>
-            <ArrowRightIcon className="w-5 h-5" />
-          </a>
+          {/* Right Column: Circular Image */}
+          <div className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-[10px] border-white">
+              <Image
+                src="/images/paluto/showcase 4.jpg"
+                alt="Crispy Squid Calamares"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -148,25 +156,25 @@ export default async function PalutoPage() {
       </section>
 
       {/* 5. BRANCHES SECTION */}
-      <section className="bg-white pb-8">
-        <div className="max-w-6xl mx-auto px-4 py-20">
+      <section className="bg-white pb-6">
+        <div className="max-w-5xl mx-auto px-4 py-16">
           {/* Header */}
-          <div className="flex flex-col items-center mb-8">
-            <h2 className="text-5xl font-black uppercase italic text-black tracking-tighter">
+          <div className="flex flex-col items-center mb-10">
+            <h2 className="text-4xl font-black uppercase italic text-black tracking-tighter">
               OUR <span className="text-paluto-red">BRANCHES</span>
             </h2>
-            <div className="w-24 h-1.5 bg-paluto-yellow mt-2" />
+            <div className="w-20 h-1 bg-paluto-yellow mt-2" />
           </div>
 
           {/* Two-Column Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {BRANCHES.map((branch) => (
               <div
                 key={branch.id}
-                className="group bg-white rounded-[2rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-2xl"
+                className="group bg-white rounded-[1.5rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-xl"
               >
                 {/* Image Container */}
-                <div className="relative h-72 w-full overflow-hidden">
+                <div className="relative h-60 w-full overflow-hidden">
                   <Image
                     src={branch.image}
                     alt={branch.name}
@@ -177,16 +185,16 @@ export default async function PalutoPage() {
                 </div>
 
                 {/* Text Content */}
-                <div className="p-10 text-center">
-                  <h3 className="text-3xl font-black text-black mb-2 uppercase italic">
+                <div className="p-8 text-center">
+                  <h3 className="text-2xl font-black text-black mb-1.5 uppercase italic">
                     {branch.name}
                   </h3>
-                  <p className="text-gray-500 font-medium mb-8">{branch.address}</p>
+                  <p className="text-gray-500 font-medium mb-6 text-sm">{branch.address}</p>
 
                   <a
                     href={branch.mapUrl}
                     target="_blank"
-                    className="inline-flex items-center justify-center bg-black text-white px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:bg-paluto-red transition-all active:scale-95"
+                    className="inline-flex items-center justify-center bg-black text-white px-8 py-3 rounded-full font-bold text-xs tracking-widest hover:bg-paluto-red transition-all active:scale-95"
                   >
                     GET DIRECTIONS
                   </a>

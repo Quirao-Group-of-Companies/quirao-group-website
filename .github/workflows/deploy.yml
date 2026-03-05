@@ -37,6 +37,10 @@ jobs:
 
   build-web:
     needs: changes
+<<<<<<< HEAD
+=======
+    if: ${{needs.changes.outputs.web == 'true'}}
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
     runs-on: ubuntu-latest
     environment: main 
     permissions:
@@ -47,15 +51,24 @@ jobs:
 
       - name: Create Web Env
         run: |
+<<<<<<< HEAD
           # Database & Base
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> apps/web/.env
           echo "DATABASE_CLIENT=${{ vars.DATABASE_CLIENT }}" >> apps/web/.env
           
           # Supabase Client (REQUIRED AT BUILD TIME)
+=======
+          echo "DATABASE_CLIENT=${{ vars.DATABASE_CLIENT }}" >> apps/web/.env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> apps/web/.env
+          echo "DATABASE_FILENAME=${{ vars.DATABASE_FILENAME }}" >> apps/web/.env
+          
+          # Supabase
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
           echo "NEXT_PUBLIC_SUPABASE_URL=${{ vars.NEXT_PUBLIC_SUPABASE_URL }}" >> apps/web/.env
           echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY }}" >> apps/web/.env
           echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> apps/web/.env
           
+<<<<<<< HEAD
           # Email & HR
           echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/web/.env
           echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/web/.env
@@ -66,6 +79,27 @@ jobs:
           
           # Strapi Bridge
           echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/web/.env
+=======
+          echo "SUPABASE_HOSTNAME=${{ vars.SUPABASE_HOSTNAME }}" >> apps/web/.env
+          echo "SUPABASE_BUCKET_NAME=${{ vars.SUPABASE_BUCKET_NAME }}" >> apps/web/.env
+          echo "SUPABASE_BUCKET_URL=${{ vars.SUPABASE_BUCKET_URL }}" >> apps/web/.env
+          
+          # Email & HR
+          echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/web/.env
+          echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/web/.env
+
+          # Strapi & CMS Core
+          echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/web/.env
+          echo "APP_KEYS=${{ secrets.APP_KEYS }}" >> apps/web/.env
+          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> apps/web/.env
+          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> apps/web/.env
+          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> apps/web/.env
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/web/.env
+          
+          # Axiom
+          echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/web/.env
+          echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/web/.env 
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -74,6 +108,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+<<<<<<< HEAD
+=======
+      - name: Extract metadata for Web
+        id: meta-web
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web
+          tags: |
+            type=raw,value=latest
+            type=raw,value=main
+
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
       - name: Build and push Web Image
         uses: docker/build-push-action@v5
         with:
@@ -81,9 +127,14 @@ jobs:
           file: ./apps/web/Dockerfile
           platforms: linux/amd64
           push: true
+<<<<<<< HEAD
           tags: |
               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:main
               ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:latest
+=======
+          tags: ${{ steps.meta-web.outputs.tags }}
+          labels: ${{ steps.meta-web.outputs.labels }}
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
 
       - name: Trigger Dokploy Web
         run: curl -X POST "${{ vars.DOKPLOY_WEB_WEBHOOK }}"
@@ -91,12 +142,17 @@ jobs:
   build-cms:
     needs: changes
     runs-on: ubuntu-latest
+<<<<<<< HEAD
+=======
+    if: ${{needs.changes.outputs.cms == 'true'}}
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
     environment: main
     permissions:
       contents: read
       packages: write
     steps:
       - uses: actions/checkout@v4
+<<<<<<< HEAD
 
       - name: Create CMS Env
         run: |
@@ -106,12 +162,41 @@ jobs:
           echo "DATABASE_FILENAME=${{ vars.DATABASE_FILENAME }}" >> apps/cms/.env
           
           # Strapi Core
+=======
+      - name: Create CMS Env
+        run: |
+          echo "DATABASE_CLIENT=${{ vars.DATABASE_CLIENT }}" >> apps/cms/.env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> apps/cms/.env
+          echo "DATABASE_FILENAME=${{ vars.DATABASE_FILENAME }}" >> apps/cms/.env
+          
+          # Supabase
+          echo "NEXT_PUBLIC_SUPABASE_URL=${{ vars.NEXT_PUBLIC_SUPABASE_URL }}" >> apps/cms/.env
+          echo "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=${{ vars.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY }}" >> apps/cms/.env
+          echo "SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" >> apps/cms/.env
+
+          echo "SUPABASE_HOSTNAME=${{ vars.SUPABASE_HOSTNAME }}" >> apps/cms/.env
+          echo "SUPABASE_BUCKET_NAME=${{ vars.SUPABASE_BUCKET_NAME }}" >> apps/cms/.env
+          echo "SUPABASE_BUCKET_URL=${{ vars.SUPABASE_BUCKET_URL }}" >> apps/cms/.env
+
+          # Email & HR
+          echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/cms/.env
+          echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/cms/.env
+
+          # Strapi & CMS Core
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
           echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/cms/.env
           echo "APP_KEYS=${{ secrets.APP_KEYS }}" >> apps/cms/.env
           echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> apps/cms/.env
           echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> apps/cms/.env
           echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> apps/cms/.env
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/cms/.env
+<<<<<<< HEAD
+=======
+          
+          # Axiom
+          echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/cms/.env
+          echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/cms/.env 
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -120,6 +205,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+<<<<<<< HEAD
+=======
+      - name: Extract metadata for CMS
+        id: meta-cms
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms
+          tags: |
+            type=raw,value=latest
+            type=raw,value=main
+
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
       - name: Build and push CMS Image
         uses: docker/build-push-action@v5
         with:
@@ -127,9 +224,14 @@ jobs:
           file: ./apps/cms/Dockerfile
           platforms: linux/amd64
           push: true
+<<<<<<< HEAD
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:main
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:latest
+=======
+          tags: ${{ steps.meta-cms.outputs.tags }}
+          labels: ${{ steps.meta-cms.outputs.labels }}
+>>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
 
       - name: Trigger Dokploy CMS
         run: curl -X POST "${{ vars.DOKPLOY_CMS_WEBHOOK }}"

@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "watergate_pages",
+  "info": {
+    "singularName": "watergate-page",
+    "pluralName": "watergate-pages",
+    "displayName": "Watergate Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "component": "blocks.hero-section",
+      "repeatable": true
+    },
+    "aboutUs": {
+      "type": "component",
+      "component": "blocks.about-us",
+      "repeatable": false
+    },
+    "cards": {
+      "type": "component",
+      "component": "blocks.cards",
+      "repeatable": true
+    },
+    "contactUs": {
+      "type": "component",
+      "component": "blocks.contact-us",
+      "repeatable": false
+    },
+    "faqs": {
+      "type": "component",
+      "component": "blocks.fa-qs",
+      "repeatable": true
+    }
+  }
+}
