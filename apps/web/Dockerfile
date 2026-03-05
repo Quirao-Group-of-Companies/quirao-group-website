@@ -13,7 +13,7 @@ COPY packages ./packages
 
 # Install dependencies for the entire workspace
 # --frozen-lockfile ensures we strictly use bun.lock
-RUN bun install
+RUN bun install --frozen-lockfile
 
 # Build the Next.js web application
 # This triggers the turbo pipeline script defined in your root package.json
