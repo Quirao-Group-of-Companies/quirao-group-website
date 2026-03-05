@@ -136,8 +136,8 @@ export default function InteractiveShowcase({
                 <Image
                   src={item.logo}
                   alt={item.name}
-                  width={100}
-                  height={60}
+                  width={160}
+                  height={80}
                   className="object-contain"
                 />
               )}

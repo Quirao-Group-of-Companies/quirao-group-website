@@ -3,7 +3,7 @@ import { blogs } from '@/app/data/homepage-data';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import Button from '@/components/ui/Button';
 import FAQItem from '@/components/ui/FAQItem';
-import InteractiveShowcase from '@/components/ui/InteractiveShowcase';
+import HighlightsShowcase from '@/components/ui/HighlightsShowcase';
 import { getHomepage } from '@/lib/services/strapi-homepage';
 import type {
   AboutCard,
@@ -185,7 +185,7 @@ export default async function Home() {
          OUR BUSINESS SECTION (using the new reusable component)
       ===================================================== */}
 
-      <InteractiveShowcase items={businessesData} title="Business Preview" imagePosition="left" />
+      <HighlightsShowcase items={businessesData} title="Business Preview" imagePosition="left" />
 
       {/* =====================================================
          ACHIEVEMENTS SECTION
