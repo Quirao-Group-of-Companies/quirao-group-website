@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
-import OurBusinessPreview from '@/components/homepage/BusinessPreview';
+import SubsidiaryShowcase from '@/components/ui/SubsidiaryShowcase';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
 import Button from '@/components/ui/Button';
 import FAQItem from '@/components/ui/FAQItem';
@@ -185,7 +185,7 @@ export default async function Home() {
          OUR BUSINESS SECTION
       ===================================================== */}
 
-      <OurBusinessPreview businesses={businessesData} />
+      <SubsidiaryShowcase items={businessesData} title="Business Preview" imagePosition="left" />
 
       {/* =====================================================
          ACHIEVEMENTS SECTION
