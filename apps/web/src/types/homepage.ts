@@ -1,4 +1,4 @@
-import type { FAQ, LogoComponent, StrapiCTA, StrapiImage } from './strapi-shared';
+export type { FAQ, LogoComponent, StrapiCTA, StrapiImage } from './strapi-shared';
 
 export type HeroItem = {
   id: number;

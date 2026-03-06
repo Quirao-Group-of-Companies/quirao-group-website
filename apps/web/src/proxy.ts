@@ -30,10 +30,11 @@ export async function proxy(request: NextRequest) {
     img-src 'self' blob: data: ${STRAPI_URL} ${SUPABASE_URL} ${SUPABASE_BUCKET_URL} https://*.supabase.co;
     font-src 'self' data:;
     connect-src 'self' ${SUPABASE_URL} ${SUPABASE_BUCKET_URL} ${AXIOM_URL} ${RESEND_URL} https://*.supabase.co;
+    frame-src 'self' https://www.google.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'none';
+    frame-ancestors 'self';
     upgrade-insecure-requests;
   `;
 

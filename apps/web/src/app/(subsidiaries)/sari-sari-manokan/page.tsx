@@ -166,7 +166,7 @@ export default async function ManokanPage() {
             <MapPinIcon className="w-8 h-8 text-black" />
           </div>
           <h3 className="text-xl font-bold uppercase text-black">Address:</h3>
-          <p className="text-gray-700 text-sm max-w-[220px] leading-snug">
+          <p className="text-gray-700 text-sm max-w-55 leading-snug">
             Coastal Road Brgy. Bito-on, Jaro, Iloilo City, Philippines, 5000
           </p>
         </div>
@@ -210,7 +210,7 @@ export default async function ManokanPage() {
       </div>
 
       {/* Right Side: Google Maps */}
-      <div className="w-full lg:w-1/2 h-[450px] lg:h-auto min-h-[500px]">
+      <div className="w-full lg:w-1/2 h-112.5 lg:h-auto min-h-125">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2264.308734117296!2d122.59259123058459!3d10.758815803751753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee5cc2c4cd41b%3A0x5227806edabd0f50!2sSari-Sari%20Manokan!5e0!3m2!1sen!2sph!4v1772765274696!5m2!1sen!2sph"
           width="100%"
