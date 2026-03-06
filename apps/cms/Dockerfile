@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-FROM node:20-alpine AS builder
-
-WORKDIR /app
-
-# Install dependencies for the Strapi CMS
-COPY apps/cms/package.json ./
-RUN npm install
-
-# Copy Strapi source
-COPY apps/cms ./
-
-# Build the Strapi admin panel
-RUN npm run build
-
-FROM node:20-alpine AS runner
-
-=======
 # ==========================================
 # Stage 1: Builder
 # ==========================================
@@ -39,22 +21,10 @@ RUN bun run build:cms
 # Stage 2: Production Runner
 # ==========================================
 FROM oven/bun:1.3.10 AS runner
->>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
 WORKDIR /app
 
 ENV NODE_ENV=production
 
-<<<<<<< HEAD
-# Copy built Strapi app from builder
-COPY --from=builder /app ./
-
-# Strapi default port
-EXPOSE 1337
-
-# Start Strapi
-CMD ["npm", "run", "start"]
-
-=======
 # Copy necessary files from the builder stage
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/cms ./apps/cms
@@ -67,4 +37,3 @@ EXPOSE 1337
 
 # Start the Strapi production server
 CMD ["bun", "run", "start"]
->>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
