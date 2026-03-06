@@ -27,7 +27,7 @@ export default function AboutSection({
   const tab = tabs.find((t) => t.id === activeId)!;
 
   return (
-    <section className="relative bg-white overflow-hidden">
+    <section className="relative w-full h-screen bg-white overflow-hidden">
       {/* Low-opacity background image */}
       {backgroundSrc && (
         <div className="absolute inset-0 z-0">
@@ -38,14 +38,14 @@ export default function AboutSection({
             className="object-cover"
             onError={() => {}}
           />
-          <div className="absolute inset-0 bg-white/80" />
+          <div className="absolute inset-0 bg-qgc-charcoal/50" />
         </div>
       )}
 
       <div className="relative z-10 px-6 md:px-10 py-14">
         {/* Title */}
         <motion.h2
-          className="text-center text-[#111] font-semibold text-2xl mb-10"
+          className="text-center text-[#111] text-white font-semibold text-3xl mb-10"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -80,20 +80,6 @@ export default function AboutSection({
                   />
                 </motion.div>
               </AnimatePresence>
-
-              {/* Wordmark watermark */}
-              <div className="absolute bottom-3 left-3 z-10">
-                <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur px-2 py-1 rounded-md">
-                  <Image
-                    src={wordmarkLogoSrc}
-                    alt="BuildMaster"
-                    width={90}
-                    height={20}
-                    className="object-contain opacity-80"
-                    onError={() => {}}
-                  />
-                </div>
-              </div>
             </div>
           </div>
 
@@ -109,7 +95,7 @@ export default function AboutSection({
                   className={`px-4 py-1.5 rounded-full text-[13px] font-medium border transition-colors duration-200 ${
                     activeId === t.id
                       ? 'bg-[#111] text-white border-[#111]'
-                      : 'bg-transparent text-gray-500 border-gray-300 hover:border-gray-500'
+                      : 'bg-transparent text-white-500 border-gray-300 hover:border-gray-500'
                   }`}
                 >
                   {t.label}
@@ -126,8 +112,8 @@ export default function AboutSection({
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
-                <h3 className="text-[#111] font-semibold text-xl mb-3">{tab.label}</h3>
-                <p className="text-[13px] text-[#444] leading-[1.85]">{tab.body}</p>
+                <h3 className="text-[#111] font-semibold  text-white text-2xl mb-3">{tab.label}</h3>
+                <p className="text-[13px] text-white text-[#444] leading-[1.85]">{tab.body}</p>
               </motion.div>
             </AnimatePresence>
 
@@ -140,16 +126,6 @@ export default function AboutSection({
               <ChevronDownIcon className="w-7 h-7 text-gray-400" />
             </motion.div>
           </div>
-        </div>
-
-        {/* Watermark text */}
-        <div className="mt-10 overflow-hidden select-none pointer-events-none">
-          <span
-            className="font-black tracking-[6px] text-[#0d1b3e] uppercase leading-none opacity-[0.06]"
-            style={{ fontSize: 'clamp(40px,9vw,100px)' }}
-          >
-            BUILDMASTER
-          </span>
         </div>
       </div>
     </section>
