@@ -72,6 +72,10 @@ export type FeedbackItem = {
   text: {
     id: number;
     title: string;
+    h1: string;
+    h2: string;
+    h3: string;
+    h4: string;
     description: string;
   } | null;
   stars: number;
@@ -83,6 +87,9 @@ export type ContactUsSection = {
   details: {
     id: number;
     title: string;
+    h1: string;
+    h2: string;
+    h3: string;
     description: string;
   }[]; // Repeatable Component (Text)
   embedLinks: StrapiCTA[]; // Repeatable Component (Link)

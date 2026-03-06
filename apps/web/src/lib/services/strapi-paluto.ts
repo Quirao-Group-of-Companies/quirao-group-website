@@ -27,15 +27,41 @@ export async function getPalutoPage() {
         showcase: {
           populate: '*',
         },
+        bannerSection: {
+          populate: {
+            logo: true,
+            image: true,
+            cta: true,
+          },
+        },
+        branchesCards: {
+          populate: {
+            image: true,
+            icon: true,
+            cta: true,
+          },
+        },
+        eventsAndCateringSection: {
+          populate: {
+            image: true,
+            cta: true,
+          },
+        },
+        eventsAndCateringCarouselImages: true,
         feedback: {
-          populate: '*',
+          populate: {
+            image: true,
+            text: true,
+          },
         },
         contactUs: {
-          populate: '*',
+          populate: {
+            details: true,
+            embedLinks: true,
+            embedMap: true,
+          },
         },
-        faqs: {
-          populate: '*',
-        },
+        faqs: true,
       },
     },
     { encodeValuesOnly: true },

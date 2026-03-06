@@ -8,23 +8,6 @@ import { logger } from '@/lib/axiom/server';
 import { getPalutoPage } from '@/lib/services/strapi-paluto';
 import type { PalutoPageData } from '@/types/paluto-page';
 
-const BRANCHES = [
-  {
-    id: 1,
-    name: 'Paluto - Main',
-    address: 'Coastal Road, Bito-on, Jaro, Iloilo City',
-    mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Paluto+Caniogan',
-    image: '/images/home-page/business-preview/paluto-business-preview.jpg', // placeholder
-  },
-  {
-    id: 2,
-    name: 'Paluto - Passi',
-    address: 'Brgy. Sablogon, Passi, Philippines, 5037',
-    mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Paluto+Concepcion',
-    image: '/images/home-page/business-preview/paluto-business-preview.jpg', // placeholder
-  },
-];
-
 /**
  * Paluto Subsidiary Page
  *
@@ -42,6 +25,8 @@ export default async function PalutoPage() {
 
   const hero = data.hero?.[0];
   const overview = data.hero?.[1];
+  const midBanner = data.bannerSection;
+  const branches = data.branchesCards;
 
   return (
     <main className="w-full pt-20 min-h-screen">
@@ -202,13 +187,23 @@ export default async function PalutoPage() {
 
       {/* 4. MID BANNER */}
       <section className="relative w-full overflow-hidden">
-        <Image
-          src="/images/paluto/paluto-cover.png"
-          alt="Paluto Banner"
-          width={1920}
-          height={800}
-          className="w-full h-auto"
-        />
+        {midBanner?.image?.url ? (
+          <Image
+            src={midBanner.image.url}
+            alt={midBanner.image.alternativeText || 'Paluto Banner'}
+            width={1920}
+            height={800}
+            className="w-full h-auto"
+          />
+        ) : (
+          <Image
+            src="/images/paluto/paluto-cover.png"
+            alt="Paluto Banner"
+            width={1920}
+            height={800}
+            className="w-full h-auto"
+          />
+        )}
         {/* Subtle Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/5 to-black/30 pointer-events-none" />
       </section>
@@ -257,14 +252,19 @@ export default async function PalutoPage() {
                     GET DIRECTIONS
                   </a>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-center col-span-2 text-gray-500">No branches found.</p>
+            )}
           </div>
         </div>
       </section>
 
       {/* 6. EVENTS & CATERING */}
-      <EventsCatering data={data.aboutUs} />
+      <EventsCatering 
+        sectionData={data.eventsAndCateringSection} 
+        carouselImages={data.eventsAndCateringCarouselImages} 
+      />
 
       {/* 7. FEEDBACK SECTION */}
       <Feedback data={data.feedback} />
