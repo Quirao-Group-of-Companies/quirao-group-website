@@ -4,7 +4,7 @@ import { after } from 'next/server';
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 // import FavoritesShowcase from '@/components/FavoritesShowcase';
 // import FeedbackSection from '@/components/FeedbackSection';
-// import VerticalCarousel from '@/components/VerticalCarousel';
+import VerticalCarousel from '@/components/VerticalCarousel';
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
 import { getHomepage } from '@/lib/services/strapi-homepage';
@@ -136,7 +136,7 @@ export default async function ManokanPage() {
 
         {/* Right Content Side: Vertical Carousel */}
         <div className="w-full md:w-[40%] flex justify-center items-center h-100 md:h-[80%] lg:h-[85%]">
-          {/* <VerticalCarousel /> */}
+          <VerticalCarousel />
         </div>
       </section>
 
