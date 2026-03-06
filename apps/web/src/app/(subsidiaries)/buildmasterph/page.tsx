@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
-import HeroCarousel from '@/components/buildmaster/heroSection';
+import HeroCarousel from '@/components/buildmaster/heroCarousel';
 import FeaturesCarousel from '@/components/buildmaster/featuresCarousel';
 import AboutSection from '@/components/buildmaster/aboutUsSection';
 import PodcastsSection from '@/components/buildmaster/podcastSection';
@@ -121,7 +121,7 @@ export default function BuildMasterPage() {
       <PodcastsSection
         podcasts={PODCASTS}
         badgeSrc="/images/buildmaster/podcasts/builders-podcast-badge.png"
-        ctaHref="https://youtube.com/@buildmaster"
+        ctaHref="https://www.youtube.com/@buildmasterphilippines"
       />
 
       {/* 5. APP BANNER */}
