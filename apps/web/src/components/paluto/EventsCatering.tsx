@@ -4,8 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
-import type { StrapiImage } from '@/types/strapi-shared';
 import type { EventsAndCateringItem } from '@/types/paluto-page';
+import type { StrapiImage } from '@/types/strapi-shared';
 
 interface EventsCateringProps {
   sectionData?: EventsAndCateringItem;
@@ -35,7 +35,9 @@ export default function EventsCatering({ sectionData, carouselImages }: EventsCa
    * Normalizes URLs to prevent double slashes after the domain.
    */
   const normalizeUrl = (url: string) => {
-    if (!url) return '';
+    if (!url) {
+      return '';
+    }
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
 
@@ -78,8 +80,8 @@ export default function EventsCatering({ sectionData, carouselImages }: EventsCa
                   type="button"
                   onClick={() => setCurrentIndex(index)}
                   className={`h-1.5 rounded-full transition-all duration-500 ${
-                    currentIndex === index 
-                      ? 'w-6 bg-white shadow-sm' 
+                    currentIndex === index
+                      ? 'w-6 bg-white shadow-sm'
                       : 'w-1.5 bg-white/40 hover:bg-white'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}

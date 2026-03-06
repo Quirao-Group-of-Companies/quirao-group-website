@@ -1,4 +1,10 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  EnvelopeIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ShareIcon,
+} from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { after } from 'next/server';
 import EventsCatering from '@/components/paluto/EventsCatering';
@@ -7,12 +13,6 @@ import Feedback from '@/components/paluto/Feedback';
 import { logger } from '@/lib/axiom/server';
 import { getPalutoPage } from '@/lib/services/strapi-paluto';
 import type { PalutoPageData } from '@/types/paluto-page';
-import {
-  MapPinIcon,
-  EnvelopeIcon,
-  PhoneIcon,
-  ShareIcon,
-} from '@heroicons/react/24/outline';
 
 /**
  * Paluto Subsidiary Page
@@ -43,7 +43,9 @@ export default async function PalutoPage() {
 
   // URL normalization for server component
   const normalizeUrl = (url?: string) => {
-    if (!url) return '';
+    if (!url) {
+      return '';
+    }
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
 
@@ -51,6 +53,7 @@ export default async function PalutoPage() {
     <main className="w-full pt-16 min-h-screen">
       {/* 1. HERO SECTION */}
       <section className="relative w-full h-[80vh] flex flex-col justify-end overflow-hidden">
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {hero?.image?.url ? (
             <Image
@@ -72,6 +75,7 @@ export default async function PalutoPage() {
           <div className="absolute inset-0 bg-black/30" />
         </div>
 
+        {/* Logo Top Left */}
         <div className="absolute top-0 left-6 md:left-12 z-20">
           {hero?.logo?.image?.url ? (
             <Image
@@ -92,6 +96,7 @@ export default async function PalutoPage() {
           )}
         </div>
 
+        {/* Content Bottom Left */}
         <div className="relative z-10 pl-10 md:pl-20 pb-24 space-y-1.5">
           <div className="bg-white/95 backdrop-blur-md rounded-xl px-8 py-1 w-fit shadow-2xl border border-white/50">
             <h1 className="text-paluto-red text-4xl md:text-2xl font-bold font-poppins uppercase tracking-tighter leading-none">
@@ -116,6 +121,7 @@ export default async function PalutoPage() {
                 overview.title.split(/(\bToday\b|\bTomorrow\b)/g).map((part, i) => {
                   if (part === 'Today' || part === 'Tomorrow') {
                     return (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: part name is consistent
                       <span key={`${part}-${i}`} className="text-paluto-red">
                         {part}
                       </span>
@@ -125,8 +131,8 @@ export default async function PalutoPage() {
                 })
               ) : (
                 <>
-                  Excellent Seafood <span className="text-paluto-red">Today</span>, <br />
-                  A Lasting Tradition <span className="text-paluto-red">Tomorrow</span>.
+                  Excellent Seafood <span className="text-paluto-red">Today</span>, <br />A Lasting
+                  Tradition <span className="text-paluto-red">Tomorrow</span>.
                 </>
               )}
             </h2>
@@ -152,13 +158,13 @@ export default async function PalutoPage() {
                 Explore Paluto Facebook Page
               </span>
               <a
-                href={overview?.cta?.href || "https://www.facebook.com/palutophilippines"}
+                href={overview?.cta?.href || 'https://www.facebook.com/palutophilippines'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
               >
                 <span className="font-bold uppercase text-[10px] md:text-xs">
-                  {overview?.cta?.title || "Visit Facebook Page"}
+                  {overview?.cta?.title || 'Visit Facebook Page'}
                 </span>
                 <ArrowRightIcon className="w-4 h-4" />
               </a>
@@ -207,16 +213,16 @@ export default async function PalutoPage() {
             className="object-cover -z-10"
           />
         )}
-        
+
         {/* Banner Content */}
         {(midBanner?.title || midBanner?.logo) && (
           <div className="relative z-10 text-center px-6 max-w-4xl">
             {midBanner.logo?.url && (
-              <Image 
-                src={normalizeUrl(midBanner.logo.url)} 
-                alt="Banner Logo" 
-                width={150} 
-                height={150} 
+              <Image
+                src={normalizeUrl(midBanner.logo.url)}
+                alt="Banner Logo"
+                width={150}
+                height={150}
                 className="mx-auto mb-6"
               />
             )}
@@ -302,9 +308,9 @@ export default async function PalutoPage() {
       </section>
 
       {/* 6. EVENTS & CATERING */}
-      <EventsCatering 
-        sectionData={data.eventsAndCateringSection} 
-        carouselImages={sortedEventsImages} 
+      <EventsCatering
+        sectionData={data.eventsAndCateringSection}
+        carouselImages={sortedEventsImages}
       />
 
       {/* 7. FEEDBACK SECTION */}
@@ -319,7 +325,9 @@ export default async function PalutoPage() {
                 <div className="p-4 rounded-full border-2 border-black">
                   <MapPinIcon className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="text-xl font-bold uppercase text-black">{contactUs.details[0].title}</h3>
+                <h3 className="text-xl font-bold uppercase text-black">
+                  {contactUs.details[0].title}
+                </h3>
                 <p className="text-gray-700 text-sm max-w-[220px] leading-snug">
                   {contactUs.details[0].description}
                 </p>
@@ -331,8 +339,12 @@ export default async function PalutoPage() {
                 <div className="p-4 rounded-full border-2 border-black">
                   <EnvelopeIcon className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="text-xl font-bold uppercase text-black">{contactUs.details[1].title}</h3>
-                <p className="text-gray-700 text-sm break-all">{contactUs.details[1].description}</p>
+                <h3 className="text-xl font-bold uppercase text-black">
+                  {contactUs.details[1].title}
+                </h3>
+                <p className="text-gray-700 text-sm break-all">
+                  {contactUs.details[1].description}
+                </p>
               </div>
             )}
 
@@ -341,8 +353,12 @@ export default async function PalutoPage() {
                 <div className="p-4 rounded-full border-2 border-black">
                   <PhoneIcon className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="text-xl font-bold uppercase text-black">{contactUs.details[2].title}</h3>
-                <p className="text-gray-700 text-sm font-bold">{contactUs.details[2].description}</p>
+                <h3 className="text-xl font-bold uppercase text-black">
+                  {contactUs.details[2].title}
+                </h3>
+                <p className="text-gray-700 text-sm font-bold">
+                  {contactUs.details[2].description}
+                </p>
               </div>
             )}
 
@@ -362,7 +378,8 @@ export default async function PalutoPage() {
                     title={social.title}
                   >
                     {social.title.toLowerCase().includes('facebook') ? (
-                      <svg className="w-6 h-6 fill-black" viewBox="0 0 24 24">
+                      <svg className="w-6 h-6 fill-black" viewBox="0 0 24 24" role="img">
+                        <title>Facebook</title>
                         <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                       </svg>
                     ) : (

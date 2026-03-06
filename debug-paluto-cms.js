@@ -7,7 +7,7 @@ const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 async function debugShowcaseData() {
   console.log('--- Paluto CMS Debugger ---');
   console.log('Target URL:', STRAPI_URL);
-  
+
   if (!STRAPI_TOKEN) {
     console.error('Error: STRAPI_API_TOKEN is not defined in your environment.');
     return;
@@ -56,13 +56,12 @@ async function debugShowcaseData() {
         console.log(`- Title: "${item.title}"`);
         console.log(`- Image URL: ${item.image?.url || 'MISSING'}`);
         if (!item.image?.url) {
-            console.log('  WARNING: This item has no image and might not display correctly.');
+          console.log('  WARNING: This item has no image and might not display correctly.');
         }
       });
     } else {
       console.log('No showcase items found in the "showcase" field.');
     }
-
   } catch (error) {
     console.error('Fetch Error:', error.message);
   }

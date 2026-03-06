@@ -1,6 +1,4 @@
 import type {
-  StrapiCTA,
-  StrapiImage,
   AboutUsSection,
   CardItem,
   ContactUsSection,
@@ -8,6 +6,8 @@ import type {
   FeedbackItem,
   HeroSection,
   LogoComponent,
+  StrapiCTA,
+  StrapiImage,
 } from './strapi-shared';
 
 /** Single Component (Item) — used in eventsAndCateringSection */

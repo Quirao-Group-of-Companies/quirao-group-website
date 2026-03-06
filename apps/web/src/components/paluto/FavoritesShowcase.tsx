@@ -28,7 +28,9 @@ export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps
    * Normalizes URLs to prevent double slashes after the domain.
    */
   const normalizeUrl = (url: string) => {
-    if (!url) return '';
+    if (!url) {
+      return '';
+    }
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
 
@@ -39,7 +41,9 @@ export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps
     if (diff === 0) {
       return { x: 0, y: 0, opacity: 1, scale: 1, zIndex: 20 };
     }
-    if (total === 1) return { opacity: 0, scale: 0.5 };
+    if (total === 1) {
+      return { opacity: 0, scale: 0.5 };
+    }
     if (total === 2) {
       return { x: 120, y: -350, opacity: 0, scale: 0.7, zIndex: 10 };
     }
@@ -60,7 +64,7 @@ export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps
         {logo?.image?.url ? (
           <Image
             src={normalizeUrl(logo.image.url)}
-            alt={logo.logoName || "Unli-Paluto Favorites"}
+            alt={logo.logoName || 'Unli-Paluto Favorites'}
             width={640}
             height={320}
             className="object-contain mx-auto"

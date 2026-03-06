@@ -19,7 +19,9 @@ export default function Feedback({ data }: FeedbackProps) {
    * e.g., https://domain.com//path -> https://domain.com/path
    */
   const normalizeUrl = (url: string) => {
-    if (!url) return '';
+    if (!url) {
+      return '';
+    }
     // Handle the case where Strapi or Supabase might return a double slash after the origin
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
