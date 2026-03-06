@@ -108,42 +108,37 @@ export default function InteractiveShowcase({
       </div>
 
       {/* THUMBNAIL SELECTORS */}
-      <div className="flex flex-col sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-6">
-        {items.map((item) => (
-          <button
-            type="button"
-            key={item.id}
-            onClick={() => setActiveItem(item)}
-            className={`cursor-pointer relative w-full h-40 md:h-48 rounded-lg overflow-hidden group transition-all duration-300 ${
-              currentItem.id === item.id ? 'ring-4 ring-black scale-105 z-10' : 'hover:scale-105'
-            }`}
-          >
-            {item.cardImage && (
-              <Image
-                src={item.cardImage}
-                alt={item.name}
-                fill
-                className="object-cover transition-transform duration-500"
-              />
-            )}
-
-            <div
-              className={`absolute inset-0 flex items-center justify-center p-4 transition-colors duration-300 ${
-                currentItem.id === item.id ? 'bg-black/20' : 'bg-black/40 group-hover:bg-black/20'
-              }`}
-            >
-              {item.logo && (
-                <Image
-                  src={item.logo}
-                  alt={item.name}
-                  width={160}
-                  height={80}
-                  className="object-contain"
-                />
-              )}
-            </div>
-          </button>
-        ))}
+      <div className="mt-16 w-full">
+        <div className="max-w-[95vw] mx-auto bg-qgc-white shadow-lg shadow-gray-500 rounded-3xl p-10 md:p-5 border border-gray-50">
+          <div className="flex flex-wrap justify-center gap-10 md:gap-20">
+            {items.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                onClick={() => setActiveItem(item)}
+                className="cursor-pointer group transition-all duration-300 outline-none"
+              >
+                <div
+                  className={`relative flex items-center justify-center transition-all duration-500 ${
+                    currentItem.id === item.id
+                      ? 'scale-125'
+                      : 'opacity-60 hover:opacity-100 hover:scale-110'
+                  }`}
+                >
+                  {item.logo && (
+                    <Image
+                      src={item.logo}
+                      alt={item.name}
+                      width={140}
+                      height={70}
+                      className="object-contain"
+                    />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
