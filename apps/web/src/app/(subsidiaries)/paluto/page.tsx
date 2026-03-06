@@ -10,9 +10,6 @@ import type { PalutoPageData } from '@/types/paluto-page';
 
 /**
  * Paluto Subsidiary Page
- *
- * This page serves as the landing page for the Paluto subsidiary.
- * It features a hero section and an overview section with a Facebook CTA.
  */
 export default async function PalutoPage() {
   const data: PalutoPageData = await getPalutoPage();
@@ -24,9 +21,25 @@ export default async function PalutoPage() {
   });
 
   const hero = data.hero?.[0];
-  const overview = data.hero?.[1];
+  const overview = data.aboutUs || data.hero?.[1];
   const midBanner = data.bannerSection;
   const branches = data.branchesCards;
+  const contactUs = data.contactUs;
+
+  // Sort events carousel images by filename (e.g., event.jpg, event2.jpg, etc.)
+  const sortedEventsImages = data.eventsAndCateringCarouselImages
+    ? [...data.eventsAndCateringCarouselImages].sort((a, b) => {
+        const fileA = a.url.split('/').pop() || '';
+        const fileB = b.url.split('/').pop() || '';
+        return fileA.localeCompare(fileB, undefined, { numeric: true, sensitivity: 'base' });
+      })
+    : [];
+
+  // URL normalization for server component
+  const normalizeUrl = (url?: string) => {
+    if (!url) return '';
+    return url.replace(/([^:]\/)\/+/g, '$1');
+  };
 
   return (
     <main className="w-full pt-20 min-h-screen">
@@ -36,7 +49,7 @@ export default async function PalutoPage() {
         <div className="absolute inset-0 z-0">
           {hero?.image?.url ? (
             <Image
-              src={hero.image.url}
+              src={normalizeUrl(hero.image.url)}
               alt={hero.image.alternativeText || 'Paluto Hero Background'}
               fill
               className="object-cover"
@@ -51,7 +64,6 @@ export default async function PalutoPage() {
               priority
             />
           )}
-          {/* Subtle Overlay to ensure text readability */}
           <div className="absolute inset-0 bg-black/30" />
         </div>
 
@@ -75,7 +87,6 @@ export default async function PalutoPage() {
             </h1>
           </div>
 
-          {/* Subtitle / Tagline */}
           <div className="max-w-2xl">
             <p className="text-white text-lg md:text-2xl font-bold drop-shadow-xl font-poppins">
               {hero?.description || 'Seafood Grill and Restaurant'}
@@ -84,17 +95,15 @@ export default async function PalutoPage() {
         </div>
       </section>
 
-      {/* 2. OVERVIEW SECTION (Split Screen) */}
+      {/* 2. OVERVIEW SECTION */}
       <section className="bg-white pt-20 pb-10 px-6 md:px-10 border-l-[5px] border-cyan-400 relative">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left Column: Text Content */}
           <div className="lg:col-span-7 space-y-6">
             <h2 className="text-4xl md:text-6xl font-black text-black leading-[1.1] font-poppins">
               {overview?.title ? (
                 overview.title.split(/(\bToday\b|\bTomorrow\b)/g).map((part, i) => {
                   if (part === 'Today' || part === 'Tomorrow') {
                     return (
-                      // biome-ignore lint/suspicious/noArrayIndexKey: parts are small and order is stable
                       <span key={`${part}-${i}`} className="text-paluto-red">
                         {part}
                       </span>
@@ -159,12 +168,11 @@ export default async function PalutoPage() {
             </div>
           </div>
 
-          {/* Right Column: Circular Image */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div className="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-[10px] border-white">
               {overview?.image?.url ? (
                 <Image
-                  src={overview.image.url}
+                  src={normalizeUrl(overview.image.url)}
                   alt={overview.image.alternativeText || 'Overview Image'}
                   fill
                   className="object-cover"
@@ -172,7 +180,7 @@ export default async function PalutoPage() {
               ) : (
                 <Image
                   src="/images/paluto/showcase 4.jpg"
-                  alt="Crispy Squid Calamares"
+                  alt="Overview Image"
                   fill
                   className="object-cover"
                 />
@@ -183,29 +191,63 @@ export default async function PalutoPage() {
       </section>
 
       {/* 3. FAVORITES SHOWCASE */}
-      <FavoritesShowcase data={data.showcase} />
+      <FavoritesShowcase data={data.showcase} logo={data.showcaseLogo} />
 
       {/* 4. MID BANNER */}
-      <section className="relative w-full overflow-hidden">
+      <section className="relative w-full overflow-hidden min-h-[400px] flex items-center justify-center">
         {midBanner?.image?.url ? (
           <Image
-            src={midBanner.image.url}
+            src={normalizeUrl(midBanner.image.url)}
             alt={midBanner.image.alternativeText || 'Paluto Banner'}
-            width={1920}
-            height={800}
-            className="w-full h-auto"
+            fill
+            className="object-cover -z-10"
           />
         ) : (
           <Image
             src="/images/paluto/paluto-cover.png"
             alt="Paluto Banner"
-            width={1920}
-            height={800}
-            className="w-full h-auto"
+            fill
+            className="object-cover -z-10"
           />
         )}
-        {/* Subtle Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/5 to-black/30 pointer-events-none" />
+        
+        {/* Banner Content */}
+        {(midBanner?.title || midBanner?.logo) && (
+          <div className="relative z-10 text-center px-6 max-w-4xl">
+            {midBanner.logo?.url && (
+              <Image 
+                src={normalizeUrl(midBanner.logo.url)} 
+                alt="Banner Logo" 
+                width={150} 
+                height={150} 
+                className="mx-auto mb-6"
+              />
+            )}
+            {midBanner.title && (
+              <h2 className="text-3xl md:text-5xl font-black text-white uppercase italic tracking-tighter mb-4">
+                {midBanner.title}
+              </h2>
+            )}
+            {midBanner.description && (
+              <p className="text-white/90 text-lg md:text-xl font-medium mb-8">
+                {midBanner.description}
+              </p>
+            )}
+            {midBanner.cta && midBanner.cta.length > 0 && (
+              <div className="flex flex-wrap justify-center gap-4">
+                {midBanner.cta.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="bg-paluto-red hover:bg-paluto-red/80 text-white px-8 py-3 rounded-full font-bold uppercase transition-all"
+                  >
+                    {link.title}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </section>
 
       {/* 5. BRANCHES SECTION */}
@@ -263,7 +305,7 @@ export default async function PalutoPage() {
       {/* 6. EVENTS & CATERING */}
       <EventsCatering 
         sectionData={data.eventsAndCateringSection} 
-        carouselImages={data.eventsAndCateringCarouselImages} 
+        carouselImages={sortedEventsImages} 
       />
 
       {/* 7. FEEDBACK SECTION */}

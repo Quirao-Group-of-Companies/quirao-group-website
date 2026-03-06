@@ -4,13 +4,14 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useLogger } from '@/lib/axiom/client';
-import type { CardItem } from '@/types/strapi-shared';
+import type { CardItem, LogoComponent } from '@/types/strapi-shared';
 
 interface FavoritesShowcaseProps {
   data?: CardItem[];
+  logo?: LogoComponent | null;
 }
 
-export default function FavoritesShowcase({ data }: FavoritesShowcaseProps) {
+export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const logger = useLogger();
 
@@ -20,19 +21,30 @@ export default function FavoritesShowcase({ data }: FavoritesShowcaseProps) {
 
   const handleSelect = (idx: number) => {
     setActiveIdx(idx);
-    // Mandatory Axiom logging
     logger.info('Paluto dish swapped', { dish: data[idx].title });
   };
 
   /**
-   * Calculates the 2D coordinates and animation state for each dish
-   * based on its position relative to the active dish index.
+   * Normalizes URLs to prevent double slashes after the domain.
+   * e.g., https://domain.com//path -> https://domain.com/path
    */
+  const normalizeUrl = (url: string) => {
+    if (!url) return '';
+    // Handle the case where Strapi or Supabase might return a double slash after the origin
+    return url.replace(/([^:]\/)\/+/g, '$1');
+  };
+
   const getPosition = (index: number) => {
-    // Determine relative position (0-3) where 0 is the front-most dish
     const total = data.length;
     const diff = (index - activeIdx + total) % total;
 
+    if (diff === 0) {
+      return { x: 0, y: 0, opacity: 1, scale: 1, zIndex: 20 };
+    }
+    if (total === 1) return { opacity: 0, scale: 0.5 };
+    if (total === 2) {
+      return { x: 120, y: -350, opacity: 0, scale: 0.7, zIndex: 10 };
+    }
     switch (diff) {
       case 0: // Active Center
         return { x: 0, y: 0, opacity: 1, scale: 1, zIndex: 20 };
@@ -109,7 +121,6 @@ export default function FavoritesShowcase({ data }: FavoritesShowcaseProps) {
         </div>
       </div>
 
-      {/* Decorative Vertical Red Divider */}
       <div className="absolute left-1/2 top-0 w-[1px] h-full bg-paluto-red/10 -z-10 hidden md:block" />
     </section>
   );

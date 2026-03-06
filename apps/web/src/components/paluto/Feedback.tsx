@@ -14,6 +14,16 @@ export default function Feedback({ data }: FeedbackProps) {
     return null;
   }
 
+  /**
+   * Normalizes URLs to prevent double slashes after the domain.
+   * e.g., https://domain.com//path -> https://domain.com/path
+   */
+  const normalizeUrl = (url: string) => {
+    if (!url) return '';
+    // Handle the case where Strapi or Supabase might return a double slash after the origin
+    return url.replace(/([^:]\/)\/+/g, '$1');
+  };
+
   return (
     <section className="bg-white py-24 px-6 overflow-hidden">
       <div className="max-w-6xl mx-auto">

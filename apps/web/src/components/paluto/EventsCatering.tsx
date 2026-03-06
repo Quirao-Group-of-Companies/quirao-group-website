@@ -12,22 +12,32 @@ interface EventsCateringProps {
   carouselImages?: StrapiImage[];
 }
 
-export default function EventsCatering({ sectionData, carouselImages = [] }: EventsCateringProps) {
+export default function EventsCatering({ sectionData, carouselImages }: EventsCateringProps) {
+  // Use null-coalescing to ensure we always have an array even if null is passed
+  const images = carouselImages ?? [];
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    if (carouselImages.length <= 1) {
+    if (images.length <= 1) {
       return;
     }
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
+      setCurrentIndex((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [carouselImages.length]);
+  }, [images.length]);
 
   if (!sectionData) {
     return null;
   }
+
+  /**
+   * Normalizes URLs to prevent double slashes after the domain.
+   */
+  const normalizeUrl = (url: string) => {
+    if (!url) return '';
+    return url.replace(/([^:]\/)\/+/g, '$1');
+  };
 
   return (
     <section className="w-full bg-qgc-gray-soft pt-10 pb-20 px-6">
@@ -35,9 +45,9 @@ export default function EventsCatering({ sectionData, carouselImages = [] }: Eve
         {/* Left Column: Image Carousel */}
         <div className="relative h-[300px] md:h-auto overflow-hidden bg-gray-100">
           <AnimatePresence mode="wait">
-            {carouselImages.length > 0 ? (
+            {images.length > 0 ? (
               <motion.div
-                key={carouselImages[currentIndex].url}
+                key={images[currentIndex].url}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -45,8 +55,8 @@ export default function EventsCatering({ sectionData, carouselImages = [] }: Eve
                 className="absolute inset-0"
               >
                 <Image
-                  src={carouselImages[currentIndex].url}
-                  alt={carouselImages[currentIndex].alternativeText || `Catering Slide ${currentIndex + 1}`}
+                  src={normalizeUrl(images[currentIndex].url)}
+                  alt={images[currentIndex].alternativeText || `Catering Slide ${currentIndex + 1}`}
                   fill
                   className="object-cover"
                   priority
@@ -60,15 +70,17 @@ export default function EventsCatering({ sectionData, carouselImages = [] }: Eve
           </AnimatePresence>
 
           {/* Navigation Dots */}
-          {carouselImages.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
-              {carouselImages.map((img, index) => (
+          {images.length > 1 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-10 bg-paluto-red/20 backdrop-blur-md px-4 py-2.5 rounded-full border border-white/20">
+              {images.map((img, index) => (
                 <button
                   key={img.url}
                   type="button"
                   onClick={() => setCurrentIndex(index)}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    currentIndex === index ? 'w-6 bg-white shadow-md' : 'w-1.5 bg-white/50'
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    currentIndex === index 
+                      ? 'w-6 bg-white shadow-sm' 
+                      : 'w-1.5 bg-white/40 hover:bg-white'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
