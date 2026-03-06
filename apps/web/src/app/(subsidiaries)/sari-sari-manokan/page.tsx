@@ -2,7 +2,7 @@ import { MapPinIcon, EnvelopeIcon, PhoneIcon, ShareIcon,ArrowRightIcon } from '@
 import Image from 'next/image';
 import { after } from 'next/server';
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
-// import FavoritesShowcase from '@/components/FavoritesShowcase';
+import FavoritesShowcase from '@/components/FavoritesShowcase';
 // import FeedbackSection from '@/components/FeedbackSection';
 import VerticalCarousel from '@/components/VerticalCarousel';
 import FAQItem from '@/components/ui/FAQItem';
@@ -141,7 +141,7 @@ export default async function ManokanPage() {
       </section>
 
       {/* 3. FAVORITES SHOWCASE */}
-      {/* <FavoritesShowcase /> */}
+      <FavoritesShowcase />
 
       {/* 4. FEEDBACK SECTION */}
       {/* <FeedbackSection /> */}
