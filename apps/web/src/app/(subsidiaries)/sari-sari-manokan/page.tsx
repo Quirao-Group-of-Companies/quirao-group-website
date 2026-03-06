@@ -3,8 +3,8 @@ import Image from 'next/image';
 import { after } from 'next/server';
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 import FavoritesShowcase from '@/components/FavoritesShowcase';
-// import FeedbackSection from '@/components/FeedbackSection';
-import VerticalCarousel from '@/components/VerticalCarousel';
+import FeedbackSection from '@/components/FeedbackSection';
+import VerticalCarousel from '@/components/VerticalCarousel'; 
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
 import { getHomepage } from '@/lib/services/strapi-homepage';
@@ -144,7 +144,7 @@ export default async function ManokanPage() {
       <FavoritesShowcase />
 
       {/* 4. FEEDBACK SECTION */}
-      {/* <FeedbackSection /> */}
+      <FeedbackSection />
 
     </main>
   );
