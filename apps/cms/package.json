@@ -12,7 +12,8 @@
     "start": "strapi start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
-    "upgrade:dry": "npx @strapi/upgrade latest --dry"
+    "upgrade:dry": "npx @strapi/upgrade latest --dry",
+    "generate-types": "bun --tsconfig-override scripts/tsconfig.json scripts/generate-types.ts"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.36.0",
@@ -38,5 +39,8 @@
   "strapi": {
     "uuid": "9f79f9b6-e145-4e50-850b-0fd90e2f5989",
     "installId": "97f980e00c45430885f7ec6490c5ad8624dd8be40a2867518f0a96326ae602b5"
+  },
+  "exports": {
+    "./types": "./types/strapi-components.ts"
   }
 }
