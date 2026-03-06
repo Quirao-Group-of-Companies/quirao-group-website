@@ -51,7 +51,6 @@ export default async function PalutoPage() {
     <main className="w-full pt-16 min-h-screen">
       {/* 1. HERO SECTION */}
       <section className="relative w-full h-[80vh] flex flex-col justify-end overflow-hidden">
-        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {hero?.image?.url ? (
             <Image
@@ -73,7 +72,6 @@ export default async function PalutoPage() {
           <div className="absolute inset-0 bg-black/30" />
         </div>
 
-        {/* Logo Top Left */}
         <div className="absolute top-0 left-6 md:left-12 z-20">
           {hero?.logo?.image?.url ? (
             <Image
@@ -94,7 +92,6 @@ export default async function PalutoPage() {
           )}
         </div>
 
-        {/* Content Bottom Left */}
         <div className="relative z-10 pl-10 md:pl-20 pb-24 space-y-1.5">
           <div className="bg-white/95 backdrop-blur-md rounded-xl px-8 py-1 w-fit shadow-2xl border border-white/50">
             <h1 className="text-paluto-red text-4xl md:text-2xl font-bold font-poppins uppercase tracking-tighter leading-none">
