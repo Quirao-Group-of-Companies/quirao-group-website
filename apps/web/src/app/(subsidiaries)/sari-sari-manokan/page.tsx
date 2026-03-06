@@ -226,6 +226,24 @@ export default async function ManokanPage() {
   </div>
 </section>
       
+      {/* 6. FAQ SECTION */}
+      <section className="bg-qgc-gray-soft px-6 py-24">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex flex-col items-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black uppercase italic text-black tracking-tighter text-center">
+              FREQUENTLY ASKED <span className="text-paluto-green">QUESTIONS</span>
+            </h2>
+            <div className="w-24 h-1.5 bg-paluto-yellow mt-2" />
+          </div>
+          
+          <div className="space-y-4">
+            {faqsData.map((faq) => (
+              <FAQItem key={faq.id} question={faq.question} answer={faq.answer} />
+            ))}
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }
