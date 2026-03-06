@@ -1,9 +1,9 @@
 'use client';
 
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 interface Feature {
   id: number;
@@ -108,9 +108,7 @@ export default function FeaturesCarousel({
     // Set initial position without animation
     jumpTo(1);
     startTimer();
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, []);
 
   // Update card scale/opacity via CSS classes — no re-render needed
@@ -134,7 +132,11 @@ export default function FeaturesCarousel({
 
       {/* ── Infinite Peek Carousel ── */}
       <div className="w-full overflow-hidden">
-        <div ref={trackRef} className="flex will-change-transform" style={{ gap: `${GAP_PX}px` }}>
+        <div
+          ref={trackRef}
+          className="flex will-change-transform"
+          style={{ gap: `${GAP_PX}px` }}
+        >
           {extended.map((feat, i) => (
             <CarouselCard
               key={`${feat.id}-${i}`}
@@ -158,10 +160,7 @@ export default function FeaturesCarousel({
         {features.map((_, i) => (
           <motion.button
             key={i}
-            onClick={() => {
-              goTo(i);
-              startTimer();
-            }}
+            onClick={() => { goTo(i); startTimer(); }}
             animate={{
               width: i === dotIndex ? 20 : 8,
               backgroundColor: i === dotIndex ? '#555555' : '#D1D5DB',

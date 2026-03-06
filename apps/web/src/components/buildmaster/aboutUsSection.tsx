@@ -1,9 +1,9 @@
 'use client';
 
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import { AnimatePresence, motion } from 'framer-motion';
-import Image from 'next/image';
 import { useState } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 interface AboutTab {
   id: string;
@@ -18,7 +18,11 @@ interface AboutSectionProps {
   wordmarkLogoSrc: string;
 }
 
-export default function AboutSection({ tabs, backgroundSrc, wordmarkLogoSrc }: AboutSectionProps) {
+export default function AboutSection({
+  tabs,
+  backgroundSrc,
+  wordmarkLogoSrc,
+}: AboutSectionProps) {
   const [activeId, setActiveId] = useState(tabs[0].id);
   const tab = tabs.find((t) => t.id === activeId)!;
 
