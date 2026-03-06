@@ -93,12 +93,12 @@
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
         >
-          <div className="bg-white rounded-3xl px-6 py-1 w-fit shadow-xl">
-            <span className="text-[#0d1b3e] font-black text-[15px] uppercase tracking-wide leading-none">
+          <div className="bg-white rounded-4xl pt-2 px-6 py-1 w-fit shadow-xl">
+            <span className="text-[#0d1b3e] font-black text-2xl uppercase tracking-wide leading-none">
               {brandName}
             </span>
           </div>
-          <p className="text-white font-semibold text-[15px] drop-shadow-lg pl-1">
+          <p className="text-white font-semibold text-2xl drop-shadow-lg pl-1">
             {tagline}
           </p>
         </motion.div>
