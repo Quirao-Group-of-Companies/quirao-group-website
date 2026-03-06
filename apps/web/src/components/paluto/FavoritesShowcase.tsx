@@ -26,11 +26,9 @@ export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps
 
   /**
    * Normalizes URLs to prevent double slashes after the domain.
-   * e.g., https://domain.com//path -> https://domain.com/path
    */
   const normalizeUrl = (url: string) => {
     if (!url) return '';
-    // Handle the case where Strapi or Supabase might return a double slash after the origin
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
 
@@ -46,78 +44,105 @@ export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps
       return { x: 120, y: -350, opacity: 0, scale: 0.7, zIndex: 10 };
     }
     switch (diff) {
-      case 0: // Active Center
-        return { x: 0, y: 0, opacity: 1, scale: 1, zIndex: 20 };
-      case 1: // Off-top (moving out)
-        return { x: 150, y: -450, opacity: 0, scale: 0.8, zIndex: 10 };
-      case 2: // Hidden Far Right
-        return { x: 400, y: 0, opacity: 0, scale: 0.5, zIndex: 0 };
-      case 3: // Off-bottom (moving in)
-        return { x: 150, y: 450, opacity: 0, scale: 0.8, zIndex: 10 };
+      case 1:
+        return { x: 120, y: -350, opacity: 0, scale: 0.7, zIndex: 10 };
+      case total - 1:
+        return { x: 120, y: 350, opacity: 0, scale: 0.7, zIndex: 10 };
       default:
         return { x: 350, y: 0, opacity: 0, scale: 0.4, zIndex: 0 };
     }
   };
 
   return (
-    <section className="relative w-full min-h-[800px] flex flex-col items-center overflow-hidden bg-white py-5">
-      {/* Brand Wordmark Header */}
-      <div className="w-full max-w-2xl px-4 z-30">
-        <Image
-          src="/images/logo/paluto/word-mark-logo.png"
-          alt="Unli-Paluto Favorites"
-          width={800}
-          height={400}
-          className="object-contain mx-auto"
-        />
+    <section className="relative w-full min-h-[600px] flex flex-col items-center overflow-hidden bg-white pt-4 pb-16">
+      {/* CMS Driven Logo Header */}
+      <div className="w-full max-w-xl px-4 mb-16 z-30">
+        {logo?.image?.url ? (
+          <Image
+            src={normalizeUrl(logo.image.url)}
+            alt={logo.logoName || "Unli-Paluto Favorites"}
+            width={640}
+            height={320}
+            className="object-contain mx-auto"
+          />
+        ) : (
+          <Image
+            src="/images/logo/paluto/word-mark-logo.png"
+            alt="Unli-Paluto Favorites"
+            width={640}
+            height={320}
+            className="object-contain mx-auto"
+          />
+        )}
       </div>
 
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 px-8 md:px-16 flex-1">
-        {/* Left Side: Buttons */}
-        <div className="flex flex-col gap-5 z-40">
-          {DISHES.map((dish) => (
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-8 md:px-16 flex-1">
+        {/* Left Side: Dynamic Buttons */}
+        <div className="flex flex-col gap-4 z-40">
+          {data.map((dish, index) => (
             <button
               type="button"
               key={dish.id}
-              onClick={() => handleSelect(dish.id)}
-              className={`w-full md:w-80 py-4 px-8 rounded-full font-poppins font-bold text-left uppercase tracking-wider transition-all duration-300 shadow-lg ${
-                activeIdx === dish.id
-                  ? 'bg-paluto-red text-white shadow-xl translate-x-6'
+              onClick={() => handleSelect(index)}
+              className={`w-full md:w-72 py-3 px-6 rounded-full font-poppins font-bold text-left uppercase tracking-wider transition-all duration-300 shadow-md ${
+                activeIdx === index
+                  ? 'bg-paluto-red text-white shadow-lg translate-x-4'
                   : 'bg-qgc-black text-white hover:bg-zinc-800'
               }`}
             >
-              {dish.label}
+              <span className="text-base md:text-lg">{dish.title}</span>
             </button>
           ))}
         </div>
 
-        {/* Right Side: The Circular Swapping Stage */}
-        <div className="relative h-[600px] flex justify-center items-center overflow-visible">
-          {DISHES.map((dish, index) => (
-            <motion.div
-              key={dish.id}
-              initial={false}
-              animate={getPosition(index)}
-              transition={{
-                type: 'spring',
-                stiffness: 100,
-                damping: 20,
-                // Ensure z-index swaps at the right moment
-                zIndex: { delay: 0 },
-              }}
-              className="absolute w-[400px] h-[400px] md:w-[650px] md:h-[650px]"
-            >
-              <div className="relative w-full h-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.3)]">
-                <Image
-                  src={dish.src}
-                  alt={dish.label}
-                  fill
-                  className="object-contain"
-                  priority={index === 0}
+        {/* Right Side: Swapping Stage */}
+        <div className="relative h-[500px] flex flex-col justify-center items-center overflow-visible">
+          <div className="relative w-full h-full flex justify-center items-center">
+            {data.map((dish, index) => (
+              <motion.div
+                key={dish.id}
+                initial={false}
+                animate={getPosition(index)}
+                transition={{
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 20,
+                }}
+                className="absolute w-[350px] h-[350px] md:w-[550px] md:h-[550px]"
+              >
+                <div className="relative w-full h-full drop-shadow-[0_25px_40px_rgba(0,0,0,0.25)]">
+                  {dish.image?.url && (
+                    <Image
+                      src={normalizeUrl(dish.image.url)}
+                      alt={dish.title}
+                      fill
+                      className="object-contain"
+                      priority={index === 0}
+                    />
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Indicators only shown if more than 1 item */}
+          {data.length > 1 && (
+            <div className="bg-qgc-black/80 backdrop-blur-sm px-4 py-2.5 rounded-full flex items-center gap-2.5 mt-8 z-50 border border-gray-200/50">
+              {data.map((dish, index) => (
+                <button
+                  key={`indicator-${dish.id}`}
+                  type="button"
+                  onClick={() => handleSelect(index)}
+                  className={`h-1.5 rounded-full transition-all duration-500 ${
+                    activeIdx === index
+                      ? 'w-8 bg-paluto-red shadow-md shadow-paluto-red/20'
+                      : 'w-1.5 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
-              </div>
-            </motion.div>
-          ))}
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
