@@ -31,6 +31,34 @@
       "component": "blocks.cards",
       "repeatable": true
     },
+    "bannerSection": {
+      "type": "component",
+      "component": "blocks.banner",
+      "repeatable": false
+    },
+    "branchesSectionTitle": {
+      "type": "string"
+    },
+    "branchesCards": {
+      "type": "component",
+      "component": "blocks.cards",
+      "repeatable": true
+    },
+    "eventsAndCateringSection": {
+      "type": "component",
+      "component": "elements.item",
+      "repeatable": false
+    },
+    "eventsAndCateringCarouselImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "feedback": {
       "type": "component",
       "component": "blocks.feedback",
