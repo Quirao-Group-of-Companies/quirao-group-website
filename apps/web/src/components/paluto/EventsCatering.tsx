@@ -4,28 +4,28 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
-import type { AboutUsSection } from '@/types/strapi-shared';
+import type { StrapiImage } from '@/types/strapi-shared';
+import type { EventsAndCateringItem } from '@/types/paluto-page';
 
 interface EventsCateringProps {
-  data?: AboutUsSection;
+  sectionData?: EventsAndCateringItem;
+  carouselImages?: StrapiImage[];
 }
 
-export default function EventsCatering({ data }: EventsCateringProps) {
+export default function EventsCatering({ sectionData, carouselImages = [] }: EventsCateringProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const gallery = data?.gallery || [];
-
   useEffect(() => {
-    if (gallery.length <= 1) {
+    if (carouselImages.length <= 1) {
       return;
     }
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % gallery.length);
+      setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [gallery.length]);
+  }, [carouselImages.length]);
 
-  if (!data) {
+  if (!sectionData) {
     return null;
   }
 
@@ -35,9 +35,9 @@ export default function EventsCatering({ data }: EventsCateringProps) {
         {/* Left Column: Image Carousel */}
         <div className="relative h-[300px] md:h-auto overflow-hidden bg-gray-100">
           <AnimatePresence mode="wait">
-            {gallery.length > 0 ? (
+            {carouselImages.length > 0 ? (
               <motion.div
-                key={gallery[currentIndex].url}
+                key={carouselImages[currentIndex].url}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -45,10 +45,8 @@ export default function EventsCatering({ data }: EventsCateringProps) {
                 className="absolute inset-0"
               >
                 <Image
-                  src={gallery[currentIndex].url}
-                  alt={
-                    gallery[currentIndex].alternativeText || `Catering Slide ${currentIndex + 1}`
-                  }
+                  src={carouselImages[currentIndex].url}
+                  alt={carouselImages[currentIndex].alternativeText || `Catering Slide ${currentIndex + 1}`}
                   fill
                   className="object-cover"
                   priority
@@ -62,9 +60,9 @@ export default function EventsCatering({ data }: EventsCateringProps) {
           </AnimatePresence>
 
           {/* Navigation Dots */}
-          {gallery.length > 1 && (
+          {carouselImages.length > 1 && (
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
-              {gallery.map((img, index) => (
+              {carouselImages.map((img, index) => (
                 <button
                   key={img.url}
                   type="button"
@@ -83,26 +81,26 @@ export default function EventsCatering({ data }: EventsCateringProps) {
         <div className="p-6 md:p-12 flex flex-col justify-center items-start space-y-6">
           <div className="space-y-4">
             <h2 className="text-3xl md:text-4xl font-black text-[#1a1a1a] uppercase font-poppins tracking-tight">
-              {data.title}
+              {sectionData.title}
             </h2>
             <div className="space-y-3 max-w-lg">
               <p className="text-gray-600 text-base md:text-lg leading-relaxed font-poppins">
-                {data.description}
+                {sectionData.text}
               </p>
             </div>
           </div>
 
           {/* CTA Button */}
-          {data.cta && (
+          {sectionData.cta && (
             <motion.a
-              href={data.cta.href}
+              href={sectionData.cta.href}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="w-full bg-gradient-to-r from-[#FF5F05] to-[#D71920] text-white py-4 px-8 rounded-xl flex items-center justify-between font-bold text-lg uppercase tracking-wider shadow-lg group"
             >
-              <span>{data.cta.title}</span>
+              <span>{sectionData.cta.title}</span>
               <FiExternalLink className="text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </motion.a>
           )}

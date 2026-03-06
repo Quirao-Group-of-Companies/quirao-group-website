@@ -14,23 +14,6 @@ import {
   ShareIcon,
 } from '@heroicons/react/24/outline';
 
-const BRANCHES = [
-  {
-    id: 1,
-    name: 'Paluto - Main',
-    address: 'Coastal Road, Bito-on, Jaro, Iloilo City',
-    mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Paluto+Caniogan',
-    image: '/images/home-page/business-preview/paluto-business-preview.jpg', // placeholder
-  },
-  {
-    id: 2,
-    name: 'Paluto - Passi',
-    address: 'Brgy. Sablogon, Passi, Philippines, 5037',
-    mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=Paluto+Concepcion',
-    image: '/images/home-page/business-preview/paluto-business-preview.jpg', // placeholder
-  },
-];
-
 /**
  * Paluto Subsidiary Page
  *
@@ -48,6 +31,8 @@ export default async function PalutoPage() {
 
   const hero = data.hero?.[0];
   const overview = data.hero?.[1];
+  const midBanner = data.bannerSection;
+  const branches = data.branchesCards;
 
   return (
     <main className="w-full pt-16 min-h-screen">
@@ -217,13 +202,23 @@ export default async function PalutoPage() {
 
       {/* 4. MID BANNER */}
       <section className="relative w-full overflow-hidden">
-        <Image
-          src="/images/paluto/paluto-cover.png"
-          alt="Paluto Banner"
-          width={1920}
-          height={800}
-          className="w-full h-auto"
-        />
+        {midBanner?.image?.url ? (
+          <Image
+            src={midBanner.image.url}
+            alt={midBanner.image.alternativeText || 'Paluto Banner'}
+            width={1920}
+            height={800}
+            className="w-full h-auto"
+          />
+        ) : (
+          <Image
+            src="/images/paluto/paluto-cover.png"
+            alt="Paluto Banner"
+            width={1920}
+            height={800}
+            className="w-full h-auto"
+          />
+        )}
         {/* Subtle Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/5 to-black/30 pointer-events-none" />
       </section>
@@ -241,52 +236,64 @@ export default async function PalutoPage() {
 
           {/* Two-Column Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {BRANCHES.map((branch) => (
-              <div
-                key={branch.id}
-                className="group bg-white rounded-[1.5rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-xl"
-              >
-                {/* Image Container */}
-                <div className="relative h-60 w-full overflow-hidden">
-                  <Image
-                    src={branch.image}
-                    alt={branch.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-                </div>
+            {branches && branches.length > 0 ? (
+              branches.map((branch) => (
+                <div
+                  key={branch.id}
+                  className="group bg-white rounded-[1.5rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-xl"
+                >
+                  {/* Image Container */}
+                  <div className="relative h-60 w-full overflow-hidden">
+                    {branch.image?.url && (
+                      <Image
+                        src={branch.image.url}
+                        alt={branch.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                  </div>
 
-                {/* Text Content */}
-                <div className="p-8 text-center">
-                  <h3 className="text-2xl font-black text-black mb-1.5 uppercase italic">
-                    {branch.name}
-                  </h3>
-                  <p className="text-gray-500 font-medium mb-6 text-sm">{branch.address}</p>
+                  {/* Text Content */}
+                  <div className="p-8 text-center">
+                    <h3 className="text-2xl font-black text-black mb-1.5 uppercase italic">
+                      {branch.title}
+                    </h3>
+                    <p className="text-gray-500 font-medium mb-6 text-sm">{branch.description}</p>
 
-                  <a
-                    href={branch.mapUrl}
-                    target="_blank"
-                    className="inline-flex items-center justify-center bg-black text-white px-8 py-3 rounded-full font-bold text-xs tracking-widest hover:bg-paluto-red transition-all active:scale-95"
-                  >
-                    GET DIRECTIONS
-                  </a>
+                    {branch.cta && (
+                      <a
+                        href={branch.cta.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center bg-black text-white px-8 py-3 rounded-full font-bold text-xs tracking-widest hover:bg-paluto-red transition-all active:scale-95"
+                      >
+                        {branch.cta.title}
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="text-center col-span-2 text-gray-500">No branches found.</p>
+            )}
           </div>
         </div>
       </section>
 
       {/* 6. EVENTS & CATERING */}
-      <EventsCatering data={data.aboutUs} />
+      <EventsCatering 
+        sectionData={data.eventsAndCateringSection} 
+        carouselImages={data.eventsAndCateringCarouselImages} 
+      />
 
       {/* 7. FEEDBACK SECTION */}
       <Feedback data={data.feedback} />
 
       {/* 8. CONTACT US SECTION */}
       <section className="w-full bg-white pb-20">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row bg-qgc-gray-soft overflow-hidden shadow-2xl border border-gray-100">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row bg-qgc-gray-soft rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100">
           {/* Left Side: Contact Info */}
           <div className="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 p-12">
             {/* Address */}
