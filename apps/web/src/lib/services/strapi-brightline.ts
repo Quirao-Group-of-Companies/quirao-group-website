@@ -3,7 +3,7 @@ import qs from 'qs';
 const STRAPI_URL = process.env.STRAPI_URL || 'http://127.0.0.1:1337';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
-export async function getSariSariManokanPage() {
+export async function getBrightlinePage() {
   const query = qs.stringify(
     {
       populate: {
@@ -18,13 +18,16 @@ export async function getSariSariManokanPage() {
             cta: true,
           },
         },
-        aboutUs: {
+        aboutUS: {
           populate: '*',
         },
-        showcase: {
+        features: {
           populate: '*',
         },
-        feedback: {
+        delivery: {
+          populate: '*',
+        },
+        banner: {
           populate: '*',
         },
         contactUs: {
@@ -38,7 +41,7 @@ export async function getSariSariManokanPage() {
     { encodeValuesOnly: true },
   );
 
-  const res = await fetch(`${STRAPI_URL}/api/paluto-page?${query}`, {
+  const res = await fetch(`${STRAPI_URL}/api/brightline-page?${query}`, {
     headers: {
       Authorization: `Bearer ${STRAPI_TOKEN}`,
     },
@@ -48,7 +51,7 @@ export async function getSariSariManokanPage() {
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     console.error('Strapi Fetch Error:', errorData);
-    throw new Error(`Failed to fetch sari-sari manokan page: ${res.status}`);
+    throw new Error(`Failed to fetch brightline page: ${res.status}`);
   }
 
   const json = await res.json();

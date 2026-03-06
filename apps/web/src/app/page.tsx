@@ -9,11 +9,11 @@ import type {
   AboutCard,
   Achievement,
   Business,
-  FAQ,
   HeroItem,
   HomepageData,
   SubPreviewItem,
 } from '@/types/homepage';
+import type { FAQ } from '@/types/strapi-shared';
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
@@ -98,6 +98,7 @@ export default async function Home() {
   // =========================
   // Achievements data (CMS)
   // =========================
+  // Add sample comment to test, add more sample comment
   const achievementsData: Achievement[] =
     data.Achievements?.map((item) => ({
       id: item.id,

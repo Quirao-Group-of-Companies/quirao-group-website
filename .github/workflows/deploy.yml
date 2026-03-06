@@ -65,13 +65,13 @@ jobs:
           echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/web/.env
           echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/web/.env
 
-          # Strapi & CMS Core
-          echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/web/.env
-          echo "APP_KEYS=${{ secrets.APP_KEYS }}" >> apps/web/.env
-          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> apps/web/.env
-          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> apps/web/.env
-          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> apps/web/.env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/web/.env
+          # # Strapi & CMS Core
+          # echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/web/.env
+          # echo "APP_KEYS=${{ secrets.APP_KEYS }}" >> apps/web/.env
+          # echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> apps/web/.env
+          # echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> apps/web/.env
+          # echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> apps/web/.env
+          # echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/web/.env
           
           # Axiom
           echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/web/.env
@@ -84,6 +84,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract metadata for Web
+        id: meta-web
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web
+          tags: |
+            type=raw,value=latest
+            type=raw,value=main
+
       - name: Build and push Web Image
         uses: docker/build-push-action@v5
         with:
@@ -91,13 +100,11 @@ jobs:
           file: ./apps/web/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: |
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:main
-              ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-web:latest
+          tags: ${{ steps.meta-web.outputs.tags }}
+          labels: ${{ steps.meta-web.outputs.labels }}
 
       - name: Trigger Dokploy Web
         run: curl -X POST "${{ vars.DOKPLOY_WEB_WEBHOOK }}"
-
   build-cms:
     needs: changes
     runs-on: ubuntu-latest
@@ -108,7 +115,6 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
-
       - name: Create CMS Env
         run: |
           echo "DATABASE_CLIENT=${{ vars.DATABASE_CLIENT }}" >> apps/cms/.env
@@ -125,8 +131,8 @@ jobs:
           echo "SUPABASE_BUCKET_URL=${{ vars.SUPABASE_BUCKET_URL }}" >> apps/cms/.env
 
           # Email & HR
-          echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/cms/.env
-          echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/cms/.env
+          # echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/cms/.env
+          # echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/cms/.env
 
           # Strapi & CMS Core
           echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/cms/.env
@@ -137,8 +143,8 @@ jobs:
           echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/cms/.env
           
           # Axiom
-          echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/cms/.env
-          echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/cms/.env 
+          # echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/cms/.env
+          # echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/cms/.env 
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -147,6 +153,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract metadata for CMS
+        id: meta-cms
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms
+          tags: |
+            type=raw,value=latest
+            type=raw,value=main
+
       - name: Build and push CMS Image
         uses: docker/build-push-action@v5
         with:
@@ -154,9 +169,8 @@ jobs:
           file: ./apps/cms/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:main
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-cms:latest
+          tags: ${{ steps.meta-cms.outputs.tags }}
+          labels: ${{ steps.meta-cms.outputs.labels }}
 
       - name: Trigger Dokploy CMS
         run: curl -X POST "${{ vars.DOKPLOY_CMS_WEBHOOK }}"
