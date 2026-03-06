@@ -36,25 +36,19 @@ const ABOUT_TABS = [
   {
     id: 'mission',
     label: 'Mission',
-    image: '/images/buildmaster/about/mission.jpg',
+    image: '/images/logo/buildmaster/mission_bg.jpg',
     body: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.',
   },
   {
     id: 'vision',
     label: 'Vision',
-    image: '/images/buildmaster/about/vision.jpg',
-    body: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.',
+    image: '/images/logo/buildmaster/vision_bg.jpg',
+    body: 'At BuildmasterPH, our goal is to make construction and home improvement in the Philippines as easy, transparent, and affordable as possible.',
   },
   {
     id: 'values',
     label: 'Core Values',
-    image: '/images/buildmaster/about/values.jpg',
-    body: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.',
-  },
-  {
-    id: 'story',
-    label: 'Our Story',
-    image: '/images/buildmaster/about/story.jpg',
+    image: '/images/logo/buildmaster/corevalues_bg.jpg',
     body: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.',
   },
 ];
@@ -113,7 +107,7 @@ export default function BuildMasterPage() {
       {/* 3. ABOUT US */}
       <AboutSection
         tabs={ABOUT_TABS}
-        backgroundSrc="/images/buildmaster/about/bg.jpg"
+        backgroundSrc="/images/logo/buildmaster/aboutus_bg.jpg"
         wordmarkLogoSrc="/images/logo/buildmaster/BM_Wordmark_blue.png"
       />
 
