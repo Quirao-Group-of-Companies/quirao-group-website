@@ -8,6 +8,18 @@
     "title": {
       "type": "string"
     },
+    "h1": {
+      "type": "string"
+    },
+    "h2": {
+      "type": "string"
+    },
+    "h3": {
+      "type": "string"
+    },
+    "h4": {
+      "type": "string"
+    },
     "description": {
       "type": "text"
     }

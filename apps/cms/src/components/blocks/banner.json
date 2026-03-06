@@ -11,6 +11,11 @@
     "description": {
       "type": "text"
     },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -19,7 +24,7 @@
     "cta": {
       "type": "component",
       "component": "elements.link",
-      "repeatable": false
+      "repeatable": true
     }
   },
   "config": {}

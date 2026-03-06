@@ -499,6 +499,78 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBrightlinePageBrightlinePage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'brightline_pages';
+  info: {
+    displayName: 'Brightline Page';
+    pluralName: 'brightline-pages';
+    singularName: 'brightline-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aboutUS: Schema.Attribute.Component<'blocks.about-us', false>;
+    banner: Schema.Attribute.Component<'blocks.banner', false>;
+    contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    delivery: Schema.Attribute.Component<'blocks.cards', true>;
+    faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
+    features: Schema.Attribute.Component<'blocks.cards', true>;
+    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::brightline-page.brightline-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBuildMasterPageBuildMasterPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'build_master_pages';
+  info: {
+    displayName: 'BuildMaster Page';
+    pluralName: 'build-master-pages';
+    singularName: 'build-master-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
+    contactUS: Schema.Attribute.Component<'blocks.contact-us', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'elements.link', false>;
+    download: Schema.Attribute.Component<'blocks.banner', false>;
+    faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
+    features: Schema.Attribute.Component<'blocks.cards', true>;
+    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    link: Schema.Attribute.Component<'elements.link', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::build-master-page.build-master-page'
+    > &
+      Schema.Attribute.Private;
+    podcasts: Schema.Attribute.Component<'blocks.cards', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCareersPageCareersPage extends Struct.SingleTypeSchema {
   collectionName: 'careers_pages';
   info: {
@@ -607,10 +679,21 @@ export interface ApiPalutoPagePalutoPage extends Struct.SingleTypeSchema {
   };
   attributes: {
     aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
+    bannerSection: Schema.Attribute.Component<'blocks.banner', false>;
+    branchesCards: Schema.Attribute.Component<'blocks.cards', true>;
+    branchesSectionTitle: Schema.Attribute.String;
     contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    eventsAndCateringCarouselImages: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    eventsAndCateringSection: Schema.Attribute.Component<
+      'elements.item',
+      false
+    >;
     faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
     feedback: Schema.Attribute.Component<'blocks.feedback', true>;
     hero: Schema.Attribute.Component<'blocks.hero-section', true>;
@@ -657,6 +740,38 @@ export interface ApiSariSariManokanPageSariSariManokanPage
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     Showcase: Schema.Attribute.Component<'blocks.cards', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWatergatePageWatergatePage extends Struct.SingleTypeSchema {
+  collectionName: 'watergate_pages';
+  info: {
+    displayName: 'Watergate Page';
+    pluralName: 'watergate-pages';
+    singularName: 'watergate-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
+    cards: Schema.Attribute.Component<'blocks.cards', true>;
+    contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
+    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::watergate-page.watergate-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1176,11 +1291,14 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::about-us-page.about-us-page': ApiAboutUsPageAboutUsPage;
       'api::article.article': ApiArticleArticle;
+      'api::brightline-page.brightline-page': ApiBrightlinePageBrightlinePage;
+      'api::build-master-page.build-master-page': ApiBuildMasterPageBuildMasterPage;
       'api::careers-page.careers-page': ApiCareersPageCareersPage;
       'api::contact-us-page.contact-us-page': ApiContactUsPageContactUsPage;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::paluto-page.paluto-page': ApiPalutoPagePalutoPage;
       'api::sari-sari-manokan-page.sari-sari-manokan-page': ApiSariSariManokanPageSariSariManokanPage;
+      'api::watergate-page.watergate-page': ApiWatergatePageWatergatePage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
