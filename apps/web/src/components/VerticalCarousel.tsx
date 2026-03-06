@@ -22,7 +22,7 @@ export default function VerticalCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl">
+    <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
       <AnimatePresence mode="wait">
         <motion.div
           key={IMAGES[index].id}
