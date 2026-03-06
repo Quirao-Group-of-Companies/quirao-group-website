@@ -98,7 +98,7 @@ export default async function Home() {
   // =========================
   // Achievements data (CMS)
   // =========================
-  // Add sample comment to test
+  // Add sample comment to test, add more sample comment
   const achievementsData: Achievement[] =
     data.Achievements?.map((item) => ({
       id: item.id,

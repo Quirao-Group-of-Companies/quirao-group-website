@@ -679,10 +679,21 @@ export interface ApiPalutoPagePalutoPage extends Struct.SingleTypeSchema {
   };
   attributes: {
     aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
+    bannerSection: Schema.Attribute.Component<'blocks.banner', false>;
+    branchesCards: Schema.Attribute.Component<'blocks.cards', true>;
+    branchesSectionTitle: Schema.Attribute.String;
     contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    eventsAndCateringCarouselImages: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    eventsAndCateringSection: Schema.Attribute.Component<
+      'elements.item',
+      false
+    >;
     faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
     feedback: Schema.Attribute.Component<'blocks.feedback', true>;
     hero: Schema.Attribute.Component<'blocks.hero-section', true>;

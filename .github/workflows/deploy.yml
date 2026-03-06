@@ -88,13 +88,13 @@ jobs:
           echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/web/.env
           echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/web/.env
 
-          # Strapi & CMS Core
-          echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/web/.env
-          echo "APP_KEYS=${{ secrets.APP_KEYS }}" >> apps/web/.env
-          echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> apps/web/.env
-          echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> apps/web/.env
-          echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> apps/web/.env
-          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/web/.env
+          # # Strapi & CMS Core
+          # echo "STRAPI_API_TOKEN=${{ secrets.STRAPI_API_TOKEN }}" >> apps/web/.env
+          # echo "APP_KEYS=${{ secrets.APP_KEYS }}" >> apps/web/.env
+          # echo "ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}" >> apps/web/.env
+          # echo "API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}" >> apps/web/.env
+          # echo "TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}" >> apps/web/.env
+          # echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> apps/web/.env
           
           # Axiom
           echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/web/.env
@@ -138,7 +138,6 @@ jobs:
 
       - name: Trigger Dokploy Web
         run: curl -X POST "${{ vars.DOKPLOY_WEB_WEBHOOK }}"
-
   build-cms:
     needs: changes
     runs-on: ubuntu-latest
@@ -179,8 +178,8 @@ jobs:
           echo "SUPABASE_BUCKET_URL=${{ vars.SUPABASE_BUCKET_URL }}" >> apps/cms/.env
 
           # Email & HR
-          echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/cms/.env
-          echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/cms/.env
+          # echo "RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}" >> apps/cms/.env
+          # echo "HR_EMAIL=${{ vars.HR_EMAIL }}" >> apps/cms/.env
 
           # Strapi & CMS Core
 >>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
@@ -194,8 +193,8 @@ jobs:
 =======
           
           # Axiom
-          echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/cms/.env
-          echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/cms/.env 
+          # echo "NEXT_PUBLIC_AXIOM_DATASET=${{ vars.NEXT_PUBLIC_AXIOM_DATASET }}" >> apps/cms/.env
+          # echo "NEXT_PUBLIC_AXIOM_TOKEN=${{ secrets.NEXT_PUBLIC_AXIOM_TOKEN }}" >> apps/cms/.env 
 >>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
 
       - name: Log in to GHCR

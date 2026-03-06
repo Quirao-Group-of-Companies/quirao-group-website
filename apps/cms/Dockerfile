@@ -19,18 +19,18 @@ FROM node:20-alpine AS runner
 # ==========================================
 # Stage 1: Builder
 # ==========================================
-FROM oven/bun:1 AS builder
+FROM oven/bun:1.3.10 AS builder
 WORKDIR /app
 
 # Copy root workspace configurations
 COPY package.json bun.lock turbo.json ./
 
 # Copy the CMS app and shared internal packages
-COPY apps/cms ./apps/cms
+COPY apps/ ./apps/
 COPY packages ./packages
 
 # Install dependencies for the entire workspace
-RUN bun install
+RUN bun install --frozen-lockfile
 
 # Build the Strapi CMS application
 RUN bun run build:cms
@@ -38,7 +38,7 @@ RUN bun run build:cms
 # ==========================================
 # Stage 2: Production Runner
 # ==========================================
-FROM oven/bun:1 AS runner
+FROM oven/bun:1.3.10 AS runner
 >>>>>>> 48f9a7104c8ca6adc9263305a5538e6dda73f3fe
 WORKDIR /app
 
