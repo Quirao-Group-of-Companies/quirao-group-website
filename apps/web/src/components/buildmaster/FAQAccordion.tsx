@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
 interface FAQ {
   id: number;
@@ -45,9 +45,7 @@ export default function FAQAccordion({ faqs }: FAQAccordionProps) {
                 <button
                   onClick={() => setOpenId(isOpen ? null : faq.id)}
                   className={`w-full flex items-center justify-between gap-3 px-4 py-3.5 text-left text-[13px] font-semibold transition-colors ${
-                    isOpen
-                      ? 'bg-[#1a1a2e] text-white'
-                      : 'bg-white text-[#111] hover:bg-gray-50'
+                    isOpen ? 'bg-[#1a1a2e] text-white' : 'bg-white text-[#111] hover:bg-gray-50'
                   }`}
                 >
                   {faq.question}

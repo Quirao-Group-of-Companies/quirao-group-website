@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
+import { useState } from 'react';
 
 interface AboutTab {
   id: string;
@@ -18,11 +18,7 @@ interface AboutSectionProps {
   wordmarkLogoSrc: string;
 }
 
-export default function AboutSection({
-  tabs,
-  backgroundSrc,
-  wordmarkLogoSrc,
-}: AboutSectionProps) {
+export default function AboutSection({ tabs, backgroundSrc, wordmarkLogoSrc }: AboutSectionProps) {
   const [activeId, setActiveId] = useState(tabs[0].id);
   const tab = tabs.find((t) => t.id === activeId)!;
 
@@ -55,7 +51,6 @@ export default function AboutSection({
         </motion.h2>
 
         <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
-
           {/* LEFT — image card animates on tab change */}
           <div className="w-full md:w-[45%] flex-shrink-0">
             <div

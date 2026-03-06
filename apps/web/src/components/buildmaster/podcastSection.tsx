@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 interface Podcast {
   id: number;
@@ -18,11 +18,7 @@ interface PodcastsSectionProps {
   ctaHref: string;
 }
 
-export default function PodcastsSection({
-  podcasts,
-  badgeSrc,
-  ctaHref,
-}: PodcastsSectionProps) {
+export default function PodcastsSection({ podcasts, badgeSrc, ctaHref }: PodcastsSectionProps) {
   return (
     <section className="py-14 bg-white">
       <motion.h2
