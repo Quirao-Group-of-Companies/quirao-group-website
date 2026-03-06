@@ -1,5 +1,5 @@
 import type { Schema, Struct } from '@strapi/strapi';
-// sample comment
+
 export interface BlocksAboutUs extends Struct.ComponentSchema {
   collectionName: 'components_blocks_about_uses';
   info: {
@@ -27,6 +27,7 @@ export interface BlocksBanner extends Struct.ComponentSchema {
     cta: Schema.Attribute.Component<'elements.link', true>;
     description: Schema.Attribute.Text;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     title: Schema.Attribute.String;
   };
 }
@@ -157,6 +158,7 @@ export interface ElementsItem extends Struct.ComponentSchema {
     displayName: 'Item';
   };
   attributes: {
+    cta: Schema.Attribute.Component<'elements.link', false>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     text: Schema.Attribute.Text;
     title: Schema.Attribute.String;
@@ -194,6 +196,10 @@ export interface ElementsText extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
+    h1: Schema.Attribute.String;
+    h2: Schema.Attribute.String;
+    h3: Schema.Attribute.String;
+    h4: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
