@@ -279,3 +279,31 @@ export default function ArticlePage({ article }) {
   );
 }
 ```
+
+### Search Engine Optimization (SEO)
+To make our website optimized for search engines, such as Google, we need to apply specific rules to maximize SEO.
+
+For pages with fixed content you may use the following snippet below:
+
+```tsx
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+  title: 'Your Page Name Here',
+  description: 'A brief description about the page.'
+}
+```
+
+For pages that requires data from the CMS, you may follow the snippet below:
+```tsx
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getPageData();
+  const content = data?.HeroSection?.[0];
+
+  return {
+    title: content?.title || 'Default Title',
+    description: content?.description || 'Default description.',
+  };
+}
+```
+
+Put the snippets above your page route. And you will likely be frequently applying the latter suggestion. For more details about generating metadata and other configuration options, read [`generateMetadata`](https://nextjs.org/docs/app/api-reference/functions/generate-metadata) by Next.js.
