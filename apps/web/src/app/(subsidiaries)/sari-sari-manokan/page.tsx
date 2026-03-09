@@ -4,7 +4,6 @@ import { after } from 'next/server';
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 import FavoritesShowcase from '@/components/FavoritesShowcase';
 import FeedbackSection from '@/components/FeedbackSection';
-import VerticalCarousel from '@/components/VerticalCarousel';
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
 import { getSariSariManokanPage } from '@/lib/services/strapi-sarisari';
@@ -62,6 +61,12 @@ export default async function ManokanPage() {
   const heroTitle = heroData?.title || "Sari-Sari Manokan";
   const heroDescription = heroData?.description || "Sari-sari Manokan and Seafood Restaurant";
 
+  // Extract About Us data from CMS
+  const aboutUsData = pageData.aboutUs;
+  const aboutUsTitle = aboutUsData?.title || "Iloilo’s Destination for Premium Seafood & Celebrations.";
+  const aboutUsDescription = aboutUsData?.description || "Sari-sari Manokan and Seafood Restaurant is a seafood destination in Iloilo, known for its fresh live seafood, vibrant dining experience, and celebration-ready ambiance.";
+  const aboutUsImage = getImageUrl(aboutUsData?.image?.url, "/images/home-page/business-preview/paluto-business-preview.jpg");
+
   return (
     <main className="w-full  min-h-screen bg-qgc-white">
       {/* 1. HERO SECTION */}
@@ -108,22 +113,17 @@ export default async function ManokanPage() {
         </div>
       </section>
 
-      {/* 2. OVERVIEW SECTION */}
+      {/* 2. ABOUT US SECTION (formerly Overview) */}
       <section className="bg-qgc-gray-soft px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-10 md:h-screen overflow-hidden py-16 md:py-10">
         {/* Left Content Side */}
         <div className="flex items-start justify-center flex-col w-full md:w-[55%] gap-6 h-full max-w-4xl">
           {/* H1 and Description */}
           <div className="space-y-4 text-start">
             <h1 className="text-xl md:text-xl lg:text-2xl xl:text-4xl font-black text-qgc-black uppercase font-poppins tracking-tight leading-tight">
-              Iloilo’s Destination for Premium Seafood & Celebrations.
+              {aboutUsTitle}
             </h1>
             <p className="text-gray-600 text-base md:text-lg lg:text-base leading-relaxed text-left font-poppins line-clamp-4 lg:line-clamp-6">
-              Paluto Seafood & Grill Restaurant is a seafood destination in Iloilo, known for its
-              fresh live seafood, vibrant dining experience, and celebration-ready ambiance. We serve
-              families, balikbayans, tourists, corporate groups, and event clients who want not just a
-              meal but complete Iloilo experience. Our signature offerings include mixed seafood boat,
-              live paluto cooking for buffet & catering, Fresh sea-to-table cooking, unlimited promos
-              (UNLI 699), and full-service catering for all types of events.
+              {aboutUsDescription}
             </p>
           </div>
 
@@ -146,9 +146,14 @@ export default async function ManokanPage() {
           </div>
         </div>
 
-        {/* Right Content Side: Vertical Carousel */}
-        <div className="w-full md:w-[40%] flex justify-center items-center h-100 md:h-[80%] lg:h-[85%]">
-          <VerticalCarousel />
+        {/* Right Content Side: Static Image from About Us */}
+        <div className="w-full md:w-[40%] flex justify-center items-center h-[400px] md:h-[80%] lg:h-[85%] relative rounded-4xl overflow-hidden shadow-2xl">
+          <Image
+            src={aboutUsImage}
+            alt={aboutUsData?.image?.alternativeText || "About Sari-Sari Manokan"}
+            fill
+            className="object-cover"
+          />
         </div>
       </section>
 
