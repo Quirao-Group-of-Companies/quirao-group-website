@@ -21,17 +21,19 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: {
     default: 'Quirao Group of Companies',
-    template: '%s | QGC', 
+    template: '%s | QGC',
   },
-  description: 'A diversified conglomerate with businesses in construction, logistics, retail, food service, trading, and e-commerce. Headquartered in Iloilo, QGC drives growth, innovation, and expansion across multiple industries.',
+  description:
+    'A diversified conglomerate with businesses in construction, logistics, retail, food service, trading, and e-commerce. Headquartered in Iloilo, QGC drives growth, innovation, and expansion across multiple industries.',
   metadataBase: new URL('https://quiraogroup.com'),
   referrer: 'strict-origin-when-cross-origin',
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: "Quirao Group of Companies",
-    description: 'A diversified conglomerate with businesses in construction, logistics, retail, food service, trading, and e-commerce. Headquartered in Iloilo, QGC drives growth, innovation, and expansion across multiple industries.',
+    title: 'Quirao Group of Companies',
+    description:
+      'A diversified conglomerate with businesses in construction, logistics, retail, food service, trading, and e-commerce. Headquartered in Iloilo, QGC drives growth, innovation, and expansion across multiple industries.',
     type: 'website',
     locale: 'en_PH',
     siteName: 'Quirao Group of Companies',
@@ -52,8 +54,8 @@ export const metadata: Metadata = {
     icon: '/images/logo/icon.ico',
     shortcut: '/images/logo/icon.ico',
     apple: '/images/logo/icon.png',
-  }
-}
+  },
+};
 
 export default function RootLayout({
   children,
