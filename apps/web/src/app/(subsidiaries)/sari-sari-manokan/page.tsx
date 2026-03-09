@@ -74,6 +74,15 @@ export default async function ManokanPage() {
     src: getImageUrl(item.image?.url, '/images/manokan/BN-GPAA.png'),
   })) || [];
 
+  // Process Feedback items
+  const feedbackData = pageData.feedback?.map((item) => ({
+    id: item.id,
+    name: item.text?.title || "Anonymous",
+    comment: item.text?.description || "",
+    image: getImageUrl(item.image?.url, "/images/home-page/blogs/blog1.jpg"),
+    rating: item.stars || 5,
+  })) || [];
+
   return (
     <main className="w-full  min-h-screen bg-qgc-white">
       {/* 1. HERO SECTION */}
@@ -168,7 +177,7 @@ export default async function ManokanPage() {
       <FavoritesShowcase dishes={showcaseData} />
 
       {/* 4. FEEDBACK SECTION */}
-      <FeedbackSection />
+      <FeedbackSection feedbacks={feedbackData} />
 
 {/* 5. CONTACT & GOOGLE MAPS SECTION */}
 <section className="bg-white py-24 px-6 md:px-12">

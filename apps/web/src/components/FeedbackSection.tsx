@@ -4,52 +4,38 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-const REVIEWS = [
-  {
-    id: 1,
-    name: 'Maria Santos',
-    image: '/images/home-page/blogs/blog1.jpg',
-    rating: 5,
-    comment: 'The best seafood experience in Iloilo! The mixed seafood boat is a must-try for families.',
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    image: '/images/home-page/blogs/blog2.jpg',
-    rating: 5,
-    comment: 'Fresh and delicious. The live paluto service is exceptional and the atmosphere is very vibrant.',
-  },
-  {
-    id: 3,
-    name: 'Elena Reyes',
-    image: '/images/home-page/blogs/blog3.jpg',
-    rating: 4,
-    comment: 'Great value for money with the UNLI 699 promo. Perfect for celebrations and big groups.',
-  },
-  {
-    id: 4,
-    name: 'Roberto Gomez',
-    image: '/images/home-page/blogs/blog4.jpg',
-    rating: 5,
-    comment: 'Superb catering service! They handled our corporate event perfectly. Highly recommended.',
-  },
-];
+type Feedback = {
+  id: number;
+  name: string;
+  image: string;
+  rating: number;
+  comment: string;
+};
 
-export default function FeedbackSection() {
+type FeedbackSectionProps = {
+  feedbacks?: Feedback[];
+};
+
+export default function FeedbackSection({ feedbacks = [] }: FeedbackSectionProps) {
+  // If no feedbacks are provided from CMS, we don't render this section
+  if (!feedbacks || feedbacks.length === 0) {
+    return null;
+  }
+
   return (
     <section className="bg-white py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col items-center mb-16">
           <h2 className="text-4xl md:text-5xl font-black uppercase italic text-black tracking-tighter text-center">
-            Customer <span className="text-paluto-red">Feedback</span>
+            Customer <span className="text-paluto-green">Feedbacks</span>
           </h2>
           <div className="w-24 h-1.5 bg-paluto-yellow mt-2" />
         </div>
 
-        {/* 2x2 Grid */}
+        {/* 2x2 Grid or single column on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {REVIEWS.map((review, index) => (
+          {feedbacks.map((review, index) => (
             <motion.div
               key={review.id}
               initial={{ opacity: 0, y: 20 }}
@@ -74,7 +60,7 @@ export default function FeedbackSection() {
                   {review.name}
                 </h3>
                 
-                {/* 5 Stars */}
+                {/* Stars based on rating */}
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <StarIcon
