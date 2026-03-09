@@ -5,21 +5,29 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useLogger } from '@/lib/axiom/client';
 
-const DISHES = [
-  { id: 0, label: 'Grilled Paa', src: '/images/manokan/BN-GPAA.png' },
-  { id: 1, label: 'Grilled Pecho', src: '/images/manokan/BN-GPECHO.png' },
-  { id: 2, label: 'Grilled Pork BBQ', src: '/images/manokan/BN-PBBQ.png' },
-  { id: 3, label: 'Grilled Pork Sisig', src: '/images/manokan/BN-SISIG.png' },
-];
+type Dish = {
+  id: number;
+  label: string;
+  src: string;
+};
 
-export default function FavoritesShowcase() {
-  const [activeIdx, setActiveIdx] = useState(0);
+type FavoritesShowcaseProps = {
+  dishes?: Dish[];
+};
+
+export default function FavoritesShowcase({ dishes = [] }: FavoritesShowcaseProps) {
   const logger = useLogger();
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  // If no dishes are provided from CMS, we don't render this section
+  if (!dishes || dishes.length === 0) {
+    return null;
+  }
 
   const handleSelect = (idx: number) => {
     setActiveIdx(idx);
     // Mandatory Axiom logging
-    logger.info('Paluto dish swapped', { dish: DISHES[idx].label });
+    logger.info('Paluto dish swapped', { dish: dishes[idx].label });
   };
 
   /**
@@ -27,20 +35,19 @@ export default function FavoritesShowcase() {
    * based on its position relative to the active dish index.
    */
   const getPosition = (index: number) => {
-    // Determine relative position (0-3) where 0 is the front-most dish
-    const diff = (index - activeIdx + 4) % 4;
+    const total = dishes.length;
+    // Determine relative position where 0 is the front-most dish
+    const diff = (index - activeIdx + total) % total;
 
     switch (diff) {
       case 0: // Active Center
         return { x: 0, y: 0, opacity: 1, scale: 1, zIndex: 20 };
       case 1: // Off-top (moving out)
         return { x: 150, y: -450, opacity: 0, scale: 0.8, zIndex: 10 };
-      case 2: // Hidden Far Right
-        return { x: 400, y: 0, opacity: 0, scale: 0.5, zIndex: 0 };
-      case 3: // Off-bottom (moving in)
+      case total - 1: // Off-bottom (moving in)
         return { x: 150, y: 450, opacity: 0, scale: 0.8, zIndex: 10 };
-      default:
-        return {};
+      default: // Hidden for any other items
+        return { x: 400, y: 0, opacity: 0, scale: 0.5, zIndex: 0 };
     }
   };
 
@@ -60,13 +67,13 @@ export default function FavoritesShowcase() {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 px-8 md:px-16 flex-1">
         {/* Left Side: Buttons */}
         <div className="flex flex-col gap-5 z-40">
-          {DISHES.map((dish) => (
+          {dishes.map((dish, idx) => (
             <button
               type="button"
               key={dish.id}
-              onClick={() => handleSelect(dish.id)}
+              onClick={() => handleSelect(idx)}
               className={`w-full md:w-80 py-4 px-8 rounded-full font-poppins font-bold text-left uppercase tracking-wider transition-all duration-300 shadow-lg ${
-                activeIdx === dish.id
+                activeIdx === idx
                   ? 'bg-paluto-green text-white shadow-xl translate-x-6'
                   : 'bg-qgc-black text-white hover:bg-zinc-800'
               }`}
@@ -78,7 +85,7 @@ export default function FavoritesShowcase() {
 
         {/* Right Side: The Circular Swapping Stage */}
         <div className="relative h-150 flex justify-center items-center overflow-visible">
-          {DISHES.map((dish, index) => (
+          {dishes.map((dish, index) => (
             <motion.div
               key={dish.id}
               initial={false}

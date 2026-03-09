@@ -67,6 +67,13 @@ export default async function ManokanPage() {
   const aboutUsDescription = aboutUsData?.description || "Sari-sari Manokan and Seafood Restaurant is a seafood destination in Iloilo, known for its fresh live seafood, vibrant dining experience, and celebration-ready ambiance.";
   const aboutUsImage = getImageUrl(aboutUsData?.image?.url, "/images/home-page/business-preview/paluto-business-preview.jpg");
 
+  // Process Showcase items
+  const showcaseData = pageData.Showcase?.map((item) => ({
+    id: item.id,
+    label: item.title,
+    src: getImageUrl(item.image?.url, '/images/manokan/BN-GPAA.png'),
+  })) || [];
+
   return (
     <main className="w-full  min-h-screen bg-qgc-white">
       {/* 1. HERO SECTION */}
@@ -158,7 +165,7 @@ export default async function ManokanPage() {
       </section>
 
       {/* 3. FAVORITES SHOWCASE */}
-      <FavoritesShowcase />
+      <FavoritesShowcase dishes={showcaseData} />
 
       {/* 4. FEEDBACK SECTION */}
       <FeedbackSection />
