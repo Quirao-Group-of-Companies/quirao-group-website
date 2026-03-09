@@ -7,8 +7,8 @@ import FeedbackSection from '@/components/FeedbackSection';
 import VerticalCarousel from '@/components/VerticalCarousel';
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
-import { getHomepage } from '@/lib/services/strapi-homepage';
-import type { FAQ, HomepageData } from '@/types/homepage';
+import { getSariSariManokanPage } from '@/lib/services/strapi-sarisari';
+import type { SariSariManokanPageData } from '@/types/sari-sari-manokan-page';
 
 const BRANCHES = [
   {
@@ -40,25 +40,37 @@ export default async function ManokanPage() {
     logger.flush();
   });
 
-  const homepageData: HomepageData = await getHomepage();
-  const faqsData: FAQ[] =
-    homepageData.FAQs?.map(
-      (faq: FAQ): FAQ => ({
-        id: faq.id,
-        question: faq.question,
-        answer: faq.answer,
-      }),
-    ) || [];
+  const pageData: SariSariManokanPageData = await getSariSariManokanPage();
+  console.log('Sari-Sari Manokan CMS Data:', JSON.stringify(pageData, null, 2));
+  const faqsData = pageData.faqs || [];
+
+  const STRAPI_URL = (process.env.STRAPI_URL?.trim() || 'http://127.0.0.1:1337').replace(/\/$/, '');
+  
+  const getImageUrl = (imagePath: string | undefined, fallback: string) => {
+    if (!imagePath) return fallback;
+    // Collapses multiple slashes (e.g., //storage) into a single slash,
+    // while preserving the protocol (http:// or https://)
+    const cleanPath = imagePath.replace(/([^:])\/+/g, "$1/");
+    if (cleanPath.startsWith("http")) return cleanPath;
+    return `${STRAPI_URL}${cleanPath}`;
+  };
+
+  // Extract the first hero section from the repeatable component
+  const heroData = pageData.hero?.[0];
+  const heroImage = getImageUrl(heroData?.image?.url, "/images/home-page/business-preview/paluto-business-preview.jpg");
+  const logoImage = getImageUrl(heroData?.logo?.image?.url, "/images/logo/manokan/sari-sari-manokan-logo-word.png");
+  const heroTitle = heroData?.title || "Sari-Sari Manokan";
+  const heroDescription = heroData?.description || "Sari-sari Manokan and Seafood Restaurant";
 
   return (
-    <main className="w-full pt-20 min-h-screen bg-qgc-white">
+    <main className="w-full  min-h-screen bg-qgc-white">
       {/* 1. HERO SECTION */}
       <section className="relative w-full h-screen flex flex-col justify-end overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/home-page/business-preview/paluto-business-preview.jpg"
-            alt="Paluto Hero Background"
+            src={heroImage}
+            alt={heroData?.image?.alternativeText || "Sari-Sari Manokan Hero Background"}
             fill
             className="object-cover"
             priority
@@ -68,10 +80,10 @@ export default async function ManokanPage() {
         </div>
 
         {/* Logo Top Left */}
-        <div className="absolute top-10 left-8 md:left-16 z-20">
+        <div className="absolute top-30 left-8 md:left-16 z-20">
           <Image
-            src="/images/logo/manokan/sari-sari-manokan-logo-word.png"
-            alt="sari sari manokan logo"
+            src={logoImage}
+            alt={heroData?.logo?.logoName || "sari sari manokan logo"}
             width={250}
             height={250}
             className="object-contain"
@@ -83,14 +95,14 @@ export default async function ManokanPage() {
           {/* Brand Name in Rounded Rectangle */}
           <div className="bg-white/95 backdrop-blur-md rounded-2xl px-10 py-1 w-fit shadow-2xl border border-white/50">
             <h1 className="text-paluto-red text-5xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
-              Sari-Sari Manokan
+              {heroTitle}
             </h1>
           </div>
 
           {/* Subtitle / Tagline */}
           <div className="max-w-3xl">
             <p className="text-white text-xl md:text-3xl font-bold drop-shadow-xl font-poppins">
-              Sari-sari Manokan and Seafood Restaurant
+              {heroDescription}
             </p>
           </div>
         </div>
