@@ -63,34 +63,20 @@ export default function Footer() {
       ],
     },
     {
-      title: 'Newsroom',
-      links: [
-        { label: 'Press Releases', href: '#' },
-        { label: 'Events', href: '#' },
-        { label: 'Blog', href: '#' },
-      ],
-    },
-    {
       title: 'Careers',
       links: [
-        { label: 'Open Positions', href: '#' },
-        { label: 'Internships', href: '#' },
       ],
     },
     {
       title: 'About Us',
       links: [
-        { label: 'Company', href: '#' },
-        { label: 'Leadership', href: '#' },
-        { label: 'Mission & Vision', href: '#' },
+       
       ],
     },
     {
       title: 'Contact Us',
       links: [
-        { label: 'Email', href: '#' },
-        { label: 'Phone', href: '#' },
-        { label: 'Support', href: '#' },
+     
       ],
     },
   ];
@@ -144,7 +130,7 @@ export default function Footer() {
           </p>
         </div>
 
-        <div className="flex flex-col md:grid md:grid-cols-3 lg:grid-cols-5 gap-0 md:gap-8 flex-1">
+        <div className="flex flex-col md:grid md:grid-cols-3 lg:grid-cols-4 gap-0 md:gap-8 flex-1">
           {sections.map((section) => (
             <FooterSection key={section.title} title={section.title} links={section.links} />
           ))}
