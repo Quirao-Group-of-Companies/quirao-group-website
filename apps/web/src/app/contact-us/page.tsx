@@ -2,27 +2,32 @@ import { MapPinIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline
 import InteractiveShowcase, { ShowcaseItem } from '@/components/ui/SubsidiaryShowcase';
 import { InquiryForm } from '@/components/forms/inquiry-form';
 import { getContactUsPage } from '@/lib/services/strapi-contact-us';
-import type { ContactUsData, ContactInfo } from '@/types/contact-us';
+import type { ContactUsPageData, StrapiSubContacts } from '@cms/types/strapi-components';
 
 export default async function ContactUsPage() {
-  const contactData: ContactUsData | null = await getContactUsPage();
+  const contactData: ContactUsPageData | null = await getContactUsPage();
 
   const qgcInfo = contactData?.qgcContacts;
   const qgcText = contactData?.qgcText;
 
   // Transform subsidiary data from CMS to the format expected by InteractiveShowcase
   const businessesData: ShowcaseItem[] =
-    contactData?.subsContacts?.map((sub: ContactInfo) => ({
+    contactData?.subsContacts?.map((sub: StrapiSubContacts) => ({
       id: sub.id,
-      name: sub.subName,
-      description: sub.description || "",
+      name: sub.subName || "",
+      description: "", // StrapiSubContacts does not have a description field
       image: sub.displayImage?.url || null,
       cardImage: sub.cardImage?.url || null,
       logo: sub.logo?.image?.url || null,
-      cta: sub.cta || null,
-      address: sub.address,
-      contactNum: sub.contactNum,
-      email: sub.email,
+      cta: sub.cta
+        ? {
+            title: sub.cta.title || "",
+            href: sub.cta.href || "#",
+          }
+        : null,
+      address: sub.address || "",
+      contactNum: sub.contactNum || "",
+      email: sub.email || "",
     })) || [];
 
   return (  
