@@ -1,8 +1,7 @@
 import { MapPinIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
-import OurBusinessPreview from '@/components/homepage/BusinessPreview';
+import InteractiveShowcase, { ShowcaseItem } from '@/components/ui/SubsidiaryShowcase';
 import { InquiryForm } from '@/components/forms/inquiry-form';
 import { getContactUsPage } from '@/lib/services/strapi-contact-us';
-import type { Business } from '@/types/homepage';
 import type { ContactUsData, ContactInfo } from '@/types/contact-us';
 
 export default async function ContactUsPage() {
@@ -11,18 +10,19 @@ export default async function ContactUsPage() {
   const qgcInfo = contactData?.qgcContacts;
   const qgcText = contactData?.qgcText;
 
-  // Transform subsidiary data from CMS to the format expected by OurBusinessPreview
-  // Now using correctly mapped subsContacts with displayImage
-  const businessesData: Business[] =
+  // Transform subsidiary data from CMS to the format expected by InteractiveShowcase
+  const businessesData: ShowcaseItem[] =
     contactData?.subsContacts?.map((sub: ContactInfo) => ({
       id: sub.id,
       name: sub.subName,
-      // Concatenate contact information for the description field
-      description: `${sub.address}\n\nPhone: ${sub.contactNum}\nEmail: ${sub.email}`,
+      description: sub.description || null,
       image: sub.displayImage?.url || null,
       cardImage: sub.cardImage?.url || null,
       logo: sub.logo?.image?.url || null,
-      cta: null, 
+      cta: sub.cta || null,
+      address: sub.address,
+      contactNum: sub.contactNum,
+      email: sub.email,
     })) || [];
 
   return (
@@ -81,7 +81,7 @@ export default async function ContactUsPage() {
       </section>
 
       {/* Business Preview Section */}
-      <OurBusinessPreview businesses={businessesData} />
+      <InteractiveShowcase items={businessesData} title="Our Subsidiaries" />
     </main>
   );
 }
