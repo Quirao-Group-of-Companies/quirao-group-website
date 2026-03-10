@@ -4,7 +4,7 @@ export default async function BuildMasterTestPage() {
   const data = await getBuildMasterPage();
 
   // Helper to render raw JSON safely
-  const renderRaw = (section: any) => (
+  const renderRaw = (section: unknown) => (
     <pre
       style={{
         background: '#f4f4f4',

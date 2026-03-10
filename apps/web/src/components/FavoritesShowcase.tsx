@@ -56,11 +56,11 @@ export default function FavoritesShowcase({ dishes = [] }: FavoritesShowcaseProp
       {/* Brand Wordmark Header */}
       <div className="w-full max-w-2xl px-4 z-30">
         <Image
-            src="/images/logo/manokan/sari-sari-manokan-logo-word.png"
-            alt="sari sari manokan logo"
-            width={250}
-            height={250}
-            className="object-contain mx-auto"
+          src="/images/logo/manokan/sari-sari-manokan-logo-word.png"
+          alt="sari sari manokan logo"
+          width={250}
+          height={250}
+          className="object-contain mx-auto"
         />
       </div>
 

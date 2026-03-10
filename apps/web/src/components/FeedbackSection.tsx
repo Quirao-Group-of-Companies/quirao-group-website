@@ -46,12 +46,7 @@ export default function FeedbackSection({ feedbacks = [] }: FeedbackSectionProps
             >
               {/* Left Side: Image */}
               <div className="relative w-full sm:w-48 lg:w-56 h-48 sm:h-auto shrink-0">
-                <Image
-                  src={review.image}
-                  alt={review.name}
-                  fill
-                  className="object-cover"
-                />
+                <Image src={review.image} alt={review.name} fill className="object-cover" />
               </div>
 
               {/* Right Side: Content */}
@@ -59,12 +54,12 @@ export default function FeedbackSection({ feedbacks = [] }: FeedbackSectionProps
                 <h3 className="text-xl font-bold text-qgc-black font-poppins mb-1">
                   {review.name}
                 </h3>
-                
+
                 {/* Stars based on rating */}
                 <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <StarIcon
-                      key={i}
+                      key={`star-${review.id}-${i}`}
                       className={`w-5 h-5 ${
                         i < review.rating ? 'text-paluto-yellow' : 'text-gray-300'
                       }`}
@@ -72,9 +67,7 @@ export default function FeedbackSection({ feedbacks = [] }: FeedbackSectionProps
                   ))}
                 </div>
 
-                <p className="text-gray-600 font-poppins leading-relaxed">
-                  "{review.comment}"
-                </p>
+                <p className="text-gray-600 font-poppins leading-relaxed">"{review.comment}"</p>
               </div>
             </motion.div>
           ))}
