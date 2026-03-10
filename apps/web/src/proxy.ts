@@ -25,15 +25,16 @@ export async function proxy(request: NextRequest) {
 
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ''};
+    script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ''} https://www.youtube.com https://s.ytimg.com;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: ${STRAPI_URL} ${SUPABASE_URL} ${SUPABASE_BUCKET_URL} https://*.supabase.co;
+    img-src 'self' blob: data: ${STRAPI_URL} ${SUPABASE_URL} ${SUPABASE_BUCKET_URL} https://*.supabase.co https://i.ytimg.com;
     font-src 'self' data:;
     connect-src 'self' ${SUPABASE_URL} ${SUPABASE_BUCKET_URL} ${AXIOM_URL} ${RESEND_URL} https://*.supabase.co;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-src 'self' https://www.google.com https://maps.google.com;
+    frame-src 'self' https://www.google.com https://maps.google.com https://www.youtube.com https://www.youtube-nocookie.com;
+    media-src 'self' https://www.youtube.com blob:;
     frame-ancestors 'self';
     upgrade-insecure-requests;
   `;
