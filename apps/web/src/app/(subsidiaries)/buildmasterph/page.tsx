@@ -5,6 +5,7 @@ import AboutSection from '@/components/buildmaster/aboutUsSection';
 import FeaturesCarousel from '@/components/buildmaster/featuresCarousel';
 import HeroCarousel from '@/components/buildmaster/heroCarousel';
 import PodcastsSection from '@/components/buildmaster/podcastSection';
+import FAQItem from '@/components/ui/FAQItem';
 import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
 import type {
   BuildmasterPageData,
@@ -322,21 +323,8 @@ export default async function BuildMasterPage() {
             <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
           </div>
           <div className="max-w-3xl mx-auto flex flex-col gap-3">
-            {faqs.map((faq) => (
-              <details
-                key={faq.id}
-                className="group bg-gray-100 rounded-2xl px-6 py-4 cursor-pointer"
-              >
-                <summary className="flex items-center justify-between font-medium text-[#111] text-sm list-none">
-                  {faq.question}
-                  <span className="ml-4 flex-shrink-0 transition-transform duration-300 group-open:rotate-180">
-                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </span>
-                </summary>
-                <p className="mt-3 text-gray-600 text-sm leading-relaxed">{faq.answer}</p>
-              </details>
+            {faqs.map((faq: { id: number; question: string; answer: string }) => (
+              <FAQItem key={faq.id} question={faq.question} answer={faq.answer} />
             ))}
           </div>
         </section>
