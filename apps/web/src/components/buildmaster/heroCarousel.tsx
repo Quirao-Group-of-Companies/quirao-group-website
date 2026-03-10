@@ -23,7 +23,9 @@ export default function HeroCarousel({
 
   // Hook must be before any early return
   useEffect(() => {
-    if (!slides || slides.length === 0) { return; }
+    if (!slides || slides.length === 0) {
+      return;
+    }
     const id = setInterval(() => setCurrent((s) => (s + 1) % slides.length), interval);
     return () => clearInterval(id);
   }, [slides, interval]);

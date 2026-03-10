@@ -3,7 +3,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Feature {
   id: number;
@@ -20,10 +20,16 @@ interface FeaturesCarouselProps {
 const GAP_PX = 16;
 
 function getCardPx() {
-  if (typeof window === 'undefined') { return 300; }
+  if (typeof window === 'undefined') {
+    return 300;
+  }
   const vw = window.innerWidth;
-  if (vw < 640) { return Math.round(vw * 0.78); }
-  if (vw < 1024) { return Math.round(vw * 0.65); }
+  if (vw < 640) {
+    return Math.round(vw * 0.78);
+  }
+  if (vw < 1024) {
+    return Math.round(vw * 0.65);
+  }
   return 500;
 }
 
@@ -43,66 +49,92 @@ export default function FeaturesCarousel({
   const [dotIndex, setDotIndex] = useState(0);
   const [, forceRender] = useState(0);
 
-  const getX = (i: number) => {
-    if (typeof window === 'undefined') { return 0; }
+  const getX = useCallback((i: number) => {
+    if (typeof window === 'undefined') {
+      return 0;
+    }
     return window.innerWidth / 2 - cardPxRef.current / 2 - i * (cardPxRef.current + GAP_PX);
-  };
+  }, []);
 
-  const jumpTo = (i: number) => {
-    const track = trackRef.current;
-    if (!track) { return; }
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${getX(i)}px)`;
-    indexRef.current = i;
-  };
-
-  const slideTo = (i: number) => {
-    const track = trackRef.current;
-    if (!track) { return; }
-    track.style.transition = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
-    track.style.transform = `translateX(${getX(i)}px)`;
-    indexRef.current = i;
-
-    const handleEnd = () => {
-      track.removeEventListener('transitionend', handleEnd);
-      if (i === 0) {
-        jumpTo(n);
-        setDotIndex(n - 1);
-      } else if (i === n + 1) {
-        jumpTo(1);
-        setDotIndex(0);
-      } else {
-        setDotIndex(i - 1);
+  const jumpTo = useCallback(
+    (i: number) => {
+      const track = trackRef.current;
+      if (!track) {
+        return;
       }
-      isBusy.current = false;
-    };
-    track.addEventListener('transitionend', handleEnd);
-  };
+      track.style.transition = 'none';
+      track.style.transform = `translateX(${getX(i)}px)`;
+      indexRef.current = i;
+    },
+    [getX],
+  );
 
-  const navigate = (dir: 1 | -1) => {
-    if (isBusy.current) { return; }
-    isBusy.current = true;
-    slideTo(indexRef.current + dir);
-  };
+  const slideTo = useCallback(
+    (i: number) => {
+      const track = trackRef.current;
+      if (!track) {
+        return;
+      }
+      track.style.transition = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
+      track.style.transform = `translateX(${getX(i)}px)`;
+      indexRef.current = i;
 
-  const goTo = (realIdx: number) => {
-    if (isBusy.current) { return; }
-    isBusy.current = true;
-    slideTo(realIdx + 1);
-  };
+      const handleEnd = () => {
+        track.removeEventListener('transitionend', handleEnd);
+        if (i === 0) {
+          jumpTo(n);
+          setDotIndex(n - 1);
+        } else if (i === n + 1) {
+          jumpTo(1);
+          setDotIndex(0);
+        } else {
+          setDotIndex(i - 1);
+        }
+        isBusy.current = false;
+      };
+      track.addEventListener('transitionend', handleEnd);
+    },
+    [getX, jumpTo, n],
+  );
 
-  const startTimer = () => {
-    if (timerRef.current) { clearInterval(timerRef.current); }
+  const navigate = useCallback(
+    (dir: 1 | -1) => {
+      if (isBusy.current) {
+        return;
+      }
+      isBusy.current = true;
+      slideTo(indexRef.current + dir);
+    },
+    [slideTo],
+  );
+
+  const goTo = useCallback(
+    (realIdx: number) => {
+      if (isBusy.current) {
+        return;
+      }
+      isBusy.current = true;
+      slideTo(realIdx + 1);
+    },
+    [slideTo],
+  );
+
+  const startTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
     timerRef.current = setInterval(() => {
       if (!isBusy.current) {
         isBusy.current = true;
         slideTo(indexRef.current + 1);
       }
     }, interval);
-  };
+  }, [slideTo, interval]);
 
   useEffect(() => {
-    if (!features || features.length === 0) { return; }
+    if (features.length === 0) {
+      return;
+    }
     cardPxRef.current = getCardPx();
     forceRender((v) => v + 1);
     jumpTo(1);
@@ -116,13 +148,16 @@ export default function FeaturesCarousel({
     window.addEventListener('resize', onResize);
 
     return () => {
-      if (timerRef.current) { clearInterval(timerRef.current); }
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
       window.removeEventListener('resize', onResize);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [features.length, jumpTo, startTimer]);
 
-  if (!features || features.length === 0) { return null; }
+  if (features.length === 0) {
+    return null;
+  }
 
   const extended = [features[n - 1], ...features, features[0]];
   const cardPx = cardPxRef.current;

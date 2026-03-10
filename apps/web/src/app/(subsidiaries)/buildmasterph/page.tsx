@@ -1,12 +1,3 @@
-import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
-
-import AboutSection from '@/components/buildmaster/aboutUsSection';
-import FeaturesCarousel from '@/components/buildmaster/featuresCarousel';
-import HeroCarousel from '@/components/buildmaster/heroCarousel';
-import PodcastsSection from '@/components/buildmaster/podcastSection';
-import FAQItem from '@/components/ui/FAQItem';
-import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
 import type {
   BuildmasterPageData,
   StrapiAboutUs,
@@ -16,16 +7,28 @@ import type {
   StrapiHeroSection,
   StrapiLink,
   StrapiText,
-} from '../../../../../cms/types/strapi-components';
+} from '@cms/types/strapi-components';
+import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
+import AboutSection from '@/components/buildmaster/aboutUsSection';
+import FeaturesCarousel from '@/components/buildmaster/featuresCarousel';
+import HeroCarousel from '@/components/buildmaster/heroCarousel';
+import PodcastsSection from '@/components/buildmaster/podcastSection';
+import FAQItem from '@/components/ui/FAQItem';
+import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
 
 function extractYoutubeId(url?: string | null): string {
-  if (!url) { return ''; }
+  if (!url) {
+    return '';
+  }
   const match = url.match(/(?:v=|youtu\.be\/|embed\/)([^&?/]+)/);
   return match?.[1] ?? url;
 }
 
 function img(url?: string | null): string {
-  if (!url) { return ''; }
+  if (!url) {
+    return '';
+  }
   const base = (process.env.NEXT_PUBLIC_STRAPI_URL || process.env.STRAPI_URL || '').replace(
     /\/$/,
     '',
