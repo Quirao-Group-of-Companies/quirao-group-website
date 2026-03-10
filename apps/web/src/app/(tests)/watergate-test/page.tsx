@@ -4,7 +4,7 @@ export default async function WatergateTestPage() {
   const data = await getWatergatePage();
 
   // Helper to render raw JSON safely
-  const renderRaw = (section: any) => (
+  const renderRaw = (section: unknown) => (
     <pre
       style={{
         background: '#f4f4f4',
@@ -20,7 +20,7 @@ export default async function WatergateTestPage() {
 
   return (
     <main style={{ padding: '40px', fontFamily: 'sans-serif', lineHeight: '1.6' }}>
-      <h1>CMS Connection Test: Paluto Page</h1>
+      <h1>CMS Connection Test: Watergate Page</h1>
       <p>If you see data below, the API and population logic are working.</p>
 
       <hr />
