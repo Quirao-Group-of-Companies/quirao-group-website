@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
-
 interface Feature {
   id: number;
   image: string;
@@ -18,30 +17,38 @@ interface FeaturesCarouselProps {
   ctaHref: string;
 }
 
+const GAP_PX = 16;
+
+function getCardPx() {
+  if (typeof window === 'undefined') return 300;
+  const vw = window.innerWidth;
+  if (vw < 640) return Math.round(vw * 0.78);
+  if (vw < 1024) return Math.round(vw * 0.65);
+  return 500;
+}
+
 export default function FeaturesCarousel({
   features,
   interval = 3500,
   ctaHref,
 }: FeaturesCarouselProps) {
-  if (!features || features.length === 0) {
-    return null;
-  }
-  const n = features.length;
-  const CARD_PX = 500;
-  const GAP_PX = 16;
+  if (!features || features.length === 0) return null;
 
+  const n = features.length;
   const extended = [features[n - 1], ...features, features[0]];
 
   const trackRef = useRef<HTMLDivElement>(null);
   const indexRef = useRef(1);
   const isBusy = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const cardPxRef = useRef(300); // starts safe, updated on mount
 
   const [dotIndex, setDotIndex] = useState(0);
+  const [, forceRender] = useState(0);
 
   const getX = (i: number) => {
     if (typeof window === 'undefined') return 0;
-    return window.innerWidth / 2 - CARD_PX / 2 - i * (CARD_PX + GAP_PX);
+    return window.innerWidth / 2 - cardPxRef.current / 2 - i * (cardPxRef.current + GAP_PX);
   };
 
   const jumpTo = (i: number) => {
@@ -98,13 +105,27 @@ export default function FeaturesCarousel({
   };
 
   useEffect(() => {
+    // Set correct card size immediately on mount
+    cardPxRef.current = getCardPx();
+    forceRender(v => v + 1); // re-render cards with correct width
     jumpTo(1);
     startTimer();
+
+    const onResize = () => {
+      cardPxRef.current = getCardPx();
+      forceRender(v => v + 1);
+      jumpTo(indexRef.current);
+    };
+    window.addEventListener('resize', onResize);
+
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
+      window.removeEventListener('resize', onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const cardPx = cardPxRef.current;
 
   return (
     <section className="pt-14 pb-10 bg-white">
@@ -121,16 +142,20 @@ export default function FeaturesCarousel({
         <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
       </motion.div>
 
-      {/* Infinite peek carousel */}
+      {/* Carousel */}
       <div className="w-full overflow-hidden">
-        <div ref={trackRef} className="flex will-change-transform" style={{ gap: `${GAP_PX}px` }}>
+        <div
+          ref={trackRef}
+          className="flex will-change-transform"
+          style={{ gap: `${GAP_PX}px` }}
+        >
           {extended.map((feat, i) => (
             <CarouselCard
               key={`${feat.id}-${i}`}
               feat={feat}
               extIndex={i}
               indexRef={indexRef}
-              cardPx={CARD_PX}
+              cardPx={cardPx}
               onClick={() => {
                 if (i !== indexRef.current) {
                   navigate(i < indexRef.current ? -1 : 1);
@@ -142,15 +167,12 @@ export default function FeaturesCarousel({
         </div>
       </div>
 
-      {/* Dot indicators */}
+      {/* Dots */}
       <div className="flex justify-center gap-2 mt-6 mb-8">
         {features.map((_, i) => (
           <motion.button
             key={i}
-            onClick={() => {
-              goTo(i);
-              startTimer();
-            }}
+            onClick={() => { goTo(i); startTimer(); }}
             animate={{
               width: i === dotIndex ? 20 : 8,
               backgroundColor: i === dotIndex ? '#555555' : '#D1D5DB',
@@ -163,13 +185,13 @@ export default function FeaturesCarousel({
 
       {/* CTA Banner */}
       <motion.div
-        className="mx-6 md:mx-auto md:max-w-4xl bg-gradient-to-r from-[#0d1b3e] to-[#1a4a8a] rounded-[2rem] p-6 md:p-8 flex items-center justify-between shadow-md gap-4"
+        className="mx-4 md:mx-auto md:max-w-4xl bg-gradient-to-r from-[#0d1b3e] to-[#1a4a8a] rounded-[2rem] p-5 md:p-8 flex flex-col sm:flex-row items-center justify-between shadow-md gap-4"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <span className="text-base md:text-3xl font-bold uppercase tracking-tight text-white drop-shadow-sm">
+        <span className="text-lg md:text-3xl font-bold uppercase tracking-tight text-white drop-shadow-sm text-center sm:text-left">
           Explore More About BuildMaster
         </span>
         {ctaHref && (
@@ -179,7 +201,7 @@ export default function FeaturesCarousel({
             rel="noopener noreferrer"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="flex-shrink-0 bg-white text-[#0d1b3e] px-8 py-3 rounded-2xl shadow-sm flex items-center gap-2"
+            className="flex-shrink-0 bg-white text-[#0d1b3e] px-6 py-3 rounded-2xl shadow-sm flex items-center gap-2 w-full sm:w-auto justify-center"
           >
             <span className="font-bold uppercase text-md whitespace-nowrap">Visit Us</span>
             <ArrowRightIcon className="w-4 h-4" />
@@ -216,15 +238,12 @@ function CarouselCard({
     <motion.div
       className="flex-none cursor-pointer"
       style={{ width: `${cardPx}px` }}
-      animate={{
-        scale: isActive ? 1 : 0.9,
-        // ✅ removed opacity dimming on non-active cards
-      }}
+      animate={{ scale: isActive ? 1 : 0.9 }}
       transition={{ duration: 0.4 }}
       onClick={onClick}
     >
       <div
-        className="relative w-full max-w-[500px] mx-auto rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-[#1a3a6e] to-[#2563eb]"
+        className="relative w-full rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-[#1a3a6e] to-[#2563eb]"
         style={{ aspectRatio: '4/3' }}
       >
         <Image
@@ -238,7 +257,7 @@ function CarouselCard({
 
       {isActive && (
         <motion.p
-          className="mt-5 text-[20px] text-[#333] leading-relaxed text-center px-4 select-none"
+          className="mt-5 text-base md:text-[20px] text-[#333] leading-relaxed text-center px-4 select-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
