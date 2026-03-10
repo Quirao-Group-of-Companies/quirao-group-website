@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
+
 interface Feature {
   id: number;
   image: string;
@@ -22,7 +23,6 @@ export default function FeaturesCarousel({
   interval = 3500,
   ctaHref,
 }: FeaturesCarouselProps) {
-  // Guard clause for empty features array
   if (!features || features.length === 0) {
     return null;
   }
@@ -30,7 +30,6 @@ export default function FeaturesCarousel({
   const CARD_PX = 500;
   const GAP_PX = 16;
 
-  // Extended list: [clone-last, ...real, clone-first]
   const extended = [features[n - 1], ...features, features[0]];
 
   const trackRef = useRef<HTMLDivElement>(null);
@@ -109,15 +108,18 @@ export default function FeaturesCarousel({
 
   return (
     <section className="pt-14 pb-10 bg-white">
-      <motion.h2
-        className="text-center text-[#111] font-semibold text-2xl mb-8 tracking-tight"
+      <motion.div
+        className="flex flex-col items-center text-center mb-8"
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        Features
-      </motion.h2>
+        <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
+          OUR <span style={{ color: '#0a285a' }}>FEATURES</span>
+        </h2>
+        <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
+      </motion.div>
 
       {/* Infinite peek carousel */}
       <div className="w-full overflow-hidden">
@@ -170,7 +172,7 @@ export default function FeaturesCarousel({
         <span className="text-base md:text-3xl font-bold uppercase tracking-tight text-white drop-shadow-sm">
           Explore More About BuildMaster
         </span>
-        {ctaHref && ( // Conditionally render the link
+        {ctaHref && (
           <motion.a
             href={ctaHref}
             target="_blank"
@@ -216,7 +218,7 @@ function CarouselCard({
       style={{ width: `${cardPx}px` }}
       animate={{
         scale: isActive ? 1 : 0.9,
-        opacity: isActive ? 1 : 0.55,
+        // ✅ removed opacity dimming on non-active cards
       }}
       transition={{ duration: 0.4 }}
       onClick={onClick}
