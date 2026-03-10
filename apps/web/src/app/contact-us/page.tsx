@@ -15,7 +15,7 @@ export default async function ContactUsPage() {
     contactData?.subsContacts?.map((sub: ContactInfo) => ({
       id: sub.id,
       name: sub.subName,
-      description: sub.description || null,
+      description: sub.description || "",
       image: sub.displayImage?.url || null,
       cardImage: sub.cardImage?.url || null,
       logo: sub.logo?.image?.url || null,
@@ -25,7 +25,7 @@ export default async function ContactUsPage() {
       email: sub.email,
     })) || [];
 
-  return (
+  return (  
     <main className="min-h-screen bg-white">
       {/* Inquiry Form Section */}
       <section className="bg-qgc-gray-soft py-24 px-6">

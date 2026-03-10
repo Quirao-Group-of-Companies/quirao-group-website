@@ -17,7 +17,8 @@ export async function getContactUsPage() {
             displayImage: true,
           },
         },
-        subsContacts: { // Corrected from SubContacts
+        subsContacts: {
+          // Corrected from SubContacts
           populate: {
             displayImage: true, // Corrected from image
             cardImage: true,
