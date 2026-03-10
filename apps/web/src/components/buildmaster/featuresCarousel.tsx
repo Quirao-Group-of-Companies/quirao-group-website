@@ -20,10 +20,10 @@ interface FeaturesCarouselProps {
 const GAP_PX = 16;
 
 function getCardPx() {
-  if (typeof window === 'undefined') return 300;
+  if (typeof window === 'undefined') { return 300; }
   const vw = window.innerWidth;
-  if (vw < 640) return Math.round(vw * 0.78);
-  if (vw < 1024) return Math.round(vw * 0.65);
+  if (vw < 640) { return Math.round(vw * 0.78); }
+  if (vw < 1024) { return Math.round(vw * 0.65); }
   return 500;
 }
 
@@ -32,28 +32,25 @@ export default function FeaturesCarousel({
   interval = 3500,
   ctaHref,
 }: FeaturesCarouselProps) {
-  if (!features || features.length === 0) return null;
-
   const n = features.length;
-  const extended = [features[n - 1], ...features, features[0]];
 
   const trackRef = useRef<HTMLDivElement>(null);
   const indexRef = useRef(1);
   const isBusy = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const cardPxRef = useRef(300); // starts safe, updated on mount
+  const cardPxRef = useRef(300);
 
   const [dotIndex, setDotIndex] = useState(0);
   const [, forceRender] = useState(0);
 
   const getX = (i: number) => {
-    if (typeof window === 'undefined') return 0;
+    if (typeof window === 'undefined') { return 0; }
     return window.innerWidth / 2 - cardPxRef.current / 2 - i * (cardPxRef.current + GAP_PX);
   };
 
   const jumpTo = (i: number) => {
     const track = trackRef.current;
-    if (!track) return;
+    if (!track) { return; }
     track.style.transition = 'none';
     track.style.transform = `translateX(${getX(i)}px)`;
     indexRef.current = i;
@@ -61,7 +58,7 @@ export default function FeaturesCarousel({
 
   const slideTo = (i: number) => {
     const track = trackRef.current;
-    if (!track) return;
+    if (!track) { return; }
     track.style.transition = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
     track.style.transform = `translateX(${getX(i)}px)`;
     indexRef.current = i;
@@ -83,19 +80,19 @@ export default function FeaturesCarousel({
   };
 
   const navigate = (dir: 1 | -1) => {
-    if (isBusy.current) return;
+    if (isBusy.current) { return; }
     isBusy.current = true;
     slideTo(indexRef.current + dir);
   };
 
   const goTo = (realIdx: number) => {
-    if (isBusy.current) return;
+    if (isBusy.current) { return; }
     isBusy.current = true;
     slideTo(realIdx + 1);
   };
 
   const startTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
+    if (timerRef.current) { clearInterval(timerRef.current); }
     timerRef.current = setInterval(() => {
       if (!isBusy.current) {
         isBusy.current = true;
@@ -105,26 +102,29 @@ export default function FeaturesCarousel({
   };
 
   useEffect(() => {
-    // Set correct card size immediately on mount
+    if (!features || features.length === 0) { return; }
     cardPxRef.current = getCardPx();
-    forceRender(v => v + 1); // re-render cards with correct width
+    forceRender((v) => v + 1);
     jumpTo(1);
     startTimer();
 
     const onResize = () => {
       cardPxRef.current = getCardPx();
-      forceRender(v => v + 1);
+      forceRender((v) => v + 1);
       jumpTo(indexRef.current);
     };
     window.addEventListener('resize', onResize);
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) { clearInterval(timerRef.current); }
       window.removeEventListener('resize', onResize);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!features || features.length === 0) { return null; }
+
+  const extended = [features[n - 1], ...features, features[0]];
   const cardPx = cardPxRef.current;
 
   return (
@@ -142,13 +142,8 @@ export default function FeaturesCarousel({
         <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
       </motion.div>
 
-      {/* Carousel */}
       <div className="w-full overflow-hidden">
-        <div
-          ref={trackRef}
-          className="flex will-change-transform"
-          style={{ gap: `${GAP_PX}px` }}
-        >
+        <div ref={trackRef} className="flex will-change-transform" style={{ gap: `${GAP_PX}px` }}>
           {extended.map((feat, i) => (
             <CarouselCard
               key={`${feat.id}-${i}`}
@@ -167,12 +162,14 @@ export default function FeaturesCarousel({
         </div>
       </div>
 
-      {/* Dots */}
       <div className="flex justify-center gap-2 mt-6 mb-8">
-        {features.map((_, i) => (
+        {features.map((feat, i) => (
           <motion.button
-            key={i}
-            onClick={() => { goTo(i); startTimer(); }}
+            key={feat.id}
+            onClick={() => {
+              goTo(i);
+              startTimer();
+            }}
             animate={{
               width: i === dotIndex ? 20 : 8,
               backgroundColor: i === dotIndex ? '#555555' : '#D1D5DB',
@@ -183,7 +180,6 @@ export default function FeaturesCarousel({
         ))}
       </div>
 
-      {/* CTA Banner */}
       <motion.div
         className="mx-4 md:mx-auto md:max-w-4xl bg-gradient-to-r from-[#0d1b3e] to-[#1a4a8a] rounded-[2rem] p-5 md:p-8 flex flex-col sm:flex-row items-center justify-between shadow-md gap-4"
         initial={{ opacity: 0, y: 20 }}

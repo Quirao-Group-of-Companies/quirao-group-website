@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 
-
 interface Podcast {
   id: number;
   image: string;
@@ -17,11 +16,12 @@ interface PodcastsSectionProps {
 }
 
 export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
+  // Hook must be before any early return
+  const [activeId, setActiveId] = useState<string | null>(null);
+
   if (!podcasts || podcasts.length === 0) {
     return null;
   }
-
-  const [activeId, setActiveId] = useState<string | null>(null);
 
   return (
     <section className="py-14 bg-white w-full">
@@ -38,7 +38,6 @@ export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
         <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
       </motion.div>
 
-      {/* Full-width 2×2 grid */}
       <div className="grid grid-cols-2 gap-4 w-full px-6">
         {podcasts.map((pod, i) => (
           <motion.div
@@ -61,13 +60,14 @@ export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
             />
             <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300" />
 
-            {/* YouTube-style red play button */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.2 }}
-              >
-                <svg viewBox="0 0 68 48" className="w-16 h-12 drop-shadow-lg">
+              <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+                <svg
+                  aria-label="Play video"
+                  role="img"
+                  viewBox="0 0 68 48"
+                  className="w-16 h-12 drop-shadow-lg"
+                >
                   <path
                     d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
                     fill="#ff0000"
@@ -80,7 +80,6 @@ export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
         ))}
       </div>
 
-      {/* Modal — lazy-loads the iframe only on click to avoid Cloudflare pre-blocking */}
       <AnimatePresence>
         {activeId && (
           <>
@@ -100,6 +99,7 @@ export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
             >
               <div className="relative w-full max-w-4xl pointer-events-auto">
                 <button
+                  type="button"
                   onClick={() => setActiveId(null)}
                   className="absolute -top-10 right-0 text-white/80 hover:text-white transition-colors"
                 >
@@ -118,7 +118,6 @@ export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
                     className="absolute inset-0 w-full h-full"
                   />
                 </div>
-                {/* Fallback link in case iframe is still blocked */}
                 <a
                   href={`https://www.youtube.com/watch?v=${activeId}`}
                   target="_blank"

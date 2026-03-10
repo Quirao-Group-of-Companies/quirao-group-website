@@ -15,20 +15,21 @@ interface AboutTab {
 interface AboutSectionProps {
   tabs: AboutTab[];
   backgroundSrc?: string;
-  wordmarkLogoSrc: string;
+  wordmarkLogoSrc?: string;
 }
 
-export default function AboutSection({ tabs, backgroundSrc, wordmarkLogoSrc }: AboutSectionProps) {
-  // Guard clause for empty tabs array
+export default function AboutSection({ tabs, backgroundSrc }: AboutSectionProps) {
+  // Hook must be before any early return
+  const [activeId, setActiveId] = useState(tabs[0]?.id ?? '');
+
   if (!tabs || tabs.length === 0) {
     return null;
   }
-  const [activeId, setActiveId] = useState(tabs[0].id);
-  const tab = tabs.find((t) => t.id === activeId)!;
+
+  const tab = tabs.find((t) => t.id === activeId) ?? tabs[0];
 
   return (
     <section className="relative bg-white overflow-hidden">
-      {/* Background image with overlay */}
       {backgroundSrc && (
         <div className="absolute inset-0 z-0">
           <Image
@@ -54,7 +55,6 @@ export default function AboutSection({ tabs, backgroundSrc, wordmarkLogoSrc }: A
         </motion.h2>
 
         <div className="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
-          {/* LEFT — image animates on tab change */}
           <div className="w-full md:w-[45%] flex-shrink-0">
             <div
               className="relative w-full rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-[#1a3a6e] to-[#2563eb]"
@@ -81,7 +81,6 @@ export default function AboutSection({ tabs, backgroundSrc, wordmarkLogoSrc }: A
             </div>
           </div>
 
-          {/* RIGHT — tabs + body text */}
           <div className="flex-1">
             <div className="flex flex-wrap gap-2 mb-5">
               {tabs.map((t) => (
