@@ -16,7 +16,7 @@ import { after } from 'next/server';
 import EventsCatering from '@/components/paluto/EventsCatering';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
 import Feedback from '@/components/paluto/Feedback';
-import Reveal from '@/components/paluto/Reveal';
+import ScrollReveal from '@/components/paluto/ScrollReveal';
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
 import { getPalutoPage } from '@/lib/services/strapi-paluto';
@@ -130,7 +130,7 @@ export default async function PalutoPage() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-10 items-center">
           {/* 1. TITLE (Order 1 Mobile, Column 7 Row 1 Desktop) */}
           <div className="order-1 lg:col-span-7 lg:row-start-1">
-            <Reveal>
+            <ScrollReveal>
               <h2 className="text-4xl md:text-6xl font-black text-black leading-[1.1] font-poppins">
                 {overview?.title ? (
                   (() => {
@@ -159,12 +159,12 @@ export default async function PalutoPage() {
                   </>
                 )}
               </h2>
-            </Reveal>
+            </ScrollReveal>
           </div>
 
           {/* 2. PICTURE (Order 2 Mobile, Column 5 Span Row 3 Desktop) */}
           <div className="order-2 lg:col-span-5 lg:row-span-3 lg:col-start-8 lg:row-start-1 flex justify-center lg:justify-end">
-            <Reveal delay={0.3}>
+            <ScrollReveal delay={0.3}>
               <div className="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-[10px] border-white mx-auto lg:mx-0">
                 {overview?.image?.url ? (
                   <Image
@@ -182,12 +182,12 @@ export default async function PalutoPage() {
                   />
                 )}
               </div>
-            </Reveal>
+            </ScrollReveal>
           </div>
 
           {/* 3. DESCRIPTION (Order 3 Mobile, Column 7 Row 2 Desktop) */}
           <div className="order-3 lg:col-span-7 lg:row-start-2">
-            <Reveal delay={0.2}>
+            <ScrollReveal delay={0.2}>
               <div className="space-y-5">
                 {overview?.description ? (
                   overview.description.split('\n\n').map((para: string) => (
@@ -204,12 +204,12 @@ export default async function PalutoPage() {
                   </p>
                 )}
               </div>
-            </Reveal>
+            </ScrollReveal>
           </div>
 
           {/* 4. CTA (Order 4 Mobile, Column 7 Row 3 Desktop) */}
           <div className="order-4 lg:col-span-7 lg:row-start-3">
-            <Reveal delay={0.4}>
+            <ScrollReveal delay={0.4}>
               <div className="w-full bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-2xl p-5 md:p-6 flex items-center justify-between shadow-md">
                 <span className="text-base md:text-lg font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm">
                   Explore Paluto Facebook Page
@@ -226,7 +226,7 @@ export default async function PalutoPage() {
                   <ArrowRightIcon className="w-4 h-4" />
                 </a>
               </div>
-            </Reveal>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -260,7 +260,7 @@ export default async function PalutoPage() {
 
         {(bannerSection?.title || bannerSection?.description) && (
           <div className="absolute inset-0 flex items-center justify-center z-10">
-            <Reveal>
+            <ScrollReveal>
               <div className="text-center px-6 max-w-4xl">
                 {bannerSection.title && (
                   <h2 className="text-2xl md:text-5xl font-black text-white uppercase italic tracking-tighter mb-2 md:mb-4 drop-shadow-lg">
@@ -286,7 +286,7 @@ export default async function PalutoPage() {
                   </div>
                 )}
               </div>
-            </Reveal>
+            </ScrollReveal>
           </div>
         )}
       </section>
@@ -294,18 +294,18 @@ export default async function PalutoPage() {
       {/* 5. BRANCHES SECTION */}
       <section className="bg-white py-12 px-4 md:px-10">
         <div className="max-w-5xl mx-auto">
-          <Reveal>
+          <ScrollReveal>
             <div className="flex flex-col items-center mb-10">
               <h2 className="text-4xl font-black uppercase italic text-black tracking-tighter">
                 OUR <span className="text-paluto-red">BRANCHES</span>
               </h2>
               <div className="w-20 h-1 bg-paluto-yellow mt-2" />
             </div>
-          </Reveal>
+          </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {branchesCards && branchesCards.length > 0 ? (
               branchesCards.map((branch: StrapiCards, index: number) => (
-                <Reveal key={branch.id} delay={index * 0.1}>
+                <ScrollReveal key={branch.id} delay={index * 0.1}>
                   <div className="group bg-white rounded-[1.5rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-xl">
                     <div className="relative h-60 w-full overflow-hidden">
                       {branch.image?.url && (
@@ -335,7 +335,7 @@ export default async function PalutoPage() {
                       )}
                     </div>
                   </div>
-                </Reveal>
+                </ScrollReveal>
               ))
             ) : (
               <p className="text-center col-span-2 text-gray-500">No branches found.</p>
@@ -353,15 +353,15 @@ export default async function PalutoPage() {
       {/* 8. CONTACT US SECTION */}
       <section className="w-full bg-white py-12 px-6 md:px-10">
         <div className="max-w-6xl mx-auto space-y-10">
-          <Reveal>
+          <ScrollReveal>
             <div className="flex flex-col items-center">
               <h2 className="text-4xl font-black uppercase italic text-black tracking-tighter text-center">
                 CONTACT <span className="text-paluto-red">PALUTO</span>
               </h2>
               <div className="w-20 h-1 bg-paluto-yellow mt-2" />
             </div>
-          </Reveal>
-          <Reveal delay={0.2}>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
             <div className="flex flex-col lg:flex-row bg-qgc-gray-soft rounded-3xl overflow-hidden shadow-2xl border border-gray-100">
               {/* Contact Details Grid: 2x2 on mobile, 2x2 on tablet, grid on desktop */}
               <div className="w-full lg:w-1/2 grid grid-cols-2 lg:grid-cols-2 gap-y-12 gap-x-4 p-6 md:p-12">
@@ -498,7 +498,7 @@ export default async function PalutoPage() {
                 )}
               </div>
             </div>
-          </Reveal>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -506,19 +506,19 @@ export default async function PalutoPage() {
       {faqs && faqs.length > 0 && (
         <section className="bg-white py-12 px-6">
           <div className="max-w-4xl mx-auto space-y-8">
-            <Reveal>
+            <ScrollReveal>
               <div className="flex flex-col items-center text-center">
                 <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
                   FREQUENTLY ASKED <span className="text-paluto-red">QUESTIONS</span>
                 </h2>
                 <div className="w-20 h-1 bg-paluto-yellow mt-2" />
               </div>
-            </Reveal>
+            </ScrollReveal>
             <div className="space-y-4">
               {faqs.map((faq: StrapiFaqs, index: number) => (
-                <Reveal key={faq.id} delay={index * 0.1}>
+                <ScrollReveal key={faq.id} delay={index * 0.1}>
                   <FAQItem question={faq.question || ''} answer={faq.answer || ''} />
-                </Reveal>
+                </ScrollReveal>
               ))}
             </div>
           </div>

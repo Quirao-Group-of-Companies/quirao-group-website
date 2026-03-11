@@ -3,13 +3,13 @@
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 
-interface RevealProps {
-  children: any;
+interface ScrollRevealProps {
+  children: ReactNode;
   delay?: number;
   width?: 'fit-content' | '100%';
 }
 
-export default function Reveal({ children, delay = 0, width = '100%' }: RevealProps) {
+export default function ScrollReveal({ children, delay = 0, width = '100%' }: ScrollRevealProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
