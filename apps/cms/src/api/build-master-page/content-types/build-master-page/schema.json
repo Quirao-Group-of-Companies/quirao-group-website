@@ -29,6 +29,16 @@
     "aboutUsTitle": {
       "type": "string"
     },
+    "aboutUsBackgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "aboutUsSection": {
       "type": "component",
       "component": "blocks.cards",

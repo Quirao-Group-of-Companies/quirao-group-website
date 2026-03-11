@@ -546,6 +546,9 @@ export interface ApiBuildMasterPageBuildMasterPage
     draftAndPublish: true;
   };
   attributes: {
+    aboutUsBackgroundImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     aboutUsSection: Schema.Attribute.Component<'blocks.cards', true>;
     aboutUsTitle: Schema.Attribute.String;
     contactUS: Schema.Attribute.Component<'blocks.contact-us', false>;
