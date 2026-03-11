@@ -8,6 +8,7 @@ import type {
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
 import HeroCarousel, { type HeroItem } from '@/components/homepage/HeroCarousel';
+import LatestNews from '@/components/homepage/LatestNews';
 import Button from '@/components/ui/Button';
 import FAQItem from '@/components/ui/FAQItem';
 import SubsidiaryShowcase, { type Business } from '@/components/ui/SubsidiaryShowcase';
@@ -156,35 +157,39 @@ export default async function Home() {
          OUR BUSINESS SECTION
       ===================================================== */}
 
-      <SubsidiaryShowcase items={businessesData} title="Business Preview" imagePosition="left" />
+      <SubsidiaryShowcase items={businessesData} title="Our Business Preview" imagePosition="left" />
 
       {/* =====================================================
          ACHIEVEMENTS SECTION
       ===================================================== */}
       <section className="bg-qgc-gray-soft px-6 py-20">
         <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
-          Awards and Recognition
+          Business and Financial Growth
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {achievementsData.map(
             (achievement: { id: number; title: string; image: string | null }) => (
               <div key={achievement.id} className="group cursor-pointer">
-                <div className="relative w-full h-100 rounded-xl overflow-hidden shadow-lg">
-                  {achievement.image && (
-                    <Image
-                      src={achievement.image}
-                      alt={achievement.title}
-                      fill
-                      className="object-contain p-15 transition-transform duration-500 ease-in-out group-hover:scale-110"
-                    />
-                  )}
-
-                  <div className="absolute inset-0 group-hover:bg-black/10 transition duration-500" />
-
-                  <div className="absolute bottom-6 left-0 right-0 text-center px-4">
-                    <h3 className="text-qgc-black text-xl font-semibold">{achievement.title}</h3>
+                <div className="relative w-full h-110 rounded-xl overflow-hidden shadow-lg bg-white flex flex-col p-8">
+                  <div className="relative flex-1 w-full mb-8">
+                    {achievement.image && (
+                      <Image
+                        src={achievement.image}
+                        alt={achievement.title}
+                        fill
+                        className="object-contain transition-transform duration-500 ease-in-out group-hover:scale-110"
+                      />
+                    )}
                   </div>
+
+                  <div className="text-center">
+                    <h3 className="text-qgc-black text-xl font-semibold font-akrux">
+                      {achievement.title}
+                    </h3>
+                  </div>
+
+                  <div className="absolute inset-0 group-hover:bg-black/5 transition duration-500 pointer-events-none" />
                 </div>
               </div>
             ),
@@ -195,38 +200,7 @@ export default async function Home() {
       {/* =====================================================
         BLOG SECTION
       ===================================================== */}
-      <section className="bg-white px-6 py-24">
-        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
-          Latest News
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {blogs.map((blog) => (
-            <div
-              key={blog.id}
-              className="flex flex-col md:flex-row bg-qgc-gray-soft rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
-            >
-              {/* Image */}
-              <div className="relative w-full md:w-1/2 h-64 md:h-auto">
-                <Image src={blog.image} alt={blog.title} fill className="object-cover" />
-              </div>
-
-              {/* Content */}
-              <div className="p-8 flex flex-col justify-between md:w-1/2">
-                <div>
-                  <p className="text-sm text-gray-500 mb-2">{blog.date}</p>
-
-                  <h3 className="text-xl font-semibold text-qgc-black mb-4">{blog.title}</h3>
-
-                  <p className="text-gray-600 text-sm leading-relaxed">{blog.description}</p>
-                </div>
-
-                <Button text="Read More" className="mt-6 px-6 py-3 text-sm" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <LatestNews blogs={blogs} />
       {/* =====================================================
           FAQ SECTION
       ===================================================== */}

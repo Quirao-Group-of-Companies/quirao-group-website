@@ -1,8 +1,8 @@
 'use client';
 
-import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon, ChevronRightIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Button from './Button';
 
 export type Business = {
@@ -37,46 +37,95 @@ export default function InteractiveShowcase({
   imagePosition = 'left',
 }: InteractiveShowcaseProps) {
   const [activeItem, setActiveItem] = useState(items?.[0]);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   if (!items || items.length === 0) {
     return null;
   }
 
   const currentItem = activeItem || items[0];
+  const currentIndex = items.findIndex((item) => item.id === currentItem.id);
+
+  // Auto-scroll active thumbnail into view
+  useEffect(() => {
+    const activeThumb = thumbnailRefs.current[currentIndex];
+    if (activeThumb && scrollContainerRef.current) {
+      activeThumb.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [currentIndex]);
+
+  const handlePrevious = () => {
+    const prevIndex = (currentIndex - 1 + items.length) % items.length;
+    setActiveItem(items[prevIndex]);
+  };
+
+  const handleNext = () => {
+    const nextIndex = (currentIndex + 1) % items.length;
+    setActiveItem(items[nextIndex]);
+  };
 
   return (
     <section className="bg-white px-6 py-20">
-      <h2 className="text-4xl text-qgc-black font-bold mb-16 font-akrux uppercase">{title}</h2>
+      <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
+        {title}
+      </h2>
 
       {/* Active Item Display */}
       <div
-        className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 mb-12 items-stretch`}
+        className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} px-0 md:px-14 gap-5 items-stretch`}
       >
         {/* MAIN IMAGE */}
-        <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden shadow-lg shrink-0">
+        <div className="w-full md:w-3/5 h-40 md:h-80 relative rounded-lg overflow-hidden shadow-lg shrink-0 md:self-end">
           {currentItem.image && (
             <Image src={currentItem.image} alt={currentItem.name} fill className="object-cover" />
           )}
+
+          {/* Navigation Chevrons (Mobile Only) */}
+          <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
+            <button
+              type="button"
+              onClick={handlePrevious}
+              className="bg-black/30 text-white p-2 rounded-r-lg hover:bg-black/50 transition-colors"
+              aria-label="Previous subsidiary"
+            >
+              <ChevronLeftIcon className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="absolute inset-y-0 right-0 flex items-center md:hidden">
+            <button
+              type="button"
+              onClick={handleNext}
+              className="bg-black/30 text-white p-2 rounded-l-lg hover:bg-black/50 transition-colors"
+              aria-label="Next subsidiary"
+            >
+              <ChevronRightIcon className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         {/* CONTENT AREA */}
-        <div className="md:w-1/2 text-qgc-black px-4 py-4 flex flex-col text-left">
+        <div className="md:w-1/2 text-qgc-black px-4 flex flex-col text-left">
           <div className="space-y-6">
             {/* LOGO IMAGE - Always left-aligned with content */}
             {currentItem.logo && (
-              <div className="flex justify-start mb-4">
+              <div className="hidden md:flex justify-center mb-0 w-full h-30">
                 <Image
                   src={currentItem.logo}
                   alt={currentItem.name}
                   width={100}
-                  height={50}
+                  height={60}
                   className="object-contain"
                 />
               </div>
             )}
 
             {currentItem.description && (
-              <p className="text-gray-600 leading-relaxed whitespace-pre-line text-left">
+              <p className="text-gray-600 leading-relaxed whitespace-pre-line text-left overflow-hidden h-[25vh] md:h-[25vh]">
                 {currentItem.description}
               </p>
             )}
@@ -108,11 +157,11 @@ export default function InteractiveShowcase({
 
           {/* CTA Button - Always left-aligned with content */}
           {currentItem.cta?.href && (
-            <div className="mt-auto pt-10 flex justify-start">
+            <div className=" flex justify-start">
               <Button
                 href={currentItem.cta.href}
                 text={currentItem.cta.title}
-                className="h-10 px-6 py-2 w-max"
+                className="h-10 mt-5 px-6 py-2 w-max"
               />
             </div>
           )}
@@ -120,21 +169,25 @@ export default function InteractiveShowcase({
       </div>
 
       {/* THUMBNAIL SELECTORS */}
-      <div className="mt-16 w-full">
-        <div className="max-w-[95vw] mx-auto bg-qgc-white shadow-lg shadow-gray-500 rounded-3xl p-10 md:p-5 border border-gray-50">
-          <div className="flex flex-wrap justify-center gap-10 md:gap-20">
-            {items.map((item) => (
+      <div className="mt-5  w-full">
+        <div className="w-[90%] md:max-w-6xl mx-auto bg-qgc-white shadow-lg rounded-3xl p-4 md:p-5 border border-gray-50 overflow-hidden">
+          <div 
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto md:overflow-hidden snap-x snap-mandatory md:justify-center gap-8 md:gap-20 items-center scrollbar-hide py-2"
+          >
+            {items.map((item, index) => (
               <button
                 type="button"
                 key={item.id}
+                ref={(el) => { thumbnailRefs.current[index] = el; }}
                 onClick={() => setActiveItem(item)}
-                className="cursor-pointer group transition-all duration-300 outline-none"
+                className="cursor-pointer group transition-all duration-100 outline-none flex justify-center shrink-0 snap-center"
               >
                 <div
-                  className={`relative flex items-center justify-center transition-all duration-500 ${
+                  className={`relative flex items-center justify-center transition-all duration-200 ${
                     currentItem.id === item.id
-                      ? 'scale-125'
-                      : 'opacity-60 hover:opacity-100 hover:scale-110'
+                      ? 'scale-110 md:scale-125'
+                      : ' hover:scale-110'
                   }`}
                 >
                   {item.logo && (
@@ -143,7 +196,7 @@ export default function InteractiveShowcase({
                       alt={item.name}
                       width={140}
                       height={70}
-                      className="object-contain"
+                      className="object-contain w-24 md:w-36 h-auto"
                     />
                   )}
                 </div>
