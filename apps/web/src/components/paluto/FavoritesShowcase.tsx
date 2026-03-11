@@ -115,7 +115,7 @@ export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps
 
           {/* Navigation Dots - Matching Events Carousel Style */}
           {items.length > 1 && (
-            <div className="bg-paluto-red/40 px-4 py-2.5 rounded-full flex items-center gap-2.5 mt-8 md:mt-20 z-50 border border-white/20">
+            <div className="bg-paluto-red/40 px-4 py-2.5 rounded-full flex items-center gap-2.5 mt-8 md:mt-20 z-30 border border-white/20">
               {items.map((dish, index) => (
                 <button
                   key={`indicator-${dish.id}`}
