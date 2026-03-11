@@ -18,18 +18,14 @@ interface FeaturesCarouselProps {
 }
 
 const GAP_PX = 16;
+// Number of clones on each side — must be >= visible cards on screen
+const CLONE_COUNT = 3;
 
 function getCardPx() {
-  if (typeof window === 'undefined') {
-    return 300;
-  }
+  if (typeof window === 'undefined') { return 300; }
   const vw = window.innerWidth;
-  if (vw < 640) {
-    return Math.round(vw * 0.78);
-  }
-  if (vw < 1024) {
-    return Math.round(vw * 0.65);
-  }
+  if (vw < 640) { return Math.round(vw * 0.78); }
+  if (vw < 1024) { return Math.round(vw * 0.65); }
   return 500;
 }
 
@@ -41,7 +37,7 @@ export default function FeaturesCarousel({
   const n = features.length;
 
   const trackRef = useRef<HTMLDivElement>(null);
-  const indexRef = useRef(1);
+  const indexRef = useRef(CLONE_COUNT); // start at first real slide
   const isBusy = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const cardPxRef = useRef(300);
@@ -49,21 +45,25 @@ export default function FeaturesCarousel({
   const [dotIndex, setDotIndex] = useState(0);
   const [, forceRender] = useState(0);
 
+  // Build extended array: CLONE_COUNT clones from end + real items + CLONE_COUNT clones from start
+  const clonesBefore = features.slice(-CLONE_COUNT);
+  const clonesAfter = features.slice(0, CLONE_COUNT);
+  const extended = [...clonesBefore, ...features, ...clonesAfter];
+  // Real slides start at index CLONE_COUNT, end at CLONE_COUNT + n - 1
+
   const getX = useCallback((i: number) => {
-    if (typeof window === 'undefined') {
-      return 0;
-    }
+    if (typeof window === 'undefined') { return 0; }
     return window.innerWidth / 2 - cardPxRef.current / 2 - i * (cardPxRef.current + GAP_PX);
   }, []);
 
   const jumpTo = useCallback(
     (i: number) => {
       const track = trackRef.current;
-      if (!track) {
-        return;
-      }
+      if (!track) { return; }
       track.style.transition = 'none';
       track.style.transform = `translateX(${getX(i)}px)`;
+      // Force reflow so transition:none takes effect before next paint
+      void track.offsetHeight;
       indexRef.current = i;
     },
     [getX],
@@ -72,24 +72,27 @@ export default function FeaturesCarousel({
   const slideTo = useCallback(
     (i: number) => {
       const track = trackRef.current;
-      if (!track) {
-        return;
-      }
+      if (!track) { return; }
       track.style.transition = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
       track.style.transform = `translateX(${getX(i)}px)`;
       indexRef.current = i;
 
       const handleEnd = () => {
         track.removeEventListener('transitionend', handleEnd);
-        if (i === 0) {
-          jumpTo(n);
-          setDotIndex(n - 1);
-        } else if (i === n + 1) {
-          jumpTo(1);
-          setDotIndex(0);
-        } else {
-          setDotIndex(i - 1);
+
+        // Real slide index within original array
+        const realIdx = ((i - CLONE_COUNT) % n + n) % n;
+        setDotIndex(realIdx);
+
+        // If we've slid into a clone zone, silently jump to the real equivalent
+        if (i < CLONE_COUNT) {
+          // Slid into leading clones — jump to real equivalent at the end
+          jumpTo(i + n);
+        } else if (i >= CLONE_COUNT + n) {
+          // Slid into trailing clones — jump to real equivalent at the start
+          jumpTo(i - n);
         }
+
         isBusy.current = false;
       };
       track.addEventListener('transitionend', handleEnd);
@@ -99,9 +102,7 @@ export default function FeaturesCarousel({
 
   const navigate = useCallback(
     (dir: 1 | -1) => {
-      if (isBusy.current) {
-        return;
-      }
+      if (isBusy.current) { return; }
       isBusy.current = true;
       slideTo(indexRef.current + dir);
     },
@@ -110,19 +111,15 @@ export default function FeaturesCarousel({
 
   const goTo = useCallback(
     (realIdx: number) => {
-      if (isBusy.current) {
-        return;
-      }
+      if (isBusy.current) { return; }
       isBusy.current = true;
-      slideTo(realIdx + 1);
+      slideTo(realIdx + CLONE_COUNT);
     },
     [slideTo],
   );
 
   const startTimer = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
+    if (timerRef.current) { clearInterval(timerRef.current); }
     timerRef.current = setInterval(() => {
       if (!isBusy.current) {
         isBusy.current = true;
@@ -132,12 +129,10 @@ export default function FeaturesCarousel({
   }, [slideTo, interval]);
 
   useEffect(() => {
-    if (features.length === 0) {
-      return;
-    }
+    if (features.length === 0) { return; }
     cardPxRef.current = getCardPx();
     forceRender((v) => v + 1);
-    jumpTo(1);
+    jumpTo(CLONE_COUNT); // start at first real slide
     startTimer();
 
     const onResize = () => {
@@ -148,18 +143,13 @@ export default function FeaturesCarousel({
     window.addEventListener('resize', onResize);
 
     return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
+      if (timerRef.current) { clearInterval(timerRef.current); }
       window.removeEventListener('resize', onResize);
     };
   }, [features.length, jumpTo, startTimer]);
 
-  if (features.length === 0) {
-    return null;
-  }
+  if (features.length === 0) { return null; }
 
-  const extended = [features[n - 1], ...features, features[0]];
   const cardPx = cardPxRef.current;
 
   return (
@@ -201,6 +191,7 @@ export default function FeaturesCarousel({
         {features.map((feat, i) => (
           <motion.button
             key={feat.id}
+            type="button"
             onClick={() => {
               goTo(i);
               startTimer();
@@ -256,7 +247,7 @@ function CarouselCard({
   cardPx: number;
   onClick: () => void;
 }) {
-  const [isActive, setIsActive] = useState(extIndex === 1);
+  const [isActive, setIsActive] = useState(extIndex === CLONE_COUNT);
 
   useEffect(() => {
     const id = setInterval(() => {
