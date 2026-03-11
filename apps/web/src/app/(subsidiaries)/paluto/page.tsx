@@ -104,7 +104,7 @@ export default async function PalutoPage() {
 
         <div className="relative z-10 pl-14 md:pl-28 pb-32 space-y-1.5">
           {hero?.title && (
-            <div className="bg-white/95 backdrop-blur-md rounded-xl px-8 py-1 w-fit shadow-2xl border border-white/50">
+            <div className="bg-white/95 backdrop-blur-md rounded-4xl px-8 py-1 w-fit shadow-2xl border border-white/50">
               <h1 className="text-paluto-red text-4xl md:text-2xl font-bold font-poppins uppercase tracking-tighter leading-none">
                 {hero.title}
               </h1>
