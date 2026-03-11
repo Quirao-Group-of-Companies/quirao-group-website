@@ -21,7 +21,6 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@cms/*": ["../cms/*"],
       "@repo/db": ["../../packages/db"]
     }
   },

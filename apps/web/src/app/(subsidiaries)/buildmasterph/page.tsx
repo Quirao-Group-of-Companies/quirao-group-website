@@ -7,13 +7,13 @@ import type {
   StrapiHeroSection,
   StrapiLink,
   StrapiText,
-} from '@cms/types/strapi-components';
+} from 'cms/types';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import AboutSection from '@/components/buildmaster/aboutUsSection';
-import FeaturesCarousel from '@/components/buildmaster/featuresCarousel';
-import HeroCarousel from '@/components/buildmaster/heroCarousel';
-import PodcastsSection from '@/components/buildmaster/podcastSection';
+import AboutSection from '@/components/buildmaster/AboutUsSection';
+import FeaturesCarousel from '@/components/buildmaster/FeaturesCarousel';
+import HeroCarousel from '@/components/buildmaster/HeroCarousel';
+import PodcastsSection from '@/components/buildmaster/PodcastSection';
 import FAQItem from '@/components/ui/FAQItem';
 import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
 
