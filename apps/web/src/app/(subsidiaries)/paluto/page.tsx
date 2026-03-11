@@ -11,6 +11,7 @@ import { after } from 'next/server';
 import EventsCatering from '@/components/paluto/EventsCatering';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
 import FeedbackCard from '@/components/paluto/FeedbackCard';
+import OverviewCTA from '@/components/paluto/OverviewCTA';
 import ScrollReveal from '@/components/paluto/ScrollReveal';
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
@@ -205,22 +206,10 @@ export default async function PalutoPage() {
           {/* 4. CTA (Order 4 Mobile, Column 7 Row 3 Desktop) */}
           <div className="order-4 lg:col-span-7 lg:row-start-3">
             <ScrollReveal delay={0.4}>
-              <div className="w-full bg-linear-to-r from-paluto-red to-paluto-yellow/50 rounded-2xl p-5 md:p-6 flex items-center justify-between shadow-md">
-                <span className="text-base md:text-lg font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm">
-                  Explore Paluto Facebook Page
-                </span>
-                <a
-                  href={overview?.cta?.href || 'https://www.facebook.com/palutophilippines'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95"
-                >
-                  <span className="font-bold uppercase text-[10px] md:text-xs">
-                    {overview?.cta?.title || 'Visit Facebook Page'}
-                  </span>
-                  <ArrowRightIcon className="w-4 h-4" />
-                </a>
-              </div>
+              <OverviewCTA
+                href={overview?.cta?.href || 'https://www.facebook.com/palutophilippines'}
+                title={overview?.cta?.title || 'Visit Facebook Page'}
+              />
             </ScrollReveal>
           </div>
         </div>
