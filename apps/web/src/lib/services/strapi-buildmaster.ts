@@ -24,7 +24,7 @@ export async function getBuildMasterPage() {
         cta: {
           populate: '*',
         },
-        aboutUs: {
+        aboutUsSection: {
           populate: '*',
         },
         podcasts: {

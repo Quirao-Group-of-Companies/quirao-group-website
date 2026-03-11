@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-types.ts
  * Regenerate: bun run generate-types (from apps/cms)
- * Generated: 2026-03-06T16:54:44.738Z
+ * Generated: 2026-03-11T07:08:18.501Z
  */
 
 /** Shared Strapi media type */
@@ -32,6 +32,7 @@ export type StrapiBanner = {
   id: number;
   title?: string | null;
   description?: string | null;
+  logo?: StrapiMedia | null;
   image?: StrapiMedia | null;
   cta?: StrapiLink[] | null;
 };
@@ -119,6 +120,7 @@ export type StrapiItem = {
   title?: string | null;
   text?: string | null;
   image?: StrapiMedia | null;
+  cta?: StrapiLink | null;
 };
 
 /** Auto-generated from Strapi component: elements.link */
@@ -139,6 +141,10 @@ export type StrapiLogo = {
 export type StrapiText = {
   id: number;
   title?: string | null;
+  h1?: string | null;
+  h2?: string | null;
+  h3?: string | null;
+  h4?: string | null;
   description?: string | null;
 };
 
@@ -180,7 +186,8 @@ export type BuildmasterPageData = {
   hero?: StrapiHeroSection[] | null;
   features?: StrapiCards[] | null;
   cta?: StrapiLink | null;
-  aboutUs?: StrapiAboutUs | null;
+  aboutUsTitle?: string | null;
+  aboutUsSection?: StrapiCards[] | null;
   podcasts?: StrapiCards[] | null;
   link?: StrapiLink | null;
   download?: StrapiBanner | null;
@@ -221,6 +228,11 @@ export type PalutoPageData = {
   aboutUs?: StrapiAboutUs | null;
   showcaseLogo?: StrapiLogo | null;
   showcase?: StrapiCards[] | null;
+  bannerSection?: StrapiBanner | null;
+  branchesSectionTitle?: string | null;
+  branchesCards?: StrapiCards[] | null;
+  eventsAndCateringSection?: StrapiItem | null;
+  eventsAndCateringCarouselImages?: StrapiMedia[] | null;
   feedback?: StrapiFeedback[] | null;
   contactUs?: StrapiContactUs | null;
   faqs?: StrapiFaqs[] | null;

@@ -1,6 +1,5 @@
 import type {
   BuildmasterPageData,
-  StrapiAboutUs,
   StrapiCards,
   StrapiContactUs,
   StrapiFaqs,
@@ -18,17 +17,13 @@ import FAQItem from '@/components/ui/FAQItem';
 import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
 
 function extractYoutubeId(url?: string | null): string {
-  if (!url) {
-    return '';
-  }
+  if (!url) { return ''; }
   const match = url.match(/(?:v=|youtu\.be\/|embed\/)([^&?/]+)/);
   return match?.[1] ?? url;
 }
 
 function img(url?: string | null): string {
-  if (!url) {
-    return '';
-  }
+  if (!url) { return ''; }
   const base = (process.env.NEXT_PUBLIC_STRAPI_URL || process.env.STRAPI_URL || '').replace(
     /\/$/,
     '',
@@ -100,17 +95,14 @@ export default async function BuildMasterPage() {
     })) ?? [];
   const featureCtaHref = cms.cta?.href ?? '';
 
-  const TAB_LABELS = ['Mission', 'Vision', 'Core Values'];
-  const aboutData: StrapiAboutUs | undefined = cms.aboutUs ?? undefined;
   const aboutTabs =
-    aboutData?.gallery?.map((image, idx) => ({
+    cms.aboutUsSection?.map((card: StrapiCards, idx: number) => ({
       id: `tab-${idx}`,
-      label: TAB_LABELS[idx] ?? `Tab ${idx + 1}`,
-      image: img(image.url),
-      body: aboutData.description ?? '',
+      label: card.title ?? `Tab ${idx + 1}`,
+      image: img(card.image?.url),
+      body: card.description ?? '',
     })) ?? [];
-  const aboutBgSrc = img(aboutData?.image?.url);
-  const aboutWordmarkSrc = img(firstHero?.logo?.image?.url);
+  const aboutImageSrc = aboutTabs[0]?.image ?? '';
 
   const podcasts =
     cms.podcasts?.map((p: StrapiCards) => ({
@@ -152,9 +144,8 @@ export default async function BuildMasterPage() {
 
       {aboutTabs.length > 0 && (
         <AboutSection
+          imageSrc={aboutImageSrc}
           tabs={aboutTabs}
-          backgroundSrc={aboutBgSrc}
-          wordmarkLogoSrc={aboutWordmarkSrc}
         />
       )}
 
@@ -178,7 +169,7 @@ export default async function BuildMasterPage() {
         )}
 
         {/* Store buttons — scale with banner using vw units */}
-        <div className="absolute bottom-0 left-0 z-10 flex flex-row gap-[1.5vw] px-[15vw] pb-[3vw]">
+        <div className="absolute bottom-0 left-0 z-10 flex flex-row gap-[1.5vw] px-[3vw] pb-[3vw]">
           <a
             href={appStoreHref || 'https://apps.apple.com'}
             target="_blank"
