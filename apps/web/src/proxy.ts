@@ -1,6 +1,6 @@
 import { transformMiddlewareRequest } from '@axiomhq/nextjs';
 import { type NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/axiom/server';
+import { logger } from './lib/axiom/server';
 
 export async function proxy(request: NextRequest) {
   // --- 1. Axiom Logging Logic ---
