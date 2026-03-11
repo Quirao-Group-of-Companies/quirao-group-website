@@ -1,5 +1,4 @@
 import {
-  ArrowRightIcon,
   EnvelopeIcon,
   MapPinIcon,
   PhoneIcon,
