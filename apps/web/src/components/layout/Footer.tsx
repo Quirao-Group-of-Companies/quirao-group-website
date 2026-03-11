@@ -4,11 +4,19 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaFacebook, FaFacebookMessenger, FaInstagram, FaViber } from 'react-icons/fa';
+import {
+  FaEnvelope,
+  FaFacebook,
+  FaFacebookMessenger,
+  FaInstagram,
+  FaPhoneAlt,
+  FaViber,
+} from 'react-icons/fa';
 
 interface LinkItem {
   label: string;
   href: string;
+  icon?: React.ReactNode;
 }
 
 interface SectionProps {
@@ -40,7 +48,8 @@ function FooterSection({ title, links }: SectionProps) {
       >
         {links.map((link) => (
           <li key={link.label}>
-            <Link href={link.href} className="hover:text-black transition">
+            <Link href={link.href} className="hover:text-black transition flex items-center gap-2">
+              {link.icon && <span className="w-3.5 h-3.5 text-qgc-black">{link.icon}</span>}
               {link.label}
             </Link>
           </li>
@@ -73,8 +82,8 @@ export default function Footer() {
     {
       title: 'Contact Us',
       links: [
-        { label: '0921381231', href: '#' },
-        { label: 'management@quiraogroup.com', href: '#' },
+        { label: '0921381231', href: '#', icon: <FaPhoneAlt /> },
+        { label: 'management@quiraogroup.com', href: '#', icon: <FaEnvelope /> },
       ],
     },
   ];

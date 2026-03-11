@@ -179,7 +179,7 @@ export default function InteractiveShowcase({
         <div className="w-[90%] md:max-w-6xl mx-auto bg-qgc-white shadow-lg rounded-3xl p-4 md:p-5 border border-gray-50 overflow-hidden">
           <div
             ref={scrollContainerRef}
-            className="flex overflow-x-auto snap-x snap-mandatory md:justify-center gap-8 md:gap-20 items-center scrollbar-hide py-2"
+            className="flex overflow-x-auto md:overflow-hidden snap-x snap-mandatory md:justify-center gap-8 md:gap-20 items-center scrollbar-hide py-2"
           >
             {items.map((item, index) => (
               <button
