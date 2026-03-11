@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-types.ts
  * Regenerate: bun run generate-types (from apps/cms)
- * Generated: 2026-03-11T07:08:18.501Z
+ * Generated: 2026-03-11T08:54:54.155Z
  */
 
 /** Shared Strapi media type */
@@ -187,6 +187,7 @@ export type BuildmasterPageData = {
   features?: StrapiCards[] | null;
   cta?: StrapiLink | null;
   aboutUsTitle?: string | null;
+  aboutUsBackgroundImage?: StrapiMedia | null;
   aboutUsSection?: StrapiCards[] | null;
   podcasts?: StrapiCards[] | null;
   link?: StrapiLink | null;

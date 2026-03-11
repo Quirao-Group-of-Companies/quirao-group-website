@@ -13,10 +13,11 @@ interface AboutTab {
 
 interface AboutSectionProps {
   imageSrc?: string;
+  backgroundSrc?: string;
   tabs: AboutTab[];
 }
 
-export default function AboutSection({ imageSrc, tabs }: AboutSectionProps) {
+export default function AboutSection({ imageSrc, backgroundSrc, tabs }: AboutSectionProps) {
   const [activeId, setActiveId] = useState(tabs[0]?.id ?? '');
 
   if (tabs.length === 0) {
@@ -27,7 +28,21 @@ export default function AboutSection({ imageSrc, tabs }: AboutSectionProps) {
   const displayImage = activeTab.image || imageSrc || '';
 
   return (
-    <section className="relative bg-[#f8f9fb] overflow-hidden">
+    <section className="relative w-full h-screen bg-[#f8f9fb] overflow-hidden">
+      {/* Background image */}
+      {backgroundSrc && (
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={backgroundSrc}
+            alt="About Us background"
+            fill
+            className="object-cover"
+            onError={() => {}}
+          />
+          <div className="absolute inset-0 bg-qgc-charcoal/60" />
+        </div>
+      )}
+
       <div className="relative z-10 px-6 md:px-10 py-14">
         {/* Section heading */}
         <motion.div
@@ -37,13 +52,13 @@ export default function AboutSection({ imageSrc, tabs }: AboutSectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
-            ABOUT <span style={{ color: '#0a285a' }}>US</span>
+          <h2 className="text-3xl md:text-4xl font-black uppercase italic text-white tracking-tighter">
+            ABOUT <span style={{ color: '#146ae3' }}>US</span>
           </h2>
           <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
         </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-10 max-w-5xl mx-auto items-center">
+        <div className="flex flex-col md:flex-row py-5 gap-10 max-w-5xl mx-auto items-center">
           {/* Image */}
           {displayImage && (
             <motion.div
@@ -98,8 +113,8 @@ export default function AboutSection({ imageSrc, tabs }: AboutSectionProps) {
                     whileTap={{ scale: 0.96 }}
                     className={`px-4 py-1.5 rounded-full text-[13px] font-semibold border transition-colors duration-200 ${
                       activeId === t.id
-                        ? 'bg-[#0a285a] text-white border-[#0a285a]'
-                        : 'bg-transparent text-gray-500 border-gray-300 hover:border-gray-500'
+                        ? 'bg-[#0a285a] text-white border-[#146ae3]'
+                        : 'bg-transparent text-gray-500 border-gray-300 hover:border-bm-vivid-blue'
                     }`}
                   >
                     {t.label}
@@ -116,10 +131,10 @@ export default function AboutSection({ imageSrc, tabs }: AboutSectionProps) {
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
               >
-                <h3 className="text-[#0a285a] font-black uppercase italic text-2xl mb-3">
+                <h3 className="text-[#146ae3] font-black uppercase italic text-2xl mb-3">
                   {activeTab.label}
                 </h3>
-                <p className="text-[14px] text-[#444] leading-[1.85]">{activeTab.body}</p>
+                <p className="text-[14px] text-[#ffffff] leading-[1.85]">{activeTab.body}</p>
               </motion.div>
             </AnimatePresence>
           </motion.div>

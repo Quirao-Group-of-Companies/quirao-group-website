@@ -27,6 +27,9 @@ export async function getBuildMasterPage() {
         aboutUsSection: {
           populate: '*',
         },
+        aboutUsBackgroundImage: {
+          populate: '*',
+        },
         podcasts: {
           populate: '*',
         },

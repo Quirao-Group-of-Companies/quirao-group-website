@@ -103,6 +103,8 @@ export default async function BuildMasterPage() {
       body: card.description ?? '',
     })) ?? [];
   const aboutImageSrc = aboutTabs[0]?.image ?? '';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const aboutBgSrc = img((cms as any).aboutUsBackgroundImage?.url);
 
   const podcasts =
     cms.podcasts?.map((p: StrapiCards) => ({
@@ -145,6 +147,7 @@ export default async function BuildMasterPage() {
       {aboutTabs.length > 0 && (
         <AboutSection
           imageSrc={aboutImageSrc}
+          backgroundSrc={aboutBgSrc}
           tabs={aboutTabs}
         />
       )}
@@ -169,7 +172,7 @@ export default async function BuildMasterPage() {
         )}
 
         {/* Store buttons — scale with banner using vw units */}
-        <div className="absolute bottom-0 left-0 z-10 flex flex-row gap-[1.5vw] px-[3vw] pb-[3vw]">
+        <div className="absolute bottom-0 left-0 z-10 flex flex-row gap-[1.5vw] px-[15vw] pb-[3vw]">
           <a
             href={appStoreHref || 'https://apps.apple.com'}
             target="_blank"
