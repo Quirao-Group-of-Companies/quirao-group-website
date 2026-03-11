@@ -21,16 +21,18 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@cms/*": ["../cms/*"],
       "@repo/db": ["../../packages/db"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "*/.ts",
+    "*/.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "*/.mts",
+    "../cms/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
