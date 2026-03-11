@@ -22,10 +22,16 @@ const GAP_PX = 16;
 const CLONE_COUNT = 3;
 
 function getCardPx() {
-  if (typeof window === 'undefined') { return 300; }
+  if (typeof window === 'undefined') {
+    return 300;
+  }
   const vw = window.innerWidth;
-  if (vw < 640) { return Math.round(vw * 0.78); }
-  if (vw < 1024) { return Math.round(vw * 0.65); }
+  if (vw < 640) {
+    return Math.round(vw * 0.78);
+  }
+  if (vw < 1024) {
+    return Math.round(vw * 0.65);
+  }
   return 500;
 }
 
@@ -52,14 +58,18 @@ export default function FeaturesCarousel({
   // Real slides start at index CLONE_COUNT, end at CLONE_COUNT + n - 1
 
   const getX = useCallback((i: number) => {
-    if (typeof window === 'undefined') { return 0; }
+    if (typeof window === 'undefined') {
+      return 0;
+    }
     return window.innerWidth / 2 - cardPxRef.current / 2 - i * (cardPxRef.current + GAP_PX);
   }, []);
 
   const jumpTo = useCallback(
     (i: number) => {
       const track = trackRef.current;
-      if (!track) { return; }
+      if (!track) {
+        return;
+      }
       track.style.transition = 'none';
       track.style.transform = `translateX(${getX(i)}px)`;
       // Force reflow so transition:none takes effect before next paint
@@ -72,7 +82,9 @@ export default function FeaturesCarousel({
   const slideTo = useCallback(
     (i: number) => {
       const track = trackRef.current;
-      if (!track) { return; }
+      if (!track) {
+        return;
+      }
       track.style.transition = 'transform 0.5s cubic-bezier(0.32, 0.72, 0, 1)';
       track.style.transform = `translateX(${getX(i)}px)`;
       indexRef.current = i;
@@ -81,7 +93,7 @@ export default function FeaturesCarousel({
         track.removeEventListener('transitionend', handleEnd);
 
         // Real slide index within original array
-        const realIdx = ((i - CLONE_COUNT) % n + n) % n;
+        const realIdx = (((i - CLONE_COUNT) % n) + n) % n;
         setDotIndex(realIdx);
 
         // If we've slid into a clone zone, silently jump to the real equivalent
@@ -102,7 +114,9 @@ export default function FeaturesCarousel({
 
   const navigate = useCallback(
     (dir: 1 | -1) => {
-      if (isBusy.current) { return; }
+      if (isBusy.current) {
+        return;
+      }
       isBusy.current = true;
       slideTo(indexRef.current + dir);
     },
@@ -111,7 +125,9 @@ export default function FeaturesCarousel({
 
   const goTo = useCallback(
     (realIdx: number) => {
-      if (isBusy.current) { return; }
+      if (isBusy.current) {
+        return;
+      }
       isBusy.current = true;
       slideTo(realIdx + CLONE_COUNT);
     },
@@ -119,7 +135,9 @@ export default function FeaturesCarousel({
   );
 
   const startTimer = useCallback(() => {
-    if (timerRef.current) { clearInterval(timerRef.current); }
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
     timerRef.current = setInterval(() => {
       if (!isBusy.current) {
         isBusy.current = true;
@@ -129,7 +147,9 @@ export default function FeaturesCarousel({
   }, [slideTo, interval]);
 
   useEffect(() => {
-    if (features.length === 0) { return; }
+    if (features.length === 0) {
+      return;
+    }
     cardPxRef.current = getCardPx();
     forceRender((v) => v + 1);
     jumpTo(CLONE_COUNT); // start at first real slide
@@ -143,12 +163,16 @@ export default function FeaturesCarousel({
     window.addEventListener('resize', onResize);
 
     return () => {
-      if (timerRef.current) { clearInterval(timerRef.current); }
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
       window.removeEventListener('resize', onResize);
     };
   }, [features.length, jumpTo, startTimer]);
 
-  if (features.length === 0) { return null; }
+  if (features.length === 0) {
+    return null;
+  }
 
   const cardPx = cardPxRef.current;
 

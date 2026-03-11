@@ -1,3 +1,4 @@
+import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
 import type {
   BuildmasterPageData,
   StrapiCards,
@@ -7,7 +8,6 @@ import type {
   StrapiLink,
   StrapiText,
 } from 'cms/types';
-import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import AboutSection from '@/components/buildmaster/AboutUsSection';
 import FeaturesCarousel from '@/components/buildmaster/FeaturesCarousel';
@@ -17,13 +17,17 @@ import FAQItem from '@/components/ui/FAQItem';
 import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
 
 function extractYoutubeId(url?: string | null): string {
-  if (!url) { return ''; }
+  if (!url) {
+    return '';
+  }
   const match = url.match(/(?:v=|youtu\.be\/|embed\/)([^&?/]+)/);
   return match?.[1] ?? url;
 }
 
 function img(url?: string | null): string {
-  if (!url) { return ''; }
+  if (!url) {
+    return '';
+  }
   const base = (process.env.NEXT_PUBLIC_STRAPI_URL || process.env.STRAPI_URL || '').replace(
     /\/$/,
     '',
@@ -103,8 +107,9 @@ export default async function BuildMasterPage() {
       body: card.description ?? '',
     })) ?? [];
   const aboutImageSrc = aboutTabs[0]?.image ?? '';
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const aboutBgSrc = img((cms as any).aboutUsBackgroundImage?.url);
+  const aboutBgSrc = img(
+    (cms as unknown as { aboutUsBackgroundImage?: { url?: string } }).aboutUsBackgroundImage?.url,
+  );
 
   const podcasts =
     cms.podcasts?.map((p: StrapiCards) => ({
@@ -145,11 +150,7 @@ export default async function BuildMasterPage() {
       {features.length > 0 && <FeaturesCarousel features={features} ctaHref={featureCtaHref} />}
 
       {aboutTabs.length > 0 && (
-        <AboutSection
-          imageSrc={aboutImageSrc}
-          backgroundSrc={aboutBgSrc}
-          tabs={aboutTabs}
-        />
+        <AboutSection imageSrc={aboutImageSrc} backgroundSrc={aboutBgSrc} tabs={aboutTabs} />
       )}
 
       {podcasts.length > 0 && <PodcastsSection podcasts={podcasts} />}
