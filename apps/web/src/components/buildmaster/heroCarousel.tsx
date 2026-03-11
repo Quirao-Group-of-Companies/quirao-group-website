@@ -89,7 +89,7 @@ export default function HeroCarousel({
 
       {(brandName || tagline) && (
         <motion.div
-          className="absolute bottom-8 left-20 z-30 flex flex-col gap-1"
+          className="absolute bottom-8 left-10 z-30 flex flex-col gap-1"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
