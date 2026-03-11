@@ -1,6 +1,6 @@
 'use client';
 
-import type { StrapiItem, StrapiMedia } from '@cms/types/strapi-components';
+import type { StrapiItem, StrapiMedia } from 'cms/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -91,15 +91,21 @@ export default function EventsCatering({ sectionData, carouselImages }: EventsCa
         </div>
 
         {/* Right Column: Content & Branding */}
-        <div className="p-6 md:p-12 flex flex-col justify-center items-start space-y-6">
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-black text-[#1a1a1a] uppercase font-poppins tracking-tight">
+        <div className="p-8 md:p-14 flex flex-col justify-center items-start space-y-8">
+          <div className="space-y-6 w-full">
+            <h2 className="text-3xl md:text-5xl font-black text-[#1a1a1a] uppercase font-poppins tracking-tight leading-tight">
               {sectionData.title}
             </h2>
-            <div className="space-y-3 max-w-lg">
-              <p className="text-gray-600 text-base md:text-lg leading-relaxed font-poppins">
-                {sectionData.text}
-              </p>
+            <div className="space-y-4 w-full">
+              {sectionData.text?.split('\n\n').map((para, i) => (
+                <p
+                  // biome-ignore lint/suspicious/noArrayIndexKey: Static content from CMS
+                  key={i}
+                  className="text-gray-600 text-base md:text-lg leading-relaxed font-poppins"
+                >
+                  {para}
+                </p>
+              ))}
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 import { transformMiddlewareRequest } from '@axiomhq/nextjs';
 import { type NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/axiom/server';
+import { logger } from './lib/axiom/server';
 
 export async function proxy(request: NextRequest) {
   // --- 1. Axiom Logging Logic ---
@@ -33,7 +33,8 @@ export async function proxy(request: NextRequest) {
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'none';
+    frame-src 'self' https://www.google.com https://maps.google.com;
+    frame-ancestors 'self';
     upgrade-insecure-requests;
   `;
 

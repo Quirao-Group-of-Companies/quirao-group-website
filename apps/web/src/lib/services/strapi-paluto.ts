@@ -21,6 +21,12 @@ export async function getPalutoPage() {
         aboutUs: {
           populate: '*',
         },
+        bannerSection: {
+          populate: '*',
+        },
+        branchesCards: {
+          populate: '*',
+        },
         showcaseLogo: {
           populate: '*',
         },
@@ -34,6 +40,12 @@ export async function getPalutoPage() {
           populate: '*',
         },
         faqs: {
+          populate: '*',
+        },
+        eventsAndCateringSection: {
+          populate: '*',
+        },
+        eventsAndCateringCarouselImages: {
           populate: '*',
         },
       },

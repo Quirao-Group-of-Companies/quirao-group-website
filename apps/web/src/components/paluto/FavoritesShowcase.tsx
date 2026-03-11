@@ -1,6 +1,6 @@
 'use client';
 
-import type { StrapiCards, StrapiLogo } from '@cms/types/strapi-components';
+import type { StrapiCards, StrapiLogo } from 'cms/types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';

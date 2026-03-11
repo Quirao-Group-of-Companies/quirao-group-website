@@ -18,7 +18,8 @@ export default function ScrollReveal({ children, delay = 0, width = '100%' }: Sc
       transition={{ duration: 0.6, delay, ease: 'easeOut' }}
       style={{ width }}
     >
-      {children}
+      {/* biome-ignore lint/complexity/noUselessFragments: Necessary to resolve Framer Motion ReactNode type mismatch */}
+      <>{children}</>
     </motion.div>
   );
 }
