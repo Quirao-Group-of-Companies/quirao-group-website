@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Blog } from '@/app/data/homepage-data';
 import Button from '@/components/ui/Button';
 
@@ -15,22 +15,24 @@ export default function LatestNews({ blogs }: LatestNewsProps) {
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+  }, []);
+
   // Auto-scroll logic
-  const startTimer = () => {
+  const startTimer = useCallback(() => {
     stopTimer();
     timerRef.current = setInterval(() => {
       setCurrent((prev) => (prev + 1) % blogs.length);
     }, 5000);
-  };
-
-  const stopTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-  };
+  }, [blogs.length, stopTimer]);
 
   useEffect(() => {
     startTimer();
     return () => stopTimer();
-  }, [blogs.length]);
+  }, [startTimer, stopTimer]);
 
   // Swipe logic
   const minSwipeDistance = 50;
@@ -46,7 +48,9 @@ export default function LatestNews({ blogs }: LatestNewsProps) {
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd) {
+      return;
+    }
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -66,7 +70,7 @@ export default function LatestNews({ blogs }: LatestNewsProps) {
       </h2>
 
       {/* Mobile Carousel View */}
-      <div 
+      <div
         className="md:hidden relative overflow-hidden"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
@@ -91,9 +95,7 @@ export default function LatestNews({ blogs }: LatestNewsProps) {
                     <h3 className="text-md font-semibold text-qgc-black mb-4 font-akrux">
                       {blog.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
-                      {blog.description}
-                    </p>
+                    <p className="text-gray-600 text-sm leading-relaxed">{blog.description}</p>
                   </div>
 
                   <Button text="Read More" className="mt-6 px-6 py-3 text-sm w-fit" />
@@ -105,10 +107,10 @@ export default function LatestNews({ blogs }: LatestNewsProps) {
 
         {/* Pagination Dots */}
         <div className="flex justify-center gap-3 mt-8">
-          {blogs.map((_, idx) => (
+          {blogs.map((blog, idx) => (
             <button
               type="button"
-              key={`dot-${idx}`}
+              key={`dot-${blog.id}`}
               onClick={() => {
                 setCurrent(idx);
                 startTimer();

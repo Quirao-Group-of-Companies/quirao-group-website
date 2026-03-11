@@ -73,7 +73,7 @@ export default function Footer() {
     {
       title: 'Contact Us',
       links: [
-       { label: '0921381231', href: '#' },
+        { label: '0921381231', href: '#' },
         { label: 'management@quiraogroup.com', href: '#' },
       ],
     },
@@ -136,7 +136,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      
+
       <div className="bg-qgc-black w-full py-4 px-6 md:px-16 mt-12">
         <p className="text-white text-[10px] md:text-xs text-right">
           Copyright© 2026 Quirao Group of Companies Inc. All Rights Reserved.

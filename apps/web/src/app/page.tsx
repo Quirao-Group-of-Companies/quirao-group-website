@@ -157,7 +157,11 @@ export default async function Home() {
          OUR BUSINESS SECTION
       ===================================================== */}
 
-      <SubsidiaryShowcase items={businessesData} title="Our Business Preview" imagePosition="left" />
+      <SubsidiaryShowcase
+        items={businessesData}
+        title="Our Business Preview"
+        imagePosition="left"
+      />
 
       {/* =====================================================
          ACHIEVEMENTS SECTION

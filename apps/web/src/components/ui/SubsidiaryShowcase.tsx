@@ -1,8 +1,14 @@
 'use client';
 
-import { ChevronLeftIcon, ChevronRightIcon, EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  EnvelopeIcon,
+  MapPinIcon,
+  PhoneIcon,
+} from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Button from './Button';
 
 export type Business = {
@@ -40,24 +46,26 @@ export default function InteractiveShowcase({
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  if (!items || items.length === 0) {
-    return null;
-  }
-
-  const currentItem = activeItem || items[0];
-  const currentIndex = items.findIndex((item) => item.id === currentItem.id);
+  const currentItem = activeItem || items?.[0];
+  const currentIndex = items?.findIndex((item) => item.id === currentItem?.id) ?? -1;
 
   // Auto-scroll active thumbnail into view
   useEffect(() => {
-    const activeThumb = thumbnailRefs.current[currentIndex];
-    if (activeThumb && scrollContainerRef.current) {
-      activeThumb.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center',
-      });
+    if (currentIndex !== -1) {
+      const activeThumb = thumbnailRefs.current[currentIndex];
+      if (activeThumb && scrollContainerRef.current) {
+        activeThumb.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center',
+        });
+      }
     }
   }, [currentIndex]);
+
+  if (!items || items.length === 0) {
+    return null;
+  }
 
   const handlePrevious = () => {
     const prevIndex = (currentIndex - 1 + items.length) % items.length;
@@ -71,13 +79,11 @@ export default function InteractiveShowcase({
 
   return (
     <section className="bg-white px-6 py-20">
-      <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
-        {title}
-      </h2>
+      <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">{title}</h2>
 
       {/* Active Item Display */}
       <div
-        className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} px-0 md:px-14 gap-5 items-stretch`}
+        className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'} px-0 md:px-14 gap-10 items-stretch`}
       >
         {/* MAIN IMAGE */}
         <div className="w-full md:w-3/5 h-40 md:h-80 relative rounded-lg overflow-hidden shadow-lg shrink-0 md:self-end">
@@ -169,25 +175,25 @@ export default function InteractiveShowcase({
       </div>
 
       {/* THUMBNAIL SELECTORS */}
-      <div className="mt-5  w-full">
+      <div className="mt-0 md:mt-5 w-full">
         <div className="w-[90%] md:max-w-6xl mx-auto bg-qgc-white shadow-lg rounded-3xl p-4 md:p-5 border border-gray-50 overflow-hidden">
-          <div 
+          <div
             ref={scrollContainerRef}
-            className="flex overflow-x-auto md:overflow-hidden snap-x snap-mandatory md:justify-center gap-8 md:gap-20 items-center scrollbar-hide py-2"
+            className="flex overflow-x-auto snap-x snap-mandatory md:justify-center gap-8 md:gap-20 items-center scrollbar-hide py-2"
           >
             {items.map((item, index) => (
               <button
                 type="button"
                 key={item.id}
-                ref={(el) => { thumbnailRefs.current[index] = el; }}
+                ref={(el) => {
+                  thumbnailRefs.current[index] = el;
+                }}
                 onClick={() => setActiveItem(item)}
                 className="cursor-pointer group transition-all duration-100 outline-none flex justify-center shrink-0 snap-center"
               >
                 <div
                   className={`relative flex items-center justify-center transition-all duration-200 ${
-                    currentItem.id === item.id
-                      ? 'scale-110 md:scale-125'
-                      : ' hover:scale-110'
+                    currentItem.id === item.id ? 'scale-110 md:scale-125' : ' hover:scale-110'
                   }`}
                 >
                   {item.logo && (
