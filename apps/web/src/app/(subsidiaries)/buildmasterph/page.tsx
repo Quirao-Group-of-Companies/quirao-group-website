@@ -8,11 +8,12 @@ import type {
   StrapiLink,
   StrapiText,
 } from 'cms/types';
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import AboutSection from '@/components/buildmaster/AboutUsSection';
-import FeaturesCarousel from '@/components/buildmaster/FeaturesCarousel';
-import HeroCarousel from '@/components/buildmaster/HeroCarousel';
-import PodcastsSection from '@/components/buildmaster/PodcastSection';
+import AboutSection from '@/components/buildmaster/AboutUsSection.client';
+import FeaturesCarousel from '@/components/buildmaster/FeaturesCarousel.client';
+import HeroCarousel from '@/components/buildmaster/HeroCarousel.client';
+import PodcastsSection from '@/components/buildmaster/PodcastSection.client';
 import FAQItem from '@/components/ui/FAQItem';
 import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
 
@@ -73,6 +74,16 @@ function SocialIcon({ title }: { title: string }) {
   return <span className="text-xs font-bold">{title}</span>;
 }
 
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getBuildMasterPage();
+  const content = data?.hero?.[0];
+
+  return {
+    title: content?.title || 'BuildMaster Philippines',
+    description: content?.description || 'Your trusted construction solutions partner in the Philippines.',
+  };
+}
+
 export default async function BuildMasterPage() {
   const cms: BuildmasterPageData = await getBuildMasterPage();
 
@@ -124,7 +135,10 @@ export default async function BuildMasterPage() {
 
   const contactData: StrapiContactUs | undefined = cms.contactUS ?? undefined;
   const contactDetails: StrapiText[] = contactData?.details ?? [];
-  const contactLinks: StrapiLink[] = contactData?.embedLinks ?? [];
+  const contactLinks: StrapiLink[] = (contactData?.embedLinks ?? []).map((link) => ({
+    ...link,
+    href: link.href && !link.href.startsWith('http') ? `https://${link.href}` : link.href,
+  }));
   const contactMapHref =
     contactData?.embedMap?.href ??
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d346.51004397058824!2d122.56992756495173!3d10.710274974974633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee5b4dd1a329d%3A0x1e62622958e67a57!2sTrualliant!5e0!3m2!1sen!2sph!4v1773111988244!5m2!1sen!2sph';
