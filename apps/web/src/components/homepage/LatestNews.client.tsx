@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Blog } from '@/app/data/homepage-data';
-import Button from '@/components/ui/Button';
+import Button from '@/components/ui/Button.client';
 
 interface LatestNewsProps {
   blogs: Blog[];

@@ -5,14 +5,29 @@ import type {
   StrapiHeroSection,
   StrapiSubPreview,
 } from '@cms/types/strapi-components';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
-import HeroCarousel, { type HeroItem } from '@/components/homepage/HeroCarousel';
-import LatestNews from '@/components/homepage/LatestNews';
-import Button from '@/components/ui/Button';
-import FAQItem from '@/components/ui/FAQItem';
-import SubsidiaryShowcase, { type Business } from '@/components/ui/SubsidiaryShowcase';
+import HeroCarousel, { type HeroItem } from '@/components/homepage/HeroCarousel.client';
+import LatestNews from '@/components/homepage/LatestNews.client';
+import Button from '@/components/ui/Button.client';
+import FAQItem from '@/components/ui/FAQItem.client';
+import SubsidiaryShowcase, { type Business } from '@/components/ui/SubsidiaryShowcase.client';
 import { getHomepage } from '@/lib/services/strapi-homepage';
+
+/* =========================================================
+   METADATA GENERATION
+========================================================= */
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getHomepage();
+  const content = data?.HeroSection?.[0];
+
+  return {
+    title: content?.title || 'Quirao Group of Companies',
+    description: content?.description || 'Leading group of companies in the Philippines.',
+  };
+}
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
