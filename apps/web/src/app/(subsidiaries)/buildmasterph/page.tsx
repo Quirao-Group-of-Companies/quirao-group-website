@@ -80,7 +80,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: content?.title || 'BuildMaster Philippines',
-    description: content?.description || 'Your trusted construction solutions partner in the Philippines.',
+    description:
+      content?.description || 'Your trusted construction solutions partner in the Philippines.',
   };
 }
 
