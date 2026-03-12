@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-types.ts
  * Regenerate: bun run generate-types (from apps/cms)
- * Generated: 2026-03-11T08:54:54.155Z
+ * Generated: 2026-03-10T09:55:00.211Z
  */
 
 /** Shared Strapi media type */
