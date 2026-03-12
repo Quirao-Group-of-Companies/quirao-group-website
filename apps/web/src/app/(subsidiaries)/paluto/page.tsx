@@ -8,7 +8,7 @@ import FavoritesShowcase from '@/components/paluto/FavoritesShowcase.client';
 import FeedbackCard from '@/components/paluto/FeedbackCard.client';
 import OverviewCTA from '@/components/paluto/OverviewCTA.client';
 import ScrollReveal from '@/components/paluto/ScrollReveal.client';
-import FAQItem from '@/components/ui/FAQItem';
+import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 import { getPalutoPage } from '@/lib/services/strapi-paluto';
 
@@ -166,7 +166,7 @@ export default async function PalutoPage() {
           {/* 2. PICTURE (Order 2 Mobile, Column 5 Span Row 3 Desktop) */}
           <div className="order-2 lg:col-span-5 lg:row-span-3 lg:col-start-8 lg:row-start-1 flex justify-center lg:justify-end">
             <ScrollReveal delay={0.3}>
-              <div className="relative w-64 h-64 md:w-[380px] md:h-[380px] rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-[10px] border-white mx-auto lg:mx-0">
+              <div className="relative w-64 h-64 md:w-95 md:h-95 rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-10 border-white mx-auto lg:mx-0">
                 {overview?.image?.url ? (
                   <Image
                     src={normalizeUrl(overview.image.url)}
@@ -232,12 +232,12 @@ export default async function PalutoPage() {
               alt={bannerSection.image.alternativeText || 'Paluto Banner'}
               width={bannerSection.image.width || 1920}
               height={bannerSection.image.height || 600}
-              className="w-full h-auto md:h-[400px] md:object-cover object-center"
+              className="w-full h-auto md:h-100 md:object-cover object-center"
               priority
             />
           </div>
         ) : (
-          <div className="w-full h-[250px] md:h-[400px] relative">
+          <div className="w-full h-62.5 md:h-100 relative">
             <Image
               src="/images/paluto/paluto-cover.png"
               alt="Paluto Banner"
@@ -295,7 +295,7 @@ export default async function PalutoPage() {
             {branchesCards && branchesCards.length > 0 ? (
               branchesCards.map((branch: StrapiCards, index: number) => (
                 <ScrollReveal key={branch.id} delay={index * 0.1}>
-                  <div className="group bg-white rounded-[1.5rem] border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-xl">
+                  <div className="group bg-white rounded-3xl border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-xl">
                     <div className="relative h-60 w-full overflow-hidden">
                       {branch.image?.url && (
                         <Image
@@ -383,7 +383,7 @@ export default async function PalutoPage() {
                     <h3 className="text-sm md:text-xl font-bold uppercase text-black">
                       {contactUs.details[0].title}
                     </h3>
-                    <p className="text-gray-700 text-[10px] md:text-sm max-w-[140px] md:max-w-[220px] leading-snug">
+                    <p className="text-gray-700 text-[10px] md:text-sm max-w-135 md:max-w-55 leading-snug">
                       {contactUs.details[0].description}
                     </p>
                   </div>
@@ -396,7 +396,7 @@ export default async function PalutoPage() {
                     <h3 className="text-sm md:text-xl font-bold uppercase text-black">
                       {contactUs.details[1].title}
                     </h3>
-                    <p className="text-gray-700 text-[10px] md:text-sm break-all max-w-[140px] md:max-w-none">
+                    <p className="text-gray-700 text-[10px] md:text-sm break-all max-w-35 md:max-w-none">
                       {contactUs.details[1].description}
                     </p>
                   </div>
@@ -482,7 +482,7 @@ export default async function PalutoPage() {
                   </div>
                 </div>
               </div>
-              <div className="w-full lg:w-1/2 h-[350px] md:h-[450px] lg:h-auto min-h-[350px] mt-8 lg:mt-0">
+              <div className="w-full lg:w-1/2 h-87.5 md:h-112.5 lg:h-auto min-h-87.5 mt-8 lg:mt-0">
                 {contactUs?.embedMap?.href ? (
                   <iframe
                     src={contactUs.embedMap.href}
