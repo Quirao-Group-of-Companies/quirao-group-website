@@ -186,7 +186,9 @@ export type BuildmasterPageData = {
   hero?: StrapiHeroSection[] | null;
   features?: StrapiCards[] | null;
   cta?: StrapiLink | null;
-  aboutUs?: StrapiAboutUs | null;
+  aboutUsTitle?: string | null;
+  aboutUsBackgroundImage?: StrapiMedia | null;
+  aboutUsSection?: StrapiCards[] | null;
   podcasts?: StrapiCards[] | null;
   link?: StrapiLink | null;
   download?: StrapiBanner | null;
