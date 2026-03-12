@@ -6,14 +6,29 @@ import {
   ShareIcon,
 } from '@heroicons/react/24/outline';
 import type { SariSariManokanPageData, StrapiCards, StrapiFaqs, StrapiFeedback } from 'cms/types';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
-import FavoritesShowcase from '@/components/FavoritesShowcase';
-import FeedbackSection from '@/components/FeedbackSection';
-import ScrollReveal from '@/components/ScrollReveal';
+import FavoritesShowcase from '@/components/FavoritesShowcase.client';
+import FeedbackSection from '@/components/FeedbackSection.client';
+import ScrollReveal from '@/components/ScrollReveal.client';
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
 import { getSariSariManokanPage } from '@/lib/services/strapi-sarisari';
+
+/* =========================================================
+   METADATA GENERATION
+========================================================= */
+
+export async function generateMetadata(): Promise<Metadata> {
+  const pageData = await getSariSariManokanPage();
+  const heroData = pageData?.hero?.[0];
+
+  return {
+    title: heroData?.title || 'Sari-Sari Manokan',
+    description: heroData?.description || 'Sari-sari Manokan and Seafood Restaurant',
+  };
+}
 
 /**
  * Sari-Sari Manokan Subsidiary Page
@@ -147,23 +162,24 @@ export default async function ManokanPage() {
                 {aboutUsDescription}
               </p>
             </div>
-
-            <div className="w-full bg-linear-to-r from-paluto-green to-paluto-yellow/50 rounded-4xl p-5 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
-              <span className="text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm text-center sm:text-left leading-tight">
-                Explore Sari-sari Manokan Facebook Page
-              </span>
-              <a
-                href="https://www.facebook.com/palutophilippines"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white hover:bg-qgc-gray-deep hover:text-qgc-white text-qgc-black px-5 py-3 lg:px-6 lg:py-4 rounded-2xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95 whitespace-nowrap"
-              >
-                <span className="font-bold uppercase text-[10px] md:text-xs lg:text-sm">
-                  Visit Facebook Page
+            <ScrollReveal>
+              <div className="w-full bg-linear-to-r from-paluto-green to-paluto-yellow/50 rounded-4xl p-5 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+                <span className="text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm text-center sm:text-left leading-tight">
+                  Explore Sari-sari Manokan Facebook Page
                 </span>
-                <ArrowRightIcon className="w-4 h-4 lg:w-5 lg:h-5" />
-              </a>
-            </div>
+                <a
+                  href="https://www.facebook.com/palutophilippines"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white hover:bg-qgc-gray-deep hover:text-qgc-white text-qgc-black px-5 py-3 lg:px-6 lg:py-4 rounded-2xl shadow-sm flex items-center gap-2 transition-all duration-300 active:scale-95 whitespace-nowrap"
+                >
+                  <span className="font-bold uppercase text-[10px] md:text-xs lg:text-sm">
+                    Visit Facebook Page
+                  </span>
+                  <ArrowRightIcon className="w-4 h-4 lg:w-5 lg:h-5" />
+                </a>
+              </div>
+            </ScrollReveal>
           </div>
 
           <div className="order-2 md:order-2 w-full md:w-[40%] flex justify-center items-center h-100 md:h-[80%] lg:h-[85%] relative rounded-4xl overflow-hidden shadow-2xl">
