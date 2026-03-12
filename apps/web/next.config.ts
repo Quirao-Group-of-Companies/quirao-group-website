@@ -27,7 +27,35 @@ const nextConfig: NextConfig = {
         port: '1337',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cms.quiraogroup.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
+  },
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com https://s.ytimg.com",
+              "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://maps.google.com https://www.google.com",
+              "img-src 'self' data: blob: https:",
+              "style-src 'self' 'unsafe-inline'",
+              "font-src 'self' data: https:",
+              "connect-src 'self' https:",
+              "media-src 'self' https://www.youtube.com blob:",
+            ].join('; '),
+          },
+        ],
+      },
+    ];
   },
   reactCompiler: true,
   transpilePackages: ['@repo/db'],
