@@ -5,16 +5,27 @@ import {
   ShareIcon,
 } from '@heroicons/react/24/outline';
 import type { PalutoPageData, StrapiCards, StrapiFaqs, StrapiLink } from 'cms/types';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
-import EventsCatering from '@/components/paluto/EventsCatering';
-import FavoritesShowcase from '@/components/paluto/FavoritesShowcase';
-import FeedbackCard from '@/components/paluto/FeedbackCard';
-import OverviewCTA from '@/components/paluto/OverviewCTA';
-import ScrollReveal from '@/components/paluto/ScrollReveal';
+import EventsCatering from '@/components/paluto/EventsCatering.client';
+import FavoritesShowcase from '@/components/paluto/FavoritesShowcase.client';
+import FeedbackCard from '@/components/paluto/FeedbackCard.client';
+import OverviewCTA from '@/components/paluto/OverviewCTA.client';
+import ScrollReveal from '@/components/paluto/ScrollReveal.client';
 import FAQItem from '@/components/ui/FAQItem';
 import { logger } from '@/lib/axiom/server';
 import { getPalutoPage } from '@/lib/services/strapi-paluto';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = (await getPalutoPage()) as PalutoPageData;
+  const hero = data?.hero?.[0];
+
+  return {
+    title: hero?.title || 'Paluto Seafood & Grill',
+    description: hero?.description || 'Iloilos first and Only Unli-Paluto Dining experience',
+  };
+}
 
 /**
  * Paluto Subsidiary Page
