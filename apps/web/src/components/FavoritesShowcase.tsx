@@ -3,7 +3,7 @@
 import type { StrapiCards, StrapiLogo } from 'cms/types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useLogger } from '@/lib/axiom/client';
 
 export type ShowcaseItem = {
@@ -50,18 +50,20 @@ export default function FavoritesShowcase({
   /**
    * Normalizes URLs to prevent double slashes after the domain.
    */
-  const normalizeUrl = (url: string) => {
+  const normalizeUrl = useCallback((url: string) => {
     if (!url) {
       return '';
     }
     return url.replace(/([^:]\/)\/+/g, '$1');
-  };
+  }, []);
 
   /**
    * Consolidate data from multiple possible props.
    */
   const normalizedItems = useMemo((): ShowcaseItem[] => {
-    if (directItems) return directItems;
+    if (directItems) {
+      return directItems;
+    }
     if (data) {
       return data.map((item) => ({
         id: item.id,
@@ -77,16 +79,20 @@ export default function FavoritesShowcase({
       }));
     }
     return [];
-  }, [directItems, data, dishes]);
+  }, [directItems, data, dishes, normalizeUrl]);
 
   const logoData = useMemo(() => {
-    if (!logo) return null;
-    if ('src' in logo) return logo;
+    if (!logo) {
+      return null;
+    }
+    if ('src' in logo) {
+      return logo;
+    }
     return {
       src: normalizeUrl(logo.image?.url || ''),
       alt: logo.logoName || 'Showcase Logo',
     };
-  }, [logo]);
+  }, [logo, normalizeUrl]);
 
   if (normalizedItems.length === 0) {
     return null;
@@ -143,7 +149,7 @@ export default function FavoritesShowcase({
 
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-10 px-8 md:px-16 flex-1">
         {/* Swapping Stage (Top on Mobile) */}
-        <div className="order-1 md:order-2 relative h-[500px] md:h-[600px] flex flex-col justify-center items-center overflow-visible">
+        <div className="order-1 md:order-2 relative h-125 md:h-150 flex flex-col justify-center items-center overflow-visible">
           <div className="relative w-full h-full flex justify-center items-center">
             {normalizedItems.map((item, index) => (
               <motion.div
@@ -156,10 +162,10 @@ export default function FavoritesShowcase({
                   damping: 20,
                   zIndex: { delay: 0 },
                 }}
-                className="absolute w-[280px] h-[280px] md:w-[550px] md:h-[550px]"
+                className="absolute w-70 h-70 md:w-137.5 md:h-137.5"
               >
                 {showCircle ? (
-                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-[10px] border-white">
+                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.15)] border-10 border-white">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -226,7 +232,7 @@ export default function FavoritesShowcase({
 
       {/* Decorative Vertical Divider */}
       <div
-        className={`absolute left-1/2 top-0 w-[1px] h-full ${dividerColorClass} -z-10 hidden md:block`}
+        className={`absolute left-1/2 top-0 w-px h-full ${dividerColorClass} -z-10 hidden md:block`}
       />
     </section>
   );
