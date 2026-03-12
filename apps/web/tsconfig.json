@@ -21,7 +21,6 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@cms/*": ["../cms/*"],
       "@repo/db": ["../../packages/db"]
     }
   },
@@ -33,6 +32,6 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "../cms/types/**/*.ts"
-  ],
+  ]
   "exclude": ["node_modules"]
 }

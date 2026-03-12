@@ -173,7 +173,17 @@ export default async function ManokanPage() {
       </section>
 
       {/* 3. FAVORITES SHOWCASE */}
-      <FavoritesShowcase dishes={showcaseData} />
+      <FavoritesShowcase
+        dishes={showcaseData}
+        logo={{
+          src: logoImage,
+          alt: 'Sari-Sari Manokan Logo',
+        }}
+        activeColorClass="bg-paluto-green"
+        indicatorColorClass="bg-paluto-green/40"
+        dividerColorClass="bg-paluto-green/10"
+        buttonWidthClass="md:w-80"
+      />
 
       {/* 4. FEEDBACK SECTION */}
       <FeedbackSection feedbacks={feedbackData} />
