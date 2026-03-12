@@ -93,17 +93,6 @@ export default function InteractiveShowcase({
               </ul>
             )}
           </div>
-
-          {/* CTA Button - Always left-aligned with content */}
-          {currentItem.cta?.href && (
-            <div className="mt-auto pt-10 flex justify-start">
-              <Button
-                href={currentItem.cta.href}
-                text={currentItem.cta.title}
-                className="h-10 px-6 py-2 w-max"
-              />
-            </div>
-          )}
         </div>
       </div>
 

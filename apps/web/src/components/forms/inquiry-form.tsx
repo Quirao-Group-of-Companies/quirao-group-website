@@ -51,7 +51,7 @@ export function InquiryForm() {
           <input
             id="number"
             name="number"
-            type="number"
+            type="tel"
             placeholder="0919637192"
             required
             className="w-full p-4 bg-qgc-gray-soft border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
