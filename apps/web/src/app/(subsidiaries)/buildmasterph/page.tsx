@@ -258,7 +258,7 @@ export default async function BuildMasterPage() {
             <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
           </div>
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row bg-qgc-gray-soft rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100">
-            <div className="w-full lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-y-12 gap-x-8 p-12">
+            <div className="w-full lg:w-1/2 grid grid-cols-2 lg:grid-cols-2 gap-y-12 gap-x-4 p-6 md:p-12">
               {contactDetails[0] && (
                 <div className="flex flex-col items-center text-center gap-3">
                   <div className="p-4 rounded-full border-2 border-black">
@@ -340,7 +340,7 @@ export default async function BuildMasterPage() {
       )}
 
       {faqs.length > 0 && (
-        <section className="w-full bg-white py-12 px-6 md:px-10">
+        <section className="w-full bg-qgc-gray-soft py-12 px-6 md:px-10">
           <div className="flex flex-col items-center text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
               FREQUENTLY ASKED <span style={{ color: '#0a285a' }}>QUESTIONS</span>
