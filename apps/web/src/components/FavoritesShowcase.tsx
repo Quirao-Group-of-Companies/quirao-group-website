@@ -1,9 +1,9 @@
 'use client';
 
-import type { StrapiCards, StrapiLogo } from 'cms';
+import type { StrapiCards, StrapiLogo } from 'cms/types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useLogger } from '@/lib/axiom/client';
 
 export type ShowcaseItem = {
@@ -107,7 +107,7 @@ export default function FavoritesShowcase({
     if (total === 1) {
       return { opacity: 0, scale: 0.5 };
     }
-    
+
     // Paluto style positioning for 2 items or more
     const xOffset = 120;
     const yOffset = 350;
@@ -127,7 +127,7 @@ export default function FavoritesShowcase({
   };
 
   return (
-    <section className="relative w-full min-h-[600px] flex flex-col items-center overflow-hidden bg-white py-12">
+    <section className="relative w-full min-h-150 flex flex-col items-center overflow-hidden bg-white py-12">
       {/* Brand Logo Header */}
       <div className="w-full max-w-xl px-4 mb-12 z-30">
         {logoData?.src && (
@@ -185,7 +185,9 @@ export default function FavoritesShowcase({
 
           {/* Navigation Dots */}
           {normalizedItems.length > 1 && (
-            <div className={`${indicatorColorClass} px-4 py-2.5 rounded-full flex items-center gap-2.5 mt-8 md:mt-20 z-30 border border-white/20`}>
+            <div
+              className={`${indicatorColorClass} px-4 py-2.5 rounded-full flex items-center gap-2.5 mt-8 md:mt-20 z-30 border border-white/20`}
+            >
               {normalizedItems.map((item, index) => (
                 <button
                   key={`indicator-${item.id}`}
@@ -223,7 +225,9 @@ export default function FavoritesShowcase({
       </div>
 
       {/* Decorative Vertical Divider */}
-      <div className={`absolute left-1/2 top-0 w-[1px] h-full ${dividerColorClass} -z-10 hidden md:block`} />
+      <div
+        className={`absolute left-1/2 top-0 w-[1px] h-full ${dividerColorClass} -z-10 hidden md:block`}
+      />
     </section>
   );
 }
