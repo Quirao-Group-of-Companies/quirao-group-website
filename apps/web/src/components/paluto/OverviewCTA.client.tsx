@@ -25,9 +25,7 @@ export default function OverviewCTA({ href, title }: OverviewCTAProps) {
         whileTap={{ scale: 0.95 }}
         className="bg-white hover:bg-qgc-gray-soft text-qgc-black px-6 py-2.5 rounded-xl shadow-sm flex items-center gap-2 transition-all duration-300 cursor-pointer"
       >
-        <span className="font-bold uppercase text-[10px] md:text-xs">
-          {title}
-        </span>
+        <span className="font-bold uppercase text-[10px] md:text-xs">{title}</span>
         <ArrowRightIcon className="w-4 h-4" />
       </motion.a>
     </motion.div>

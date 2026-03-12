@@ -1,9 +1,4 @@
-import {
-  EnvelopeIcon,
-  MapPinIcon,
-  PhoneIcon,
-  ShareIcon,
-} from '@heroicons/react/24/outline';
+import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
 import type { PalutoPageData, StrapiCards, StrapiFaqs, StrapiLink } from 'cms/types';
 import type { Metadata } from 'next';
 import Image from 'next/image';
