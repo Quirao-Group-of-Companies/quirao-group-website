@@ -26,10 +26,18 @@
       "component": "elements.link",
       "repeatable": false
     },
-    "aboutUs": {
+    "aboutUsTitle": {
+      "type": "string"
+    },
+    "aboutUsBackgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "aboutUsSection": {
       "type": "component",
-      "component": "blocks.about-us",
-      "repeatable": false
+      "component": "blocks.cards",
+      "repeatable": true
     },
     "podcasts": {
       "type": "component",

@@ -546,7 +546,11 @@ export interface ApiBuildMasterPageBuildMasterPage
     draftAndPublish: true;
   };
   attributes: {
-    aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
+    aboutUsBackgroundImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    aboutUsSection: Schema.Attribute.Component<'blocks.cards', true>;
+    aboutUsTitle: Schema.Attribute.String;
     contactUS: Schema.Attribute.Component<'blocks.contact-us', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

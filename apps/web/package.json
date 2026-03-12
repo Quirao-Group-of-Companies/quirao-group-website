@@ -23,6 +23,7 @@
     "@strapi/blocks-react-renderer": "^1.0.2",
     "@tailwindcss/typography": "^0.5.19",
     "next": "^16.1.6",
+    "framer-motion": "^12.35.2",
     "postgres": "^3.4.8",
     "framer-motion": "^12.35.2",
     "qs": "^6.15.0",
