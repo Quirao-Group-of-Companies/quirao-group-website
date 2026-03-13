@@ -4,7 +4,6 @@ import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline
 import Image from 'next/image';
 import { useState } from 'react';
 import type { Business } from '@/types/homepage';
-import Button from './Button';
 
 // Extend Business type to include optional contact info for the reusable component
 export interface ShowcaseItem extends Business {

@@ -4,14 +4,7 @@ import HeroCarousel from '@/components/homepage/HeroCarousel';
 import Button from '@/components/ui/Button.client';
 import FAQItem from '@/components/ui/FAQItem';
 import { getHomepage } from '@/lib/services/strapi-homepage';
-import type {
-  AboutCard,
-  Achievement,
-  Business,
-  HeroItem,
-  HomepageData,
-  SubPreviewItem,
-} from '@/types/homepage';
+import type { AboutCard, Achievement, HeroItem } from '@/types/homepage';
 import type { FAQ } from '@/types/strapi-shared';
 
 /* =========================================================
@@ -66,23 +59,6 @@ export default async function Home() {
           },
         }
       : null;
-
-  // Business Preview
-  const businessesData: Business[] =
-    data.SubPreview?.map((b: SubPreviewItem) => ({
-      id: b.id,
-      name: b.logo?.logoName || `business-${b.id}`,
-      description: b.description,
-
-      // MAIN PREVIEW IMAGE
-      image: b.image?.url || null,
-      // CARD IMAGE (small selectable ones)
-      cardImage: b.cardImage?.url || null,
-      // LOGO IMAGE (nested)
-      logo: b.logo?.image?.url || null,
-
-      cta: b.cta || null,
-    })) || [];
 
   // =========================FAQ data =======================//
   const faqsData: FAQ[] =
@@ -183,7 +159,6 @@ export default async function Home() {
       {/* =====================================================
          OUR BUSINESS SECTION
       ===================================================== */}
-
 
       {/* =====================================================
          ACHIEVEMENTS SECTION

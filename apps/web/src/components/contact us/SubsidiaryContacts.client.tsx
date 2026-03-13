@@ -1,9 +1,8 @@
 'use client';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Business } from '@/types/homepage';
-import Button from '@/components/ui/Button.client';
 
 interface SubsidiaryContactsProps {
   businesses: Business[];
@@ -19,9 +18,13 @@ export default function SubsidiaryContacts({
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    if (!businesses || businesses.length === 0) return;
+    if (!businesses || businesses.length === 0) {
+      return;
+    }
     const index = businesses.findIndex((b) => b.id === activeBusiness?.id);
-    if (index !== -1) setActiveIndex(index);
+    if (index !== -1) {
+      setActiveIndex(index);
+    }
   }, [activeBusiness, businesses]);
 
   if (!businesses || businesses.length === 0) {
@@ -144,7 +147,7 @@ export default function SubsidiaryContacts({
                         width={100}
                         height={60}
                         className="object-contain"
-                      />  
+                      />
                     </div>
                   )}
                   <p className="text-gray-600 text-[11px] line-clamp-2 text-center leading-relaxed">
@@ -181,9 +184,9 @@ export default function SubsidiaryContacts({
 
         {/* Page Indicators */}
         <div className="flex justify-center gap-2 mt-4">
-          {businesses.map((_, idx) => (
+          {businesses.map((b, idx) => (
             <button
-              key={idx}
+              key={b.id}
               type="button"
               onClick={() => scrollTo(idx)}
               className={`h-2 rounded-full transition-all duration-300 ${
@@ -215,9 +218,11 @@ export default function SubsidiaryContacts({
               />
             )}
 
-            <div className={`absolute inset-0 transition-opacity duration-300 ${
-              currentBusiness.id === b.id ? 'bg-black/20' : 'bg-black/50 group-hover:bg-black/40'
-            } flex items-center justify-center`}>
+            <div
+              className={`absolute inset-0 transition-opacity duration-300 ${
+                currentBusiness.id === b.id ? 'bg-black/20' : 'bg-black/50 group-hover:bg-black/40'
+              } flex items-center justify-center`}
+            >
               {b.logo && (
                 <Image
                   src={b.logo}
