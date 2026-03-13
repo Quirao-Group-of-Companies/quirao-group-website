@@ -1,8 +1,9 @@
 import { MapPinIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
-import InteractiveShowcase, { ShowcaseItem } from '@/components/ui/SubsidiaryShowcase';
+import OurBusinessPreview from '@/components/contact us/SubsidiaryContacts.client';
 import { InquiryForm } from '@/components/forms/inquiry-form';
 import { getContactUsPage } from '@/lib/services/strapi-contact-us';
 import type { ContactUsPageData, StrapiSubContacts } from '@cms/types/strapi-components';
+import type { Business } from '@/types/homepage';
 
 export default async function ContactUsPage() {
   const contactData: ContactUsPageData | null = await getContactUsPage();
@@ -10,8 +11,8 @@ export default async function ContactUsPage() {
   const qgcInfo = contactData?.qgcContacts;
   const qgcText = contactData?.qgcText;
 
-  // Transform subsidiary data from CMS to the format expected by InteractiveShowcase
-  const businessesData: ShowcaseItem[] =
+  // Transform subsidiary data from CMS to the format expected by OurBusinessPreview
+  const businessesData: Business[] =
     contactData?.subsContacts?.map((sub: StrapiSubContacts) => ({
       id: sub.id,
       name: sub.subName || "",
@@ -86,7 +87,7 @@ export default async function ContactUsPage() {
       </section>
 
       {/* Business Preview Section */}
-      <InteractiveShowcase items={businessesData} title="Our Subsidiaries" />
+      <OurBusinessPreview businesses={businessesData} imagePosition="right" />
     </main>
   );
 }
