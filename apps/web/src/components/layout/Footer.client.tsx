@@ -7,10 +7,8 @@ import { useState } from 'react';
 import {
   FaEnvelope,
   FaFacebook,
-  FaFacebookMessenger,
-  FaInstagram,
+  FaLinkedin,
   FaPhoneAlt,
-  FaViber,
 } from 'react-icons/fa';
 
 interface LinkItem {
@@ -64,26 +62,28 @@ export default function Footer() {
     {
       title: 'Quick Links',
       links: [
-        { label: 'About Us', href: '#' },
-        { label: 'Newsroom', href: '#' },
-        { label: 'Careers', href: '#' },
+        { label: 'About Us', href: '/about-us' },
+        { label: 'Newsroom', href: '/newsroom' },
+        { label: 'Careers', href: '/careers' },
       ],
     },
     {
       title: 'Subsidiaries',
       links: [
-        { label: 'Buildmaster', href: '#' },
-        { label: 'Paluto', href: '#' },
-        { label: 'Brightline', href: '#' },
-        { label: 'Watergate', href: '#' },
-        { label: 'Sari-sari Manokan', href: '#' },
+        { label: 'Buildmaster', href: '/buildmasterph' },
+        { label: 'Paluto', href: '/paluto' },
+        { label: 'Brightline', href: '/brightline' },
+        { label: 'Watergate', href: '/watergate' },
+        { label: 'Sari-sari Manokan', href: '/sari-sari-manokan' },
       ],
     },
     {
       title: 'Contact Us',
       links: [
-        { label: '0921381231', href: '#', icon: <FaPhoneAlt /> },
-        { label: 'management@quiraogroup.com', href: '#', icon: <FaEnvelope /> },
+        { label: 'Phone', href: '#' },
+        { label: 'Support', href: '#' },
+        { label: '0921381231', href: 'tel:0921381231', icon: <FaPhoneAlt /> },
+        { label: 'management@quiraogroup.com', href: 'mailto:management@quiraogroup.com', icon: <FaEnvelope /> },
       ],
     },
   ];
@@ -94,27 +94,19 @@ export default function Footer() {
         <div className="flex justify-center md:justify-end space-x-4 mb-6">
           <Link
             href="https://www.facebook.com/quiraogroup"
+            target="_blank"
+            rel="noopener noreferrer"
             className="w-5 h-5 flex items-center justify-center text-white rounded-full hover:opacity-80 transition"
           >
             <FaFacebook className="w-5 h-5 text-qgc-black" />
           </Link>
           <Link
             href="#"
-            className="w-5 h-5 flex items-center justify-center bg-qgc-black text-white rounded-full hover:opacity-80 transition"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-5 h-5 flex items-center justify-center text-white rounded-full hover:opacity-80 transition"
           >
-            <FaInstagram className="w-3 h-3" />
-          </Link>
-          <Link
-            href="#"
-            className="w-5 h-5 flex items-center justify-center bg-qgc-black text-white rounded-full hover:opacity-80 transition"
-          >
-            <FaFacebookMessenger className="w-3 h-3" />
-          </Link>
-          <Link
-            href="#"
-            className="w-5 h-5 flex items-center justify-center bg-qgc-black text-white rounded-full hover:opacity-80 transition"
-          >
-            <FaViber className="w-3 h-3" />
+            <FaLinkedin className="w-5 h-5 text-qgc-black" />
           </Link>
         </div>
 

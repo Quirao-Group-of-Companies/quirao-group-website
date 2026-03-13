@@ -4,7 +4,7 @@ import type {
   StrapiFaqs,
   StrapiHeroSection,
   StrapiSubPreview,
-} from '@cms/types/strapi-components';
+} from 'cms/types';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
