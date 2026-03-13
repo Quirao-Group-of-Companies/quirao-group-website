@@ -3,7 +3,7 @@ import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import type { Business } from '@/types/homepage';
-import Button from '../ui/Button';
+import Button from '@/components/ui/Button.client';
 
 interface SubsidiaryContactsProps {
   businesses: Business[];

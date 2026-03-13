@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
-import Button from '@/components/ui/Button';
+import Button from '@/components/ui/Button.client';
 import FAQItem from '@/components/ui/FAQItem';
 import { getHomepage } from '@/lib/services/strapi-homepage';
 import type {

@@ -24,7 +24,10 @@ export async function getBuildMasterPage() {
         cta: {
           populate: '*',
         },
-        aboutUs: {
+        aboutUsSection: {
+          populate: '*',
+        },
+        aboutUsBackgroundImage: {
           populate: '*',
         },
         podcasts: {
