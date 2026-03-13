@@ -1,5 +1,5 @@
-import type { ContactUsPageData, StrapiSubContacts } from '@cms/types/strapi-components';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import type { ContactUsPageData, StrapiSubContacts } from 'cms/types';
 import OurBusinessPreview from '@/components/contact us/SubsidiaryContacts.client';
 import { InquiryForm } from '@/components/forms/inquiry-form';
 import { getContactUsPage } from '@/lib/services/strapi-contact-us';

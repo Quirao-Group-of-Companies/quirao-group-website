@@ -1,3 +1,4 @@
+import type { HomepageData, StrapiCards, StrapiFaqs, StrapiHeroSection } from 'cms/types';
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
 import HeroCarousel from '@/components/homepage/HeroCarousel';
@@ -13,27 +14,27 @@ import type { FAQ } from '@/types/strapi-shared';
 
 export default async function Home() {
   /* ---------- Hero State ---------- */
-  const data: HomepageData = await getHomepage();
+  const data: HomepageData | null = await getHomepage();
 
   if (!data) {
     return <p>No content available</p>;
   }
 
   const heroSlides: HeroItem[] =
-    data.HeroSection?.map((item: HeroItem) => ({
+    data.HeroSection?.map((item: StrapiHeroSection) => ({
       id: item.id,
-      title: item.title,
-      description: item.description,
+      title: item.title || '',
+      description: item.description || '',
       image: item.image
         ? {
             url: item.image.url,
-            alternativeText: item.image.alternativeText,
+            alternativeText: item.image.alternativeText || '',
           }
         : null,
       cta: item.cta
         ? {
-            title: item.cta.title,
-            href: item.cta.href,
+            title: item.cta.title || '',
+            href: item.cta.href || '#',
           }
         : null,
     })) || [];
@@ -42,20 +43,20 @@ export default async function Home() {
     data.AboutUs && data.AboutUs.length > 0
       ? {
           id: data.AboutUs[0].id,
-          title: data.AboutUs[0].title,
-          description: data.AboutUs[0].description,
+          title: data.AboutUs[0].title || '',
+          description: data.AboutUs[0].description || '',
           image: data.AboutUs[0].image
             ? {
                 url: data.AboutUs[0].image.url,
-                alternativeText: data.AboutUs[0].image.alternativeText,
+                alternativeText: data.AboutUs[0].image.alternativeText || '',
               }
             : null,
           cta: data.AboutUs[0].cta
-            ? { title: data.AboutUs[0].cta.title, href: data.AboutUs[0].cta.href }
+            ? { title: data.AboutUs[0].cta.title || '', href: data.AboutUs[0].cta.href || '#' }
             : null,
           additionalComponents: {
-            subtitle: data.AboutUs[0].subtitle,
-            cards: data.AboutUs[0].cards as AboutCard[],
+            subtitle: data.AboutUs[0].title || '', // StrapiAboutUs doesn't have subtitle in the provided type
+            cards: [] as AboutCard[], // Placeholder as cards aren't directly in StrapiAboutUs
           },
         }
       : null;
@@ -63,10 +64,10 @@ export default async function Home() {
   // =========================FAQ data =======================//
   const faqsData: FAQ[] =
     data.FAQs?.map(
-      (faq: FAQ): FAQ => ({
+      (faq: StrapiFaqs): FAQ => ({
         id: faq.id,
-        question: faq.question,
-        answer: faq.answer,
+        question: faq.question || '',
+        answer: faq.answer || '',
       }),
     ) || [];
 
@@ -75,10 +76,10 @@ export default async function Home() {
   // =========================
   // Add sample comment to test, add more sample comment
   const achievementsData: Achievement[] =
-    data.Achievements?.map((item) => ({
+    data.Achievements?.map((item: StrapiCards) => ({
       id: item.id,
-      title: item.title || item.description,
-      description: item.description,
+      title: item.title || item.description || '',
+      description: item.description || '',
       image: item.image?.url || null,
     })) || [];
 
