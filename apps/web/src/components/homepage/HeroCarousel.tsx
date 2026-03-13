@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Button from '@/components/ui/Button';
+import Button from '@/components/ui/Button.client';
 import type { HeroItem } from '@/types/homepage';
 
 interface Props {

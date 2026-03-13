@@ -16,102 +16,118 @@ export function ApplicationForm() {
   }
 
   return (
-    <form
-      action={handleSubmit}
-      className="space-y-5 p-8 border rounded-xl bg-white shadow-lg max-w-2xl mx-auto"
-    >
-      <h2 className="text-2xl font-bold text-black border-b pb-4">Quirao Application Form</h2>
+    <form action={handleSubmit} className="space-y-8 p-4 md:p-10 bg-transparent w-full">
+      <div className="border-b pb-6 mb-6">
+        <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase">Application Form</h2>
+        <p className="text-gray-500 text-sm mt-1">
+          Please provide accurate information for your application.
+        </p>
+      </div>
 
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-8">
         {/* Full Name */}
-        <div>
-          <label htmlFor="full_name" className="block text-sm font-bold text-gray-700 mb-1">
+        <div className="space-y-2">
+          <label
+            htmlFor="full_name"
+            className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
+          >
             Full Name <span className="text-red-500">*</span>
           </label>
           <input
             id="full_name"
             name="full_name"
-            placeholder="Full Name"
+            placeholder="Enter your full name"
             required
-            className="w-full p-2 border rounded text-black focus:ring-2 focus:ring-green-500 outline-none"
+            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Phone */}
-          <div>
-            <label htmlFor="phone" className="block text-sm font-bold text-gray-700 mb-1">
-              Phone <span className="text-red-500">*</span>
+          <div className="space-y-2">
+            <label
+              htmlFor="phone"
+              className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
+            >
+              Phone Number <span className="text-red-500">*</span>
             </label>
             <input
               id="phone"
               name="phone"
-              placeholder="Phone"
+              placeholder="+63 900 000 0000"
               required
-              className="w-full p-2 border rounded text-black"
+              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
             />
           </div>
           {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-bold text-gray-700 mb-1">
-              Email <span className="text-red-500">*</span>
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
+            >
+              Email Address <span className="text-red-500">*</span>
             </label>
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="Email"
+              placeholder="example@email.com"
               required
-              className="w-full p-2 border rounded text-black"
+              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
             />
           </div>
         </div>
 
         {/* Address */}
-        <div>
-          <label htmlFor="address" className="block text-sm font-bold text-gray-700 mb-1">
-            Address <span className="text-red-500">*</span>
+        <div className="space-y-2">
+          <label
+            htmlFor="address"
+            className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
+          >
+            Residential Address <span className="text-red-500">*</span>
           </label>
           <input
             id="address"
             name="address"
-            placeholder="Address"
+            placeholder="House No., Street, City, Province"
             required
-            className="w-full p-2 border rounded text-black"
+            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
           />
         </div>
 
         {/* Government Benefits */}
-        <div className="space-y-2">
-          <span className="text-sm font-bold text-gray-700 block">
-            Do you have (check all fields that apply): <span className="text-red-500">*</span>
+        <div className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-100">
+          <span className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
+            Government Benefits (Check all that apply): <span className="text-red-500">*</span>
           </span>
-          <div className="flex flex-col space-y-2 pl-1">
-            <label className="flex items-center gap-3 cursor-pointer group">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
               <input
                 type="checkbox"
                 name="sss"
-                className="w-5 h-5 border-gray-300 rounded accent-green-600"
+                className="w-5 h-5 border-gray-300 rounded accent-black"
               />
-              <span className="text-gray-700 group-hover:text-black transition-colors">SSS</span>
+              <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
+                SSS
+              </span>
             </label>
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
               <input
                 type="checkbox"
                 name="philhealth"
-                className="w-5 h-5 border-gray-300 rounded accent-green-600"
+                className="w-5 h-5 border-gray-300 rounded accent-black"
               />
-              <span className="text-gray-700 group-hover:text-black transition-colors">
+              <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
                 Philhealth
               </span>
             </label>
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
               <input
                 type="checkbox"
                 name="pag_ibig"
-                className="w-5 h-5 border-gray-300 rounded accent-green-600"
+                className="w-5 h-5 border-gray-300 rounded accent-black"
               />
-              <span className="text-gray-700 group-hover:text-black transition-colors">
+              <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
                 Pag-IBIG
               </span>
             </label>
@@ -119,17 +135,17 @@ export function ApplicationForm() {
         </div>
 
         {/* Resume Upload */}
-        <div className="space-y-1">
-          <span className="text-sm font-bold text-gray-700 block">
-            Resume <span className="text-red-500">*</span>
+        <div className="space-y-2">
+          <span className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
+            Resume / CV <span className="text-red-500">*</span>
           </span>
           <label
             htmlFor="resume_file"
-            className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
+            className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-black transition-all group"
           >
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <svg
-                className="w-10 h-10 mb-3 text-gray-400"
+                className="w-12 h-12 mb-4 text-gray-400 group-hover:text-black transition-colors"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -145,10 +161,10 @@ export function ApplicationForm() {
                 />
               </svg>
               <p className="mb-2 text-sm text-gray-500">
-                <span className="font-semibold">Click to upload</span> or drag and drop
+                <span className="font-semibold text-black">Click to upload</span> or drag and drop
               </p>
-              <p className="text-xs text-gray-400 underline">Upload Resume in a PDF file format.</p>
-              <span className="file-name text-sm text-green-600 font-bold mt-2"></span>
+              <p className="text-xs text-gray-400">PDF format only (max. 10MB)</p>
+              <span className="file-name text-sm text-black font-bold mt-3"></span>
             </div>
             <input
               id="resume_file"
@@ -162,7 +178,7 @@ export function ApplicationForm() {
                 if (fileName) {
                   const display = e.target.parentElement?.querySelector('.file-name');
                   if (display) {
-                    display.textContent = fileName;
+                    display.textContent = `Selected: ${fileName}`;
                   }
                 }
               }}
@@ -171,37 +187,71 @@ export function ApplicationForm() {
         </div>
 
         {/* Cover Letter */}
-        <div>
-          <label htmlFor="cover_letter" className="block text-sm font-bold text-gray-700 mb-1">
-            Cover Letter <span className="text-red-500">*</span>
+        <div className="space-y-2">
+          <label
+            htmlFor="cover_letter"
+            className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
+          >
+            Cover Letter / Message <span className="text-red-500">*</span>
           </label>
           <textarea
             id="cover_letter"
             name="cover_letter"
-            placeholder="Write a short description of your cover letter."
+            placeholder="Tell us why you're a great fit for Quirao Group..."
             required
-            className="w-full p-2 border rounded text-black h-32"
+            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black h-48 focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all resize-none"
           />
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-black text-white p-3 rounded-lg font-bold hover:bg-gray-800 transition-colors disabled:bg-gray-400 mt-4 shadow-md"
-      >
-        {loading ? 'Processing...' : 'Submit Application'}
-      </button>
+      <div className="pt-6">
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-black text-white py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all disabled:bg-gray-400 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest"
+        >
+          {loading ? (
+            <>
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                role="img"
+                aria-label="Loading"
+              >
+                <title>Loading</title>
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Processing...
+            </>
+          ) : (
+            'Submit Application'
+          )}
+        </button>
+      </div>
 
       {status?.success && (
-        <p className="text-green-600 font-bold text-center bg-green-50 p-3 rounded-lg border border-green-200">
-          ✅ Application Submitted Successfully!
-        </p>
+        <div className="mt-6 text-green-600 font-bold text-center bg-green-50 p-4 rounded-2xl border border-green-200 flex items-center justify-center gap-2">
+          <span>✅</span> Application Submitted Successfully!
+        </div>
       )}
       {status?.error && (
-        <p className="text-red-600 font-bold text-center bg-red-50 p-3 rounded-lg border border-red-200">
-          ❌ {status.error}
-        </p>
+        <div className="mt-6 text-red-600 font-bold text-center bg-red-50 p-4 rounded-2xl border border-red-200 flex items-center justify-center gap-2">
+          <span>❌</span> {status.error}
+        </div>
       )}
     </form>
   );
