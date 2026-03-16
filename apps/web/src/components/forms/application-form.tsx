@@ -38,7 +38,9 @@ export function ApplicationForm() {
         className="space-y-8 p-4 md:p-10 bg-transparent w-full"
       >
         <div className="border-b pb-6 mb-6">
-          <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase">Application Form</h2>
+          <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase">
+            Application Form
+          </h2>
           <p className="text-gray-500 text-sm mt-1">
             Please provide accurate information for your application.
           </p>
@@ -273,7 +275,8 @@ export function ApplicationForm() {
         message={
           status?.success
             ? 'Your application has been successfully submitted! Our HR team will review your profile and get in touch with you soon.'
-            : status?.error || 'Something went wrong while submitting your application. Please try again.'
+            : status?.error ||
+              'Something went wrong while submitting your application. Please try again.'
         }
       />
     </>

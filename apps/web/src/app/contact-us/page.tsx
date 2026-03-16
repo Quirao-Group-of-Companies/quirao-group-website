@@ -83,10 +83,7 @@ export default async function ContactUsPage() {
       </section>
 
       {/* Business Preview Section */}
-      <OurBusinessPreview
-        businesses={contactData?.subsContacts || []}
-        imagePosition="right"
-      />
+      <OurBusinessPreview businesses={contactData?.subsContacts || []} imagePosition="right" />
     </main>
   );
 }

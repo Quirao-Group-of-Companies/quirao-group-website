@@ -4,12 +4,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import {
-  FaEnvelope,
-  FaFacebook,
-  FaLinkedin,
-  FaPhoneAlt,
-} from 'react-icons/fa';
+import { FaEnvelope, FaFacebook, FaLinkedin, FaPhoneAlt } from 'react-icons/fa';
 
 interface LinkItem {
   label: string;
@@ -83,7 +78,11 @@ export default function Footer() {
         { label: 'Phone', href: '#' },
         { label: 'Support', href: '#' },
         { label: '0921381231', href: 'tel:0921381231', icon: <FaPhoneAlt /> },
-        { label: 'management@quiraogroup.com', href: 'mailto:management@quiraogroup.com', icon: <FaEnvelope /> },
+        {
+          label: 'management@quiraogroup.com',
+          href: 'mailto:management@quiraogroup.com',
+          icon: <FaEnvelope />,
+        },
       ],
     },
   ];

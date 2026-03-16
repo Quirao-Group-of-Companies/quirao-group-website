@@ -1,7 +1,7 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
 import { CheckCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
 
 interface StatusModalProps {
@@ -48,6 +48,7 @@ export default function StatusModal({ isOpen, onClose, type, title, message }: S
           >
             {/* Close Button */}
             <button
+              type="button"
               onClick={onClose}
               className="absolute top-4 right-4 p-2 text-gray-400 hover:text-black hover:bg-gray-100 rounded-full transition-colors"
               aria-label="Close modal"
@@ -75,12 +76,11 @@ export default function StatusModal({ isOpen, onClose, type, title, message }: S
               <h3 className="text-2xl font-bold text-gray-900 font-akrux uppercase mb-3">
                 {title}
               </h3>
-              <p className="text-gray-600 leading-relaxed mb-8">
-                {message}
-              </p>
+              <p className="text-gray-600 leading-relaxed mb-8">{message}</p>
 
               {/* Action Button */}
               <button
+                type="button"
                 onClick={onClose}
                 className={`w-full py-4 rounded-2xl font-bold uppercase tracking-widest transition-all shadow-lg hover:shadow-xl ${
                   type === 'success'

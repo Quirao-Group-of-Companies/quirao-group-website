@@ -1,8 +1,8 @@
 'use client';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import type { StrapiSubContacts } from 'cms/types';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import type { StrapiSubContacts } from 'cms/types';
 
 interface SubsidiaryContactsProps {
   businesses: StrapiSubContacts[];
@@ -140,7 +140,14 @@ export default function SubsidiaryContacts({
             <div key={b.id} className="w-full shrink-0 snap-center px-2">
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 mb-4 h-95 flex flex-col">
                 <div className="h-32 relative shrink-0">
-                  {b.displayImage?.url && <Image src={b.displayImage.url} alt={b.subName || ''} fill className="object-cover" />}
+                  {b.displayImage?.url && (
+                    <Image
+                      src={b.displayImage.url}
+                      alt={b.subName || ''}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
                 </div>
                 <div className="p-5 flex flex-col grow md:gap-3">
                   {b.logo?.image?.url && (
