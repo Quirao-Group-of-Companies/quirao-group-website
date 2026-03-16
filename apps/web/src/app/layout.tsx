@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import { WebVitals } from '@/lib/axiom/client';
-import Footer from '../components/layout/Footer';
-import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer.client';
+import Header from '../components/layout/Header.client';
 
 export const dynamic = 'force-dynamic'; // Opt into dynamic rendering for this layout and all nested pages/components
 

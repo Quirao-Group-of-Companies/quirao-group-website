@@ -25,8 +25,8 @@ export default function Navbar() {
   }, [menuOpen]);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 px-5 bg-qgc-white h-20 shadow-sm">
-      <nav className="flex flex-col md:py-5 md:flex-row justify-center items-center gap-2 w-full md:w-auto text-qgc-black">
+    <header className="w-full fixed top-0 left-0 z-50 px-6 md:px-16 bg-qgc-white h-20 shadow-sm">
+      <nav className="flex flex-col md:flex-row justify-center items-center h-full w-full gap-4 md:gap-16 text-qgc-black">
         <div className="flex md:mt-0 mt-5 items-center justify-between md:justify-start h-full w-full md:w-auto">
           <Link href="/" className="flex items-center gap-2">
             <Image
@@ -34,7 +34,7 @@ export default function Navbar() {
               alt="Company Logo"
               width={160}
               height={40}
-              className="object-contain mr-10"
+              className="object-contain"
             />
           </Link>
 
@@ -79,8 +79,19 @@ export default function Navbar() {
           style={{
             maxHeight: menuOpen ? `${menuHeight}px` : undefined,
           }}
-          className={`flex flex-col md:flex-row items-start md:items-center w-full md:w-auto gap-2 md:gap-12 bg-qgc-white overflow-hidden ${menuOpen ? 'max-h-full' : 'max-h-0'} transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible ${menuOpen ? 'border-t border-gray-200 mt-3 pt-3' : ''}`}
+          className={`flex flex-col md:flex-row items-start md:items-center w-full md:w-auto gap-4 md:gap-16 bg-qgc-white overflow-hidden ${menuOpen ? 'max-h-full' : 'max-h-0'} transition-[max-height] duration-300 ease-in-out md:max-h-none md:overflow-visible ${menuOpen ? 'border-t border-gray-200 mt-3 pt-3' : ''}`}
         >
+          {/* About Us */}
+          <li className="w-full md:w-auto">
+            <Link
+              href="/about"
+              onClick={() => setMenuOpen(false)}
+              className="block px-6 py-3 md:p-0 text-qgc-black hover:text-gray-500"
+            >
+              About Us
+            </Link>
+          </li>
+
           {/* Subsidiaries */}
           <li className="relative group w-full md:w-auto">
             <button
@@ -134,8 +145,7 @@ export default function Navbar() {
           {[
             { href: '/newsroom', label: 'Newsroom' },
             { href: '/careers', label: 'Careers' },
-            { href: '/about', label: 'About Us' },
-            { href: '/contact-us', label: 'Contact Us' },
+            { href: '/contact', label: 'Contact Us' },
           ].map((link) => (
             <li key={link.href} className="w-full md:w-auto">
               <Link
@@ -147,25 +157,6 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-
-          {/* Search */}
-          {/* <li className="w-full md:w-auto flex items-center px-6 py-3 md:p-0">
-            <div
-              className={`flex items-center transition-all duration-300 ${
-                searchOpen ? 'w-40 opacity-100 mr-3' : 'w-0 opacity-0'
-              } overflow-hidden`}
-            >
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full border-b border-gray-400 focus:outline-none text-sm px-2 py-1"
-              />
-            </div>
-
-            <button type="submit" onClick={() => setSearchOpen(!searchOpen)}>
-              <MagnifyingGlassIcon className="w-5 h-5" />
-            </button>
-          </li> */}
         </ul>
       </nav>
     </header>

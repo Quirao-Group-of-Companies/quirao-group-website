@@ -1,12 +1,33 @@
-import type { HomepageData, StrapiCards, StrapiFaqs, StrapiHeroSection } from 'cms/types';
+import type {
+  HomepageData,
+  StrapiCards,
+  StrapiFaqs,
+  StrapiHeroSection,
+  StrapiSubPreview,
+} from 'cms/types';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
-import HeroCarousel from '@/components/homepage/HeroCarousel';
+import HeroCarousel, { type HeroItem } from '@/components/homepage/HeroCarousel.client';
+import LatestNews from '@/components/homepage/LatestNews.client';
 import Button from '@/components/ui/Button.client';
-import FAQItem from '@/components/ui/FAQItem';
+import FAQItem from '@/components/ui/FAQItem.client';
+import SubsidiaryShowcase, { type Business } from '@/components/ui/SubsidiaryShowcase.client';
 import { getHomepage } from '@/lib/services/strapi-homepage';
-import type { AboutCard, Achievement, HeroItem } from '@/types/homepage';
-import type { FAQ } from '@/types/strapi-shared';
+
+/* =========================================================
+   METADATA GENERATION
+========================================================= */
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getHomepage();
+  const content = data?.HeroSection?.[0];
+
+  return {
+    title: content?.title || 'Quirao Group of Companies',
+    description: content?.description || 'Leading group of companies in the Philippines.',
+  };
+}
 
 /* =========================================================
    MAIN LANDING PAGE COMPONENT
@@ -28,7 +49,7 @@ export default async function Home() {
       image: item.image
         ? {
             url: item.image.url,
-            alternativeText: item.image.alternativeText || '',
+            alternativeText: item.image.alternativeText || null,
           }
         : null,
       cta: item.cta
@@ -48,34 +69,52 @@ export default async function Home() {
           image: data.AboutUs[0].image
             ? {
                 url: data.AboutUs[0].image.url,
-                alternativeText: data.AboutUs[0].image.alternativeText || '',
+                alternativeText: data.AboutUs[0].image.alternativeText || null,
               }
             : null,
           cta: data.AboutUs[0].cta
-            ? { title: data.AboutUs[0].cta.title || '', href: data.AboutUs[0].cta.href || '#' }
+            ? {
+                title: data.AboutUs[0].cta.title || '',
+                href: data.AboutUs[0].cta.href || '#',
+              }
             : null,
-          additionalComponents: {
-            subtitle: data.AboutUs[0].title || '', // StrapiAboutUs doesn't have subtitle in the provided type
-            cards: [] as AboutCard[], // Placeholder as cards aren't directly in StrapiAboutUs
-          },
         }
       : null;
 
+  // Business Preview
+  const businessesData: Business[] =
+    data.SubPreview?.map((b: StrapiSubPreview) => ({
+      id: b.id,
+      name: b.logo?.logoName || b.subName || `business-${b.id}`,
+      description: b.description || '',
+
+      // MAIN PREVIEW IMAGE
+      image: b.image?.url || null,
+      // CARD IMAGE (small selectable ones)
+      cardImage: b.cardImage?.url || null,
+      // LOGO IMAGE (nested)
+      logo: b.logo?.image?.url || null,
+
+      cta: b.cta
+        ? {
+            title: b.cta.title || '',
+            href: b.cta.href || '#',
+          }
+        : null,
+    })) || [];
+
   // =========================FAQ data =======================//
-  const faqsData: FAQ[] =
-    data.FAQs?.map(
-      (faq: StrapiFaqs): FAQ => ({
-        id: faq.id,
-        question: faq.question || '',
-        answer: faq.answer || '',
-      }),
-    ) || [];
+  const faqsData =
+    data.FAQs?.map((faq: StrapiFaqs) => ({
+      id: faq.id,
+      question: faq.question || '',
+      answer: faq.answer || '',
+    })) || [];
 
   // =========================
   // Achievements data (CMS)
   // =========================
-  // Add sample comment to test, add more sample comment
-  const achievementsData: Achievement[] =
+  const achievementsData =
     data.Achievements?.map((item: StrapiCards) => ({
       id: item.id,
       title: item.title || item.description || '',
@@ -113,11 +152,6 @@ export default async function Home() {
             )}
             <div className="md:w-1/2 flex flex-col gap-6 items-start mt-10">
               <h2 className="text-3xl font-bold text-gray-800">{aboutSection.title}</h2>
-              {aboutSection.additionalComponents?.subtitle && (
-                <h3 className="text-2xl font-medium text-gray-700">
-                  {aboutSection.additionalComponents.subtitle}
-                </h3>
-              )}
               <p className="text-gray-600 text-lg whitespace-pre-line">
                 {aboutSection.description}
               </p>
@@ -129,29 +163,6 @@ export default async function Home() {
                   className="px-8 py-2 w-fit"
                 />
               )}
-
-              {aboutSection.additionalComponents?.cards?.length > 0 && (
-                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {aboutSection.additionalComponents.cards.map((card: AboutCard) => (
-                    <div
-                      key={card.id}
-                      className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center text-center relative"
-                    >
-                      {card.image?.url && (
-                        <Image
-                          src={card.image.url}
-                          alt={card.image.alternativeText || card.title}
-                          width={150}
-                          height={150}
-                          className="object-contain mb-4"
-                        />
-                      )}
-                      <h4 className="font-semibold">{card.title}</h4>
-                      <p className="text-gray-500">{card.description}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           </div>
         </section>
@@ -161,73 +172,54 @@ export default async function Home() {
          OUR BUSINESS SECTION
       ===================================================== */}
 
+      <SubsidiaryShowcase
+        items={businessesData}
+        title="Our Business Preview"
+        imagePosition="left"
+      />
+
       {/* =====================================================
          ACHIEVEMENTS SECTION
       ===================================================== */}
       <section className="bg-qgc-gray-soft px-6 py-20">
         <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
-          Awards and Recognition
+          Business and Financial Growth
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-          {achievementsData.map((achievement) => (
-            <div key={achievement.id} className="group cursor-pointer">
-              <div className="relative w-full h-100 rounded-xl overflow-hidden shadow-lg">
-                {achievement.image && (
-                  <Image
-                    src={achievement.image}
-                    alt={achievement.title}
-                    fill
-                    className="object-contain p-15 transition-transform duration-500 ease-in-out group-hover:scale-110"
-                  />
-                )}
+          {achievementsData.map(
+            (achievement: { id: number; title: string; image: string | null }) => (
+              <div key={achievement.id} className="group cursor-pointer">
+                <div className="relative w-full h-110 rounded-xl overflow-hidden shadow-lg bg-white flex flex-col p-8">
+                  <div className="relative flex-1 w-full mb-8">
+                    {achievement.image && (
+                      <Image
+                        src={achievement.image}
+                        alt={achievement.title}
+                        fill
+                        className="object-contain transition-transform duration-500 ease-in-out group-hover:scale-110"
+                      />
+                    )}
+                  </div>
 
-                <div className="absolute inset-0 group-hover:bg-black/10 transition duration-500" />
+                  <div className="text-center">
+                    <h3 className="text-qgc-black text-xl font-semibold font-akrux">
+                      {achievement.title}
+                    </h3>
+                  </div>
 
-                <div className="absolute bottom-6 left-0 right-0 text-center px-4">
-                  <h3 className="text-qgc-black text-xl font-semibold">{achievement.title}</h3>
+                  <div className="absolute inset-0 group-hover:bg-black/5 transition duration-500 pointer-events-none" />
                 </div>
               </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </section>
 
       {/* =====================================================
         BLOG SECTION
       ===================================================== */}
-      <section className="bg-white px-6 py-24">
-        <h2 className="text-4xl font-bold text-center text-qgc-black mb-16 font-akrux">
-          Latest News
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {blogs.map((blog) => (
-            <div
-              key={blog.id}
-              className="flex flex-col md:flex-row bg-qgc-gray-soft rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
-            >
-              {/* Image */}
-              <div className="relative w-full md:w-1/2 h-64 md:h-auto">
-                <Image src={blog.image} alt={blog.title} fill className="object-cover" />
-              </div>
-
-              {/* Content */}
-              <div className="p-8 flex flex-col justify-between md:w-1/2">
-                <div>
-                  <p className="text-sm text-gray-500 mb-2">{blog.date}</p>
-
-                  <h3 className="text-xl font-semibold text-qgc-black mb-4">{blog.title}</h3>
-
-                  <p className="text-gray-600 text-sm leading-relaxed">{blog.description}</p>
-                </div>
-
-                <Button text="Read More" className="mt-6 px-6 py-3 text-sm" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <LatestNews blogs={blogs} />
       {/* =====================================================
           FAQ SECTION
       ===================================================== */}
@@ -236,7 +228,7 @@ export default async function Home() {
           Frequently Asked Questions
         </h2>
         <div className="max-w-4xl mx-auto space-y-4">
-          {faqsData.map((faq) => (
+          {faqsData.map((faq: { id: number; question: string; answer: string }) => (
             <FAQItem key={faq.id} question={faq.question} answer={faq.answer} />
           ))}
         </div>
