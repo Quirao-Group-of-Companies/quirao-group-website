@@ -20,7 +20,7 @@ export default async function BrightlineTestPage() {
 
   return (
     <main style={{ padding: '40px', fontFamily: 'sans-serif', lineHeight: '1.6' }}>
-      <h1>CMS Connection Test: Paluto Page</h1>
+      <h1>CMS Connection Test: Brightline Page</h1>
       <p>If you see data below, the API and population logic are working.</p>
 
       <hr />

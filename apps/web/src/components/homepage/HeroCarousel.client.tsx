@@ -2,8 +2,21 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Button from '@/components/ui/Button';
-import type { HeroItem } from '@/types/homepage';
+import Button from '@/components/ui/Button.client';
+
+export type HeroItem = {
+  id: number;
+  title: string;
+  description: string;
+  image?: {
+    url: string;
+    alternativeText: string | null;
+  } | null;
+  cta?: {
+    title: string;
+    href: string;
+  } | null;
+};
 
 interface Props {
   slides: HeroItem[];
