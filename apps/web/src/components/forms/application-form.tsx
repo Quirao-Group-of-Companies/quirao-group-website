@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { submitApplication } from '@/app/actions';
+import StatusModal from '@/components/ui/StatusModal.client';
 
 export function ApplicationForm() {
   const [status, setStatus] = useState<{ success?: boolean; error?: string } | null>(null);
   const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -13,246 +15,267 @@ export function ApplicationForm() {
     const result = await submitApplication(formData);
     setLoading(false);
     setStatus(result);
+
+    if (result.success) {
+      formRef.current?.reset();
+      // Clear file name display
+      const display = formRef.current?.querySelector('.file-name');
+      if (display) {
+        display.textContent = '';
+      }
+    }
   }
 
+  const handleCloseModal = () => {
+    setStatus(null);
+  };
+
   return (
-    <form action={handleSubmit} className="space-y-8 p-4 md:p-10 bg-transparent w-full">
-      <div className="border-b pb-6 mb-6">
-        <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase">Application Form</h2>
-        <p className="text-gray-500 text-sm mt-1">
-          Please provide accurate information for your application.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 gap-8">
-        {/* Full Name */}
-        <div className="space-y-2">
-          <label
-            htmlFor="full_name"
-            className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
-          >
-            Full Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="full_name"
-            name="full_name"
-            placeholder="Enter your full name"
-            required
-            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-          />
+    <>
+      <form
+        ref={formRef}
+        action={handleSubmit}
+        className="space-y-8 p-4 md:p-10 bg-transparent w-full"
+      >
+        <div className="border-b pb-6 mb-6">
+          <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase">Application Form</h2>
+          <p className="text-gray-500 text-sm mt-1">
+            Please provide accurate information for your application.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Phone */}
+        <div className="grid grid-cols-1 gap-8">
+          {/* Full Name */}
           <div className="space-y-2">
             <label
-              htmlFor="phone"
+              htmlFor="full_name"
               className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
             >
-              Phone Number <span className="text-red-500">*</span>
+              Full Name <span className="text-red-500">*</span>
             </label>
             <input
-              id="phone"
-              name="phone"
-              placeholder="+63 900 000 0000"
+              id="full_name"
+              name="full_name"
+              placeholder="Enter your full name"
               required
               className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
             />
           </div>
-          {/* Email */}
-          <div className="space-y-2">
-            <label
-              htmlFor="email"
-              className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
-            >
-              Email Address <span className="text-red-500">*</span>
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="example@email.com"
-              required
-              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-            />
-          </div>
-        </div>
 
-        {/* Address */}
-        <div className="space-y-2">
-          <label
-            htmlFor="address"
-            className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
-          >
-            Residential Address <span className="text-red-500">*</span>
-          </label>
-          <input
-            id="address"
-            name="address"
-            placeholder="House No., Street, City, Province"
-            required
-            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
-          />
-        </div>
-
-        {/* Government Benefits */}
-        <div className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-100">
-          <span className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
-            Government Benefits (Check all that apply): <span className="text-red-500">*</span>
-          </span>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
-              <input
-                type="checkbox"
-                name="sss"
-                className="w-5 h-5 border-gray-300 rounded accent-black"
-              />
-              <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
-                SSS
-              </span>
-            </label>
-            <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
-              <input
-                type="checkbox"
-                name="philhealth"
-                className="w-5 h-5 border-gray-300 rounded accent-black"
-              />
-              <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
-                Philhealth
-              </span>
-            </label>
-            <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
-              <input
-                type="checkbox"
-                name="pag_ibig"
-                className="w-5 h-5 border-gray-300 rounded accent-black"
-              />
-              <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
-                Pag-IBIG
-              </span>
-            </label>
-          </div>
-        </div>
-
-        {/* Resume Upload */}
-        <div className="space-y-2">
-          <span className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
-            Resume / CV <span className="text-red-500">*</span>
-          </span>
-          <label
-            htmlFor="resume_file"
-            className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-black transition-all group"
-          >
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-              <svg
-                className="w-12 h-12 mb-4 text-gray-400 group-hover:text-black transition-colors"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                role="img"
-                aria-label="Upload icon"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Phone */}
+            <div className="space-y-2">
+              <label
+                htmlFor="phone"
+                className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
               >
-                <title>Upload Resume Icon</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
-              <p className="mb-2 text-sm text-gray-500">
-                <span className="font-semibold text-black">Click to upload</span> or drag and drop
-              </p>
-              <p className="text-xs text-gray-400">PDF format only (max. 10MB)</p>
-              <span className="file-name text-sm text-black font-bold mt-3"></span>
+                Phone Number <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                placeholder="+63 900 000 0000"
+                required
+                className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
+              />
             </div>
-            <input
-              id="resume_file"
-              name="resume_file"
-              type="file"
-              accept=".pdf"
-              required
-              className="hidden"
-              onChange={(e) => {
-                const fileName = e.target.files?.[0]?.name;
-                if (fileName) {
-                  const display = e.target.parentElement?.querySelector('.file-name');
-                  if (display) {
-                    display.textContent = `Selected: ${fileName}`;
-                  }
-                }
-              }}
-            />
-          </label>
-        </div>
-
-        {/* Cover Letter */}
-        <div className="space-y-2">
-          <label
-            htmlFor="cover_letter"
-            className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
-          >
-            Cover Letter / Message <span className="text-red-500">*</span>
-          </label>
-          <textarea
-            id="cover_letter"
-            name="cover_letter"
-            placeholder="Tell us why you're a great fit for Quirao Group..."
-            required
-            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black h-48 focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all resize-none"
-          />
-        </div>
-      </div>
-
-      <div className="pt-6">
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-black text-white py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all disabled:bg-gray-400 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest"
-        >
-          {loading ? (
-            <>
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                role="img"
-                aria-label="Loading"
+            {/* Email */}
+            <div className="space-y-2">
+              <label
+                htmlFor="email"
+                className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
               >
-                <title>Loading</title>
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              Processing...
-            </>
-          ) : (
-            'Submit Application'
-          )}
-        </button>
-      </div>
+                Email Address <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="example@email.com"
+                required
+                className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
+              />
+            </div>
+          </div>
 
-      {status?.success && (
-        <div className="mt-6 text-green-600 font-bold text-center bg-green-50 p-4 rounded-2xl border border-green-200 flex items-center justify-center gap-2">
-          <span>✅</span> Application Submitted Successfully!
+          {/* Address */}
+          <div className="space-y-2">
+            <label
+              htmlFor="address"
+              className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
+            >
+              Residential Address <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="address"
+              name="address"
+              placeholder="House No., Street, City, Province"
+              required
+              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all"
+            />
+          </div>
+
+          {/* Government Benefits */}
+          <div className="space-y-4 bg-gray-50 p-6 rounded-2xl border border-gray-100">
+            <span className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
+              Government Benefits (Check all that apply): <span className="text-red-500">*</span>
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
+                <input
+                  type="checkbox"
+                  name="sss"
+                  className="w-5 h-5 border-gray-300 rounded accent-black"
+                />
+                <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
+                  SSS
+                </span>
+              </label>
+              <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
+                <input
+                  type="checkbox"
+                  name="philhealth"
+                  className="w-5 h-5 border-gray-300 rounded accent-black"
+                />
+                <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
+                  Philhealth
+                </span>
+              </label>
+              <label className="flex items-center gap-3 cursor-pointer group bg-white p-3 rounded-lg border border-gray-200 hover:border-black transition-all">
+                <input
+                  type="checkbox"
+                  name="pag_ibig"
+                  className="w-5 h-5 border-gray-300 rounded accent-black"
+                />
+                <span className="text-gray-700 font-medium group-hover:text-black transition-colors uppercase">
+                  Pag-IBIG
+                </span>
+              </label>
+            </div>
+          </div>
+
+          {/* Resume Upload */}
+          <div className="space-y-2">
+            <span className="text-sm font-bold text-gray-700 uppercase tracking-wider block">
+              Resume / CV <span className="text-red-500">*</span>
+            </span>
+            <label
+              htmlFor="resume_file"
+              className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer bg-gray-50 hover:bg-gray-100 hover:border-black transition-all group"
+            >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg
+                  className="w-12 h-12 mb-4 text-gray-400 group-hover:text-black transition-colors"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Upload icon"
+                >
+                  <title>Upload Resume Icon</title>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                <p className="mb-2 text-sm text-gray-500">
+                  <span className="font-semibold text-black">Click to upload</span> or drag and drop
+                </p>
+                <p className="text-xs text-gray-400">PDF format only (max. 10MB)</p>
+                <span className="file-name text-sm text-black font-bold mt-3"></span>
+              </div>
+              <input
+                id="resume_file"
+                name="resume_file"
+                type="file"
+                accept=".pdf"
+                required
+                className="hidden"
+                onChange={(e) => {
+                  const fileName = e.target.files?.[0]?.name;
+                  if (fileName) {
+                    const display = e.target.parentElement?.querySelector('.file-name');
+                    if (display) {
+                      display.textContent = `Selected: ${fileName}`;
+                    }
+                  }
+                }}
+              />
+            </label>
+          </div>
+
+          {/* Cover Letter */}
+          <div className="space-y-2">
+            <label
+              htmlFor="cover_letter"
+              className="text-sm font-bold text-gray-700 uppercase tracking-wider block"
+            >
+              Cover Letter / Message <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              id="cover_letter"
+              name="cover_letter"
+              placeholder="Tell us why you're a great fit for Quirao Group..."
+              required
+              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl text-black h-48 focus:ring-2 focus:ring-black focus:border-transparent outline-none transition-all resize-none"
+            />
+          </div>
         </div>
-      )}
-      {status?.error && (
-        <div className="mt-6 text-red-600 font-bold text-center bg-red-50 p-4 rounded-2xl border border-red-200 flex items-center justify-center gap-2">
-          <span>❌</span> {status.error}
+
+        <div className="pt-6">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-black text-white py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all disabled:bg-gray-400 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest"
+          >
+            {loading ? (
+              <>
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  role="img"
+                  aria-label="Loading"
+                >
+                  <title>Loading</title>
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Processing...
+              </>
+            ) : (
+              'Submit Application'
+            )}
+          </button>
         </div>
-      )}
-    </form>
+      </form>
+
+      {/* Status Modal */}
+      <StatusModal
+        isOpen={status !== null}
+        onClose={handleCloseModal}
+        type={status?.success ? 'success' : 'error'}
+        title={status?.success ? 'Application Submitted' : 'Submission Failed'}
+        message={
+          status?.success
+            ? 'Your application has been successfully submitted! Our HR team will review your profile and get in touch with you soon.'
+            : status?.error || 'Something went wrong while submitting your application. Please try again.'
+        }
+      />
+    </>
   );
 }

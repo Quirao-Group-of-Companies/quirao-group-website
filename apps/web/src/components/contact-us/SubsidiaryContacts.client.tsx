@@ -2,10 +2,10 @@
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import type { Business } from '@/types/homepage';
+import type { StrapiSubContacts } from 'cms/types';
 
 interface SubsidiaryContactsProps {
-  businesses: Business[];
+  businesses: StrapiSubContacts[];
   imagePosition?: 'left' | 'right';
 }
 
@@ -67,10 +67,10 @@ export default function SubsidiaryContacts({
       >
         {/* MAIN IMAGE */}
         <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden shadow-lg shrink-0">
-          {currentBusiness.image && (
+          {currentBusiness.displayImage?.url && (
             <Image
-              src={currentBusiness.image}
-              alt={currentBusiness.name}
+              src={currentBusiness.displayImage.url}
+              alt={currentBusiness.subName || ''}
               fill
               className="object-cover"
             />
@@ -80,22 +80,16 @@ export default function SubsidiaryContacts({
         {/* CONTENT AREA */}
         <div className="md:w-1/2 text-qgc-black px-4 py-4 flex flex-col text-left">
           <div className="space-y-6">
-            {currentBusiness.logo && (
+            {currentBusiness.logo?.image?.url && (
               <div className="flex justify-start mb-4">
                 <Image
-                  src={currentBusiness.logo}
-                  alt={currentBusiness.name}
+                  src={currentBusiness.logo.image.url}
+                  alt={currentBusiness.subName || ''}
                   width={200}
                   height={150}
                   className="object-contain"
                 />
               </div>
-            )}
-
-            {currentBusiness.description && (
-              <p className="text-gray-600 leading-relaxed whitespace-pre-line text-left">
-                {currentBusiness.description}
-              </p>
             )}
 
             {(currentBusiness.address || currentBusiness.contactNum || currentBusiness.email) && (
@@ -109,13 +103,23 @@ export default function SubsidiaryContacts({
                 {currentBusiness.contactNum && (
                   <li className="flex items-center gap-3 text-gray-600">
                     <PhoneIcon className="w-5 h-5 text-black shrink-0" />
-                    <span className="text-left">{currentBusiness.contactNum}</span>
+                    <a
+                      href={`tel:${currentBusiness.contactNum}`}
+                      className="text-left hover:text-black transition-colors"
+                    >
+                      {currentBusiness.contactNum}
+                    </a>
                   </li>
                 )}
                 {currentBusiness.email && (
                   <li className="flex items-center gap-3 text-gray-600">
                     <EnvelopeIcon className="w-5 h-5 text-black shrink-0" />
-                    <span className="break-all text-left">{currentBusiness.email}</span>
+                    <a
+                      href={`mailto:${currentBusiness.email}`}
+                      className="break-all text-left hover:text-black transition-colors"
+                    >
+                      {currentBusiness.email}
+                    </a>
                   </li>
                 )}
               </ul>
@@ -136,23 +140,20 @@ export default function SubsidiaryContacts({
             <div key={b.id} className="w-full shrink-0 snap-center px-2">
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 mb-4 h-95 flex flex-col">
                 <div className="h-32 relative shrink-0">
-                  {b.image && <Image src={b.image} alt={b.name} fill className="object-cover" />}
+                  {b.displayImage?.url && <Image src={b.displayImage.url} alt={b.subName || ''} fill className="object-cover" />}
                 </div>
                 <div className="p-5 flex flex-col grow md:gap-3">
-                  {b.logo && (
+                  {b.logo?.image?.url && (
                     <div className="h-30  relative flex items-center justify-center shrink-0">
                       <Image
-                        src={b.logo}
-                        alt={b.name}
+                        src={b.logo.image.url}
+                        alt={b.subName || ''}
                         width={100}
                         height={60}
                         className="object-contain"
                       />
                     </div>
                   )}
-                  <p className="text-gray-600 text-[11px] line-clamp-2 text-center leading-relaxed">
-                    {b.description}
-                  </p>
 
                   {(b.address || b.contactNum || b.email) && (
                     <ul className="space-y-1.5 pt-2 border-t border-gray-50 mt-auto">
@@ -165,13 +166,15 @@ export default function SubsidiaryContacts({
                       {b.contactNum && (
                         <li className="flex items-center gap-2 text-sm text-gray-500">
                           <PhoneIcon className="w-3.5 h-3.5 text-black shrink-0" />
-                          <span>{b.contactNum}</span>
+                          <a href={`tel:${b.contactNum}`}>{b.contactNum}</a>
                         </li>
                       )}
                       {b.email && (
                         <li className="flex items-center gap-2 text-sm text-gray-500">
                           <EnvelopeIcon className="w-3.5 h-3.5 text-black shrink-0" />
-                          <span className="break-all line-clamp-1">{b.email}</span>
+                          <a href={`mailto:${b.email}`} className="break-all line-clamp-1">
+                            {b.email}
+                          </a>
                         </li>
                       )}
                     </ul>
@@ -209,10 +212,10 @@ export default function SubsidiaryContacts({
               currentBusiness.id === b.id ? 'scale-105 shadow-xl z-10' : 'hover:opacity-100'
             }`}
           >
-            {b.cardImage && (
+            {b.cardImage?.url && (
               <Image
-                src={b.cardImage}
-                alt={b.name}
+                src={b.cardImage.url}
+                alt={b.subName || ''}
                 fill
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
               />
@@ -223,10 +226,10 @@ export default function SubsidiaryContacts({
                 currentBusiness.id === b.id ? 'bg-black/20' : 'bg-black/50 group-hover:bg-black/40'
               } flex items-center justify-center`}
             >
-              {b.logo && (
+              {b.logo?.image?.url && (
                 <Image
-                  src={b.logo}
-                  alt={b.name}
+                  src={b.logo.image.url}
+                  alt={b.subName || ''}
                   width={140}
                   height={80}
                   className="object-contain"

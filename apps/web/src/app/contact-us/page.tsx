@@ -1,35 +1,14 @@
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
-import type { ContactUsPageData, StrapiSubContacts } from 'cms/types';
-import OurBusinessPreview from '@/components/contact us/SubsidiaryContacts.client';
+import type { ContactUsPageData } from 'cms/types';
+import OurBusinessPreview from '@/components/contact-us/SubsidiaryContacts.client';
 import { InquiryForm } from '@/components/forms/inquiry-form';
 import { getContactUsPage } from '@/lib/services/strapi-contact-us';
-import type { Business } from '@/types/homepage';
 
 export default async function ContactUsPage() {
   const contactData: ContactUsPageData | null = await getContactUsPage();
 
   const qgcInfo = contactData?.qgcContacts;
   const qgcText = contactData?.qgcText;
-
-  // Transform subsidiary data from CMS to the format expected by OurBusinessPreview
-  const businessesData: Business[] =
-    contactData?.subsContacts?.map((sub: StrapiSubContacts) => ({
-      id: sub.id,
-      name: sub.subName || '',
-      description: '', // StrapiSubContacts does not have a description field
-      image: sub.displayImage?.url || null,
-      cardImage: sub.cardImage?.url || null,
-      logo: sub.logo?.image?.url || null,
-      cta: sub.cta
-        ? {
-            title: sub.cta.title || '',
-            href: sub.cta.href || '#',
-          }
-        : null,
-      address: sub.address || '',
-      contactNum: sub.contactNum || '',
-      email: sub.email || '',
-    })) || [];
 
   return (
     <main className="min-h-screen bg-white">
@@ -70,7 +49,12 @@ export default async function ContactUsPage() {
                     <p className="font-bold text-black uppercase text-sm tracking-wider">
                       Phone Number
                     </p>
-                    <p className="text-gray-600">{qgcInfo?.contactNum || '0999 999 9999'}</p>
+                    <a
+                      href={`tel:${qgcInfo?.contactNum || '0999 999 9999'}`}
+                      className="text-gray-600 hover:text-black transition-colors"
+                    >
+                      {qgcInfo?.contactNum || '0999 999 9999'}
+                    </a>
                   </div>
                 </li>
                 <li className="flex items-center gap-4">
@@ -79,9 +63,12 @@ export default async function ContactUsPage() {
                     <p className="font-bold text-black uppercase text-sm tracking-wider">
                       Email Address
                     </p>
-                    <p className="text-gray-600">
+                    <a
+                      href={`mailto:${qgcInfo?.email || 'management@quiraogroup.com'}`}
+                      className="text-gray-600 hover:text-black transition-colors"
+                    >
                       {qgcInfo?.email || 'management@quiraogroup.com'}
-                    </p>
+                    </a>
                   </div>
                 </li>
               </ul>
@@ -96,7 +83,10 @@ export default async function ContactUsPage() {
       </section>
 
       {/* Business Preview Section */}
-      <OurBusinessPreview businesses={businessesData} imagePosition="right" />
+      <OurBusinessPreview
+        businesses={contactData?.subsContacts || []}
+        imagePosition="right"
+      />
     </main>
   );
 }
