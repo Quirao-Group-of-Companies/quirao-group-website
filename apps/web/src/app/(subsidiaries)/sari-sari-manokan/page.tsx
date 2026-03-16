@@ -12,7 +12,7 @@ import { after } from 'next/server';
 import FavoritesShowcase from '@/components/FavoritesShowcase.client';
 import FeedbackSection from '@/components/FeedbackSection.client';
 import ScrollReveal from '@/components/ScrollReveal.client';
-import FAQItem from '@/components/ui/FAQItem';
+import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 import { getSariSariManokanPage } from '@/lib/services/strapi-sarisari';
 
