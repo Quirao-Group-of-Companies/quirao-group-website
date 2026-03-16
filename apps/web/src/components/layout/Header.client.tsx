@@ -145,7 +145,7 @@ export default function Navbar() {
           {[
             { href: '/newsroom', label: 'Newsroom' },
             { href: '/careers', label: 'Careers' },
-            { href: '/contact', label: 'Contact Us' },
+            { href: '/contact-us', label: 'Contact Us' },
           ].map((link) => (
             <li key={link.href} className="w-full md:w-auto">
               <Link
