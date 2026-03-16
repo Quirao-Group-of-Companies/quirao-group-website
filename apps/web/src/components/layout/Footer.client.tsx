@@ -114,9 +114,9 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row lg:justify-between md:gap-80">
           <div className="flex flex-col items-center lg:items-start gap-4 mb-6 lg:mb-0">
             <Image
-              src="/images/logo/qgc-logo-black.png"
+              src="/images/logo/opengraph-image.png"
               alt="Quirao Group Logo"
-              width={160}
+              width={140}
               height={60}
               className="object-contain"
             />
