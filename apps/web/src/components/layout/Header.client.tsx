@@ -30,9 +30,9 @@ export default function Navbar() {
         <div className="flex md:mt-0 mt-5 items-center justify-between md:justify-start h-full w-full md:w-auto">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/images/logo/qgc-logo-black.png"
+              src="/images/logo/opengraph-image.png"
               alt="Company Logo"
-              width={160}
+              width={140}
               height={40}
               className="object-contain"
             />
