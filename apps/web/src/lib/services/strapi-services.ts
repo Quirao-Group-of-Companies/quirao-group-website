@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-services.ts
  * Regenerate: bun run generate-services (from apps/cms)
- * Generated: 2026-03-17T07:07:30.103Z
+ * Generated: 2026-03-17T09:25:22.122Z
  */
 
 import qs from 'qs';
@@ -19,7 +19,7 @@ import type {
   WatergatePageData,
 } from '../../types/strapi-types';
 
-const STRAPI_URL = 'http://127.0.0.1:1337';
+const STRAPI_URL = process.env.STRAPI_URL || 'http://127.0.0.1:1337';
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
 //·───·Services·──────────────────────────────────────────────────────────
