@@ -1,7 +1,7 @@
 'use client';
 
+import type { StrapiFeedback } from '@cms/types';
 import { StarIcon } from '@heroicons/react/24/solid';
-import type { StrapiFeedback } from 'cms/types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
@@ -35,14 +35,16 @@ export default function FeedbackCard({ item, index }: FeedbackCardProps) {
         {item.image?.url && (
           <Image
             src={normalizeUrl(item.image.url)}
-            alt={item.text?.title || 'Reviewer'}
+            alt={item.review?.title || 'Reviewer'}
             fill
             className="object-cover"
           />
         )}
       </figure>
       <div className="card-body w-2/3 p-5 md:p-6 justify-center bg-qgc-gray-soft">
-        <h3 className="card-title text-black font-bold uppercase text-base">{item.text?.title}</h3>
+        <h3 className="card-title text-black font-bold uppercase text-base">
+          {item.review?.title}
+        </h3>
         {/* Rating using Heroicons scaled down */}
         <div className="flex items-center gap-0.5">
           {[...Array(5)].map((_, i) => (
@@ -53,7 +55,7 @@ export default function FeedbackCard({ item, index }: FeedbackCardProps) {
           ))}
         </div>
         <p className="text-xs md:text-sm text-black italic mt-1.5 leading-snug">
-          "{item.text?.description}"
+          "{item.review?.description}"
         </p>
       </div>
     </motion.div>

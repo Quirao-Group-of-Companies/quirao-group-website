@@ -1,3 +1,5 @@
+import { getSariSariManokanPage } from '@cms/services';
+import type { SariSariManokanPageData, StrapiCard, StrapiFaq, StrapiFeedback } from '@cms/types';
 import {
   ArrowRightIcon,
   EnvelopeIcon,
@@ -5,7 +7,6 @@ import {
   PhoneIcon,
   ShareIcon,
 } from '@heroicons/react/24/outline';
-import type { SariSariManokanPageData, StrapiCards, StrapiFaqs, StrapiFeedback } from 'cms/types';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
@@ -14,7 +15,6 @@ import FeedbackSection from '@/components/FeedbackSection.client';
 import ScrollReveal from '@/components/ScrollReveal.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
-import { getSariSariManokanPage } from '@/lib/services/strapi-sarisari';
 
 /* =========================================================
    METADATA GENERATION
@@ -22,7 +22,7 @@ import { getSariSariManokanPage } from '@/lib/services/strapi-sarisari';
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageData = await getSariSariManokanPage();
-  const heroData = pageData?.hero?.[0];
+  const heroData = pageData?.heroSection?.[0];
 
   return {
     title: heroData?.title || 'Sari-Sari Manokan',
@@ -62,7 +62,7 @@ export default async function ManokanPage() {
   };
 
   // Extract the first hero section from the repeatable component
-  const heroData = pageData.hero?.[0];
+  const heroData = pageData.heroSection?.[0];
   const heroImage = getImageUrl(
     heroData?.image?.url,
     '/images/home-page/business-preview/paluto-business-preview.jpg',
@@ -88,7 +88,7 @@ export default async function ManokanPage() {
 
   // Process Showcase items
   const showcaseData =
-    pageData.Showcase?.map((item: StrapiCards) => ({
+    pageData.showcase?.map((item: StrapiCard) => ({
       id: item.id,
       label: item.title || '',
       src: getImageUrl(item.image?.url, '/images/manokan/BN-GPAA.png'),
@@ -98,8 +98,8 @@ export default async function ManokanPage() {
   const feedbackData =
     pageData.feedback?.map((item: StrapiFeedback) => ({
       id: item.id,
-      name: item.text?.title || 'Anonymous',
-      comment: item.text?.description || '',
+      name: item.review?.title || 'Anonymous',
+      comment: item.review?.description || '',
       image: getImageUrl(item.image?.url, '/images/home-page/blogs/blog1.jpg'),
       rating: item.stars || 5,
     })) || [];
@@ -123,7 +123,7 @@ export default async function ManokanPage() {
           <div className="absolute top-30 left-8 md:left-16 z-20">
             <Image
               src={logoImage}
-              alt={heroData?.logo?.logoName || 'sari sari manokan logo'}
+              alt={heroData?.logo?.name || 'sari sari manokan logo'}
               width={250}
               height={250}
               className="object-contain"
@@ -322,7 +322,7 @@ export default async function ManokanPage() {
               <div className="w-24 h-1.5 bg-paluto-yellow mt-2" />
             </div>
             <div className="space-y-4">
-              {faqsData.map((faq: StrapiFaqs) => (
+              {faqsData.map((faq: StrapiFaq) => (
                 <FAQItem key={faq.id} question={faq.question || ''} answer={faq.answer || ''} />
               ))}
             </div>

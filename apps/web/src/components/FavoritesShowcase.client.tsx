@@ -1,6 +1,6 @@
 'use client';
 
-import type { StrapiCards, StrapiLogo } from 'cms/types';
+import type { StrapiCard, StrapiLogo } from '@cms/types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useCallback, useMemo, useState } from 'react';
@@ -15,8 +15,8 @@ export type ShowcaseItem = {
 interface FavoritesShowcaseProps {
   /** Normalized items array */
   items?: ShowcaseItem[];
-  /** Paluto style data (StrapiCards) */
-  data?: StrapiCards[] | null;
+  /** Paluto style data (StrapiCard) */
+  data?: StrapiCard[] | null;
   /** Manokan style data (Legacy) */
   dishes?: { id: number; label: string; src: string }[];
 
@@ -90,7 +90,7 @@ export default function FavoritesShowcase({
     }
     return {
       src: normalizeUrl(logo.image?.url || ''),
-      alt: logo.logoName || 'Showcase Logo',
+      alt: logo.name || 'Showcase Logo',
     };
   }, [logo, normalizeUrl]);
 

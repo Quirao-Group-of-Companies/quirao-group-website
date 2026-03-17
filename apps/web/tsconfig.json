@@ -21,7 +21,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@repo/db": ["../../packages/db"]
+      "@repo/db": ["../../packages/db"],
+      "@cms/types": ["./src/types/strapi-types.ts"],
+      "@cms/services": ["./src/lib/services/strapi-services.ts"]
     }
   },
   "include": [

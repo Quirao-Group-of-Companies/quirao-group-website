@@ -1,13 +1,13 @@
 'use client';
 
-import type { StrapiItem, StrapiMedia } from 'cms/types';
+import type { StrapiContentitem, StrapiMedia } from '@cms/types';
 import { AnimatePresence, motion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { FiExternalLink } from 'react-icons/fi';
 
 interface EventsCateringProps {
-  sectionData?: StrapiItem | null;
+  sectionData?: StrapiContentitem | null;
   carouselImages?: StrapiMedia[] | null;
 }
 

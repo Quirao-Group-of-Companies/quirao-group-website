@@ -1,23 +1,23 @@
 {
   "collectionName": "components_elements_texts",
   "info": {
-    "displayName": "Text"
+    "displayName": "TextBlock"
   },
   "options": {},
   "attributes": {
     "title": {
       "type": "string"
     },
-    "h1": {
+    "heading1": {
       "type": "string"
     },
-    "h2": {
+    "heading2": {
       "type": "string"
     },
-    "h3": {
+    "heading3": {
       "type": "string"
     },
-    "h4": {
+    "heading4": {
       "type": "string"
     },
     "description": {
