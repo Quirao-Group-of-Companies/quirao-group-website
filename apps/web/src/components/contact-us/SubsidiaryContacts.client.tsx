@@ -1,11 +1,11 @@
 'use client';
+import type { StrapiSubcontact } from '@cms/types';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
-import type { StrapiSubContacts } from 'cms/types';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 interface SubsidiaryContactsProps {
-  businesses: StrapiSubContacts[];
+  businesses: StrapiSubcontact[];
   imagePosition?: 'left' | 'right';
 }
 
@@ -67,9 +67,9 @@ export default function SubsidiaryContacts({
       >
         {/* MAIN IMAGE */}
         <div className="md:w-1/2 h-64 md:h-100 relative rounded-lg overflow-hidden shadow-lg shrink-0">
-          {currentBusiness.displayImage?.url && (
+          {currentBusiness.featuredImage?.url && (
             <Image
-              src={currentBusiness.displayImage.url}
+              src={currentBusiness.featuredImage.url}
               alt={currentBusiness.subName || ''}
               fill
               className="object-cover"
@@ -92,7 +92,7 @@ export default function SubsidiaryContacts({
               </div>
             )}
 
-            {(currentBusiness.address || currentBusiness.contactNum || currentBusiness.email) && (
+            {(currentBusiness.address || currentBusiness.phoneNumber || currentBusiness.email) && (
               <ul className="space-y-4 pt-4 border-t border-gray-100">
                 {currentBusiness.address && (
                   <li className="flex items-center gap-3 text-gray-600">
@@ -100,14 +100,14 @@ export default function SubsidiaryContacts({
                     <span className="text-left">{currentBusiness.address}</span>
                   </li>
                 )}
-                {currentBusiness.contactNum && (
+                {currentBusiness.phoneNumber && (
                   <li className="flex items-center gap-3 text-gray-600">
                     <PhoneIcon className="w-5 h-5 text-black shrink-0" />
                     <a
-                      href={`tel:${currentBusiness.contactNum}`}
+                      href={`tel:${currentBusiness.phoneNumber}`}
                       className="text-left hover:text-black transition-colors"
                     >
-                      {currentBusiness.contactNum}
+                      {currentBusiness.phoneNumber}
                     </a>
                   </li>
                 )}
@@ -140,9 +140,9 @@ export default function SubsidiaryContacts({
             <div key={b.id} className="w-full shrink-0 snap-center px-2">
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 mb-4 h-95 flex flex-col">
                 <div className="h-32 relative shrink-0">
-                  {b.displayImage?.url && (
+                  {b.cardImage?.url && (
                     <Image
-                      src={b.displayImage.url}
+                      src={b.cardImage.url}
                       alt={b.subName || ''}
                       fill
                       className="object-cover"
@@ -162,7 +162,7 @@ export default function SubsidiaryContacts({
                     </div>
                   )}
 
-                  {(b.address || b.contactNum || b.email) && (
+                  {(b.address || b.phoneNumber || b.email) && (
                     <ul className="space-y-1.5 pt-2 border-t border-gray-50 mt-auto">
                       {b.address && (
                         <li className="flex items-start gap-2 text-sm text-gray-500">
@@ -170,10 +170,10 @@ export default function SubsidiaryContacts({
                           <span className="line-clamp-1">{b.address}</span>
                         </li>
                       )}
-                      {b.contactNum && (
+                      {b.phoneNumber && (
                         <li className="flex items-center gap-2 text-sm text-gray-500">
                           <PhoneIcon className="w-3.5 h-3.5 text-black shrink-0" />
-                          <a href={`tel:${b.contactNum}`}>{b.contactNum}</a>
+                          <a href={`tel:${b.phoneNumber}`}>{b.phoneNumber}</a>
                         </li>
                       )}
                       {b.email && (

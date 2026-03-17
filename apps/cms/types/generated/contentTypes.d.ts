@@ -433,7 +433,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
   collectionName: 'about_us_pages';
   info: {
-    displayName: 'About us page';
+    displayName: 'About Us Page';
     pluralName: 'about-us-pages';
     singularName: 'about-us-page';
   };
@@ -445,6 +445,7 @@ export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    groupStructureBanner: Schema.Attribute.Component<'blocks.banner', false>;
     heroSection: Schema.Attribute.Component<'blocks.hero-section', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -452,10 +453,11 @@ export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
       'api::about-us-page.about-us-page'
     > &
       Schema.Attribute.Private;
-    meetOurLeaders: Schema.Attribute.Component<'blocks.cards', true>;
     missionVision: Schema.Attribute.Component<'blocks.cards', true>;
+    missionVisionImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     publishedAt: Schema.Attribute.DateTime;
-    qgcGroupStructure: Schema.Attribute.Component<'blocks.banner', false>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -511,7 +513,7 @@ export interface ApiBrightlinePageBrightlinePage
     draftAndPublish: true;
   };
   attributes: {
-    aboutUS: Schema.Attribute.Component<'blocks.about-us', false>;
+    aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
     banner: Schema.Attribute.Component<'blocks.banner', false>;
     contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
     createdAt: Schema.Attribute.DateTime;
@@ -520,7 +522,7 @@ export interface ApiBrightlinePageBrightlinePage
     delivery: Schema.Attribute.Component<'blocks.cards', true>;
     faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
     features: Schema.Attribute.Component<'blocks.cards', true>;
-    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    heroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -551,7 +553,7 @@ export interface ApiBuildMasterPageBuildMasterPage
     >;
     aboutUsSection: Schema.Attribute.Component<'blocks.cards', true>;
     aboutUsTitle: Schema.Attribute.String;
-    contactUS: Schema.Attribute.Component<'blocks.contact-us', false>;
+    contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -559,7 +561,7 @@ export interface ApiBuildMasterPageBuildMasterPage
     download: Schema.Attribute.Component<'blocks.banner', false>;
     faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
     features: Schema.Attribute.Component<'blocks.cards', true>;
-    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    heroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
     link: Schema.Attribute.Component<'elements.link', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -612,7 +614,7 @@ export interface ApiCareersPageCareersPage extends Struct.SingleTypeSchema {
 export interface ApiContactUsPageContactUsPage extends Struct.SingleTypeSchema {
   collectionName: 'contact_us_pages';
   info: {
-    displayName: 'Contact us page';
+    displayName: 'Contact Us Page';
     pluralName: 'contact-us-pages';
     singularName: 'contact-us-page';
   };
@@ -623,16 +625,16 @@ export interface ApiContactUsPageContactUsPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    introText: Schema.Attribute.Component<'elements.text', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::contact-us-page.contact-us-page'
     > &
       Schema.Attribute.Private;
+    mainContact: Schema.Attribute.Component<'blocks.sub-contacts', false>;
     publishedAt: Schema.Attribute.DateTime;
-    qgcContacts: Schema.Attribute.Component<'blocks.sub-contacts', false>;
-    qgcText: Schema.Attribute.Component<'elements.text', false>;
-    subsContacts: Schema.Attribute.Component<'blocks.sub-contacts', true>;
+    subsidiaryContacts: Schema.Attribute.Component<'blocks.sub-contacts', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -650,13 +652,13 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    AboutUs: Schema.Attribute.Component<'blocks.about-us', true>;
-    Achievements: Schema.Attribute.Component<'blocks.cards', true>;
+    aboutUs: Schema.Attribute.Component<'blocks.about-us', true>;
+    achievements: Schema.Attribute.Component<'blocks.cards', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    FAQs: Schema.Attribute.Component<'blocks.fa-qs', true>;
-    HeroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
+    faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
+    heroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -683,24 +685,21 @@ export interface ApiPalutoPagePalutoPage extends Struct.SingleTypeSchema {
   };
   attributes: {
     aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
-    bannerSection: Schema.Attribute.Component<'blocks.banner', false>;
+    bannerHighlight: Schema.Attribute.Component<'blocks.banner', false>;
     branchesCards: Schema.Attribute.Component<'blocks.cards', true>;
     branchesSectionTitle: Schema.Attribute.String;
     contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    eventsAndCateringCarouselImages: Schema.Attribute.Media<
+    eventsAndCatering: Schema.Attribute.Component<'elements.item', false>;
+    eventsAndCateringImages: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    eventsAndCateringSection: Schema.Attribute.Component<
-      'elements.item',
-      false
-    >;
     faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
     feedback: Schema.Attribute.Component<'blocks.feedback', true>;
-    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    heroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -735,7 +734,7 @@ export interface ApiSariSariManokanPageSariSariManokanPage
       Schema.Attribute.Private;
     faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
     feedback: Schema.Attribute.Component<'blocks.feedback', true>;
-    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    heroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -743,7 +742,7 @@ export interface ApiSariSariManokanPageSariSariManokanPage
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    Showcase: Schema.Attribute.Component<'blocks.cards', true>;
+    showcase: Schema.Attribute.Component<'blocks.cards', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -762,13 +761,13 @@ export interface ApiWatergatePageWatergatePage extends Struct.SingleTypeSchema {
   };
   attributes: {
     aboutUs: Schema.Attribute.Component<'blocks.about-us', false>;
-    cards: Schema.Attribute.Component<'blocks.cards', true>;
     contactUs: Schema.Attribute.Component<'blocks.contact-us', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     faqs: Schema.Attribute.Component<'blocks.fa-qs', true>;
-    hero: Schema.Attribute.Component<'blocks.hero-section', true>;
+    featureCards: Schema.Attribute.Component<'blocks.cards', true>;
+    heroSection: Schema.Attribute.Component<'blocks.hero-section', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

@@ -1,5 +1,6 @@
+import { getPalutoPage } from '@cms/services';
+import type { PalutoPageData, StrapiCard, StrapiFaq, StrapiLink } from '@cms/types';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
-import type { PalutoPageData, StrapiCards, StrapiFaqs, StrapiLink } from 'cms/types';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
@@ -10,11 +11,10 @@ import OverviewCTA from '@/components/paluto/OverviewCTA.client';
 import ScrollReveal from '@/components/paluto/ScrollReveal.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
-import { getPalutoPage } from '@/lib/services/strapi-paluto';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = (await getPalutoPage()) as PalutoPageData;
-  const hero = data?.hero?.[0];
+  const hero = data?.heroSection?.[0];
 
   return {
     title: hero?.title || 'Paluto Seafood & Grill',
@@ -36,14 +36,14 @@ export default async function PalutoPage() {
 
   // Destructure directly from the generated PalutoPageData type
   const {
-    hero: heroList,
+    heroSection: heroList,
     aboutUs,
-    bannerSection,
+    bannerHighlight,
     branchesCards,
     contactUs,
     faqs,
-    eventsAndCateringSection,
-    eventsAndCateringCarouselImages,
+    eventsAndCatering,
+    eventsAndCateringImages,
     showcase,
     showcaseLogo,
     feedback,
@@ -54,7 +54,7 @@ export default async function PalutoPage() {
   const overview = aboutUs || heroList?.[1];
 
   // Use carousel images directly from CMS without sorting
-  const carouselImages = eventsAndCateringCarouselImages ?? [];
+  const carouselImages = eventsAndCateringImages ?? [];
 
   const normalizeUrl = (url?: string) => {
     if (!url) {
@@ -92,7 +92,7 @@ export default async function PalutoPage() {
           {hero?.logo?.image?.url ? (
             <Image
               src={normalizeUrl(hero.logo.image.url)}
-              alt={hero.logo.logoName || 'Paluto Logo'}
+              alt={hero.logo.name || 'Paluto Logo'}
               width={200}
               height={200}
               className="object-contain"
@@ -225,13 +225,13 @@ export default async function PalutoPage() {
 
       {/* 4. MID BANNER */}
       <section className="relative w-full overflow-hidden flex items-center justify-center">
-        {bannerSection?.image?.url ? (
+        {bannerHighlight?.image?.url ? (
           <div className="w-full h-full relative">
             <Image
-              src={normalizeUrl(bannerSection.image.url)}
-              alt={bannerSection.image.alternativeText || 'Paluto Banner'}
-              width={bannerSection.image.width || 1920}
-              height={bannerSection.image.height || 600}
+              src={normalizeUrl(bannerHighlight.image.url)}
+              alt={bannerHighlight.image.alternativeText || 'Paluto Banner'}
+              width={bannerHighlight.image.width || 1920}
+              height={bannerHighlight.image.height || 600}
               className="w-full h-auto md:h-100 md:object-cover object-center"
               priority
             />
@@ -247,23 +247,23 @@ export default async function PalutoPage() {
           </div>
         )}
 
-        {(bannerSection?.title || bannerSection?.description) && (
+        {(bannerHighlight?.title || bannerHighlight?.description) && (
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <ScrollReveal>
               <div className="text-center px-6 max-w-4xl">
-                {bannerSection.title && (
+                {bannerHighlight.title && (
                   <h2 className="text-2xl md:text-5xl font-black text-white uppercase italic tracking-tighter mb-2 md:mb-4 drop-shadow-lg">
-                    {bannerSection.title}
+                    {bannerHighlight.title}
                   </h2>
                 )}
-                {bannerSection.description && (
+                {bannerHighlight.description && (
                   <p className="text-white/90 text-sm md:text-xl font-medium mb-4 md:mb-8 drop-shadow-md">
-                    {bannerSection.description}
+                    {bannerHighlight.description}
                   </p>
                 )}
-                {bannerSection.cta && bannerSection.cta.length > 0 && (
+                {bannerHighlight.cta && bannerHighlight.cta.length > 0 && (
                   <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-                    {bannerSection.cta.map((link: StrapiLink) => (
+                    {bannerHighlight.cta.map((link: StrapiLink) => (
                       <a
                         key={link.href}
                         href={link.href || '#'}
@@ -293,14 +293,14 @@ export default async function PalutoPage() {
           </ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {branchesCards && branchesCards.length > 0 ? (
-              branchesCards.map((branch: StrapiCards, index: number) => (
-                <ScrollReveal key={branch.id} delay={index * 0.1}>
+              branchesCards.map((branchesCards: StrapiCard, index: number) => (
+                <ScrollReveal key={branchesCards.id} delay={index * 0.1}>
                   <div className="group bg-white rounded-3xl border-2 border-gray-100 overflow-hidden hover:border-paluto-red transition-all duration-500 shadow-sm hover:shadow-xl">
                     <div className="relative h-60 w-full overflow-hidden">
-                      {branch.image?.url && (
+                      {branchesCards.image?.url && (
                         <Image
-                          src={normalizeUrl(branch.image.url)}
-                          alt={branch.title || 'Paluto Branch'}
+                          src={normalizeUrl(branchesCards.image.url)}
+                          alt={branchesCards.title || 'Paluto Branch'}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                         />
@@ -309,17 +309,19 @@ export default async function PalutoPage() {
                     </div>
                     <div className="p-8 text-center">
                       <h3 className="text-2xl font-black text-black mb-1.5 uppercase italic">
-                        {branch.title}
+                        {branchesCards.title}
                       </h3>
-                      <p className="text-gray-500 font-medium mb-6 text-sm">{branch.description}</p>
-                      {branch.cta && (
+                      <p className="text-gray-500 font-medium mb-6 text-sm">
+                        {branchesCards.description}
+                      </p>
+                      {branchesCards.cta && (
                         <a
-                          href={branch.cta.href || '#'}
+                          href={branchesCards.cta.href || '#'}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center justify-center bg-black text-white px-8 py-3 rounded-full font-bold text-xs tracking-widest hover:bg-paluto-red transition-all active:scale-95"
                         >
-                          {branch.cta.title}
+                          {branchesCards.cta.title}
                         </a>
                       )}
                     </div>
@@ -334,7 +336,7 @@ export default async function PalutoPage() {
       </section>
 
       {/* 6. EVENTS & CATERING */}
-      <EventsCatering sectionData={eventsAndCateringSection} carouselImages={carouselImages} />
+      <EventsCatering sectionData={eventsAndCatering} carouselImages={carouselImages} />
 
       {/* 7. FEEDBACK SECTION */}
       {feedback && feedback.length > 0 && (
@@ -525,7 +527,7 @@ export default async function PalutoPage() {
               </div>
             </ScrollReveal>
             <div className="space-y-4">
-              {faqs.map((faq: StrapiFaqs, index: number) => (
+              {faqs.map((faq: StrapiFaq, index: number) => (
                 <ScrollReveal key={faq.id} delay={index * 0.1}>
                   <FAQItem question={faq.question || ''} answer={faq.answer || ''} />
                 </ScrollReveal>

@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "hero": {
+    "heroSection": {
       "type": "component",
       "component": "blocks.hero-section",
       "repeatable": true
@@ -54,7 +54,7 @@
       "component": "blocks.banner",
       "repeatable": false
     },
-    "contactUS": {
+    "contactUs": {
       "type": "component",
       "component": "blocks.contact-us",
       "repeatable": false

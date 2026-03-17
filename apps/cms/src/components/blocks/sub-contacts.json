@@ -1,7 +1,7 @@
 {
   "collectionName": "components_blocks_sub_contacts",
   "info": {
-    "displayName": "Sub Contacts"
+    "displayName": "SubContact"
   },
   "options": {},
   "attributes": {
@@ -11,7 +11,7 @@
     "address": {
       "type": "text"
     },
-    "contactNum": {
+    "phoneNumber": {
       "type": "text"
     },
     "email": {
@@ -32,7 +32,7 @@
       "multiple": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
-    "displayImage": {
+    "featuredImage": {
       "type": "media",
       "multiple": false,
       "allowedTypes": ["images", "files", "videos", "audios"]

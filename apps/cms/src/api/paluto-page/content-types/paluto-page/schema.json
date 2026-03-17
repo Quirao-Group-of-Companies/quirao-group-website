@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "hero": {
+    "heroSection": {
       "type": "component",
       "component": "blocks.hero-section",
       "repeatable": true
@@ -31,7 +31,7 @@
       "component": "blocks.cards",
       "repeatable": true
     },
-    "bannerSection": {
+    "bannerHighlight": {
       "type": "component",
       "component": "blocks.banner",
       "repeatable": false
@@ -44,12 +44,12 @@
       "component": "blocks.cards",
       "repeatable": true
     },
-    "eventsAndCateringSection": {
+    "eventsAndCatering": {
       "type": "component",
       "component": "elements.item",
       "repeatable": false
     },
-    "eventsAndCateringCarouselImages": {
+    "eventsAndCateringImages": {
       "type": "media",
       "multiple": true,
       "allowedTypes": ["images", "files", "videos", "audios"]

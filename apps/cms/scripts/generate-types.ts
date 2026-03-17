@@ -9,7 +9,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // ─── CONFIG ────────────────────────────────────────────────────────────────
 const COMPONENTS_ROOT = path.resolve(__dirname, '../src/components');
 const API_ROOT = path.resolve(__dirname, '../src/api');
-const OUTPUT_FILE = path.resolve(__dirname, '../types/strapi-components.ts');
+const OUTPUT_FILE = path.resolve(__dirname, '../../web/src/types/strapi-types.ts');
 // ───────────────────────────────────────────────────────────────────────────
 
 // ─── TYPES ─────────────────────────────────────────────────────────────────

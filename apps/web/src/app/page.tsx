@@ -1,10 +1,11 @@
+import { getHomepage } from '@cms/services';
 import type {
   HomepageData,
-  StrapiCards,
-  StrapiFaqs,
-  StrapiHeroSection,
-  StrapiSubPreview,
-} from 'cms/types';
+  StrapiCard,
+  StrapiFaq,
+  StrapiHerosection,
+  StrapiSubpreview,
+} from '@cms/types';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { blogs } from '@/app/data/homepage-data';
@@ -13,7 +14,6 @@ import LatestNews from '@/components/homepage/LatestNews.client';
 import Button from '@/components/ui/Button.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import SubsidiaryShowcase, { type Business } from '@/components/ui/SubsidiaryShowcase.client';
-import { getHomepage } from '@/lib/services/strapi-homepage';
 
 /* =========================================================
    METADATA GENERATION
@@ -21,7 +21,7 @@ import { getHomepage } from '@/lib/services/strapi-homepage';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getHomepage();
-  const content = data?.HeroSection?.[0];
+  const content = data?.heroSection?.[0];
 
   return {
     title: content?.title || 'Quirao Group of Companies',
@@ -42,7 +42,7 @@ export default async function Home() {
   }
 
   const heroSlides: HeroItem[] =
-    data.HeroSection?.map((item: StrapiHeroSection) => ({
+    data.heroSection?.map((item: StrapiHerosection) => ({
       id: item.id,
       title: item.title || '',
       description: item.description || '',
@@ -61,21 +61,21 @@ export default async function Home() {
     })) || [];
 
   const aboutSection =
-    data.AboutUs && data.AboutUs.length > 0
+    data.aboutUs && data.aboutUs.length > 0
       ? {
-          id: data.AboutUs[0].id,
-          title: data.AboutUs[0].title || '',
-          description: data.AboutUs[0].description || '',
-          image: data.AboutUs[0].image
+          id: data.aboutUs[0].id,
+          title: data.aboutUs[0].title || '',
+          description: data.aboutUs[0].description || '',
+          image: data.aboutUs[0].image
             ? {
-                url: data.AboutUs[0].image.url,
-                alternativeText: data.AboutUs[0].image.alternativeText || null,
+                url: data.aboutUs[0].image.url,
+                alternativeText: data.aboutUs[0].image.alternativeText || null,
               }
             : null,
-          cta: data.AboutUs[0].cta
+          cta: data.aboutUs[0].cta
             ? {
-                title: data.AboutUs[0].cta.title || '',
-                href: data.AboutUs[0].cta.href || '#',
+                title: data.aboutUs[0].cta.title || '',
+                href: data.aboutUs[0].cta.href || '#',
               }
             : null,
         }
@@ -83,9 +83,9 @@ export default async function Home() {
 
   // Business Preview
   const businessesData: Business[] =
-    data.SubPreview?.map((b: StrapiSubPreview) => ({
+    data.SubPreview?.map((b: StrapiSubpreview) => ({
       id: b.id,
-      name: b.logo?.logoName || b.subName || `business-${b.id}`,
+      name: b.logo?.name || b.subName || `business-${b.id}`,
       description: b.description || '',
 
       // MAIN PREVIEW IMAGE
@@ -105,7 +105,7 @@ export default async function Home() {
 
   // =========================FAQ data =======================//
   const faqsData =
-    data.FAQs?.map((faq: StrapiFaqs) => ({
+    data.faqs?.map((faq: StrapiFaq) => ({
       id: faq.id,
       question: faq.question || '',
       answer: faq.answer || '',
@@ -115,7 +115,7 @@ export default async function Home() {
   // Achievements data (CMS)
   // =========================
   const achievementsData =
-    data.Achievements?.map((item: StrapiCards) => ({
+    data.achievements?.map((item: StrapiCard) => ({
       id: item.id,
       title: item.title || item.description || '',
       description: item.description || '',

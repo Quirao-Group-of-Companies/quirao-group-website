@@ -4,24 +4,24 @@
   "info": {
     "singularName": "contact-us-page",
     "pluralName": "contact-us-pages",
-    "displayName": "Contact us page"
+    "displayName": "Contact Us Page"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "qgcText": {
+    "introText": {
       "type": "component",
       "component": "elements.text",
       "repeatable": false
     },
-    "qgcContacts": {
+    "mainContact": {
       "type": "component",
       "component": "blocks.sub-contacts",
       "repeatable": false
     },
-    "subsContacts": {
+    "subsidiaryContacts": {
       "type": "component",
       "component": "blocks.sub-contacts",
       "repeatable": true

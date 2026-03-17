@@ -1,13 +1,13 @@
 'use client';
 
-import type { StrapiCards, StrapiLogo } from 'cms/types';
+import type { StrapiCard, StrapiLogo } from '@cms/types';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useLogger } from '@/lib/axiom/client';
 
 interface FavoritesShowcaseProps {
-  data?: StrapiCards[] | null;
+  data?: StrapiCard[] | null;
   logo?: StrapiLogo | null;
 }
 
@@ -66,7 +66,7 @@ export default function FavoritesShowcase({ data, logo }: FavoritesShowcaseProps
         {logo?.image?.url ? (
           <Image
             src={normalizeUrl(logo.image.url)}
-            alt={logo.logoName || 'Unli-Paluto Favorites'}
+            alt={logo.name || 'Unli-Paluto Favorites'}
             width={640}
             height={320}
             className="object-contain mx-auto"

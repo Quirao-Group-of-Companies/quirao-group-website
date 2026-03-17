@@ -3,7 +3,7 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface BlocksAboutUs extends Struct.ComponentSchema {
   collectionName: 'components_blocks_about_uses';
   info: {
-    displayName: 'About Us';
+    displayName: 'AboutUs';
     icon: 'information';
   };
   attributes: {
@@ -35,7 +35,7 @@ export interface BlocksBanner extends Struct.ComponentSchema {
 export interface BlocksCards extends Struct.ComponentSchema {
   collectionName: 'components_blocks_cards';
   info: {
-    displayName: 'Cards';
+    displayName: 'Card';
     icon: 'bulletList';
   };
   attributes: {
@@ -53,7 +53,7 @@ export interface BlocksCards extends Struct.ComponentSchema {
 export interface BlocksContactUs extends Struct.ComponentSchema {
   collectionName: 'components_blocks_contact_uses';
   info: {
-    displayName: 'Contact Us';
+    displayName: 'ContactUs';
     icon: 'pinMap';
   };
   attributes: {
@@ -66,7 +66,7 @@ export interface BlocksContactUs extends Struct.ComponentSchema {
 export interface BlocksFaQs extends Struct.ComponentSchema {
   collectionName: 'components_blocks_fa_qs';
   info: {
-    displayName: 'FAQs';
+    displayName: 'Faq';
     icon: 'bulletList';
   };
   attributes: {
@@ -83,15 +83,15 @@ export interface BlocksFeedback extends Struct.ComponentSchema {
   };
   attributes: {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    review: Schema.Attribute.Component<'elements.text', false>;
     stars: Schema.Attribute.Integer;
-    text: Schema.Attribute.Component<'elements.text', false>;
   };
 }
 
 export interface BlocksHeroSection extends Struct.ComponentSchema {
   collectionName: 'components_blocks_hero_sections';
   info: {
-    displayName: 'Hero Section';
+    displayName: 'HeroSection';
     icon: 'bulletList';
   };
   attributes: {
@@ -106,7 +106,7 @@ export interface BlocksHeroSection extends Struct.ComponentSchema {
 export interface BlocksHighlights extends Struct.ComponentSchema {
   collectionName: 'components_blocks_highlights';
   info: {
-    displayName: 'Highlights';
+    displayName: 'Highlight';
   };
   attributes: {
     cta: Schema.Attribute.Component<'elements.link', false>;
@@ -120,18 +120,18 @@ export interface BlocksHighlights extends Struct.ComponentSchema {
 export interface BlocksSubContacts extends Struct.ComponentSchema {
   collectionName: 'components_blocks_sub_contacts';
   info: {
-    displayName: 'Sub Contacts';
+    displayName: 'SubContact';
   };
   attributes: {
     address: Schema.Attribute.Text;
     cardImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    contactNum: Schema.Attribute.Text;
     cta: Schema.Attribute.Component<'elements.link', false>;
-    displayImage: Schema.Attribute.Media<
+    email: Schema.Attribute.Text;
+    featuredImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
-    email: Schema.Attribute.Text;
     logo: Schema.Attribute.Component<'elements.logo', false>;
+    phoneNumber: Schema.Attribute.Text;
     subName: Schema.Attribute.String;
   };
 }
@@ -139,7 +139,7 @@ export interface BlocksSubContacts extends Struct.ComponentSchema {
 export interface BlocksSubPreview extends Struct.ComponentSchema {
   collectionName: 'components_blocks_sub_previews';
   info: {
-    displayName: 'Sub Preview';
+    displayName: 'SubPreview';
     icon: 'apps';
   };
   attributes: {
@@ -155,7 +155,7 @@ export interface BlocksSubPreview extends Struct.ComponentSchema {
 export interface ElementsItem extends Struct.ComponentSchema {
   collectionName: 'components_elements_items';
   info: {
-    displayName: 'Item';
+    displayName: 'ContentItem';
   };
   attributes: {
     cta: Schema.Attribute.Component<'elements.link', false>;
@@ -185,21 +185,21 @@ export interface ElementsLogo extends Struct.ComponentSchema {
   };
   attributes: {
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    logoName: Schema.Attribute.String;
+    name: Schema.Attribute.String;
   };
 }
 
 export interface ElementsText extends Struct.ComponentSchema {
   collectionName: 'components_elements_texts';
   info: {
-    displayName: 'Text';
+    displayName: 'TextBlock';
   };
   attributes: {
     description: Schema.Attribute.Text;
-    h1: Schema.Attribute.String;
-    h2: Schema.Attribute.String;
-    h3: Schema.Attribute.String;
-    h4: Schema.Attribute.String;
+    heading1: Schema.Attribute.String;
+    heading2: Schema.Attribute.String;
+    heading3: Schema.Attribute.String;
+    heading4: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }

@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-types.ts
  * Regenerate: bun run generate-types (from apps/cms)
- * Generated: 2026-03-10T09:55:00.211Z
+ * Generated: 2026-03-17T07:07:22.125Z
  */
 
 /** Shared Strapi media type */
@@ -18,7 +18,7 @@ export type StrapiMedia = {
 // ─── Component Types ──────────────────────────────────────────────────────
 
 /** Auto-generated from Strapi component: blocks.about-us */
-export type StrapiAboutUs = {
+export type StrapiAboutus = {
   id: number;
   title?: string | null;
   description?: string | null;
@@ -38,7 +38,7 @@ export type StrapiBanner = {
 };
 
 /** Auto-generated from Strapi component: blocks.cards */
-export type StrapiCards = {
+export type StrapiCard = {
   id: number;
   title?: string | null;
   description?: string | null;
@@ -48,15 +48,15 @@ export type StrapiCards = {
 };
 
 /** Auto-generated from Strapi component: blocks.contact-us */
-export type StrapiContactUs = {
+export type StrapiContactus = {
   id: number;
-  details?: StrapiText[] | null;
+  details?: StrapiTextblock[] | null;
   embedLinks?: StrapiLink[] | null;
   embedMap?: StrapiLink | null;
 };
 
 /** Auto-generated from Strapi component: blocks.fa-qs */
-export type StrapiFaqs = {
+export type StrapiFaq = {
   id: number;
   question?: string | null;
   answer?: string | null;
@@ -66,12 +66,12 @@ export type StrapiFaqs = {
 export type StrapiFeedback = {
   id: number;
   image?: StrapiMedia | null;
-  text?: StrapiText | null;
+  review?: StrapiTextblock | null;
   stars?: number | null;
 };
 
 /** Auto-generated from Strapi component: blocks.hero-section */
-export type StrapiHeroSection = {
+export type StrapiHerosection = {
   id: number;
   title?: string | null;
   description?: string | null;
@@ -81,7 +81,7 @@ export type StrapiHeroSection = {
 };
 
 /** Auto-generated from Strapi component: blocks.highlights */
-export type StrapiHighlights = {
+export type StrapiHighlight = {
   id: number;
   headline?: string | null;
   title?: string | null;
@@ -91,20 +91,20 @@ export type StrapiHighlights = {
 };
 
 /** Auto-generated from Strapi component: blocks.sub-contacts */
-export type StrapiSubContacts = {
+export type StrapiSubcontact = {
   id: number;
   subName?: string | null;
   address?: string | null;
-  contactNum?: string | null;
+  phoneNumber?: string | null;
   email?: string | null;
   logo?: StrapiLogo | null;
   cta?: StrapiLink | null;
   cardImage?: StrapiMedia | null;
-  displayImage?: StrapiMedia | null;
+  featuredImage?: StrapiMedia | null;
 };
 
 /** Auto-generated from Strapi component: blocks.sub-preview */
-export type StrapiSubPreview = {
+export type StrapiSubpreview = {
   id: number;
   subName?: string | null;
   description?: string | null;
@@ -115,7 +115,7 @@ export type StrapiSubPreview = {
 };
 
 /** Auto-generated from Strapi component: elements.item */
-export type StrapiItem = {
+export type StrapiContentitem = {
   id: number;
   title?: string | null;
   text?: string | null;
@@ -133,30 +133,30 @@ export type StrapiLink = {
 /** Auto-generated from Strapi component: elements.logo */
 export type StrapiLogo = {
   id: number;
-  logoName?: string | null;
+  name?: string | null;
   image?: StrapiMedia | null;
 };
 
 /** Auto-generated from Strapi component: elements.text */
-export type StrapiText = {
+export type StrapiTextblock = {
   id: number;
   title?: string | null;
-  h1?: string | null;
-  h2?: string | null;
-  h3?: string | null;
-  h4?: string | null;
+  heading1?: string | null;
+  heading2?: string | null;
+  heading3?: string | null;
+  heading4?: string | null;
   description?: string | null;
 };
 
 // ─── Page Data Types ─────────────────────────────────────────────────────
 
-/** Auto-generated from Strapi content type: About us page */
+/** Auto-generated from Strapi content type: About Us Page */
 export type AboutUsPageData = {
-  heroSection?: StrapiHeroSection | null;
-  aboutUs?: StrapiAboutUs | null;
-  missionVision?: StrapiCards[] | null;
-  qgcGroupStructure?: StrapiBanner | null;
-  meetOurLeaders?: StrapiCards[] | null;
+  heroSection?: StrapiHerosection | null;
+  aboutUs?: StrapiAboutus | null;
+  missionVision?: StrapiCard[] | null;
+  missionVisionImage?: StrapiMedia | null;
+  groupStructureBanner?: StrapiBanner | null;
 };
 
 /** Auto-generated from Strapi content type: Article */
@@ -172,88 +172,88 @@ export type ArticleData = {
 
 /** Auto-generated from Strapi content type: Brightline Page */
 export type BrightlinePageData = {
-  hero?: StrapiHeroSection[] | null;
-  aboutUS?: StrapiAboutUs | null;
-  features?: StrapiCards[] | null;
-  delivery?: StrapiCards[] | null;
+  heroSection?: StrapiHerosection[] | null;
+  aboutUs?: StrapiAboutus | null;
+  features?: StrapiCard[] | null;
+  delivery?: StrapiCard[] | null;
   banner?: StrapiBanner | null;
-  contactUs?: StrapiContactUs | null;
-  faqs?: StrapiFaqs[] | null;
+  contactUs?: StrapiContactus | null;
+  faqs?: StrapiFaq[] | null;
 };
 
 /** Auto-generated from Strapi content type: BuildMaster Page */
 export type BuildmasterPageData = {
-  hero?: StrapiHeroSection[] | null;
-  features?: StrapiCards[] | null;
+  heroSection?: StrapiHerosection[] | null;
+  features?: StrapiCard[] | null;
   cta?: StrapiLink | null;
   aboutUsTitle?: string | null;
   aboutUsBackgroundImage?: StrapiMedia | null;
-  aboutUsSection?: StrapiCards[] | null;
-  podcasts?: StrapiCards[] | null;
+  aboutUsSection?: StrapiCard[] | null;
+  podcasts?: StrapiCard[] | null;
   link?: StrapiLink | null;
   download?: StrapiBanner | null;
-  contactUS?: StrapiContactUs | null;
-  faqs?: StrapiFaqs[] | null;
+  contactUs?: StrapiContactus | null;
+  faqs?: StrapiFaq[] | null;
 };
 
 /** Auto-generated from Strapi content type: Careers page */
 export type CareersPageData = {
-  heroSection?: StrapiHeroSection | null;
-  overview?: StrapiAboutUs | null;
+  heroSection?: StrapiHerosection | null;
+  overview?: StrapiAboutus | null;
   overviewVideo?: StrapiLink | null;
-  subsidiaryOverview?: StrapiSubPreview[] | null;
-  valuesSection?: StrapiHighlights | null;
-  whyJoinUs?: StrapiHighlights | null;
-  subContacts?: StrapiSubContacts[] | null;
+  subsidiaryOverview?: StrapiSubpreview[] | null;
+  valuesSection?: StrapiHighlight | null;
+  whyJoinUs?: StrapiHighlight | null;
+  subContacts?: StrapiSubcontact[] | null;
 };
 
-/** Auto-generated from Strapi content type: Contact us page */
+/** Auto-generated from Strapi content type: Contact Us Page */
 export type ContactUsPageData = {
-  qgcText?: StrapiText | null;
-  qgcContacts?: StrapiSubContacts | null;
-  subsContacts?: StrapiSubContacts[] | null;
+  introText?: StrapiTextblock | null;
+  mainContact?: StrapiSubcontact | null;
+  subsidiaryContacts?: StrapiSubcontact[] | null;
 };
 
 /** Auto-generated from Strapi content type: Homepage */
 export type HomepageData = {
-  HeroSection?: StrapiHeroSection[] | null;
-  AboutUs?: StrapiAboutUs[] | null;
-  SubPreview?: StrapiSubPreview[] | null;
-  Achievements?: StrapiCards[] | null;
-  FAQs?: StrapiFaqs[] | null;
+  heroSection?: StrapiHerosection[] | null;
+  aboutUs?: StrapiAboutus[] | null;
+  SubPreview?: StrapiSubpreview[] | null;
+  achievements?: StrapiCard[] | null;
+  faqs?: StrapiFaq[] | null;
 };
 
 /** Auto-generated from Strapi content type: Paluto Page */
 export type PalutoPageData = {
-  hero?: StrapiHeroSection[] | null;
-  aboutUs?: StrapiAboutUs | null;
+  heroSection?: StrapiHerosection[] | null;
+  aboutUs?: StrapiAboutus | null;
   showcaseLogo?: StrapiLogo | null;
-  showcase?: StrapiCards[] | null;
-  bannerSection?: StrapiBanner | null;
+  showcase?: StrapiCard[] | null;
+  bannerHighlight?: StrapiBanner | null;
   branchesSectionTitle?: string | null;
-  branchesCards?: StrapiCards[] | null;
-  eventsAndCateringSection?: StrapiItem | null;
-  eventsAndCateringCarouselImages?: StrapiMedia[] | null;
+  branchesCards?: StrapiCard[] | null;
+  eventsAndCatering?: StrapiContentitem | null;
+  eventsAndCateringImages?: StrapiMedia[] | null;
   feedback?: StrapiFeedback[] | null;
-  contactUs?: StrapiContactUs | null;
-  faqs?: StrapiFaqs[] | null;
+  contactUs?: StrapiContactus | null;
+  faqs?: StrapiFaq[] | null;
 };
 
 /** Auto-generated from Strapi content type: Sari-Sari Manokan Page */
 export type SariSariManokanPageData = {
-  hero?: StrapiHeroSection[] | null;
-  aboutUs?: StrapiAboutUs | null;
-  Showcase?: StrapiCards[] | null;
+  heroSection?: StrapiHerosection[] | null;
+  aboutUs?: StrapiAboutus | null;
+  showcase?: StrapiCard[] | null;
   feedback?: StrapiFeedback[] | null;
-  faqs?: StrapiFaqs[] | null;
-  contactUs?: StrapiContactUs | null;
+  contactUs?: StrapiContactus | null;
+  faqs?: StrapiFaq[] | null;
 };
 
 /** Auto-generated from Strapi content type: Watergate Page */
 export type WatergatePageData = {
-  hero?: StrapiHeroSection[] | null;
-  aboutUs?: StrapiAboutUs | null;
-  cards?: StrapiCards[] | null;
-  contactUs?: StrapiContactUs | null;
-  faqs?: StrapiFaqs[] | null;
+  heroSection?: StrapiHerosection[] | null;
+  aboutUs?: StrapiAboutus | null;
+  featureCards?: StrapiCard[] | null;
+  contactUs?: StrapiContactus | null;
+  faqs?: StrapiFaq[] | null;
 };

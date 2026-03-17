@@ -11,12 +11,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "HeroSection": {
+    "heroSection": {
       "type": "component",
       "component": "blocks.hero-section",
       "repeatable": true
     },
-    "AboutUs": {
+    "aboutUs": {
       "type": "component",
       "component": "blocks.about-us",
       "repeatable": true
@@ -26,12 +26,12 @@
       "component": "blocks.sub-preview",
       "repeatable": true
     },
-    "Achievements": {
+    "achievements": {
       "type": "component",
       "component": "blocks.cards",
       "repeatable": true
     },
-    "FAQs": {
+    "faqs": {
       "type": "component",
       "component": "blocks.fa-qs",
       "repeatable": true

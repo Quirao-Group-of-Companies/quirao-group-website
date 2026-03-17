@@ -1,14 +1,14 @@
+import { getContactUsPage } from '@cms/services';
+import type { ContactUsPageData } from '@cms/types';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
-import type { ContactUsPageData } from 'cms/types';
 import OurBusinessPreview from '@/components/contact-us/SubsidiaryContacts.client';
 import { InquiryForm } from '@/components/forms/inquiry-form';
-import { getContactUsPage } from '@/lib/services/strapi-contact-us';
 
 export default async function ContactUsPage() {
   const contactData: ContactUsPageData | null = await getContactUsPage();
 
-  const qgcInfo = contactData?.qgcContacts;
-  const qgcText = contactData?.qgcText;
+  const qgcInfo = contactData?.mainContact;
+  const qgcText = contactData?.introText;
 
   return (
     <main className="min-h-screen bg-white">
@@ -50,10 +50,10 @@ export default async function ContactUsPage() {
                       Phone Number
                     </p>
                     <a
-                      href={`tel:${qgcInfo?.contactNum || '0999 999 9999'}`}
+                      href={`tel:${qgcInfo?.phoneNumber || '0999 999 9999'}`}
                       className="text-gray-600 hover:text-black transition-colors"
                     >
-                      {qgcInfo?.contactNum || '0999 999 9999'}
+                      {qgcInfo?.phoneNumber || '0999 999 9999'}
                     </a>
                   </div>
                 </li>
@@ -83,7 +83,10 @@ export default async function ContactUsPage() {
       </section>
 
       {/* Business Preview Section */}
-      <OurBusinessPreview businesses={contactData?.subsContacts || []} imagePosition="right" />
+      <OurBusinessPreview
+        businesses={contactData?.subsidiaryContacts || []}
+        imagePosition="right"
+      />
     </main>
   );
 }
