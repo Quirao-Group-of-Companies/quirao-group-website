@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 import { submitApplication } from '@/app/actions';
 import StatusModal from '@/components/ui/StatusModal.client';
@@ -35,18 +36,21 @@ export function ApplicationForm() {
       <form
         ref={formRef}
         action={handleSubmit}
-        className="space-y-8 p-4 md:p-10 bg-transparent w-full"
+        className="space-y-8  bg-transparent w-full"
       >
         <div className="border-b pb-6 mb-6">
-          <h2 className="text-3xl font-bold text-gray-900 font-akrux uppercase">
-            Application Form
-          </h2>
-          <p className="text-gray-500 text-sm mt-1">
-            Please provide accurate information for your application.
-          </p>
+          <div className="w-full bg-black h-20 md:h-45 flex justify-center items-center">
+             <Image
+                src="/images/logo/qgc-logo-black.jpg"
+                alt="Quirao Group Logo"
+                width={350}
+                height={60}
+                className="object-contain"
+           />
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 p-4 md:p-10 gap-8">
           {/* Full Name */}
           <div className="space-y-2">
             <label
@@ -226,11 +230,11 @@ export function ApplicationForm() {
           </div>
         </div>
 
-        <div className="pt-6">
+        <div className="pt-6 pb-6 flex justify-center items-center">
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-black text-white py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all disabled:bg-gray-400 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest"
+            className="w-1/2 bg-black text-white py-5 rounded-2xl font-bold hover:bg-gray-800 transition-all disabled:bg-gray-400 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest"
           >
             {loading ? (
               <>

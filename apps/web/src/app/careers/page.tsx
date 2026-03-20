@@ -104,7 +104,7 @@ export default function CareersPage() {
               We prioritize integrity, teamwork, growth, and innovation. Our
               culture encourages continuous learning and meaningful contribution.
             </p>
-             <Button text="Apply Now" className="mt-6 px-6 py-3 text-sm absolute bottom-0 left-0" />
+             <Button text="Apply Now" href="/careers/apply" className="mt-6 px-6 py-3 text-sm absolute bottom-0 left-0" />
           </div>
        
         </div>
