@@ -1,5 +1,5 @@
 import { getAboutUsPage } from '@cms/services';
-import type { AboutUsPageData } from '@cms/types';
+import type { AboutUsPageData, StrapiCard } from '@cms/types';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
@@ -33,6 +33,8 @@ export default async function AboutUsPage() {
   // Destructure content directly from the generated AboutUsPageData type
   const hero = data?.heroSection;
   const aboutUs = data?.aboutUs;
+  const missionVision = data?.missionVision;
+  const missionVisionImage = data?.missionVisionImage;
 
   const normalizeUrl = (url?: string) => {
     if (!url) {
@@ -41,6 +43,19 @@ export default async function AboutUsPage() {
     // Handle double slashes after the domain origin
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
+
+  // Helper to get mission/vision/core-values by title or index
+  const getMVItem = (title: string, index: number): StrapiCard | undefined => {
+    if (!missionVision) return undefined;
+    return (
+      missionVision.find((item) => item.title?.toUpperCase() === title.toUpperCase()) ||
+      missionVision[index]
+    );
+  };
+
+  const mission = getMVItem('MISSION', 0);
+  const vision = getMVItem('VISION', 1);
+  const coreValues = getMVItem('CORE VALUES', 2);
 
   return (
     <main className="w-full pt-16 min-h-screen">
@@ -130,6 +145,81 @@ export default async function AboutUsPage() {
                 </ScrollReveal>
               )}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* 3. MISSION VISION SECTION */}
+      {(mission || vision || coreValues || missionVisionImage) && (
+        <section className="relative w-full py-12 px-6 md:px-[120px] overflow-hidden min-h-[600px] flex flex-col justify-center">
+          {/* Background with Overlays */}
+          <div className="absolute inset-0 z-0">
+            {missionVisionImage?.url && (
+              <Image
+                src={normalizeUrl(missionVisionImage.url)}
+                alt={missionVisionImage.alternativeText || 'Mission and Vision Background'}
+                fill
+                className="object-cover"
+              />
+            )}
+            <div
+              className="absolute inset-0 z-10"
+              style={{ backgroundColor: 'rgba(43, 46, 51, 0.5)' }}
+            />
+            <div className="absolute inset-y-0 left-0 w-1/2 bg-linear-to-r from-[#2b2e33] to-transparent z-15" />
+            <div className="absolute inset-y-0 right-0 w-1/2 bg-linear-to-l from-[#2b2e33] to-transparent z-15" />
+          </div>
+
+          <div className="relative z-20 w-full flex flex-col gap-[12px]">
+            {/* MISSION */}
+            {mission && (
+              <div className="flex flex-col items-start text-left">
+                <ScrollReveal>
+                  <h2 className="text-[48px] font-light text-white uppercase font-akrux mb-[24px]">
+                    {mission.title}
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal delay={0.2}>
+                  <p className="text-[24px] text-white font-poppins max-w-[882px] leading-relaxed">
+                    {mission.description}
+                  </p>
+                </ScrollReveal>
+              </div>
+            )}
+
+            {/* VISION */}
+            {vision && (
+              <div className="flex flex-col items-end text-right w-full">
+                <ScrollReveal>
+                  <h2 className="text-[48px] font-light text-white uppercase font-akrux mb-[24px]">
+                    {vision.title}
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal delay={0.2} width="100%">
+                  <div className="flex flex-col items-end w-full">
+                    <p className="text-[24px] text-white font-poppins max-w-[882px] leading-relaxed">
+                      {vision.description}
+                    </p>
+                  </div>
+                </ScrollReveal>
+              </div>
+            )}
+
+            {/* CORE VALUES */}
+            {coreValues && (
+              <div className="flex flex-col items-start text-left">
+                <ScrollReveal>
+                  <h2 className="text-[48px] font-light text-white uppercase font-akrux mb-[24px]">
+                    {coreValues.title}
+                  </h2>
+                </ScrollReveal>
+                <ScrollReveal delay={0.2}>
+                  <p className="text-[24px] text-white font-poppins max-w-[882px] leading-relaxed">
+                    {coreValues.description}
+                  </p>
+                </ScrollReveal>
+              </div>
+            )}
           </div>
         </section>
       )}
