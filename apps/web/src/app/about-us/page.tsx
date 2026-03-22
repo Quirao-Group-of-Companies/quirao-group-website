@@ -26,6 +26,7 @@ export default async function AboutUsPage() {
   // Axiom Logging for observability
   logger.info('About Us page hero rendered');
   logger.info('About Us overview section rendered');
+  logger.info('Company structure section rendered from CMS');
   after(() => {
     logger.flush();
   });
@@ -35,6 +36,7 @@ export default async function AboutUsPage() {
   const aboutUs = data?.aboutUs;
   const missionVision = data?.missionVision;
   const missionVisionImage = data?.missionVisionImage;
+  const groupStructure = data?.groupStructureBanner;
 
   const normalizeUrl = (url?: string) => {
     if (!url) {
@@ -221,6 +223,42 @@ export default async function AboutUsPage() {
               </div>
             )}
           </div>
+        </section>
+      )}
+
+      {/* 4. COMPANY STRUCTURE SECTION */}
+      {groupStructure && (
+        <section className="bg-qgc-gray-soft py-24 px-6 md:px-12 lg:px-20">
+          <ScrollReveal>
+            <div className="max-w-7xl mx-auto space-y-16">
+              {/* Header */}
+              {groupStructure.title && (
+                <div className="text-center">
+                  <h2 className="text-[48px] font-black text-black font-akrux tracking-tighter">
+                    {groupStructure.title}
+                  </h2>
+                </div>
+              )}
+
+              {/* Image Container */}
+              {groupStructure.image?.url && (
+                <div className="overflow-x-auto pb-16 px-4 flex justify-center">
+                  <div className="min-w-[826px] w-[826px] h-[465px] relative rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)]">
+                    <Image
+                      src={normalizeUrl(groupStructure.image.url)}
+                      alt={
+                        groupStructure.image.alternativeText ||
+                        'Quirao Group of Companies Organizational Chart'
+                      }
+                      width={826}
+                      height={465}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </ScrollReveal>
         </section>
       )}
     </main>
