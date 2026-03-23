@@ -105,10 +105,11 @@ export default async function BrightlinePage() {
             <Image
               src={heroData.logo}
               alt="Brightline Trucking Logo"
-              width={250}
-              height={250}
+              width={80}
+              height={80}
               className="object-contain brightness-0 invert"
             />
+  
           </div>
 
           <div className="relative z-10 pl-8 md:pl-16 pb-10 space-y-2">
@@ -175,7 +176,7 @@ export default async function BrightlinePage() {
 
       {/* 3. SERVICES SECTION */}
       <ScrollReveal>
-        <section className="bg-white py-20 px-6 md:px-12">
+        <section className="bg-qgc-white py-20 px-6 md:px-12">
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-16">
@@ -190,7 +191,7 @@ export default async function BrightlinePage() {
               {[1, 2, 3].map((item) => (
                 <div 
                   key={item} 
-                  className="group flex flex-col items-center p-10 bg-white rounded- shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-50 text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                  className="group flex flex-col items-center p-10 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-50 text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
                 >
                   {/* Custom Truck Icon */}
                   <div className="mb-8 p-4 bg-orange-50 rounded-2xl group-hover:bg-brightline-orange transition-colors duration-300">
@@ -220,15 +221,94 @@ export default async function BrightlinePage() {
         </section>
       </ScrollReveal>
      
-      {/* 4. CONTACT & GOOGLE MAPS SECTION */}
+      {/* 4. WHERE WE DELIVER SECTION */}
+      <ScrollReveal>
+        <section className="bg-qgc-gray-soft py-20 px-6 md:px-12">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="text-4xl italic md:text-5xl font-black uppercase font-poppins tracking-tighter text-qgc-black">
+                WHERE WE <span className="text-brightline-orange underline decoration-qgc-black underline-offset-8">DELIVER</span>
+              </h2>
+            </div>
+
+            {/* Delivery Locations Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+              {[
+                { label: 'Warehouses', icon: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z M9 22V12h6v10' },
+                { label: 'Construction Sites', icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' },
+                { label: 'Commercial Retail', icon: 'M3 3h18v18H3z M3 9h18 M9 21V9' },
+                { label: 'Residential', icon: 'M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6' },
+                { label: 'Remote Logistics', icon: 'M2 17h20L20 7H4L2 17z M12 7v10M8 7v10M16 7v10' },
+              ].map((loc, idx) => (
+                <div 
+                  key={idx} 
+                  className="bg-white rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center text-center shadow-lg border border-white hover:scale-105 transition-transform duration-300"
+                >
+                  <div className="mb-4">
+                    <svg 
+                      width="48" 
+                      height="48" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      className="text-red-600"
+                    >
+                      <path d={loc.icon} />
+                    </svg>
+                  </div>
+                  <span className="font-bold text-sm md:text-base text-qgc-black uppercase font-poppins leading-tight">
+                    {loc.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* 5. BRAND BANNER SECTION */}
+      <ScrollReveal>
+        <section className="relative w-full h-75 md:h-125 overflow-hidden">
+          {/* Using heroData.image as requested */}
+          <Image
+            src={heroData.image}
+            alt="Brightline Delivery Truck"
+            fill
+            className="object-cover"
+          />
+          {/* Darker Overlay to match the brown-ish aesthetic of your screenshot */}
+          <div className="absolute inset-0 bg-orange-950/60 backdrop-brightness-75" />
+          
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+             <div className="flex items-center gap-4 mb-2">
+                <Image 
+                  src={heroData.logo}
+                  alt="Logo"
+                  width={80}
+                  height={80}
+                  className="brightness-0 invert"
+                />
+                <h2 className="text-white text-4xl md:text-7xl font-black uppercase font-poppins tracking-tighter">
+                  BRIGHTLINE
+                </h2>
+             </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* 6. CONTACT & GOOGLE MAPS SECTION */}
       <ScrollReveal>
         <section className="bg-white py-24 px-6 md:px-12">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col items-center mb-16">
               <h2 className="text-4xl md:text-5xl font-black uppercase italic text-black tracking-tighter text-center">
-                Contact <span className="text-qgc-charcoal">Brightline Trucking</span>
+                Contact <span className="text-brightline-orange">Brightline Trucking</span>
               </h2>
-              <div className="w-24 h-1.5 bg-qgc-gray-light mt-2" />
+              <div className="w-24 h-1.5 bg-qgc-black mt-2" />
             </div>
 
             <div className="flex flex-col lg:flex-row items-stretch bg-[#E5E5E5] rounded-xl overflow-hidden shadow-lg">
@@ -302,7 +382,7 @@ export default async function BrightlinePage() {
         </section>
       </ScrollReveal>
 
-      {/* 5. FAQ SECTION */}
+      {/* 7. FAQ SECTION */}
       <ScrollReveal>
         <section className="bg-qgc-gray-soft px-6 py-24">
           <div className="max-w-4xl mx-auto">
