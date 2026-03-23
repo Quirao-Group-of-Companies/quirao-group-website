@@ -16,8 +16,14 @@ const nextConfig: NextConfig = {
           ]
         : []),
       {
+        protocol: 'https',
+        hostname: 'dibqbzpgdufhfgvetqhs.supabase.co',
+        port: '',
+        pathname: '/**',
+      },
+      {
         protocol: 'http',
-        hostname: 'localhost',
+        hostname: '127.0.0.1',
         port: '1337',
         pathname: '/uploads/**',
       },

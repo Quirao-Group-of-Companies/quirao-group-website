@@ -11,9 +11,10 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi",
-    "upgrade": "bunx@strapi/upgrade latest",
-    "upgrade:dry": "bunx @strapi/upgrade latest --dry",
-    "generate-types": "bunx --tsconfig-override scripts/tsconfig.json scripts/generate-types.ts"
+    "upgrade": "bun @strapi/upgrade latest",
+    "upgrade:dry": "bun @strapi/upgrade latest --dry",
+    "generate-types": "bun --tsconfig-override scripts/tsconfig.json scripts/generate-types.ts",
+    "generate-service": "bun --tsconfig-override scripts/tsconfig.json scripts/generate-service.ts"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.36.0",

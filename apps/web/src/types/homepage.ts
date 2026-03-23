@@ -30,6 +30,9 @@ export type Business = {
   cardImage: string | null;
   logo: string | null;
   cta: StrapiCTA | null;
+  address?: string | null;
+  contactNum?: string | null;
+  email?: string | null;
 };
 
 export type SubPreviewItem = {

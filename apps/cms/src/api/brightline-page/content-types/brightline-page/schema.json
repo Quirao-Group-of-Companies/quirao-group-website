@@ -11,12 +11,12 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "hero": {
+    "heroSection": {
       "type": "component",
       "component": "blocks.hero-section",
       "repeatable": true
     },
-    "aboutUS": {
+    "aboutUs": {
       "type": "component",
       "component": "blocks.about-us",
       "repeatable": false

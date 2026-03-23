@@ -4,7 +4,7 @@
   "info": {
     "singularName": "about-us-page",
     "pluralName": "about-us-pages",
-    "displayName": "About us page"
+    "displayName": "About Us Page"
   },
   "options": {
     "draftAndPublish": true
@@ -26,15 +26,20 @@
       "component": "blocks.cards",
       "repeatable": true
     },
-    "qgcGroupStructure": {
+    "missionVisionImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "groupStructureBanner": {
       "type": "component",
       "component": "blocks.banner",
       "repeatable": false
-    },
-    "meetOurLeaders": {
-      "type": "component",
-      "component": "blocks.cards",
-      "repeatable": true
     }
   }
 }

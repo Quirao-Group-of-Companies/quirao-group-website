@@ -18,10 +18,16 @@ export async function getContactUsPage() {
           },
         },
         subsContacts: {
+          // Corrected from SubContacts
           populate: {
-            logo: { populate: ['image'] },
+            displayImage: true, // Corrected from image
             cardImage: true,
-            displayImage: true,
+            logo: {
+              populate: {
+                image: true,
+              },
+            },
+            cta: true,
           },
         },
       },
@@ -29,7 +35,9 @@ export async function getContactUsPage() {
     { encodeValuesOnly: true },
   );
 
-  const res = await fetch(`${STRAPI_URL}/api/contact-us-page?${query}`, {
+  const url = `${STRAPI_URL}/api/contact-us-page?${query}`;
+
+  const res = await fetch(url, {
     headers: {
       Authorization: `Bearer ${STRAPI_TOKEN}`,
     },
@@ -37,10 +45,15 @@ export async function getContactUsPage() {
   });
 
   if (!res.ok) {
-    const errorData = await res.json().catch(() => {
-      return {};
-    });
-    console.error('Strapi Fetch Error:', errorData);
+    console.error(`Strapi Fetch Error: ${res.status} ${res.statusText}`);
+    console.error('Target URL:', url);
+    const errorText = await res.text();
+    try {
+      const errorJson = JSON.parse(errorText);
+      console.error('Strapi Error Details:', JSON.stringify(errorJson, null, 2));
+    } catch {
+      console.error('Strapi Raw Error Body:', errorText);
+    }
     return null;
   }
 

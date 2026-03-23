@@ -1,21 +1,21 @@
-import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
+import { getBuildmasterPage } from '@cms/services';
 import type {
   BuildmasterPageData,
-  StrapiCards,
-  StrapiContactUs,
-  StrapiFaqs,
-  StrapiHeroSection,
+  StrapiCard,
+  StrapiContactus,
+  StrapiFaq,
+  StrapiHerosection,
   StrapiLink,
-  StrapiText,
-} from 'cms/types';
+  StrapiTextblock,
+} from '@cms/types';
+import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import AboutSection from '@/components/buildmaster/AboutUsSection.client';
 import FeaturesCarousel from '@/components/buildmaster/FeaturesCarousel.client';
 import HeroCarousel from '@/components/buildmaster/HeroCarousel.client';
 import PodcastsSection from '@/components/buildmaster/PodcastSection.client';
-import FAQItem from '@/components/ui/FAQItem';
-import { getBuildMasterPage } from '@/lib/services/strapi-buildmaster';
+import FAQItem from '@/components/ui/FAQItem.client';
 
 function extractYoutubeId(url?: string | null): string {
   if (!url) {
@@ -75,8 +75,8 @@ function SocialIcon({ title }: { title: string }) {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getBuildMasterPage();
-  const content = data?.hero?.[0];
+  const data = await getBuildmasterPage();
+  const content = data?.heroSection?.[0];
 
   return {
     title: content?.title || 'BuildMaster Philippines',
@@ -86,7 +86,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BuildMasterPage() {
-  const cms: BuildmasterPageData = await getBuildMasterPage();
+  const cms = (await getBuildmasterPage()) as BuildmasterPageData;
 
   if (!cms) {
     return (
@@ -97,14 +97,14 @@ export default async function BuildMasterPage() {
   }
 
   const heroSlides =
-    cms.hero?.map((h: StrapiHeroSection) => img(h.image?.url)).filter(Boolean) ?? [];
-  const firstHero = cms.hero?.[0];
+    cms.heroSection?.map((h: StrapiHerosection) => img(h.image?.url)).filter(Boolean) ?? [];
+  const firstHero = cms.heroSection?.[0];
   const heroLogoSrc = img(firstHero?.logo?.image?.url);
   const heroBrandName = firstHero?.title ?? '';
   const heroTagline = firstHero?.description ?? '';
 
   const features =
-    cms.features?.map((f: StrapiCards) => ({
+    cms.features?.map((f: StrapiCard) => ({
       id: f.id,
       image: img(f.image?.url),
       description: f.description ?? '',
@@ -112,7 +112,7 @@ export default async function BuildMasterPage() {
   const featureCtaHref = cms.cta?.href ?? '';
 
   const aboutTabs =
-    cms.aboutUsSection?.map((card: StrapiCards, idx: number) => ({
+    cms.aboutUsSection?.map((card: StrapiCard, idx: number) => ({
       id: `tab-${idx}`,
       label: card.title ?? `Tab ${idx + 1}`,
       image: img(card.image?.url),
@@ -124,7 +124,7 @@ export default async function BuildMasterPage() {
   );
 
   const podcasts =
-    cms.podcasts?.map((p: StrapiCards) => ({
+    cms.podcasts?.map((p: StrapiCard) => ({
       id: p.id,
       image: img(p.image?.url),
       youtubeId: extractYoutubeId(p.cta?.href),
@@ -134,8 +134,8 @@ export default async function BuildMasterPage() {
   const googlePlayHref = cms.download?.cta?.[0]?.href ?? '';
   const appStoreHref = cms.download?.cta?.[1]?.href ?? '';
 
-  const contactData: StrapiContactUs | undefined = cms.contactUS ?? undefined;
-  const contactDetails: StrapiText[] = contactData?.details ?? [];
+  const contactData: StrapiContactus | undefined = cms.contactUs ?? undefined;
+  const contactDetails: StrapiTextblock[] = contactData?.details ?? [];
   const contactLinks: StrapiLink[] = (contactData?.embedLinks ?? []).map((link) => ({
     ...link,
     href: link.href && !link.href.startsWith('http') ? `https://${link.href}` : link.href,
@@ -145,7 +145,7 @@ export default async function BuildMasterPage() {
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d346.51004397058824!2d122.56992756495173!3d10.710274974974633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee5b4dd1a329d%3A0x1e62622958e67a57!2sTrualliant!5e0!3m2!1sen!2sph!4v1773111988244!5m2!1sen!2sph';
 
   const faqs =
-    cms.faqs?.map((f: StrapiFaqs) => ({
+    cms.faqs?.map((f: StrapiFaq) => ({
       id: f.id,
       question: f.question ?? '',
       answer: f.answer ?? '',
@@ -171,7 +171,7 @@ export default async function BuildMasterPage() {
       {podcasts.length > 0 && <PodcastsSection podcasts={podcasts} />}
 
       {/* ── APP DOWNLOAD BANNER ── */}
-      <section className="relative w-full overflow-hidden bg-[#0a285a]">
+      <section className="relative w-full overflow-hidden bg-bm-blue`">
         {bannerSrc ? (
           <Image
             src={bannerSrc}
@@ -182,7 +182,7 @@ export default async function BuildMasterPage() {
           />
         ) : (
           <div
-            className="w-full bg-gradient-to-r from-[#0a285a] to-[#1a4a9a]"
+            className="w-full bg-linear-to-r from-bg-bm-blue to-[#1a4a9a]"
             style={{ height: 'clamp(220px, 45vw, 400px)' }}
           />
         )}
@@ -200,7 +200,7 @@ export default async function BuildMasterPage() {
               aria-label="Apple"
               role="img"
               viewBox="0 0 24 24"
-              className="fill-white flex-shrink-0"
+              className="fill-white shrink-0"
               style={{ width: 'clamp(14px, 2vw, 24px)', height: 'clamp(14px, 2vw, 24px)' }}
             >
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.19 1.28-2.17 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.77M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
@@ -229,7 +229,7 @@ export default async function BuildMasterPage() {
               aria-label="Google Play"
               role="img"
               viewBox="0 0 24 24"
-              className="fill-white flex-shrink-0"
+              className="fill-white shrink-0"
               style={{ width: 'clamp(14px, 2vw, 24px)', height: 'clamp(14px, 2vw, 24px)' }}
             >
               <path d="M3.18 23.76a2 2 0 0 0 2.07-.22l11.4-6.57-2.54-2.54-10.93 9.33zM20.43 9.37l-2.67-1.54-2.84 2.84 2.84 2.84 2.7-1.56a1.98 1.98 0 0 0-.03-3.58zM1.18.55A2 2 0 0 0 .75 1.8v20.4a2 2 0 0 0 .43 1.25l.07.07 11.43-11.43v-.27L1.25.48l-.07.07zM14.53 8.17L3.18.43 1.11 2.5l10.93 9.33 2.49-3.66z" />
@@ -267,7 +267,7 @@ export default async function BuildMasterPage() {
                   <h3 className="text-xl font-bold uppercase text-black">
                     {contactDetails[0].title ?? ''}
                   </h3>
-                  <p className="text-gray-700 text-sm max-w-[220px] leading-snug">
+                  <p className="text-gray-700 text-sm max-w-55 leading-snug">
                     {contactDetails[0].description ?? ''}
                   </p>
                 </div>
@@ -322,7 +322,7 @@ export default async function BuildMasterPage() {
               )}
             </div>
             {contactMapHref && (
-              <div className="w-full lg:w-1/2 h-[450px] lg:h-auto min-h-[500px]">
+              <div className="w-full lg:w-1/2 h-112.5 lg:h-auto min-h-125">
                 <iframe
                   src={contactMapHref}
                   width="100%"

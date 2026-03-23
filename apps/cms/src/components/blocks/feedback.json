@@ -11,7 +11,7 @@
       "multiple": false,
       "allowedTypes": ["images", "files", "videos", "audios"]
     },
-    "text": {
+    "review": {
       "type": "component",
       "component": "elements.text",
       "repeatable": false

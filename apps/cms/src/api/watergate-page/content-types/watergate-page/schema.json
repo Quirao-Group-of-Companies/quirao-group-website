@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "hero": {
+    "heroSection": {
       "type": "component",
       "component": "blocks.hero-section",
       "repeatable": true
@@ -21,7 +21,7 @@
       "component": "blocks.about-us",
       "repeatable": false
     },
-    "cards": {
+    "featureCards": {
       "type": "component",
       "component": "blocks.cards",
       "repeatable": true

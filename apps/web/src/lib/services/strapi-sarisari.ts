@@ -1,6 +1,6 @@
 import qs from 'qs';
 
-const STRAPI_URL = process.env.STRAPI_URL || 'http://127.0.0.1:1337';
+const STRAPI_URL = (process.env.STRAPI_URL?.trim() || 'http://127.0.0.1:1337').replace(/\/$/, '');
 const STRAPI_TOKEN = process.env.STRAPI_API_TOKEN;
 
 export async function getSariSariManokanPage() {
@@ -21,7 +21,7 @@ export async function getSariSariManokanPage() {
         aboutUs: {
           populate: '*',
         },
-        showcase: {
+        Showcase: {
           populate: '*',
         },
         feedback: {
@@ -38,7 +38,7 @@ export async function getSariSariManokanPage() {
     { encodeValuesOnly: true },
   );
 
-  const res = await fetch(`${STRAPI_URL}/api/paluto-page?${query}`, {
+  const res = await fetch(`${STRAPI_URL}/api/sari-sari-manokan-page?${query}`, {
     headers: {
       Authorization: `Bearer ${STRAPI_TOKEN}`,
     },
