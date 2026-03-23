@@ -113,7 +113,7 @@ export default async function BrightlinePage() {
 
           <div className="relative z-10 pl-8 md:pl-16 pb-10 space-y-2">
             <div className="bg-white/95 backdrop-blur-md rounded-2xl px-10 py-1 w-fit shadow-2xl border border-white/50">
-              <h1 className="text-qgc-black text-2xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
+              <h1 className="text-brightline-orange text-2xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
                 {heroData.title}
               </h1>
             </div>
@@ -143,7 +143,7 @@ export default async function BrightlinePage() {
               </p>
             </div>
             <ScrollReveal>
-              <div className="w-full bg-linear-to-r from-qgc-charcoal to-qgc-gray-deep rounded-4xl p-5 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+              <div className="w-full bg-brightline-orange rounded-2xl p-5 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
                 <span className="text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm text-center sm:text-left leading-tight">
                   Connect with Brightline Trucking
                 </span>
@@ -173,27 +173,54 @@ export default async function BrightlinePage() {
         </section>
       </ScrollReveal>
 
-      {/* 3. SHOWCASE SECTION */}
+      {/* 3. SERVICES SECTION */}
       <ScrollReveal>
-        <FavoritesShowcase
-          dishes={showcaseData}
-          logo={{
-            src: heroData.logo,
-            alt: 'Brightline Trucking Logo',
-          }}
-          activeColorClass="bg-qgc-charcoal"
-          indicatorColorClass="bg-qgc-charcoal/40"
-          dividerColorClass="bg-qgc-charcoal/10"
-          buttonWidthClass="md:w-80"
-        />
-      </ScrollReveal>
+        <section className="bg-white py-20 px-6 md:px-12">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-black uppercase font-poppins tracking-tight text-qgc-black">
+                Delivering the Best Custom
+                <span className="block text-brightline-orange">Trucking Experience</span>
+              </h2>
+            </div>
 
-      {/* 4. FEEDBACK SECTION */}
-      <ScrollReveal>
-        <FeedbackSection feedbacks={feedbackData} />
-      </ScrollReveal>
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1, 2, 3].map((item) => (
+                <div 
+                  key={item} 
+                  className="group flex flex-col items-center p-10 bg-white rounded- shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-50 text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                >
+                  {/* Custom Truck Icon */}
+                  <div className="mb-8 p-4 bg-orange-50 rounded-2xl group-hover:bg-brightline-orange transition-colors duration-300">
+                    <svg 
+                      width="64" 
+                      height="64" 
+                      viewBox="0 0 24 24" 
+                      className="fill-brightline-orange group-hover:fill-white transition-colors duration-300"
+                    >
+                      <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+                    </svg>
+                  </div>
 
-      {/* 5. CONTACT & GOOGLE MAPS SECTION */}
+                  {/* Title */}
+                  <h3 className="text-xl xl:text-2xl font-black text-qgc-black uppercase font-poppins leading-tight mb-5">
+                    Gravel, Aggregate, <br /> Soils & Fill Delivery
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-500 text-sm md:text-base leading-relaxed font-poppins">
+                    Supply and delivery of all aggregates, gravel, and soils, direct from quarry/supplier to your doorstep.
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+     
+      {/* 4. CONTACT & GOOGLE MAPS SECTION */}
       <ScrollReveal>
         <section className="bg-white py-24 px-6 md:px-12">
           <div className="max-w-7xl mx-auto">
@@ -275,7 +302,7 @@ export default async function BrightlinePage() {
         </section>
       </ScrollReveal>
 
-      {/* 6. FAQ SECTION */}
+      {/* 5. FAQ SECTION */}
       <ScrollReveal>
         <section className="bg-qgc-gray-soft px-6 py-24">
           <div className="max-w-4xl mx-auto">
