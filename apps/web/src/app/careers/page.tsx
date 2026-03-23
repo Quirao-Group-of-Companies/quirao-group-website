@@ -102,18 +102,13 @@ export default async function CareersPage() {
             </div>
 
             <div className="w-full lg:w-1/2 flex flex-col justify-center items-start gap-8 py-6">
-              <h3 className="font-akrux text-3xl md:text-4xl text-qgc-black uppercase leading-tight">
-                {valuesSection?.title || "Valuing what matters"}
+              <h3 className="text-2xl md:text-3xl text-qgc-black font-semibold">
+                {valuesSection?.title}
               </h3>
-              <div className="text-gray-600 text-xl leading-relaxed prose prose-lg">
+              <div className="text-gray-600 text-xl leading-relaxed prose prose-lg max-w-none [&_ul]:list-disc [&_ul]:pl-6 [&_li]:text-gray-700">
                 {valuesSection?.description ? (
                   <BlocksRenderer content={valuesSection.description as any} />
-                ) : (
-                  <p>
-                    We prioritize integrity, teamwork, growth, and innovation. Our
-                    culture encourages continuous learning and meaningful contribution.
-                  </p>
-                )}
+                ) : null}
               </div>
               {valuesSection?.cta && (
                 <Button 
@@ -130,47 +125,32 @@ export default async function CareersPage() {
 
       {/* ================= WHY JOIN US ================= */}
       <section className="py-24 px-6 bg-qgc-gray-soft">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-start font-akrux uppercase tracking-widest">
-            {whyJoinUs?.headline || "Why Join Us?"}
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-16 items-start">
-            <div className="space-y-8">
-               <h3 className="text-2xl font-bold font-akrux uppercase text-qgc-black">
-                 {whyJoinUs?.title || "Benefits & Culture"}
-               </h3>
-               <div className="prose prose-lg prose-li:text-gray-700 prose-ul:space-y-3 prose-ul:list-disc prose-ul:pl-6 max-w-none">
-                {whyJoinUs?.description ? (
-                  <BlocksRenderer content={whyJoinUs.description as any} />
-                ) : (
-                  <ul>
-                    <li>Optimized Hybrid Work Setup</li>
-                    <li>Retirement Plan with Company Matching</li>
-                    <li>HMO Coverage from Day 1 with up to 4 free dependents</li>
-                    <li>Employee-centric facilities</li>
-                    <li>Employee engagement activities and events</li>
-                    <li>Company-sponsored employee interest clubs</li>
-                    <li>Robust corporate social responsibility program</li>
-                    <li>Focus on career growth and development</li>
-                    <li>Outstanding workplace culture</li>
-                  </ul>
-                )}
-               </div>
-            </div>
+       <div className="container mx-auto max-w-7xl">
+         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-start font-akrux uppercase tracking-widest">
+           {whyJoinUs?.title}
+         </h2>
 
-            {whyJoinUs?.image?.url && (
-              <div className="relative aspect-square rounded-3xl overflow-hidden shadow-xl transform rotate-1">
-                <Image
-                  src={whyJoinUs.image.url}
-                  alt={whyJoinUs.image.alternativeText || "Join Us"}
-                  fill
-                  className="object-cover"
-                />
+         <div className="flex flex-col gap-16 items-start">
+           <div className="w-full space-y-8">
+              <div className="prose prose-lg prose-li:text-gray-700 prose-ul:space-y-3 prose-ul:list-disc prose-ul:pl-6 max-w-none [&_ul]:md:columns-2 [&_ul]:gap-20 [&_li]:break-inside-avoid">
+               {whyJoinUs?.description ? (
+                 <BlocksRenderer content={whyJoinUs.description as any} />
+               ) : null}
               </div>
-            )}
-          </div>
-        </div>
+           </div>
+
+           {whyJoinUs?.image?.url && (
+             <div className="relative w-full aspect-21/9 rounded-3xl overflow-hidden shadow-xl">
+               <Image
+                 src={whyJoinUs.image.url}
+                 alt={whyJoinUs.image.alternativeText || "Join Us"}
+                 fill
+                 className="object-cover"
+               />
+             </div>
+           )}
+         </div>
+       </div>
       </section>
 
     </main>
