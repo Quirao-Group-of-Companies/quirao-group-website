@@ -89,13 +89,13 @@ export default async function AboutUsPage() {
         {/* Hero Content */}
         <div className="relative z-20 text-center text-white px-4 max-w-6xl mx-auto">
           <ScrollReveal>
-            <span className="block text-[24px] font-bold tracking-[0.25em] mb-4 uppercase font-akrux">
+            <span className="block text-[18px] md:text-[24px] font-bold tracking-[0.25em] mb-4 uppercase font-akrux">
               ABOUT
             </span>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <h1 className="text-[64px] font-black uppercase leading-tight tracking-tight drop-shadow-lg font-akrux">
+            <h1 className="text-[36px] md:text-[64px] font-black uppercase leading-tight tracking-tight drop-shadow-lg font-akrux">
               QUIRAO GROUP <br className="hidden md:block" /> OF COMPANIES
             </h1>
           </ScrollReveal>
@@ -104,13 +104,13 @@ export default async function AboutUsPage() {
 
       {/* 2. OVERVIEW SECTION: Investing in Innovation and Excellence */}
       {aboutUs && (
-        <section className="bg-white py-20 px-6 md:px-12 lg:px-20 overflow-hidden">
+        <section className="bg-white py-12 md:py-20 px-6 md:px-12 lg:px-20 overflow-hidden">
           <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left Column: Content (7/12) */}
-            <div className="lg:col-span-7 space-y-8">
+            <div className="lg:col-span-7 space-y-6 md:space-y-8">
               {aboutUs.title && (
                 <ScrollReveal>
-                  <h2 className="text-[48px] font-black text-black leading-[1.1] uppercase font-akrux tracking-tighter">
+                  <h2 className="text-[32px] md:text-[48px] font-black text-black leading-[1.1] uppercase font-akrux tracking-tighter">
                     {aboutUs.title}
                   </h2>
                 </ScrollReveal>
@@ -122,7 +122,7 @@ export default async function AboutUsPage() {
                     {aboutUs.description.split('\n\n').map((para: string, i: number) => (
                       <p
                         key={`${para.substring(0, 16)}-${i}`}
-                        className="text-gray-600 text-[20px] leading-relaxed font-poppins font-medium"
+                        className="text-gray-600 text-[16px] md:text-[20px] leading-relaxed font-poppins font-medium"
                       >
                         {para}
                       </p>
@@ -136,7 +136,7 @@ export default async function AboutUsPage() {
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               {aboutUs.image?.url && (
                 <ScrollReveal delay={0.4}>
-                  <div className="relative w-full max-w-md aspect-[4/5] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] group">
+                  <div className="relative w-full max-w-[320px] md:max-w-md aspect-[4/5] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] group">
                     <Image
                       src={normalizeUrl(aboutUs.image.url)}
                       alt={aboutUs.image.alternativeText || 'About Us Overview'}
@@ -172,17 +172,17 @@ export default async function AboutUsPage() {
             <div className="absolute inset-y-0 right-0 w-1/2 bg-linear-to-l from-[#2b2e33] to-transparent z-15" />
           </div>
 
-          <div className="relative z-20 w-full flex flex-col gap-[12px]">
+          <div className="relative z-20 w-full flex flex-col gap-[48px] md:gap-[12px]">
             {/* MISSION */}
             {mission && (
-              <div className="flex flex-col items-start text-left">
+              <div className="flex flex-col items-center text-center md:items-start md:text-left">
                 <ScrollReveal>
-                  <h2 className="text-[48px] font-light text-white uppercase font-akrux mb-[24px]">
+                  <h2 className="text-[32px] md:text-[48px] font-light text-white uppercase font-akrux mb-[16px] md:mb-[24px]">
                     {mission.title}
                   </h2>
                 </ScrollReveal>
                 <ScrollReveal delay={0.2}>
-                  <p className="text-[24px] text-white font-poppins max-w-[882px] leading-relaxed">
+                  <p className="text-[18px] md:text-[24px] text-white font-poppins max-w-[882px] leading-relaxed text-left">
                     {mission.description}
                   </p>
                 </ScrollReveal>
@@ -191,15 +191,15 @@ export default async function AboutUsPage() {
 
             {/* VISION */}
             {vision && (
-              <div className="flex flex-col items-end text-right w-full">
+              <div className="flex flex-col items-center text-center md:items-end md:text-right w-full">
                 <ScrollReveal>
-                  <h2 className="text-[48px] font-light text-white uppercase font-akrux mb-[24px]">
+                  <h2 className="text-[32px] md:text-[48px] font-light text-white uppercase font-akrux mb-[16px] md:mb-[24px]">
                     {vision.title}
                   </h2>
                 </ScrollReveal>
                 <ScrollReveal delay={0.2} width="100%">
-                  <div className="flex flex-col items-end w-full">
-                    <p className="text-[24px] text-white font-poppins max-w-[882px] leading-relaxed">
+                  <div className="flex flex-col items-center md:items-end w-full">
+                    <p className="text-[18px] md:text-[24px] text-white font-poppins max-w-[882px] leading-relaxed text-left">
                       {vision.description}
                     </p>
                   </div>
@@ -209,14 +209,14 @@ export default async function AboutUsPage() {
 
             {/* CORE VALUES */}
             {coreValues && (
-              <div className="flex flex-col items-start text-left">
+              <div className="flex flex-col items-center text-center md:items-start md:text-left">
                 <ScrollReveal>
-                  <h2 className="text-[48px] font-light text-white uppercase font-akrux mb-[24px]">
+                  <h2 className="text-[32px] md:text-[48px] font-light text-white uppercase font-akrux mb-[16px] md:mb-[24px]">
                     {coreValues.title}
                   </h2>
                 </ScrollReveal>
                 <ScrollReveal delay={0.2}>
-                  <p className="text-[24px] text-white font-poppins max-w-[882px] leading-relaxed">
+                  <p className="text-[18px] md:text-[24px] text-white font-poppins max-w-[882px] leading-relaxed text-left">
                     {coreValues.description}
                   </p>
                 </ScrollReveal>
@@ -234,7 +234,7 @@ export default async function AboutUsPage() {
               {/* Header */}
               {groupStructure.title && (
                 <div className="text-center mb-[24px]">
-                  <h2 className="text-[48px] font-black text-black font-akrux tracking-tighter">
+                  <h2 className="text-[32px] md:text-[48px] font-black text-black font-akrux tracking-tighter">
                     {groupStructure.title}
                   </h2>
                 </div>
