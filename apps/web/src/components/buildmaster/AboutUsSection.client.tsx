@@ -127,9 +127,23 @@ export default function AboutSection({ imageSrc, backgroundSrc, tabs }: AboutSec
               {(() => {
                 const longestId = tabs.reduce((a, b) => (b.body.length > a.body.length ? b : a)).id;
                 return tabs.map((t) => (
-                  <div key={`sizer-${t.id}`} style={{ position: t.id === longestId ? 'relative' : 'absolute', top: 0, left: 0, width: '100%', visibility: 'hidden' }} aria-hidden="true">
-                    <h3 className="text-[#146ae3] font-black uppercase italic text-2xl sm:text-3xl mb-4">{t.label}</h3>
-                    <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#ffffff] leading-[1.85]">{t.body}</p>
+                  <div
+                    key={`sizer-${t.id}`}
+                    style={{
+                      position: t.id === longestId ? 'relative' : 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      visibility: 'hidden',
+                    }}
+                    aria-hidden="true"
+                  >
+                    <h3 className="text-[#146ae3] font-black uppercase italic text-2xl sm:text-3xl mb-4">
+                      {t.label}
+                    </h3>
+                    <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#ffffff] leading-[1.85]">
+                      {t.body}
+                    </p>
                   </div>
                 ));
               })()}
@@ -145,7 +159,9 @@ export default function AboutSection({ imageSrc, backgroundSrc, tabs }: AboutSec
                   <h3 className="text-[#146ae3] font-black uppercase italic text-2xl sm:text-3xl mb-4">
                     {t.label}
                   </h3>
-                  <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#ffffff] leading-[1.85]">{t.body}</p>
+                  <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#ffffff] leading-[1.85]">
+                    {t.body}
+                  </p>
                 </motion.div>
               ))}
             </div>
