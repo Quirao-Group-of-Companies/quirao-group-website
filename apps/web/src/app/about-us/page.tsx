@@ -62,7 +62,7 @@ export default async function AboutUsPage() {
   return (
     <main className="w-full pt-16 min-h-screen">
       {/* 1. HERO SECTION */}
-      <section className="relative w-full h-[60vh] md:h-[70vh] flex flex-col items-center justify-center overflow-hidden">
+      <section className="relative w-full h-[60vh] md:h-[100vh] flex flex-col items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           {hero?.image?.url ? (
@@ -228,12 +228,12 @@ export default async function AboutUsPage() {
 
       {/* 4. COMPANY STRUCTURE SECTION */}
       {groupStructure && (
-        <section className="bg-qgc-gray-soft py-24 px-6 md:px-12 lg:px-20">
+        <section className="bg-qgc-gray-soft pt-[48px] pb-[48px] px-6 md:px-12 lg:px-20">
           <ScrollReveal>
-            <div className="max-w-7xl mx-auto space-y-16">
+            <div className="max-w-7xl mx-auto">
               {/* Header */}
               {groupStructure.title && (
-                <div className="text-center">
+                <div className="text-center mb-[24px]">
                   <h2 className="text-[48px] font-black text-black font-akrux tracking-tighter">
                     {groupStructure.title}
                   </h2>
@@ -242,7 +242,7 @@ export default async function AboutUsPage() {
 
               {/* Image Container */}
               {groupStructure.image?.url && (
-                <div className="overflow-x-auto pb-16 px-4 flex justify-center">
+                <div className="overflow-x-auto px-4 flex justify-center">
                   <div className="min-w-[826px] w-[826px] h-[465px] relative rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)]">
                     <Image
                       src={normalizeUrl(groupStructure.image.url)}
