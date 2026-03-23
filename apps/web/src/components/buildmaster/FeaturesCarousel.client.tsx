@@ -177,7 +177,7 @@ export default function FeaturesCarousel({
   const cardPx = cardPxRef.current;
 
   return (
-    <section className="pt-14 pb-10 bg-white">
+    <section className="pt-10 sm:pt-14 pb-8 sm:pb-10 bg-white">
       <motion.div
         className="flex flex-col items-center text-center mb-8"
         initial={{ opacity: 0, y: 12 }}
@@ -185,7 +185,7 @@ export default function FeaturesCarousel({
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
           OUR <span style={{ color: '#0a285a' }}>FEATURES</span>
         </h2>
         <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
@@ -237,7 +237,7 @@ export default function FeaturesCarousel({
         viewport={{ once: true }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <span className="text-lg md:text-3xl font-bold uppercase tracking-tight text-white drop-shadow-sm text-center sm:text-left">
+        <span className="text-base sm:text-lg md:text-3xl font-bold uppercase tracking-tight text-white drop-shadow-sm text-center sm:text-left">
           Explore More About BuildMaster
         </span>
         {ctaHref && (
@@ -303,7 +303,7 @@ function CarouselCard({
 
       {isActive && (
         <motion.p
-          className="mt-5 text-base md:text-[20px] text-[#333] leading-relaxed text-center px-4 select-none"
+          className="mt-5 text-sm sm:text-base md:text-[15px] text-[#333] leading-relaxed text-center px-4 select-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
