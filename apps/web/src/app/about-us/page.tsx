@@ -136,7 +136,7 @@ export default async function AboutUsPage() {
             <div className="lg:col-span-5 flex justify-center lg:justify-end">
               {aboutUs.image?.url && (
                 <ScrollReveal delay={0.4}>
-                  <div className="relative w-full max-w-[320px] md:max-w-md aspect-[4/5] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] group">
+                  <div className="relative w-full max-w-[320px] md:max-w-md mx-auto lg:mx-0 aspect-[4/5] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] group">
                     <Image
                       src={normalizeUrl(aboutUs.image.url)}
                       alt={aboutUs.image.alternativeText || 'About Us Overview'}
