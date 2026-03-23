@@ -30,9 +30,9 @@
       "type": "media",
       "multiple": false,
       "allowedTypes": [
-        "images", 
-        "files", 
-        "videos", 
+        "images",
+        "files",
+        "videos",
         "audios"
       ]
     },
