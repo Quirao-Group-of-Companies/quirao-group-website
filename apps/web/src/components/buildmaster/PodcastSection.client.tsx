@@ -24,7 +24,7 @@ export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
   }
 
   return (
-    <section className="py-14 bg-white w-full">
+    <section className="py-10 sm:py-14 bg-white w-full">
       <motion.div
         className="flex flex-col items-center text-center mb-8"
         initial={{ opacity: 0, y: 12 }}
@@ -32,13 +32,13 @@ export default function PodcastsSection({ podcasts }: PodcastsSectionProps) {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
           WATCH OUR <span style={{ color: '#0a285a' }}>PODCASTS</span>
         </h2>
         <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
       </motion.div>
 
-      <div className="grid grid-cols-2 gap-4 w-full px-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full px-4 sm:px-6">
         {podcasts.map((pod, i) => (
           <motion.div
             key={pod.id}

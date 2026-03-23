@@ -35,7 +35,7 @@ export default function HeroCarousel({
   }
 
   return (
-    <section className="relative w-full h-screen min-h-[500px] overflow-hidden bg-[#0d1b3e]">
+    <section className="relative w-full h-[50vw] min-h-[320px] max-h-screen overflow-hidden bg-[#0d1b3e]">
       <AnimatePresence initial={false}>
         <motion.div
           key={current}
@@ -69,12 +69,12 @@ export default function HeroCarousel({
 
       {logoSrc && (
         <motion.div
-          className="absolute top-20 left-5 z-30"
+          className="absolute top-4 sm:top-10 md:top-20 left-3 sm:left-5 z-30"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <div className="w-40 h-40 flex items-center justify-center">
+          <div className="w-16 h-16 sm:w-24 sm:h-24 md:w-40 md:h-40 flex items-center justify-center">
             <Image
               src={logoSrc}
               alt="Logo"
@@ -89,28 +89,31 @@ export default function HeroCarousel({
 
       {(brandName || tagline) && (
         <motion.div
-          className="absolute bottom-8 left-10 z-30 flex flex-col gap-1"
+          className="absolute bottom-6 sm:bottom-8 left-4 sm:left-10 z-30 flex flex-col gap-1"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
         >
           {brandName && (
-            <div className="bg-white rounded-4xl pt-2 px-6 py-1 w-fit shadow-xl">
-              <span className="text-[#0d1b3e] font-black text-2xl uppercase tracking-wide leading-none">
+            <div className="bg-white rounded-4xl pt-2 px-3 sm:px-6 py-1 w-fit shadow-xl">
+              <span className="text-[#0d1b3e] font-black text-sm sm:text-lg md:text-2xl uppercase tracking-wide leading-none">
                 {brandName}
               </span>
             </div>
           )}
           {tagline && (
-            <p className="text-white font-semibold text-2xl drop-shadow-lg pl-1">{tagline}</p>
+            <p className="text-white font-semibold text-sm sm:text-lg md:text-2xl drop-shadow-lg pl-1">
+              {tagline}
+            </p>
           )}
         </motion.div>
       )}
 
-      <div className="absolute bottom-9 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+      <div className="absolute bottom-4 sm:bottom-9 left-1/2 -translate-x-1/2 z-30 flex gap-2">
         {slides.map((slide, i) => (
           <motion.button
             key={slide}
+            type="button"
             onClick={() => setCurrent(i)}
             animate={{
               width: i === current ? 24 : 8,

@@ -188,31 +188,37 @@ export default async function BuildMasterPage() {
         )}
 
         {/* Store buttons — scale with banner using vw units */}
-        <div className="absolute bottom-0 left-0 z-10 flex flex-row gap-[1.5vw] px-[15vw] pb-[3vw]">
+        <div
+          className="absolute bottom-0 left-0 z-10 flex flex-row"
+          style={{
+            gap: 'clamp(4px, 1.5vw, 20px)',
+            padding: 'clamp(6px, 3vw, 40px) clamp(12px, 15vw, 200px)',
+          }}
+        >
           <a
             href={appStoreHref || 'https://apps.apple.com'}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center bg-black border border-white/20 text-white rounded-lg hover:scale-105 transition-transform"
-            style={{ gap: '1vw', padding: 'clamp(6px, 1.2vw, 14px) clamp(8px, 1.8vw, 20px)' }}
+            style={{ gap: '1vw', padding: 'clamp(4px, 1.2vw, 14px) clamp(6px, 1.8vw, 20px)' }}
           >
             <svg
               aria-label="Apple"
               role="img"
               viewBox="0 0 24 24"
               className="fill-white shrink-0"
-              style={{ width: 'clamp(14px, 2vw, 24px)', height: 'clamp(14px, 2vw, 24px)' }}
+              style={{ width: 'clamp(10px, 2vw, 24px)', height: 'clamp(10px, 2vw, 24px)' }}
             >
               <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.19 1.28-2.17 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.77M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
             </svg>
             <div className="text-left">
               <div
                 className="text-white/60 uppercase tracking-wide"
-                style={{ fontSize: 'clamp(6px, 0.7vw, 9px)' }}
+                style={{ fontSize: 'clamp(5px, 0.7vw, 9px)' }}
               >
                 Download on the
               </div>
-              <div className="font-bold" style={{ fontSize: 'clamp(9px, 1.1vw, 14px)' }}>
+              <div className="font-bold" style={{ fontSize: 'clamp(7px, 1.1vw, 14px)' }}>
                 {cms.download?.cta?.[1]?.title ?? 'App Store'}
               </div>
             </div>
@@ -223,25 +229,25 @@ export default async function BuildMasterPage() {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center bg-black border border-white/20 text-white rounded-lg hover:scale-105 transition-transform"
-            style={{ gap: '1vw', padding: 'clamp(6px, 1.2vw, 14px) clamp(8px, 1.8vw, 20px)' }}
+            style={{ gap: '1vw', padding: 'clamp(4px, 1.2vw, 14px) clamp(6px, 1.8vw, 20px)' }}
           >
             <svg
               aria-label="Google Play"
               role="img"
               viewBox="0 0 24 24"
               className="fill-white shrink-0"
-              style={{ width: 'clamp(14px, 2vw, 24px)', height: 'clamp(14px, 2vw, 24px)' }}
+              style={{ width: 'clamp(10px, 2vw, 24px)', height: 'clamp(10px, 2vw, 24px)' }}
             >
               <path d="M3.18 23.76a2 2 0 0 0 2.07-.22l11.4-6.57-2.54-2.54-10.93 9.33zM20.43 9.37l-2.67-1.54-2.84 2.84 2.84 2.84 2.7-1.56a1.98 1.98 0 0 0-.03-3.58zM1.18.55A2 2 0 0 0 .75 1.8v20.4a2 2 0 0 0 .43 1.25l.07.07 11.43-11.43v-.27L1.25.48l-.07.07zM14.53 8.17L3.18.43 1.11 2.5l10.93 9.33 2.49-3.66z" />
             </svg>
             <div className="text-left">
               <div
                 className="text-white/60 uppercase tracking-wide"
-                style={{ fontSize: 'clamp(6px, 0.7vw, 9px)' }}
+                style={{ fontSize: 'clamp(5px, 0.7vw, 9px)' }}
               >
                 Get it on
               </div>
-              <div className="font-bold" style={{ fontSize: 'clamp(9px, 1.1vw, 14px)' }}>
+              <div className="font-bold" style={{ fontSize: 'clamp(7px, 1.1vw, 14px)' }}>
                 {cms.download?.cta?.[0]?.title ?? 'Google Play'}
               </div>
             </div>
@@ -250,15 +256,15 @@ export default async function BuildMasterPage() {
       </section>
 
       {contactData && (
-        <section className="w-full bg-white py-12 px-6 md:px-10">
+        <section className="w-full bg-white py-8 sm:py-12 px-4 sm:px-6 md:px-10">
           <div className="flex flex-col items-center text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
               CONTACT <span style={{ color: '#0a285a' }}>BUILDMASTER</span>
             </h2>
             <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
           </div>
           <div className="max-w-6xl mx-auto flex flex-col lg:flex-row bg-qgc-gray-soft rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100">
-            <div className="w-full lg:w-1/2 grid grid-cols-2 lg:grid-cols-2 gap-y-12 gap-x-4 p-6 md:p-12">
+            <div className="w-full lg:w-1/2 grid grid-cols-2 lg:grid-cols-2 gap-y-6 sm:gap-y-12 gap-x-4 p-6 md:p-12">
               {contactDetails[0] && (
                 <div className="flex flex-col items-center text-center gap-3">
                   <div className="p-4 rounded-full border-2 border-black">
@@ -322,7 +328,7 @@ export default async function BuildMasterPage() {
               )}
             </div>
             {contactMapHref && (
-              <div className="w-full lg:w-1/2 h-112.5 lg:h-auto min-h-125">
+              <div className="w-full lg:w-1/2 h-[300px] sm:h-112.5 lg:h-auto lg:min-h-125">
                 <iframe
                   src={contactMapHref}
                   width="100%"
@@ -340,9 +346,9 @@ export default async function BuildMasterPage() {
       )}
 
       {faqs.length > 0 && (
-        <section className="w-full bg-qgc-gray-soft py-12 px-6 md:px-10">
+        <section className="w-full bg-qgc-gray-soft py-8 sm:py-12 px-4 sm:px-6 md:px-10">
           <div className="flex flex-col items-center text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
               FREQUENTLY ASKED <span style={{ color: '#0a285a' }}>QUESTIONS</span>
             </h2>
             <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
