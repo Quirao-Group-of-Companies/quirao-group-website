@@ -48,7 +48,9 @@ export default async function AboutUsPage() {
 
   // Helper to get mission/vision/core-values by title or index
   const getMVItem = (title: string, index: number): StrapiCard | undefined => {
-    if (!missionVision) return undefined;
+    if (!missionVision) {
+      return undefined;
+    }
     return (
       missionVision.find((item) => item.title?.toUpperCase() === title.toUpperCase()) ||
       missionVision[index]
