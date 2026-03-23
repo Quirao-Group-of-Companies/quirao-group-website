@@ -28,7 +28,7 @@ export default function AboutSection({ imageSrc, backgroundSrc, tabs }: AboutSec
   const displayImage = activeTab.image || imageSrc || '';
 
   return (
-    <section className="relative w-full h-screen bg-[#f8f9fb] overflow-hidden">
+    <section className="relative w-full bg-[#f8f9fb] overflow-hidden">
       {/* Background image */}
       {backgroundSrc && (
         <div className="absolute inset-0 z-0">
@@ -43,35 +43,33 @@ export default function AboutSection({ imageSrc, backgroundSrc, tabs }: AboutSec
         </div>
       )}
 
-      <div className="relative z-10 px-6 md:px-10 py-14">
+      <div className="relative z-10 flex flex-col px-4 sm:px-6 md:px-10 pt-10 sm:pt-14 pb-10 sm:pb-16">
         {/* Section heading */}
         <motion.div
-          className="flex flex-col items-center text-center mb-10"
+          className="flex flex-col items-center text-center mb-8"
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-black uppercase italic text-white tracking-tighter">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase italic text-white tracking-tighter">
             ABOUT <span style={{ color: '#146ae3' }}>US</span>
           </h2>
           <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
         </motion.div>
 
-        <div className="flex flex-col md:flex-row py-5 gap-10 max-w-5xl mx-auto items-center">
+        {/* Content fills remaining height and centers vertically */}
+        <div className="flex flex-col md:flex-row gap-4 md:gap-10 w-full max-w-6xl mx-auto items-start md:items-center">
           {/* Image */}
           {displayImage && (
             <motion.div
-              className="w-full md:w-[45%] flex-shrink-0"
+              className="w-full md:w-[48%] flex-shrink-0"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <div
-                className="relative w-full rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-[#0a285a] to-[#2563eb]"
-                style={{ aspectRatio: '4/3' }}
-              >
+              <div className="relative w-full aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden shadow-xl bg-gradient-to-br from-[#0a285a] to-[#2563eb]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={displayImage}
@@ -102,7 +100,7 @@ export default function AboutSection({ imageSrc, backgroundSrc, tabs }: AboutSec
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {/* Tab pills — only show when there's more than one entry */}
+            {/* Tab pills — always rendered, never causes layout shift */}
             {tabs.length > 1 && (
               <div className="flex flex-wrap gap-2 mb-6">
                 {tabs.map((t) => (
@@ -123,20 +121,34 @@ export default function AboutSection({ imageSrc, backgroundSrc, tabs }: AboutSec
               </div>
             )}
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeId}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-              >
-                <h3 className="text-[#146ae3] font-black uppercase italic text-2xl mb-3">
-                  {activeTab.label}
-                </h3>
-                <p className="text-[14px] text-[#ffffff] leading-[1.85]">{activeTab.body}</p>
-              </motion.div>
-            </AnimatePresence>
+            {/* Content area — height locked to tallest tab, pills never move */}
+            <div className="relative">
+              {/* All tabs rendered — longest one is relative (sets height), rest are absolute overlays */}
+              {(() => {
+                const longestId = tabs.reduce((a, b) => (b.body.length > a.body.length ? b : a)).id;
+                return tabs.map((t) => (
+                  <div key={`sizer-${t.id}`} style={{ position: t.id === longestId ? 'relative' : 'absolute', top: 0, left: 0, width: '100%', visibility: 'hidden' }} aria-hidden="true">
+                    <h3 className="text-[#146ae3] font-black uppercase italic text-2xl sm:text-3xl mb-4">{t.label}</h3>
+                    <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#ffffff] leading-[1.85]">{t.body}</p>
+                  </div>
+                ));
+              })()}
+              {/* All tabs absolutely positioned on top — only active one visible */}
+              {tabs.map((t) => (
+                <motion.div
+                  key={t.id}
+                  animate={{ opacity: t.id === activeId ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  className="absolute top-0 left-0 w-full"
+                  style={{ pointerEvents: t.id === activeId ? 'auto' : 'none' }}
+                >
+                  <h3 className="text-[#146ae3] font-black uppercase italic text-2xl sm:text-3xl mb-4">
+                    {t.label}
+                  </h3>
+                  <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#ffffff] leading-[1.85]">{t.body}</p>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
