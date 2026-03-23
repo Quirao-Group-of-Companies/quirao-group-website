@@ -190,7 +190,10 @@ export default async function BuildMasterPage() {
         {/* Store buttons — scale with banner using vw units */}
         <div
           className="absolute bottom-0 left-0 z-10 flex flex-row"
-          style={{ gap: 'clamp(4px, 1.5vw, 20px)', padding: 'clamp(6px, 3vw, 40px) clamp(12px, 15vw, 200px)' }}
+          style={{
+            gap: 'clamp(4px, 1.5vw, 20px)',
+            padding: 'clamp(6px, 3vw, 40px) clamp(12px, 15vw, 200px)',
+          }}
         >
           <a
             href={appStoreHref || 'https://apps.apple.com'}

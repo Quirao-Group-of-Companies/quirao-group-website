@@ -102,7 +102,9 @@ export default function HeroCarousel({
             </div>
           )}
           {tagline && (
-            <p className="text-white font-semibold text-sm sm:text-lg md:text-2xl drop-shadow-lg pl-1">{tagline}</p>
+            <p className="text-white font-semibold text-sm sm:text-lg md:text-2xl drop-shadow-lg pl-1">
+              {tagline}
+            </p>
           )}
         </motion.div>
       )}
