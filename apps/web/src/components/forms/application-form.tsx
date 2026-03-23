@@ -8,7 +8,10 @@ import StatusModal from '@/components/ui/StatusModal.client';
 export function ApplicationForm() {
   const [status, setStatus] = useState<{ success?: boolean; error?: string } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [charCount, setCharCount] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const MAX_CHARS = 3500;
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -19,6 +22,7 @@ export function ApplicationForm() {
 
     if (result.success) {
       formRef.current?.reset();
+      setCharCount(0);
       // Clear file name display
       const display = formRef.current?.querySelector('.file-name');
       if (display) {
@@ -238,48 +242,56 @@ export function ApplicationForm() {
               name="cover_letter"
               placeholder="Tell us why you're a great fit for Quirao Group..."
               required
+              maxLength={MAX_CHARS}
+              onChange={(e) => setCharCount(e.target.value.length)}
               className="w-full p-4 bg-qgc-gray-soft border border-qgc-gray-light rounded-xl text-qgc-black h-48 focus:ring-2 focus:ring-qgc-black focus:border-transparent outline-none transition-all resize-none"
             />
+            <div className="flex justify-end">
+              <span className={`text-xs ${charCount >= MAX_CHARS ? 'text-red-500 font-bold' : 'text-qgc-gray-deep'}`}>
+                {charCount.toLocaleString()} / {MAX_CHARS.toLocaleString()} characters
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div className="p-8 flex justify-center items-center">
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-qgc-black text-qgc-white py-5 rounded-2xl font-bold hover:bg-qgc-gray-deep transition-all disabled:bg-qgc-gray-light shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest"
-          >
-            {loading ? (
-              <>
-                <svg
-                  className="animate-spin h-5 w-5 text-qgc-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  role="img"
-                  aria-label="Loading"
-                >
-                  <title>Loading</title>
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Processing...
-              </>
-            ) : (
-              'Submit Application'
-            )}
-          </button>
+          {/* Submit Button */}
+          <div className="pt-6 flex justify-center items-center">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-qgc-black text-qgc-white py-5 rounded-2xl font-bold hover:bg-qgc-gray-deep transition-all disabled:bg-qgc-gray-light shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest"
+            >
+              {loading ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 text-qgc-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    role="img"
+                    aria-label="Loading"
+                  >
+                    <title>Loading</title>
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Processing...
+                </>
+              ) : (
+                'Submit Application'
+              )}
+            </button>
+          </div>
         </div>
       </form>
 
