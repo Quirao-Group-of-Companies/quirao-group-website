@@ -91,13 +91,13 @@ export default async function AboutUsPage() {
         {/* Hero Content */}
         <div className="relative z-20 text-center text-white px-4 max-w-6xl mx-auto">
           <ScrollReveal>
-            <span className="block text-[18px] md:text-[24px] font-bold tracking-[0.25em] mb-4 uppercase font-akrux">
+            <span className="block text-[18px] md:text-[24px] font-bold tracking-[0.25em] mb-4 uppercase font-akrux drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">
               ABOUT
             </span>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <h1 className="text-[36px] md:text-[64px] font-black uppercase leading-tight tracking-tight drop-shadow-lg font-akrux">
+            <h1 className="text-[36px] md:text-[64px] font-black uppercase leading-tight tracking-tight font-akrux drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]">
               QUIRAO GROUP <br className="hidden md:block" /> OF COMPANIES
             </h1>
           </ScrollReveal>
