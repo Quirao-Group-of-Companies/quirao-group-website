@@ -1,5 +1,4 @@
 import { ApplicationForm } from '@/components/forms/application-form';
-import { EnvelopeIcon, MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
 
 export default function ApplicationPage() {
   return (

@@ -39,20 +39,16 @@ export function ApplicationForm() {
 
   return (
     <>
-      <form
-        ref={formRef}
-        action={handleSubmit}
-        className="space-y-8  bg-transparent w-full"
-      >
+      <form ref={formRef} action={handleSubmit} className="space-y-8  bg-transparent w-full">
         <div className="border-b mb-6">
           <div className="w-full bg-qgc-black h-20 md:h-45 flex justify-center items-center">
-             <Image
-                src="/images/logo/qgc-logo-black.jpg"
-                alt="Quirao Group Logo"
-                width={350}
-                height={60}
-                className="object-contain"
-           />
+            <Image
+              src="/images/logo/qgc-logo-black.jpg"
+              alt="Quirao Group Logo"
+              width={350}
+              height={60}
+              className="object-contain"
+            />
           </div>
         </div>
 
@@ -176,11 +172,9 @@ export function ApplicationForm() {
               className="group flex items-stretch w-full bg-qgc-gray-soft border border-qgc-gray-light rounded-xl cursor-pointer hover:border-qgc-black transition-all overflow-hidden"
             >
               <div className="flex-1 flex items-center px-4 py-4">
-                <span className="file-name text-qgc-gray-deep truncate">
-                  No files selected
-                </span>
+                <span className="file-name text-qgc-gray-deep truncate">No files selected</span>
               </div>
-              <div className="w-1/4 flex-shrink-0 bg-qgc-gray-soft text-qgc-black border-l border-qgc-gray-light flex items-center justify-center gap-2 group-hover:bg-qgc-black group-hover:text-qgc-white transition-all px-2">
+              <div className="w-1/4 shrink-0 bg-qgc-gray-soft text-qgc-black border-l border-qgc-gray-light flex items-center justify-center gap-2 group-hover:bg-qgc-black group-hover:text-qgc-white transition-all px-2">
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -247,7 +241,9 @@ export function ApplicationForm() {
               className="w-full p-4 bg-qgc-gray-soft border border-qgc-gray-light rounded-xl text-qgc-black h-48 focus:ring-2 focus:ring-qgc-black focus:border-transparent outline-none transition-all resize-none"
             />
             <div className="flex justify-end">
-              <span className={`text-xs ${charCount >= MAX_CHARS ? 'text-red-500 font-bold' : 'text-qgc-gray-deep'}`}>
+              <span
+                className={`text-xs ${charCount >= MAX_CHARS ? 'text-red-500 font-bold' : 'text-qgc-gray-deep'}`}
+              >
                 {charCount.toLocaleString()} / {MAX_CHARS.toLocaleString()} characters
               </span>
             </div>
