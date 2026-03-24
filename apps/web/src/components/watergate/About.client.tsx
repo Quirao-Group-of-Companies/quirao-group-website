@@ -23,58 +23,13 @@ export default function WatergateAbout({
 }: WatergateAboutProps) {
   return (
     <section className="w-full bg-white py-10 md:py-14 px-6 md:px-12 lg:px-20">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center">
-        {/* Text side */}
-        <motion.div
-          className="flex-1 flex flex-col gap-4"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          {/* Logo image */}
-          {logoSrc ? (
-            <div className="relative" style={{ width: 'clamp(160px, 20vw, 280px)', height: 'clamp(50px, 7vw, 100px)' }}>
-              <Image
-                src={logoSrc}
-                alt={title}
-                fill
-                className="object-contain object-left"
-                onError={() => {}}
-              />
-            </div>
-          ) : (
-            <h2
-              className="font-black italic text-[#20305f]"
-              style={{ fontSize: 'clamp(32px, 5vw, 64px)' }}
-            >
-              {title}
-            </h2>
-          )}
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-stretch">
 
-          {description && (
-            <p className="text-gray-600 text-sm sm:text-base leading-relaxed max-w-lg">
-              {description}
-            </p>
-          )}
-
-          {ctaHref && ctaTitle && (
-            <a
-              href={ctaHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-1 inline-flex items-center gap-3 bg-[#20305f] text-white font-bold uppercase text-xs sm:text-sm px-5 py-3 rounded-xl hover:bg-[#2d4480] transition-colors w-fit"
-            >
-              <span>{ctaTitle}</span>
-              <ArrowRightIcon className="w-4 h-4" />
-            </a>
-          )}
-        </motion.div>
-
-        {/* Image side */}
+        {/* On mobile: image renders first (top), on desktop: text is left, image is right */}
+        {/* Image side — order-first on mobile, order-last on desktop */}
         {imageSrc && (
           <motion.div
-            className="w-full md:w-[48%] flex-shrink-0"
+            className="w-full md:w-[48%] flex-shrink-0 order-first md:order-last mt-6 md:mt-10"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -94,6 +49,69 @@ export default function WatergateAbout({
             </div>
           </motion.div>
         )}
+
+        {/* Text side */}
+        <motion.div
+          className="flex-1 flex flex-col justify-between gap-6 order-last md:order-first"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex flex-col gap-0">
+            {/* Logo image */}
+            {logoSrc ? (
+              <div className="relative w-full" style={{ height: 'clamp(80px, 14vw, 220px)' }}>
+                <Image
+                  src={logoSrc}
+                  alt={title}
+                  fill
+                  className="object-contain object-left"
+                  onError={() => {}}
+                />
+              </div>
+            ) : (
+              <h2
+                className="font-black italic text-[#20305f]"
+                style={{ fontSize: 'clamp(32px, 5vw, 64px)' }}
+              >
+                {title}
+              </h2>
+            )}
+
+            {description && (
+              <p className="text-black text-base sm:text-lg leading-relaxed">
+                {description}
+              </p>
+            )}
+          </div>
+
+          {ctaHref && ctaTitle && (
+            <motion.div
+              className="bg-watergate-blue rounded-[1rem] px-5 py-5 flex flex-col sm:flex-row items-center justify-between shadow-md gap-3"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <span className="text-sm md:text-2xl font-bold uppercase tracking-tight text-white drop-shadow-sm text-center sm:text-left">
+                {ctaTitle}
+              </span>
+              <motion.a
+                href={ctaHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="flex-shrink-0 bg-white text-[#0d1b3e] px-5 py-2 rounded-2xl shadow-sm flex items-center gap-2 w-full sm:w-auto justify-center"
+              >
+                <span className="font-bold uppercase text-sm whitespace-nowrap">Visit Facebook Page</span>
+                <ArrowRightIcon className="w-4 h-4" />
+              </motion.a>
+            </motion.div>
+          )}
+        </motion.div>
+
       </div>
     </section>
   );

@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-services.ts
  * Regenerate: bun run generate-services (from apps/cms)
- * Generated: 2026-03-17T09:25:22.122Z
+ * Generated: 2026-03-24T02:33:36.440Z
  */
 
 import qs from 'qs';

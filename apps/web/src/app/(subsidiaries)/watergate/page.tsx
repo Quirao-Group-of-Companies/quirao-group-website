@@ -4,7 +4,8 @@ import FAQItem from '@/components/ui/FAQItem.client';
 import WatergateAbout from '@/components/watergate/About.client';
 import WatergateFeatures from '@/components/watergate/Features.client';
 import WatergateHero from '@/components/watergate/Hero.client';
-import { getWatergatePage } from '@/lib/services/strapi-watergate';
+import type { WatergatePageData } from '@cms/types';
+import { getWatergatePage } from '@cms/services';
 
 function img(url?: string | null): string {
   if (!url) return '';
@@ -46,7 +47,7 @@ function SocialIcon({ title }: { title: string }) {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const data = await getWatergatePage().catch(() => null);
+  const data = await getWatergatePage();
   const hero = data?.heroSection?.[0];
   return {
     title: hero?.title || 'Watergate Water Services',
@@ -55,7 +56,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function WatergatePage() {
-  const cms = await getWatergatePage().catch(() => null);
+  const cms: WatergatePageData | null = await getWatergatePage();
 
   if (!cms) {
     return (
@@ -67,7 +68,7 @@ export default async function WatergatePage() {
 
   // Hero
   const heroSlides =
-    cms.heroSection?.map((h: { image?: { url?: string }; title?: string; description?: string }) => img(h.image?.url)).filter(Boolean) ?? [];
+    cms.heroSection?.map((h) => img(h.image?.url)).filter(Boolean) ?? [];
   const firstHero = cms.heroSection?.[0];
   const heroLogoSrc = img(firstHero?.logo?.image?.url);
   const heroBrandName = firstHero?.title ?? 'Watergate';
@@ -78,7 +79,7 @@ export default async function WatergatePage() {
   const aboutTitle = about?.title ?? '';
   const aboutDescription = about?.description ?? '';
   const aboutImageSrc = img(about?.image?.url);
-  const aboutLogoSrc = img(about?.gallery?.[0]?.url);
+  const aboutLogoSrc = img(about?.gallery?.[0]?.url ?? about?.gallery?.[0]?.url);
   const aboutCtaTitle = about?.cta?.title ?? '';
   const aboutCtaHref = about?.cta?.href && !about.cta.href.startsWith('http')
     ? `https://${about.cta.href}`
@@ -86,7 +87,7 @@ export default async function WatergatePage() {
 
   // Feature cards
   const featureCards =
-    cms.featureCards?.map((c: { id: number; title?: string; description?: string }) => ({
+    cms.featureCards?.map((c) => ({
       id: c.id,
       title: c.title ?? '',
       description: c.description ?? '',
@@ -95,7 +96,7 @@ export default async function WatergatePage() {
   // Contact
   const contactData = cms.contactUs;
   const contactDetails = contactData?.details ?? [];
-  const contactLinks = (contactData?.embedLinks ?? []).map((link: { id: number; title?: string; href?: string }) => ({
+  const contactLinks = (contactData?.embedLinks ?? []).map((link) => ({
     ...link,
     href: link.href && !link.href.startsWith('http') ? `https://${link.href}` : link.href,
   }));
@@ -103,7 +104,7 @@ export default async function WatergatePage() {
 
   // FAQs
   const faqs =
-    cms.faqs?.map((f: { id: number; question?: string; answer?: string }) => ({
+    cms.faqs?.map((f) => ({
       id: f.id,
       question: f.question ?? '',
       answer: f.answer ?? '',
@@ -187,7 +188,7 @@ export default async function WatergatePage() {
                   </div>
                   <h3 className="text-xl font-bold uppercase text-black">Socials</h3>
                   <div className="flex gap-3 mt-1">
-                    {contactLinks.map((social: { id: number; title?: string; href?: string }, idx: number) => (
+                    {contactLinks.map((social, idx: number) => (
                       <a
                         key={`${social.id}-${idx}`}
                         href={social.href ?? '#'}
@@ -231,7 +232,7 @@ export default async function WatergatePage() {
             <div className="w-20 h-1 bg-bm-vivid-blue mt-2" />
           </div>
           <div className="max-w-3xl mx-auto flex flex-col gap-3">
-            {faqs.map((faq: { id: number; question: string; answer: string }) => (
+            {faqs.map((faq) => (
               <FAQItem key={faq.id} question={faq.question} answer={faq.answer} />
             ))}
           </div>
