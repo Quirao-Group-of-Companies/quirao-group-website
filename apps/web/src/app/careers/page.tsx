@@ -32,8 +32,8 @@ export default async function CareersPage() {
           />
         )}
         <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute bottom-12 left-0 right-0 px-6">
-          <h1 className="text-3xl md:text-4xl font-bold text-white max-w-5xl mx-auto font-akrux uppercase tracking-wider leading-tight">
+        <div className="relative z-20 px-6 text-center">
+          <h1 className="text-[48px] font-black text-white max-w-5xl mx-auto font-akrux uppercase tracking-tight leading-tight drop-shadow-[0_10px_20px_rgba(0,0,0,0.9)]">
             {heroSection?.title ||
               heroSection?.description ||
               'Join a growing group of companies driven by innovation, collaboration, and long-term impact.'}
