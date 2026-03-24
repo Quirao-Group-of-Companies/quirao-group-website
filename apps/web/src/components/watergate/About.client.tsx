@@ -24,7 +24,6 @@ export default function WatergateAbout({
   return (
     <section className="w-full bg-white py-10 md:py-14 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-stretch">
-
         {/* On mobile: image renders first (top), on desktop: text is left, image is right */}
         {/* Image side — order-first on mobile, order-last on desktop */}
         {imageSrc && (
@@ -39,13 +38,7 @@ export default function WatergateAbout({
               className="relative w-full rounded-2xl overflow-hidden shadow-xl"
               style={{ aspectRatio: '4/3' }}
             >
-              <Image
-                src={imageSrc}
-                alt={title}
-                fill
-                className="object-cover"
-                onError={() => {}}
-              />
+              <Image src={imageSrc} alt={title} fill className="object-cover" onError={() => {}} />
             </div>
           </motion.div>
         )}
@@ -80,9 +73,7 @@ export default function WatergateAbout({
             )}
 
             {description && (
-              <p className="text-black text-base sm:text-lg leading-relaxed">
-                {description}
-              </p>
+              <p className="text-black text-base sm:text-lg leading-relaxed">{description}</p>
             )}
           </div>
 
@@ -105,13 +96,14 @@ export default function WatergateAbout({
                 whileTap={{ scale: 0.97 }}
                 className="flex-shrink-0 bg-white text-[#0d1b3e] px-5 py-2 rounded-2xl shadow-sm flex items-center gap-2 w-full sm:w-auto justify-center"
               >
-                <span className="font-bold uppercase text-sm whitespace-nowrap">Visit Facebook Page</span>
+                <span className="font-bold uppercase text-sm whitespace-nowrap">
+                  Visit Facebook Page
+                </span>
                 <ArrowRightIcon className="w-4 h-4" />
               </motion.a>
             </motion.div>
           )}
         </motion.div>
-
       </div>
     </section>
   );

@@ -22,12 +22,16 @@ export default function WatergateHero({
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    if (!slides || slides.length === 0) return;
+    if (!slides || slides.length === 0) {
+      return;
+    }
     const id = setInterval(() => setCurrent((s) => (s + 1) % slides.length), interval);
     return () => clearInterval(id);
   }, [slides, interval]);
 
-  if (!slides || slides.length === 0) return null;
+  if (!slides || slides.length === 0) {
+    return null;
+  }
 
   return (
     <section className="relative w-full h-screen sm:h-[50vw] min-h-[320px] max-h-screen overflow-hidden bg-[#20305f]">
@@ -57,7 +61,8 @@ export default function WatergateHero({
         className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none"
         style={{
           height: '50%',
-          background: 'linear-gradient(to top, rgba(32,48,95,0.85) 0%, rgba(32,48,95,0.2) 60%, transparent 100%)',
+          background:
+            'linear-gradient(to top, rgba(32,48,95,0.85) 0%, rgba(32,48,95,0.2) 60%, transparent 100%)',
         }}
       />
 
@@ -97,7 +102,9 @@ export default function WatergateHero({
           </div>
         )}
         {tagline && (
-          <p className="text-white font-semibold text-base sm:text-2xl drop-shadow-lg pl-1">{tagline}</p>
+          <p className="text-white font-semibold text-base sm:text-2xl drop-shadow-lg pl-1">
+            {tagline}
+          </p>
         )}
       </motion.div>
 

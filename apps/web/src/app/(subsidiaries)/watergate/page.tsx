@@ -1,15 +1,20 @@
+import { getWatergatePage } from '@cms/services';
+import type { WatergatePageData } from '@cms/types';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
 import type { Metadata } from 'next';
 import FAQItem from '@/components/ui/FAQItem.client';
 import WatergateAbout from '@/components/watergate/About.client';
 import WatergateFeatures from '@/components/watergate/Features.client';
 import WatergateHero from '@/components/watergate/Hero.client';
-import type { WatergatePageData } from '@cms/types';
-import { getWatergatePage } from '@cms/services';
 
 function img(url?: string | null): string {
-  if (!url) return '';
-  const base = (process.env.NEXT_PUBLIC_STRAPI_URL || process.env.STRAPI_URL || '').replace(/\/$/, '');
+  if (!url) {
+    return '';
+  }
+  const base = (process.env.NEXT_PUBLIC_STRAPI_URL || process.env.STRAPI_URL || '').replace(
+    /\/$/,
+    '',
+  );
   return url.startsWith('http') ? url : `${base}${url}`;
 }
 
@@ -67,8 +72,7 @@ export default async function WatergatePage() {
   }
 
   // Hero
-  const heroSlides =
-    cms.heroSection?.map((h) => img(h.image?.url)).filter(Boolean) ?? [];
+  const heroSlides = cms.heroSection?.map((h) => img(h.image?.url)).filter(Boolean) ?? [];
   const firstHero = cms.heroSection?.[0];
   const heroLogoSrc = img(firstHero?.logo?.image?.url);
   const heroBrandName = firstHero?.title ?? 'Watergate';
@@ -81,9 +85,10 @@ export default async function WatergatePage() {
   const aboutImageSrc = img(about?.image?.url);
   const aboutLogoSrc = img(about?.gallery?.[0]?.url ?? about?.gallery?.[0]?.url);
   const aboutCtaTitle = about?.cta?.title ?? '';
-  const aboutCtaHref = about?.cta?.href && !about.cta.href.startsWith('http')
-    ? `https://${about.cta.href}`
-    : about?.cta?.href ?? '';
+  const aboutCtaHref =
+    about?.cta?.href && !about.cta.href.startsWith('http')
+      ? `https://${about.cta.href}`
+      : (about?.cta?.href ?? '');
 
   // Feature cards
   const featureCards =
@@ -100,7 +105,9 @@ export default async function WatergatePage() {
     ...link,
     href: link.href && !link.href.startsWith('http') ? `https://${link.href}` : link.href,
   }));
-  const contactMapHref = contactData?.embedMap?.href ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1018.3902873574484!2d122.59354003252722!3d10.759332700082894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee5bb488af5ad%3A0x9e517c36dbc70075!2sBuildmaster%20PH!5e0!3m2!1sen!2sph!4v1774256219656!5m2!1sen!2sph';
+  const contactMapHref =
+    contactData?.embedMap?.href ??
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1018.3902873574484!2d122.59354003252722!3d10.759332700082894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee5bb488af5ad%3A0x9e517c36dbc70075!2sBuildmaster%20PH!5e0!3m2!1sen!2sph!4v1774256219656!5m2!1sen!2sph';
 
   // FAQs
   const faqs =
@@ -159,8 +166,12 @@ export default async function WatergatePage() {
                   <div className="p-4 rounded-full border-2 border-black">
                     <MapPinIcon className="w-8 h-8 text-black" />
                   </div>
-                  <h3 className="text-xl font-bold uppercase text-black">{contactDetails[0].title ?? ''}</h3>
-                  <p className="text-gray-700 text-sm max-w-55 leading-snug">{contactDetails[0].description ?? ''}</p>
+                  <h3 className="text-xl font-bold uppercase text-black">
+                    {contactDetails[0].title ?? ''}
+                  </h3>
+                  <p className="text-gray-700 text-sm max-w-55 leading-snug">
+                    {contactDetails[0].description ?? ''}
+                  </p>
                 </div>
               )}
               {contactDetails[1] && (
@@ -168,8 +179,12 @@ export default async function WatergatePage() {
                   <div className="p-4 rounded-full border-2 border-black">
                     <EnvelopeIcon className="w-8 h-8 text-black" />
                   </div>
-                  <h3 className="text-xl font-bold uppercase text-black">{contactDetails[1].title ?? ''}</h3>
-                  <p className="text-gray-700 text-sm break-all">{contactDetails[1].description ?? ''}</p>
+                  <h3 className="text-xl font-bold uppercase text-black">
+                    {contactDetails[1].title ?? ''}
+                  </h3>
+                  <p className="text-gray-700 text-sm break-all">
+                    {contactDetails[1].description ?? ''}
+                  </p>
                 </div>
               )}
               {contactDetails[2] && (
@@ -177,8 +192,12 @@ export default async function WatergatePage() {
                   <div className="p-4 rounded-full border-2 border-black">
                     <PhoneIcon className="w-8 h-8 text-black" />
                   </div>
-                  <h3 className="text-xl font-bold uppercase text-black">{contactDetails[2].title ?? ''}</h3>
-                  <p className="text-gray-700 text-sm font-bold">{contactDetails[2].description ?? ''}</p>
+                  <h3 className="text-xl font-bold uppercase text-black">
+                    {contactDetails[2].title ?? ''}
+                  </h3>
+                  <p className="text-gray-700 text-sm font-bold">
+                    {contactDetails[2].description ?? ''}
+                  </p>
                 </div>
               )}
               {contactLinks.length > 0 && (
