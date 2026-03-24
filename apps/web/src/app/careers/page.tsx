@@ -77,7 +77,7 @@ export default async function CareersPage() {
       )}
 
       {/* ================= VALUING WHAT MATTERS ================= */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-qgc-gray-soft">
         <div className="container mx-auto px-6 md:px-12">
           {valuesSection?.headline && (
             <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center font-akrux uppercase tracking-widest">
@@ -123,7 +123,7 @@ export default async function CareersPage() {
       </section>
 
       {/* ================= WHY JOIN US ================= */}
-      <section className="py-24 px-6 bg-qgc-gray-soft">
+      <section className="py-24 px-6 bg-white">
         <div className="container mx-auto max-w-7xl">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-start font-akrux uppercase tracking-widest">
             {whyJoinUs?.title}
