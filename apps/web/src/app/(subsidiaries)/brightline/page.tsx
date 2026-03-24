@@ -1,18 +1,6 @@
 import { getBrightlinePage } from '@cms/services';
-import type {
-  BrightlinePageData,
-  StrapiCard,
-  StrapiFaq,
-  StrapiHerosection,
-  StrapiLink,
-} from '@cms/types';
-import {
-  ArrowRightIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-  PhoneIcon,
-  ShareIcon,
-} from '@heroicons/react/24/outline';
+import type { BrightlinePageData, StrapiCard, StrapiFaq, StrapiLink,} from '@cms/types';
+import {ArrowRightIcon, EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon,} from '@heroicons/react/24/outline';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
@@ -65,15 +53,11 @@ export default async function BrightlinePage() {
 
   const STRAPI_URL = (process.env.STRAPI_URL?.trim() || 'http://127.0.0.1:1337').replace(/\/$/, '');
 
-  const getImageUrl = (imagePath: string | undefined, fallback: string) => {
-    if (!imagePath) {
-      return fallback;
+  const getImageUrl = (url?: string) => {
+    if (!url) {
+      return '';
     }
-    const cleanPath = imagePath.replace(/([^:])\/+/g, '$1/');
-    if (cleanPath.startsWith('http')) {
-      return cleanPath;
-    }
-    return `${STRAPI_URL}${cleanPath}`;
+    return url.replace(/([^:]\/)\/+/g, '$1');
   };
 
   return (
@@ -83,7 +67,7 @@ export default async function BrightlinePage() {
         <section className="relative w-full h-screen flex flex-col justify-end overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
-              src={getImageUrl(hero?.image?.url, "/images/home-page/business-preview/brightline-business-preview.jpg")}
+              src={getImageUrl(hero?.image?.url)}
               alt={hero?.image?.alternativeText || 'Brightline Trucking Hero Background'}
               fill
               className="object-cover"
@@ -94,7 +78,7 @@ export default async function BrightlinePage() {
 
           <div className="absolute top-30 left-8 md:left-16 z-20">
             <Image
-              src={getImageUrl(hero?.logo?.image?.url, "/images/logo/brightline/brightline-logo.png")}
+              src={getImageUrl(hero?.logo?.image?.url)}
               alt={hero?.logo?.name || 'Brightline Trucking Logo'}
               width={80}
               height={80}
@@ -161,7 +145,7 @@ export default async function BrightlinePage() {
 
           <div className="order-2 md:order-2 w-full md:w-[40%] flex justify-center items-center h-100 md:h-[80%] lg:h-[85%] relative rounded-4xl overflow-hidden shadow-2xl">
             <Image
-              src={getImageUrl(aboutUs?.image?.url, "/images/home-page/business-preview/brightline-business-preview-card.jpg")}
+              src={getImageUrl(aboutUs?.image?.url)}
               alt={aboutUs?.image?.alternativeText || 'About Brightline Trucking'}
               fill
               className="object-cover"
@@ -194,7 +178,7 @@ export default async function BrightlinePage() {
                     <div className="mb-8 p-4 bg-orange-50 rounded-2xl group-hover:bg-brightline-orange transition-colors duration-300 flex items-center justify-center w-24 h-24 overflow-hidden">
                       {loc.icon?.[0]?.url ? (
                         <Image
-                          src={getImageUrl(loc.icon[0].url, "")}
+                          src={getImageUrl(loc.icon[0].url)}
                           alt={loc.icon[0].alternativeText || loc.title || 'Delivery Icon'}
                           width={64}
                           height={64}
@@ -253,7 +237,7 @@ export default async function BrightlinePage() {
                     <div className="mb-4 w-12 h-12 flex items-center justify-center">
                       {feature.icon?.[0]?.url ? (
                         <Image
-                          src={getImageUrl(feature.icon[0].url, "")}
+                          src={getImageUrl(feature.icon[0].url)}
                           alt={feature.icon[0].alternativeText || feature.title || 'Feature Icon'}
                           width={48}
                           height={48}
@@ -290,7 +274,7 @@ export default async function BrightlinePage() {
       <ScrollReveal>
         <section className="relative w-full h-75 md:h-125 overflow-hidden">
           <Image
-            src={getImageUrl(banner?.image?.url, getImageUrl(hero?.image?.url, "/images/home-page/business-preview/brightline-business-preview.jpg"))}
+            src={getImageUrl(banner?.image?.url)}
             alt={banner?.image?.alternativeText || 'Brightline Banner Background'}
             fill
             className="object-cover"
