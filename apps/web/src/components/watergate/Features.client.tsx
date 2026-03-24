@@ -32,13 +32,13 @@ export default function WatergateFeatures({ heading, tagline, cards }: Watergate
           transition={{ duration: 0.5 }}
         >
           <h2
-            className="font-black uppercase text-[#20305f] leading-tight"
+            className="font-black uppercase text-watergate-blue leading-tight"
             style={{ fontSize: 'clamp(26px, 3.5vw, 52px)' }}
           >
             {heading}
           </h2>
           {tagline && (
-            <p className="text-gray-500 text-sm sm:text-base leading-relaxed">{tagline}</p>
+            <p className="text-watergate-blue font-medium text-sm sm:text-base leading-relaxed">{tagline}</p>
           )}
         </motion.div>
 
