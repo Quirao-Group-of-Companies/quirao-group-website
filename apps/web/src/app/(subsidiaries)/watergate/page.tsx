@@ -83,7 +83,7 @@ export default async function WatergatePage() {
   const aboutTitle = about?.title ?? '';
   const aboutDescription = about?.description ?? '';
   const aboutImageSrc = img(about?.image?.url);
-  const aboutLogoSrc = img(about?.gallery?.[0]?.url ?? about?.gallery?.[0]?.url);
+  const aboutLogoSrc = img(about?.gallery?.[0]?.url);
   const aboutCtaTitle = about?.cta?.title ?? '';
   const aboutCtaHref =
     about?.cta?.href && !about.cta.href.startsWith('http')
