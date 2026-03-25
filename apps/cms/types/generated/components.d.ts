@@ -109,6 +109,8 @@ export interface BlocksHighlights extends Struct.ComponentSchema {
     displayName: 'Highlight';
   };
   attributes: {
+    bulletDescription: Schema.Attribute.String;
+    bulletTitle: Schema.Attribute.String;
     cta: Schema.Attribute.Component<'elements.link', false>;
     description: Schema.Attribute.Blocks;
     headline: Schema.Attribute.String;

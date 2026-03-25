@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-services.ts
  * Regenerate: bun run generate-services (from apps/cms)
- * Generated: 2026-03-17T09:25:22.122Z
+ * Generated: 2026-03-25T06:54:28.907Z
  */
 
 import qs from 'qs';
@@ -288,40 +288,10 @@ export async function getCareersPage(): Promise<CareersPageData | null> {
           },
         },
         overviewVideo: true,
-        subsidiaryOverview: {
-          populate: {
-            image: true,
-            logo: {
-              populate: {
-                image: true,
-              },
-            },
-            cta: true,
-            cardImage: true,
-          },
-        },
-        valuesSection: {
-          populate: {
-            image: true,
-            cta: true,
-          },
-        },
         whyJoinUs: {
           populate: {
             image: true,
             cta: true,
-          },
-        },
-        subContacts: {
-          populate: {
-            logo: {
-              populate: {
-                image: true,
-              },
-            },
-            cta: true,
-            cardImage: true,
-            featuredImage: true,
           },
         },
       },

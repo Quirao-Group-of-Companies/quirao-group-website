@@ -601,12 +601,9 @@ export interface ApiCareersPageCareersPage extends Struct.SingleTypeSchema {
     overview: Schema.Attribute.Component<'blocks.about-us', false>;
     overviewVideo: Schema.Attribute.Component<'elements.link', false>;
     publishedAt: Schema.Attribute.DateTime;
-    subContacts: Schema.Attribute.Component<'blocks.sub-contacts', true>;
-    subsidiaryOverview: Schema.Attribute.Component<'blocks.sub-preview', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    valuesSection: Schema.Attribute.Component<'blocks.highlights', false>;
     whyJoinUs: Schema.Attribute.Component<'blocks.highlights', false>;
   };
 }
