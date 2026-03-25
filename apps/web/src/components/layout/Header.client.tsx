@@ -84,7 +84,7 @@ export default function Navbar() {
           {/* About Us */}
           <li className="w-full md:w-auto">
             <Link
-              href="/about"
+              href="/about-us"
               onClick={() => setMenuOpen(false)}
               className="block px-6 py-3 md:p-0 text-qgc-black hover:text-gray-500"
             >
