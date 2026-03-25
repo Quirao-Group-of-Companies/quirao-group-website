@@ -1,6 +1,12 @@
 import { getBrightlinePage } from '@cms/services';
 import type { BrightlinePageData, StrapiCard, StrapiFaq, StrapiLink } from '@cms/types';
-import { ArrowRightIcon, EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon} from '@heroicons/react/24/outline';
+import {
+  ArrowRightIcon,
+  EnvelopeIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ShareIcon,
+} from '@heroicons/react/24/outline';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';

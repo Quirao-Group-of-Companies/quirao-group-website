@@ -7,7 +7,6 @@ import {
   HomeModernIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline';
-import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 // Custom icon for Ship as it's not in Heroicons
@@ -20,7 +19,10 @@ const ShipIcon = ({ className }: { className?: string }) => (
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
+    role="img"
+    aria-label="Ship Icon"
   >
+    <title>Ship Icon</title>
     <path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" />
     <path d="M19.38 20 21 7l-8 2-10-1 1 12Z" />
     <path d="M13 9V4a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v5" />
