@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
 import ScrollReveal from '@/components/ScrollReveal.client';
+import DeliverySection from '@/components/brightline/DeliverySection.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 
@@ -76,12 +77,12 @@ export default async function BrightlinePage() {
             <div className="absolute inset-0 bg-black/40" />
           </div>
 
-          <div className="absolute top-30 left-8 md:left-16 z-20">
+          <div className="absolute top-10 md:top-20 left-0 md:left-2 z-20">
             <Image
               src={getImageUrl(hero?.logo?.image?.url)}
               alt={hero?.logo?.name || 'Brightline Trucking Logo'}
-              width={80}
-              height={80}
+              width={250}
+              height={250}
               className="object-contain brightness-0 invert"
             />
           </div>
@@ -216,59 +217,7 @@ export default async function BrightlinePage() {
       )}
      
       {/* 4. WHERE WE DELIVER SECTION */}
-      {features && features.length > 0 && (
-        <ScrollReveal>
-          <section className="bg-qgc-gray-soft py-20 px-6 md:px-12">
-            <div className="max-w-7xl mx-auto">
-              {/* Section Header */}
-              <div className="text-center mb-16">
-                <h2 className="text-4xl italic md:text-5xl font-black uppercase font-poppins tracking-tighter text-qgc-black">
-                  WHERE WE <span className="text-brightline-orange underline decoration-qgc-black underline-offset-8">DELIVER</span>
-                </h2>
-              </div>
-
-              {/* Delivery Locations Grid (Using features data) */}
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-                {features.map((feature: StrapiCard) => (
-                  <div 
-                    key={feature.id} 
-                    className="bg-white rounded-2xl p-6 md:p-8 flex flex-col items-center justify-center text-center shadow-lg border border-white hover:scale-105 transition-transform duration-300"
-                  >
-                    <div className="mb-4 w-12 h-12 flex items-center justify-center">
-                      {feature.icon?.[0]?.url ? (
-                        <Image
-                          src={getImageUrl(feature.icon[0].url)}
-                          alt={feature.icon[0].alternativeText || feature.title || 'Feature Icon'}
-                          width={48}
-                          height={48}
-                          className="object-contain"
-                        />
-                      ) : (
-                        <svg 
-                          width="48" 
-                          height="48" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round" 
-                          className="text-red-600"
-                        >
-                          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9z M9 22V12h6v10" />
-                        </svg>
-                      )}
-                    </div>
-                    <span className="font-bold text-sm md:text-base text-qgc-black uppercase font-poppins leading-tight">
-                      {feature.title}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        </ScrollReveal>
-      )}
+      {features && features.length > 0 && <DeliverySection features={features} />}
 
       {/* 5. BRAND BANNER SECTION */}
       <ScrollReveal>
@@ -347,27 +296,62 @@ export default async function BrightlinePage() {
                     </div>
                     <h3 className="text-xl font-bold uppercase text-black">Socials:</h3>
                     <div className="flex gap-3 mt-1">
-                      {contactUs.embedLinks?.map((link: StrapiLink) => (
+                      {contactUs.embedLinks?.map((social: StrapiLink, idx: number) => (
                         <a
-                          key={link.id}
-                          href={link.href || '#'}
+                          key={`${social.title}-${social.href || idx}`}
+                          href={social.href || '#'}
                           target="_blank"
-                          rel="noreferrer"
+                          rel="noopener noreferrer"
                           className="p-1 hover:scale-110 transition-transform"
-                          title={link.title || 'Social Link'}
+                          title={social.title || 'Social Link'}
                         >
-                          {link.title?.toLowerCase().includes('facebook') ? (
+                          {social.title?.toLowerCase().includes('facebook') ? (
                             <svg
                               className="w-6 h-6 fill-black"
                               viewBox="0 0 24 24"
                               role="img"
-                              aria-label="Facebook"
                             >
                               <title>Facebook</title>
                               <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                             </svg>
+                          ) : social.title?.toLowerCase().includes('instagram') ? (
+                            <svg
+                              className="w-6 h-6 fill-black"
+                              viewBox="0 0 24 24"
+                              role="img"
+                            >
+                              <title>Instagram</title>
+                              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.058-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                          ) : social.title?.toLowerCase().includes('youtube') ? (
+                            <svg
+                              className="w-6 h-6 fill-black"
+                              viewBox="0 0 24 24"
+                              role="img"
+                            >
+                              <title>YouTube</title>
+                              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                          ) : social.title?.toLowerCase().includes('tiktok') ? (
+                            <svg
+                              className="w-6 h-6 fill-black"
+                              viewBox="0 0 24 24"
+                              role="img"
+                            >
+                              <title>TikTok</title>
+                              <path d="M12.525.02c1.31.036 2.584.37 3.75 1.017.037.033.016.061-.015.072-1.35.46-2.423 1.408-3.062 2.69-.58 1.15-.71 2.362-.71 3.634v10.162c0 2.11-.496 3.858-1.978 5.13-1.547 1.323-3.391 1.627-5.23 1.308-2.156-.37-3.56-1.715-4.335-3.903-.706-1.987-.44-4.688 1.63-5.873.862-.493 1.797-.758 2.79-.756.215 0 .415.044.613.091.039.01.05.027.05.068v3.113c-.198-.083-.4-.132-.619-.135-1.142-.01-2.083.836-2.13 1.972-.03.733.247 1.475.817 1.969.64.554 1.417.6 2.23.35.85-.261 1.338-.934 1.338-1.81V.422c.005-.131.046-.172.179-.172h3.84c.034 0 .052.02.05.054a.223.223 0 0 1-.01.04c-.011.03-.028.05-.05.076z" />
+                            </svg>
+                          ) : social.title?.toLowerCase().includes('linktree') ? (
+                            <svg
+                              className="w-6 h-6 fill-black"
+                              viewBox="0 0 24 24"
+                              role="img"
+                            >
+                              <title>Linktree</title>
+                              <path d="M21.001 11.104l-2.501-2.501-4.001 4.001v-12.604h-5v12.604l-4.001-4.001-2.501 2.501 9.001 9.001 9.001-9.001zM14.501 21.104h-5v2.5h5v-2.5z" />
+                            </svg>
                           ) : (
-                            <span className="text-xs font-bold">{link.title}</span>
+                            <span className="text-xs font-bold">{social.title}</span>
                           )}
                         </a>
                       ))}
@@ -389,7 +373,7 @@ export default async function BrightlinePage() {
                     />
                   ) : (
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2264.308734117296!2d122.59259123058459!3d10.758815803751753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee5cc2c4cd41b%3A0x5227806edabd0f50!2sSari-Sari%20Manokan!5e0!3m2!1sen!2sph!4v1772765274696!5m2!1sen!2sph"
+                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1632.231024757796!2d122.59254323340565!3d10.75947246870939!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aee5bb488af5ad%3A0x9e517c36dbc70075!2sBuildmaster%20PH!5e0!3m2!1sen!2sph!4v1774406376578!5m2!1sen!2sph"
                       width="100%"
                       height="100%"
                       style={{ border: 0 }}
