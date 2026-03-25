@@ -86,7 +86,7 @@ export default async function BrightlinePage() {
           <div className="relative z-10 pl-8 md:pl-16 pb-10 space-y-2">
             {hero?.title && (
               <div className="bg-white/95 backdrop-blur-md rounded-2xl px-10 py-1 w-fit shadow-2xl border border-white/50">
-                <h1 className="text-brightline-orange text-2xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
+                <h1 className="text-[#ff6600] text-2xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
                   {hero.title}
                 </h1>
               </div>
@@ -121,7 +121,7 @@ export default async function BrightlinePage() {
             </div>
             {aboutUs?.cta && (
               <ScrollReveal>
-                <div className="w-full bg-brightline-orange rounded-2xl p-2 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+                <div className="w-full bg-[#ff6600] rounded-2xl p-2 md:p-6 lg:p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
                   <span className="text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-tight font-poppins text-white drop-shadow-sm text-center sm:text-left leading-tight">
                     Connect with Brightline Trucking
                   </span>
@@ -161,7 +161,7 @@ export default async function BrightlinePage() {
               <div className="text-start md:text-center lg:text-center mb-16">
                 <h2 className="text-3xl md:text-5xl font-black uppercase font-poppins tracking-tight text-qgc-black">
                   Delivering the Best Custom
-                  <span className="block text-brightline-orange">Trucking Experience</span>
+                  <span className="block text-[#ff6600]">Trucking Experience</span>
                 </h2>
               </div>
 
@@ -173,7 +173,7 @@ export default async function BrightlinePage() {
                     className="group flex flex-col items-center p-10 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-50 text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
                   >
                     {/* Icon */}
-                    <div className="mb-8 p-4 bg-orange-50 rounded-2xl group-hover:bg-brightline-orange transition-colors duration-300 flex items-center justify-center w-24 h-24 overflow-hidden">
+                    <div className="mb-8 p-4 bg-orange-50 rounded-2xl group-hover:bg-[#ff6600] transition-colors duration-300 flex items-center justify-center w-24 h-24 overflow-hidden">
                       {loc.icon?.[0]?.url ? (
                         <Image
                           src={getImageUrl(loc.icon[0].url)}
@@ -187,7 +187,7 @@ export default async function BrightlinePage() {
                           width="64"
                           height="64"
                           viewBox="0 0 24 24"
-                          className="fill-brightline-orange group-hover:fill-white transition-colors duration-300"
+                          className="fill-[#ff6600] group-hover:fill-white transition-colors duration-300"
                         >
                           <title>Delivery Icon</title>
                           <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
@@ -222,7 +222,7 @@ export default async function BrightlinePage() {
               {/* Section Header */}
               <div className="flex flex-col items-center mb-16 text-center">
                 <h2 className="text-4xl italic md:text-5xl font-black uppercase font-poppins tracking-tighter text-qgc-black">
-                  WHERE WE <span className="text-brightline-orange">DELIVER</span>
+                  WHERE WE <span className="text-[#ff6600]">DELIVER</span>
                 </h2>
                 <div className="w-24 h-1.5 bg-qgc-black mt-2" />
               </div>
@@ -264,7 +264,7 @@ export default async function BrightlinePage() {
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col items-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-black uppercase italic text-black tracking-tighter text-center">
-                  Contact <span className="text-brightline-orange">Brightline</span>
+                  Contact <span className="text-[#ff6600]">Brightline</span>
                 </h2>
                 <div className="w-24 h-1.5 bg-qgc-black mt-2" />
               </div>
@@ -400,7 +400,7 @@ export default async function BrightlinePage() {
             <div className="max-w-4xl mx-auto">
               <div className="flex flex-col items-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-black uppercase italic text-black tracking-tighter text-center">
-                  FREQUENTLY ASKED <span className="text-brightline-orange">QUESTIONS</span>
+                  FREQUENTLY ASKED <span className="text-[#ff6600]">QUESTIONS</span>
                 </h2>
                 <div className="w-20 h-1 bg-qgc-black mt-2" />
               </div>
