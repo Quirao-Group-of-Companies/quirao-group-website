@@ -12,11 +12,11 @@ import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import AboutSection from '@/components/buildmaster/AboutUsSection.client';
+import DownloadButton from '@/components/buildmaster/DownloadButton';
 import FeaturesCarousel from '@/components/buildmaster/FeaturesCarousel.client';
 import HeroCarousel from '@/components/buildmaster/HeroCarousel.client';
 import PodcastsSection from '@/components/buildmaster/PodcastSection.client';
 import FAQItem from '@/components/ui/FAQItem.client';
-import DownloadButton from '@/components/buildmaster/DownloadButton';
 
 function extractYoutubeId(url?: string | null): string {
   if (!url) {
@@ -191,7 +191,10 @@ export default async function BuildMasterPage() {
         {/* Store buttons — scale with banner using vw units */}
         <div
           className="absolute bottom-0 left-0 z-10 flex flex-row"
-          style={{ gap: 'clamp(4px, 1.5vw, 20px)', padding: 'clamp(6px, 3vw, 40px) clamp(12px, 15vw, 200px)' }}
+          style={{
+            gap: 'clamp(4px, 1.5vw, 20px)',
+            padding: 'clamp(6px, 3vw, 40px) clamp(12px, 15vw, 200px)',
+          }}
         >
           <DownloadButton
             href={appStoreHref}

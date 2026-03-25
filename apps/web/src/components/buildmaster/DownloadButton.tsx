@@ -1,5 +1,3 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
-
 interface DownloadButtonProps {
   href: string;
   variant: 'apple' | 'google';
