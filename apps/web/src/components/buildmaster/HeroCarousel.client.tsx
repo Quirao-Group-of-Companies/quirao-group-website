@@ -35,7 +35,7 @@ export default function HeroCarousel({
   }
 
   return (
-    <section className="relative w-full h-[50vw] min-h-[320px] max-h-screen overflow-hidden bg-[#0d1b3e]">
+    <section className="relative w-full h-screen sm:h-[50vw] min-h-[320px] max-h-screen overflow-hidden bg-[#0d1b3e]">
       <AnimatePresence initial={false}>
         <motion.div
           key={current}
@@ -69,17 +69,18 @@ export default function HeroCarousel({
 
       {logoSrc && (
         <motion.div
-          className="absolute top-4 sm:top-10 md:top-20 left-3 sm:left-5 z-30"
+          className="absolute top-40 sm:top-10 md:top-20 left-3 sm:left-5 z-30"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
-          <div className="w-16 h-16 sm:w-24 sm:h-24 md:w-40 md:h-40 flex items-center justify-center">
+          {/* Fixed pixel sizes — no clamp, guaranteed visible on all screens */}
+          <div className="w-40 h-40 sm:w-28 sm:h-28 md:w-40 md:h-40 relative">
             <Image
               src={logoSrc}
               alt="Logo"
-              width={500}
-              height={500}
+              fill
+              sizes="(max-width: 640px) 80px, (max-width: 768px) 112px, 160px"
               className="object-contain"
               onError={() => {}}
             />
@@ -89,20 +90,20 @@ export default function HeroCarousel({
 
       {(brandName || tagline) && (
         <motion.div
-          className="absolute bottom-6 sm:bottom-8 left-4 sm:left-10 z-30 flex flex-col gap-1"
+          className="absolute bottom-25 sm:bottom-8 left-8 sm:left-10 z-30 flex flex-col gap-1"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
         >
           {brandName && (
-            <div className="bg-white rounded-4xl pt-2 px-3 sm:px-6 py-1 w-fit shadow-xl">
-              <span className="text-[#0d1b3e] font-black text-sm sm:text-lg md:text-2xl uppercase tracking-wide leading-none">
+            <div className="bg-white rounded-4xl pt-2 px-4 sm:px-6 py-1 w-fit shadow-xl">
+              <span className="text-[#0d1b3e] font-black text-xl sm:text-lg md:text-2xl uppercase tracking-wide leading-none">
                 {brandName}
               </span>
             </div>
           )}
           {tagline && (
-            <p className="text-white font-semibold text-sm sm:text-lg md:text-2xl drop-shadow-lg pl-1">
+            <p className="text-white font-semibold text-xl sm:text-lg md:text-2xl drop-shadow-lg pl-1">
               {tagline}
             </p>
           )}
