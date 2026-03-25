@@ -1,12 +1,6 @@
 import { getBrightlinePage } from '@cms/services';
 import type { BrightlinePageData, StrapiCard, StrapiFaq, StrapiLink } from '@cms/types';
-import {
-  ArrowRightIcon,
-  EnvelopeIcon,
-  MapPinIcon,
-  PhoneIcon,
-  ShareIcon,
-} from '@heroicons/react/24/outline';
+import { ArrowRightIcon, EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon} from '@heroicons/react/24/outline';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
@@ -15,14 +9,18 @@ import ScrollReveal from '@/components/ScrollReveal.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 
+/* =========================================================
+   METADATA GENERATION
+========================================================= */
+
 export async function generateMetadata(): Promise<Metadata> {
-  const data = (await getBrightlinePage()) as BrightlinePageData;
-  const hero = data?.heroSection?.[0];
+  const pageData = (await getBrightlinePage()) as BrightlinePageData;
+  const heroData = pageData?.heroSection?.[0];
 
   return {
-    title: hero?.title || 'Brightline Trucking',
+    title: heroData?.title || 'Brightline Trucking',
     description:
-      hero?.description ||
+      heroData?.description ||
       'A service company engaged in hauling general cargo, offices & warehouses.',
   };
 }
