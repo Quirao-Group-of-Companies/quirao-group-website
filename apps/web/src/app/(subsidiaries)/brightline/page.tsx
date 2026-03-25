@@ -1,11 +1,17 @@
 import { getBrightlinePage } from '@cms/services';
-import type { BrightlinePageData, StrapiCard, StrapiFaq, StrapiLink,} from '@cms/types';
-import {ArrowRightIcon, EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon,} from '@heroicons/react/24/outline';
+import type { BrightlinePageData, StrapiCard, StrapiFaq, StrapiLink } from '@cms/types';
+import {
+  ArrowRightIcon,
+  EnvelopeIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ShareIcon,
+} from '@heroicons/react/24/outline';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
-import ScrollReveal from '@/components/ScrollReveal.client';
 import DeliverySection from '@/components/brightline/DeliverySection.client';
+import ScrollReveal from '@/components/ScrollReveal.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 
@@ -15,7 +21,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: hero?.title || 'Brightline Trucking',
-    description: hero?.description || 'A service company engaged in hauling general cargo, offices & warehouses.',
+    description:
+      hero?.description ||
+      'A service company engaged in hauling general cargo, offices & warehouses.',
   };
 }
 
@@ -39,20 +47,10 @@ export default async function BrightlinePage() {
     );
   }
 
-  const {
-    heroSection: heroList,
-    aboutUs,
-    features,
-    delivery,
-    banner,
-    contactUs,
-    faqs,
-  } = data;
+  const { heroSection: heroList, aboutUs, features, delivery, banner, contactUs, faqs } = data;
 
   // Logic for specific section picking
   const hero = heroList?.[0];
-
-  const STRAPI_URL = (process.env.STRAPI_URL?.trim() || 'http://127.0.0.1:1337').replace(/\/$/, '');
 
   const getImageUrl = (url?: string) => {
     if (!url) {
@@ -119,7 +117,8 @@ export default async function BrightlinePage() {
                 {aboutUs?.title || 'Efficient Hauling Solutions for Every Business.'}
               </h1>
               <p className="text-gray-600 text-base md:text-lg lg:text-base leading-relaxed text-left font-poppins line-clamp-4 lg:line-clamp-6">
-                {aboutUs?.description || 'Brightline Trucking provides reliable cargo transportation and logistics services, ensuring your goods reach their destination safely and on time.'}
+                {aboutUs?.description ||
+                  'Brightline Trucking provides reliable cargo transportation and logistics services, ensuring your goods reach their destination safely and on time.'}
               </p>
             </div>
             {aboutUs?.cta && (
@@ -171,8 +170,8 @@ export default async function BrightlinePage() {
               {/* Services Grid (Using delivery data) */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {delivery.map((loc: StrapiCard) => (
-                  <div 
-                    key={loc.id} 
+                  <div
+                    key={loc.id}
                     className="group flex flex-col items-center p-10 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-50 text-center transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
                   >
                     {/* Icon */}
@@ -186,12 +185,13 @@ export default async function BrightlinePage() {
                           className="object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert"
                         />
                       ) : (
-                        <svg 
-                          width="64" 
-                          height="64" 
-                          viewBox="0 0 24 24" 
+                        <svg
+                          width="64"
+                          height="64"
+                          viewBox="0 0 24 24"
                           className="fill-brightline-orange group-hover:fill-white transition-colors duration-300"
                         >
+                          <title>Delivery Icon</title>
                           <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
                         </svg>
                       )}
@@ -215,9 +215,24 @@ export default async function BrightlinePage() {
           </section>
         </ScrollReveal>
       )}
-     
+
       {/* 4. WHERE WE DELIVER SECTION */}
-      {features && features.length > 0 && <DeliverySection features={features} />}
+      {features && features.length > 0 && (
+        <ScrollReveal>
+          <section className="bg-qgc-gray-soft py-20 px-6 md:px-12">
+            <div className="max-w-7xl mx-auto">
+              {/* Section Header */}
+              <div className="flex flex-col items-center mb-16 text-center">
+                <h2 className="text-4xl italic md:text-5xl font-black uppercase font-poppins tracking-tighter text-qgc-black">
+                  WHERE WE <span className="text-brightline-orange">DELIVER</span>
+                </h2>
+                <div className="w-24 h-1.5 bg-qgc-black mt-2" />
+              </div>
+              <DeliverySection features={features} />
+            </div>
+          </section>
+        </ScrollReveal>
+      )}
 
       {/* 5. BRAND BANNER SECTION */}
       <ScrollReveal>
@@ -230,16 +245,16 @@ export default async function BrightlinePage() {
           />
           {/* Darker Overlay to match the brown-ish aesthetic of your screenshot */}
           <div className="absolute inset-0 bg-orange-950/60 backdrop-brightness-75" />
-          
+
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-             <h2 className="text-white text-4xl md:text-7xl font-black uppercase font-poppins tracking-tighter">
-               {banner?.title || 'BRIGHTLINE'}
-             </h2>
-             {banner?.description && (
-               <p className="text-white/90 text-lg md:text-2xl font-medium drop-shadow-md font-poppins max-w-2xl mt-2">
-                 {banner.description}
-               </p>
-             )}
+            <h2 className="text-white text-4xl md:text-7xl font-black uppercase font-poppins tracking-tighter">
+              {banner?.title || 'BRIGHTLINE'}
+            </h2>
+            {banner?.description && (
+              <p className="text-white/90 text-lg md:text-2xl font-medium drop-shadow-md font-poppins max-w-2xl mt-2">
+                {banner.description}
+              </p>
+            )}
           </div>
         </section>
       </ScrollReveal>
@@ -251,7 +266,7 @@ export default async function BrightlinePage() {
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col items-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-black uppercase italic text-black tracking-tighter text-center">
-                  Contact <span className="text-brightline-orange">Brightline Trucking</span>
+                  Contact <span className="text-brightline-orange">Brightline</span>
                 </h2>
                 <div className="w-24 h-1.5 bg-qgc-black mt-2" />
               </div>
@@ -263,7 +278,9 @@ export default async function BrightlinePage() {
                       <div className="p-4 rounded-full border-2 border-black">
                         <MapPinIcon className="w-8 h-8 text-black" />
                       </div>
-                      <h3 className="text-xl font-bold uppercase text-black">{contactUs.details[0].title || 'Address:'}</h3>
+                      <h3 className="text-xl font-bold uppercase text-black">
+                        {contactUs.details[0].title || 'Address:'}
+                      </h3>
                       <p className="text-gray-700 text-sm max-w-55 leading-snug">
                         {contactUs.details[0].description}
                       </p>
@@ -275,8 +292,12 @@ export default async function BrightlinePage() {
                       <div className="p-4 rounded-full border-2 border-black">
                         <EnvelopeIcon className="w-8 h-8 text-black" />
                       </div>
-                      <h3 className="text-xl font-bold uppercase text-black">{contactUs.details[1].title || 'Email:'}</h3>
-                      <p className="text-gray-700 text-sm break-all">{contactUs.details[1].description}</p>
+                      <h3 className="text-xl font-bold uppercase text-black">
+                        {contactUs.details[1].title || 'Email:'}
+                      </h3>
+                      <p className="text-gray-700 text-sm break-all">
+                        {contactUs.details[1].description}
+                      </p>
                     </div>
                   )}
 
@@ -285,8 +306,12 @@ export default async function BrightlinePage() {
                       <div className="p-4 rounded-full border-2 border-black">
                         <PhoneIcon className="w-8 h-8 text-black" />
                       </div>
-                      <h3 className="text-xl font-bold uppercase text-black">{contactUs.details[2].title || 'Call Us:'}</h3>
-                      <p className="text-gray-700 text-sm font-bold">{contactUs.details[2].description}</p>
+                      <h3 className="text-xl font-bold uppercase text-black">
+                        {contactUs.details[2].title || 'Call Us:'}
+                      </h3>
+                      <p className="text-gray-700 text-sm font-bold">
+                        {contactUs.details[2].description}
+                      </p>
                     </div>
                   )}
 
@@ -306,47 +331,27 @@ export default async function BrightlinePage() {
                           title={social.title || 'Social Link'}
                         >
                           {social.title?.toLowerCase().includes('facebook') ? (
-                            <svg
-                              className="w-6 h-6 fill-black"
-                              viewBox="0 0 24 24"
-                              role="img"
-                            >
+                            <svg className="w-6 h-6 fill-black" viewBox="0 0 24 24" role="img">
                               <title>Facebook</title>
                               <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                             </svg>
                           ) : social.title?.toLowerCase().includes('instagram') ? (
-                            <svg
-                              className="w-6 h-6 fill-black"
-                              viewBox="0 0 24 24"
-                              role="img"
-                            >
+                            <svg className="w-6 h-6 fill-black" viewBox="0 0 24 24" role="img">
                               <title>Instagram</title>
                               <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.058-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                             </svg>
                           ) : social.title?.toLowerCase().includes('youtube') ? (
-                            <svg
-                              className="w-6 h-6 fill-black"
-                              viewBox="0 0 24 24"
-                              role="img"
-                            >
+                            <svg className="w-6 h-6 fill-black" viewBox="0 0 24 24" role="img">
                               <title>YouTube</title>
                               <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                             </svg>
                           ) : social.title?.toLowerCase().includes('tiktok') ? (
-                            <svg
-                              className="w-6 h-6 fill-black"
-                              viewBox="0 0 24 24"
-                              role="img"
-                            >
+                            <svg className="w-6 h-6 fill-black" viewBox="0 0 24 24" role="img">
                               <title>TikTok</title>
                               <path d="M12.525.02c1.31.036 2.584.37 3.75 1.017.037.033.016.061-.015.072-1.35.46-2.423 1.408-3.062 2.69-.58 1.15-.71 2.362-.71 3.634v10.162c0 2.11-.496 3.858-1.978 5.13-1.547 1.323-3.391 1.627-5.23 1.308-2.156-.37-3.56-1.715-4.335-3.903-.706-1.987-.44-4.688 1.63-5.873.862-.493 1.797-.758 2.79-.756.215 0 .415.044.613.091.039.01.05.027.05.068v3.113c-.198-.083-.4-.132-.619-.135-1.142-.01-2.083.836-2.13 1.972-.03.733.247 1.475.817 1.969.64.554 1.417.6 2.23.35.85-.261 1.338-.934 1.338-1.81V.422c.005-.131.046-.172.179-.172h3.84c.034 0 .052.02.05.054a.223.223 0 0 1-.01.04c-.011.03-.028.05-.05.076z" />
                             </svg>
                           ) : social.title?.toLowerCase().includes('linktree') ? (
-                            <svg
-                              className="w-6 h-6 fill-black"
-                              viewBox="0 0 24 24"
-                              role="img"
-                            >
+                            <svg className="w-6 h-6 fill-black" viewBox="0 0 24 24" role="img">
                               <title>Linktree</title>
                               <path d="M21.001 11.104l-2.501-2.501-4.001 4.001v-12.604h-5v12.604l-4.001-4.001-2.501 2.501 9.001 9.001 9.001-9.001zM14.501 21.104h-5v2.5h5v-2.5z" />
                             </svg>
