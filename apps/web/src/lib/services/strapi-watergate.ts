@@ -7,7 +7,7 @@ export async function getWatergatePage() {
   const query = qs.stringify(
     {
       populate: {
-        hero: {
+        heroSection: {
           populate: {
             image: true,
             logo: {
@@ -21,7 +21,7 @@ export async function getWatergatePage() {
         aboutUs: {
           populate: '*',
         },
-        cards: {
+        featureCards: {
           populate: '*',
         },
         contactUs: {
@@ -45,10 +45,9 @@ export async function getWatergatePage() {
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     console.error('Strapi Fetch Error:', errorData);
-    throw new Error(`Failed to fetch watergate page: ${res.status}`);
+    return null;
   }
 
-  const json = await res.json();
-
-  return json.data;
+  const json = await res.json().catch(() => ({}));
+  return json.data ?? null;
 }
