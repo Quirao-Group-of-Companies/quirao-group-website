@@ -18,7 +18,7 @@ export async function submitInquiry(formData: FormData) {
     const rawData = {
       name: String(formData.get('name')),
       email: String(formData.get('email')),
-      subject: formData.get('subject') ? String(formData.get('subject')) : null,
+      number: formData.get('number') ? String(formData.get('number')) : null, // ← was 'subject'
       message: String(formData.get('message')),
     };
 
@@ -32,7 +32,7 @@ export async function submitInquiry(formData: FormData) {
     }
 
     await db.insert(inquiries).values(validatedData.data);
-    await sendInquiryEmail(validatedData.data);
+    await sendInquiryEmail({ ...validatedData.data, number: rawData.number });
 
     return { success: true };
   } catch (error) {
@@ -61,10 +61,8 @@ export async function submitApplication(formData: FormData) {
       coverLetter: formData.get('cover_letter') ? String(formData.get('cover_letter')) : null,
     };
 
-    // console.log('Validating data with Zod...');
     const validatedData = insertApplicationSchema.safeParse(rawData);
     if (!validatedData.success) {
-      // console.error('Zod Validation Failed:', validatedData.error.flatten());
       logger.warn('Insert application schema failed.');
       after(() => {
         logger.flush();
