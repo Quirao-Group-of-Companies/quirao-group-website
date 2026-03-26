@@ -2,7 +2,7 @@
  * ⚠️  AUTO-GENERATED — DO NOT EDIT MANUALLY
  * Source: apps/cms/scripts/generate-types.ts
  * Regenerate: bun run generate-types (from apps/cms)
- * Generated: 2026-03-17T07:07:22.125Z
+ * Generated: 2026-03-25T06:54:22.066Z
  */
 
 /** Shared Strapi media type */
@@ -88,6 +88,8 @@ export type StrapiHighlight = {
   description?: unknown | null;
   image?: StrapiMedia | null;
   cta?: StrapiLink | null;
+  bulletTitle?: string | null;
+  bulletDescription?: string | null;
 };
 
 /** Auto-generated from Strapi component: blocks.sub-contacts */
@@ -201,10 +203,7 @@ export type CareersPageData = {
   heroSection?: StrapiHerosection | null;
   overview?: StrapiAboutus | null;
   overviewVideo?: StrapiLink | null;
-  subsidiaryOverview?: StrapiSubpreview[] | null;
-  valuesSection?: StrapiHighlight | null;
   whyJoinUs?: StrapiHighlight | null;
-  subContacts?: StrapiSubcontact[] | null;
 };
 
 /** Auto-generated from Strapi content type: Contact Us Page */

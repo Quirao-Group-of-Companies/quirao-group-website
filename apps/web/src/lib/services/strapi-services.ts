@@ -288,40 +288,10 @@ export async function getCareersPage(): Promise<CareersPageData | null> {
           },
         },
         overviewVideo: true,
-        subsidiaryOverview: {
-          populate: {
-            image: true,
-            logo: {
-              populate: {
-                image: true,
-              },
-            },
-            cta: true,
-            cardImage: true,
-          },
-        },
-        valuesSection: {
-          populate: {
-            image: true,
-            cta: true,
-          },
-        },
         whyJoinUs: {
           populate: {
             image: true,
             cta: true,
-          },
-        },
-        subContacts: {
-          populate: {
-            logo: {
-              populate: {
-                image: true,
-              },
-            },
-            cta: true,
-            cardImage: true,
-            featuredImage: true,
           },
         },
       },

@@ -26,25 +26,10 @@
       "component": "elements.link",
       "repeatable": false
     },
-    "subsidiaryOverview": {
-      "type": "component",
-      "component": "blocks.sub-preview",
-      "repeatable": true
-    },
-    "valuesSection": {
-      "type": "component",
-      "component": "blocks.highlights",
-      "repeatable": false
-    },
     "whyJoinUs": {
       "type": "component",
       "component": "blocks.highlights",
       "repeatable": false
-    },
-    "subContacts": {
-      "type": "component",
-      "component": "blocks.sub-contacts",
-      "repeatable": true
     }
   }
 }

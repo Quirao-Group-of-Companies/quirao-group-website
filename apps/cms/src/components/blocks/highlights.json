@@ -23,6 +23,12 @@
       "type": "component",
       "component": "elements.link",
       "repeatable": false
+    },
+    "bulletTitle": {
+      "type": "string"
+    },
+    "bulletDescription": {
+      "type": "string"
     }
   },
   "config": {}
