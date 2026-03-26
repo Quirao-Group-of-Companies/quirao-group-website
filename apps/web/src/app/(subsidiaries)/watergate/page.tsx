@@ -4,7 +4,6 @@ import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react
 import type { Metadata } from 'next';
 import FAQItem from '@/components/ui/FAQItem.client';
 import WatergateAbout from '@/components/watergate/About.client';
-import WatergateFeatures from '@/components/watergate/Features.client';
 import WatergateHero from '@/components/watergate/Hero.client';
 
 function img(url?: string | null): string {
@@ -143,11 +142,31 @@ export default async function WatergatePage() {
 
       {/* ── FEATURES ── */}
       {featureCards.length > 0 && (
-        <WatergateFeatures
-          heading="PURITY YOU CAN TASTE"
-          tagline="Reliable Water Supply Solutions for Homes, Businesses, and Industries."
-          cards={featureCards}
-        />
+        <section className="w-full bg-white py-10 md:py-14 px-6 md:px-12 lg:px-20 border-t border-gray-100">
+          <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-12 items-start">
+            <div className="w-full md:w-[32%] flex-shrink-0 flex flex-col gap-3 md:pt-2">
+              <h2
+                className="font-black uppercase text-[#20305f] leading-tight"
+                style={{ fontSize: 'clamp(26px, 3.5vw, 52px)' }}
+              >
+                PURITY YOU CAN TASTE
+              </h2>
+              <p className="text-[#20305f] font-medium text-sm sm:text-base leading-relaxed">
+                Reliable Water Supply Solutions for Homes, Businesses, and Industries.
+              </p>
+            </div>
+            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {featureCards.map((card) => (
+                <div key={card.id} className="bg-[#20305f] rounded-2xl p-5 flex flex-col gap-2">
+                  <h3 className="text-white font-bold text-sm sm:text-base">{card.title}</h3>
+                  <p className="text-white/75 text-xs sm:text-sm leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
 
       {/* ── CONTACT ── */}
