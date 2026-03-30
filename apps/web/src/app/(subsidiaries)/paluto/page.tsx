@@ -6,9 +6,9 @@ import Image from 'next/image';
 import { after } from 'next/server';
 import EventsCatering from '@/components/paluto/EventsCatering.client';
 import FavoritesShowcase from '@/components/paluto/FavoritesShowcase.client';
-import FeedbackCard from '@/components/paluto/FeedbackCard.client';
 import OverviewCTA from '@/components/paluto/OverviewCTA.client';
-import ScrollReveal from '@/components/paluto/ScrollReveal.client';
+import ScrollReveal from '@/components/ScrollReveal.client';
+import SubsidiaryFeedback from '@/components/SubsidiaryFeedback.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 
@@ -339,28 +339,7 @@ export default async function PalutoPage() {
       <EventsCatering sectionData={eventsAndCatering} carouselImages={carouselImages} />
 
       {/* 7. FEEDBACK SECTION */}
-      {feedback && feedback.length > 0 && (
-        <section className="bg-white py-12 px-6 overflow-hidden">
-          <div className="max-w-5xl mx-auto">
-            {/* Header scaled down */}
-            <ScrollReveal>
-              <div className="flex flex-col items-center mb-12 text-center">
-                <h2 className="text-3xl md:text-4xl font-black uppercase italic text-black tracking-tighter">
-                  OUR <span className="text-paluto-red">FEEDBACK</span>
-                </h2>
-                <div className="w-20 h-1 bg-paluto-yellow mt-2" />
-              </div>
-            </ScrollReveal>
-
-            {/* Grid scaled down */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {feedback.map((fb, index) => (
-                <FeedbackCard key={fb.id} item={fb} index={index} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <SubsidiaryFeedback feedbacks={feedback} />
 
       {/* 8. CONTACT US SECTION */}
       <section className="w-full bg-white py-12 px-6 md:px-10">

@@ -11,8 +11,8 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { after } from 'next/server';
 import FavoritesShowcase from '@/components/FavoritesShowcase.client';
-import FeedbackSection from '@/components/FeedbackSection.client';
 import ScrollReveal from '@/components/ScrollReveal.client';
+import SubsidiaryFeedback from '@/components/SubsidiaryFeedback.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 
@@ -92,16 +92,6 @@ export default async function ManokanPage() {
       id: item.id,
       label: item.title || '',
       src: getImageUrl(item.image?.url, '/images/manokan/BN-GPAA.png'),
-    })) || [];
-
-  // Process Feedback items
-  const feedbackData =
-    pageData.feedback?.map((item: StrapiFeedback) => ({
-      id: item.id,
-      name: item.review?.title || 'Anonymous',
-      comment: item.review?.description || '',
-      image: getImageUrl(item.image?.url, '/images/home-page/blogs/blog1.jpg'),
-      rating: item.stars || 5,
     })) || [];
 
   return (
@@ -209,9 +199,11 @@ export default async function ManokanPage() {
       </ScrollReveal>
 
       {/* 4. FEEDBACK SECTION */}
-      <ScrollReveal>
-        <FeedbackSection feedbacks={feedbackData} />
-      </ScrollReveal>
+      <SubsidiaryFeedback
+        feedbacks={pageData.feedback || []}
+        highlightColorClass="text-paluto-green"
+        starColorClass="text-paluto-green"
+      />
 
       {/* 5. CONTACT & GOOGLE MAPS SECTION */}
       <ScrollReveal>
