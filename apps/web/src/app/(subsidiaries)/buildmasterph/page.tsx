@@ -14,7 +14,7 @@ import Image from 'next/image';
 import AboutSection from '@/components/buildmaster/AboutUsSection.client';
 import DownloadButton from '@/components/buildmaster/DownloadButton';
 import FeaturesCarousel from '@/components/buildmaster/FeaturesCarousel.client';
-import HeroCarousel from '@/components/buildmaster/HeroCarousel.client';
+import SubsidiaryHeroSection from '@/components/SubsidiaryHeroSection.client';
 import PodcastsSection from '@/components/buildmaster/PodcastSection.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 
@@ -155,11 +155,19 @@ export default async function BuildMasterPage() {
   return (
     <main className="w-full min-h-screen bg-white">
       {heroSlides.length > 0 && (
-        <HeroCarousel
+        <SubsidiaryHeroSection
           slides={heroSlides}
           logoSrc={heroLogoSrc}
           brandName={heroBrandName}
           tagline={heroTagline}
+          brandNameTextColor="text-bm-blue"
+          overlayColor="bg-black/30"
+          logoPosition={{ top: '6rem', left: '4rem' }}
+          mobileLogoPosition={{ top: '8rem', left: '2.5rem' }}
+          logoSize={{ width:200, height: 200 }}
+          mobileLogoSize={{ width: 160, height: 160 }}
+          contentPosition={{ bottom: '3rem', left: '5rem' }}
+          mobileContentPosition={{ bottom: '3rem', left: '2.5rem' }}
         />
       )}
 
