@@ -15,6 +15,7 @@ import ScrollReveal from '@/components/ScrollReveal.client';
 import SubsidiaryFeedback from '@/components/SubsidiaryFeedback.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
+import SubsidiaryHeroSection from "@/components/SubsidiaryHeroSection.client";
 
 /* =========================================================
    METADATA GENERATION
@@ -61,18 +62,21 @@ export default async function ManokanPage() {
     return `${STRAPI_URL}${cleanPath}`;
   };
 
-  // Extract the first hero section from the repeatable component
-  const heroData = pageData.heroSection?.[0];
-  const heroImage = getImageUrl(
-    heroData?.image?.url,
-    '/images/home-page/business-preview/paluto-business-preview.jpg',
-  );
+  // Extract hero slides from the repeatable component
+  const heroSlides =
+    pageData.heroSection
+      ?.map((h) =>
+        getImageUrl(h.image?.url, '/images/home-page/business-preview/paluto-business-preview.jpg'),
+      )
+      .filter(Boolean) || [];
+
+  const firstHero = pageData.heroSection?.[0];
   const logoImage = getImageUrl(
-    heroData?.logo?.image?.url,
+    firstHero?.logo?.image?.url,
     '/images/logo/manokan/sari-sari-manokan-logo-word.png',
   );
-  const heroTitle = heroData?.title || 'Sari-Sari Manokan';
-  const heroDescription = heroData?.description || 'Sari-sari Manokan and Seafood Restaurant';
+  const heroTitle = firstHero?.title || 'Sari-Sari Manokan';
+  const heroDescription = firstHero?.description || 'Sari-sari Manokan and Seafood Restaurant';
 
   // Extract About Us data from CMS
   const aboutUsData = pageData.aboutUs;
@@ -97,43 +101,17 @@ export default async function ManokanPage() {
   return (
     <main className="w-full min-h-screen bg-qgc-white">
       {/* 1. HERO SECTION */}
-      <ScrollReveal>
-        <section className="relative w-full h-screen flex flex-col justify-end overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={heroImage}
-              alt={heroData?.image?.alternativeText || 'Sari-Sari Manokan Hero Background'}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black/30" />
-          </div>
-
-          <div className="absolute top-30 left-8 md:left-16 z-20">
-            <Image
-              src={logoImage}
-              alt={heroData?.logo?.name || 'sari sari manokan logo'}
-              width={250}
-              height={250}
-              className="object-contain"
-            />
-          </div>
-
-          <div className="relative z-10 pl-8 md:pl-16 pb-10 space-y-2">
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl px-10 py-1 w-fit shadow-2xl border border-white/50">
-              <h1 className="text-sari-manokan-green text-2xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
-                {heroTitle}
-              </h1>
-            </div>{' '}
-            <div className="max-w-3xl">
-              <p className="text-white text-lg md:text-3xl font-bold drop-shadow-xl font-poppins">
-                {heroDescription}
-              </p>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
+      {heroSlides.length > 0 && (
+        <SubsidiaryHeroSection
+          slides={heroSlides}
+          logoSrc={logoImage}
+          brandName={heroTitle}
+          tagline={heroDescription}
+          brandNameTextColor="text-sari-manokan-green"
+          logoPosition={{ top: '4rem', left: '4rem' }}
+          mobileLogoPosition={{ top: '7.5rem', left: '4rem' }}
+        />
+      )}
 
       {/* 2. ABOUT US SECTION */}
       <ScrollReveal>

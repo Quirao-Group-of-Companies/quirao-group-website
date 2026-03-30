@@ -11,6 +11,7 @@ import ScrollReveal from '@/components/ScrollReveal.client';
 import SubsidiaryFeedback from '@/components/SubsidiaryFeedback.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
+import SubsidiaryHeroSection from "@/components/SubsidiaryHeroSection.client";
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = (await getPalutoPage()) as PalutoPageData;
@@ -63,68 +64,36 @@ export default async function PalutoPage() {
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
 
+  const heroSlides =
+    heroList?.map((h) => normalizeUrl(h.image?.url)).filter((url) => url !== '') || [];
+  const firstHero = heroList?.[0];
+  const heroLogo = firstHero?.logo?.image?.url
+    ? normalizeUrl(firstHero.logo.image.url)
+    : '/images/logo/paluto/paluto-logo-red.png';
+  const heroTitle = firstHero?.title || '';
+  const heroTagline = firstHero?.description || '';
+
   return (
-    <main className="w-full pt-16 min-h-screen">
+    <main className="w-full min-h-screen">
       {/* 1. HERO SECTION */}
-      <section className="relative w-full h-screen flex flex-col justify-end overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          {hero?.image?.url ? (
-            <Image
-              src={normalizeUrl(hero.image.url)}
-              alt={hero.image.alternativeText || 'Paluto Hero Background'}
-              fill
-              className="object-cover object-top"
-              priority
-            />
-          ) : (
-            <Image
-              src="/images/home-page/business-preview/paluto-business-preview.jpg"
-              alt="Paluto Hero Background"
-              fill
-              className="object-cover object-top"
-              priority
-            />
-          )}
-          <div className="absolute inset-0 bg-black/30" />
-        </div>
+      {heroSlides.length > 0 && (
+        <SubsidiaryHeroSection
+          slides={heroSlides}
+          logoSrc={heroLogo}
+          brandName={heroTitle}
+          tagline={heroTagline}
+          brandNameTextColor="text-paluto-red"
+          logoPosition={{ top: '6rem', left: '4rem' }}
+          mobileLogoPosition={{ top: '7.5rem', left: '3.5rem' }}
+          logoSize={{ width: 200, height: 200 }}
+          mobileLogoSize={{ width: 150, height: 150 }}
+          paddingTop="4rem"
+          mobilePaddingTop="4rem"
+          imageObjectPosition="object-top"
+        />
+      )}
 
-        <div className="absolute top-8 left-10 md:left-20 z-20">
-          {hero?.logo?.image?.url ? (
-            <Image
-              src={normalizeUrl(hero.logo.image.url)}
-              alt={hero.logo.name || 'Paluto Logo'}
-              width={200}
-              height={200}
-              className="object-contain"
-            />
-          ) : (
-            <Image
-              src="/images/logo/paluto/paluto-logo-red.png"
-              alt="Paluto Logo"
-              width={200}
-              height={200}
-              className="object-contain"
-            />
-          )}
-        </div>
 
-        <div className="relative z-10 pl-14 md:pl-28 pb-32 space-y-1.5">
-          {hero?.title && (
-            <div className="bg-white/95 backdrop-blur-md rounded-4xl px-8 py-1 w-fit shadow-2xl border border-white/50">
-              <h1 className="text-paluto-red text-4xl md:text-2xl font-bold font-poppins uppercase tracking-tighter leading-none">
-                {hero.title}
-              </h1>
-            </div>
-          )}
-          {hero?.description && (
-            <div className="max-w-2xl">
-              <p className="text-white text-lg md:text-2xl font-bold drop-shadow-xl font-poppins">
-                {hero.description}
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* 2. OVERVIEW SECTION */}
       <section className="bg-white py-12 px-6 md:px-10 border-l-[5px] border-cyan-400 relative">

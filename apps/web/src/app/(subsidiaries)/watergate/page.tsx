@@ -2,9 +2,9 @@ import { getWatergatePage } from '@cms/services';
 import type { WatergatePageData } from '@cms/types';
 import { EnvelopeIcon, MapPinIcon, PhoneIcon, ShareIcon } from '@heroicons/react/24/outline';
 import type { Metadata } from 'next';
+import SubsidiaryHeroSection from '@/components/SubsidiaryHeroSection.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import WatergateAbout from '@/components/watergate/About.client';
-import WatergateHero from '@/components/watergate/Hero.client';
 
 function img(url?: string | null): string {
   if (!url) {
@@ -120,11 +120,19 @@ export default async function WatergatePage() {
     <main className="w-full min-h-screen bg-white">
       {/* ── HERO ── */}
       {heroSlides.length > 0 && (
-        <WatergateHero
+        <SubsidiaryHeroSection
           slides={heroSlides}
           logoSrc={heroLogoSrc}
           brandName={heroBrandName}
           tagline={heroTagline}
+          brandNameTextColor="text-[#20305f]"
+          overlayColor="bg-[#20305f]/30"
+          logoPosition={{ top: '7.5rem', left: '0.5rem' }}
+          mobileLogoPosition={{ top: '6.25rem', left: '0.5rem' }}
+          logoSize={{ width: '25rem', height: '10rem' }}
+          mobileLogoSize={{ width: '17.5rem', height: '17.5rem' }}
+          contentPosition={{ bottom: '2rem', left: '3.25rem' }}
+          mobileContentPosition={{ bottom: '2rem', left: '2.5rem' }}
         />
       )}
 

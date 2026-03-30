@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { after } from 'next/server';
 import DeliverySection from '@/components/brightline/DeliverySection.client';
 import ScrollReveal from '@/components/ScrollReveal.client';
+import SubsidiaryHeroSection from '@/components/SubsidiaryHeroSection.client';
 import FAQItem from '@/components/ui/FAQItem.client';
 import { logger } from '@/lib/axiom/server';
 
@@ -63,50 +64,28 @@ export default async function BrightlinePage() {
     return url.replace(/([^:]\/)\/+/g, '$1');
   };
 
+  const heroSlides = heroList?.map((h) => getImageUrl(h.image?.url)).filter(Boolean) || [];
+  const heroLogo = getImageUrl(hero?.logo?.image?.url);
+  const heroTitle = hero?.title || '';
+  const heroDescription = hero?.description || '';
+
   return (
     <main className="w-full min-h-screen bg-qgc-white">
       {/* 1. HERO SECTION */}
-      <ScrollReveal>
-        <section className="relative w-full h-screen flex flex-col justify-end overflow-hidden">
-          <div className="absolute inset-0 z-0">
-            <Image
-              src={getImageUrl(hero?.image?.url)}
-              alt={hero?.image?.alternativeText || 'Brightline Trucking Hero Background'}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </div>
-
-          <div className="absolute top-10 md:top-20 left-0 md:left-2 z-20">
-            <Image
-              src={getImageUrl(hero?.logo?.image?.url)}
-              alt={hero?.logo?.name || 'Brightline Trucking Logo'}
-              width={250}
-              height={250}
-              className="object-contain brightness-0 invert"
-            />
-          </div>
-
-          <div className="relative z-10 pl-8 md:pl-16 pb-10 space-y-2">
-            {hero?.title && (
-              <div className="bg-white/95 backdrop-blur-md rounded-2xl px-10 py-1 w-fit shadow-2xl border border-white/50">
-                <h1 className="text-[#ff6600] text-2xl md:text-3xl font-bold font-poppins uppercase tracking-tighter leading-none">
-                  {hero.title}
-                </h1>
-              </div>
-            )}
-            {hero?.description && (
-              <div className="max-w-3xl">
-                <p className="text-white text-lg md:text-3xl font-bold drop-shadow-xl font-poppins">
-                  {hero.description}
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
-      </ScrollReveal>
+      {heroSlides.length > 0 && (
+        <SubsidiaryHeroSection
+          slides={heroSlides}
+          logoSrc={heroLogo}
+          brandName={heroTitle}
+          tagline={heroDescription}
+          brandNameTextColor="text-[#ff6600]"
+          logoClassName="brightness-0 invert"
+          logoPosition={{ top: '5rem', left: '2rem' }}
+          mobileLogoPosition={{ top: '7.5rem', left: '2rem' }}
+          contentPosition={{ bottom: '3rem', left: '4rem' }}
+          mobileContentPosition={{ bottom: '4rem', left: '2rem' }}
+        />
+      )}
 
       {/* 2. ABOUT US SECTION */}
       <ScrollReveal>
